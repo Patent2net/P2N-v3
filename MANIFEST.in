@@ -1,0 +1,3 @@
+include setup.cfg *.txt *.rst
+exclude .bumpversion.cfg
+recursive-include p2n *.csv

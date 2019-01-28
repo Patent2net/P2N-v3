@@ -1,0 +1,31 @@
+.mfp-gallery a {
+    color: white;
+}
+body {
+    background-color: #ddd;
+}
+
+.white-text {
+    color: #ddd !important;
+}
+
+.gallery {
+}
+
+.gallery-obj {
+    text-align: center;
+    padding: 5px;
+    border: 1px solid #eee;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.gallery-obj a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.gallery-obj:hover {
+    background-color: #eee;
+}

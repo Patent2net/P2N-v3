@@ -1,0 +1,18 @@
+_________________________________________________________________________________________________________
+     _____      _             _     ___    _   _      _           _____   ___    _   _ 
+    |  __ \    | |           | |   |__ \  | \ | |    | |      /  |  __ \ |__ \  | \ | | \
+    | |__) |_ _| |_ ___ _ __ | |_     ) | |  \| | ___| |_    /   | |__) |   ) | |  \| |  \
+    |  ___/ _` | __/ _ \ '_ \| __|   / /  | . ` |/ _ \ __|   |   |  ___/   / /  | . ` |   |
+    | |  | (_| | ||  __/ | | | |_   / /_  | |\  |  __/ |_     \  | |      / /_  | |\  |  /
+    |_|   \__,_|\__\___|_| |_|\__| |____| |_| \_|\___|\__|     \ |_|     |____| |_| \_| /       
+
+Your case is running... be patient!
+Results will be in the "DATA" directory
+Detail logs will be in "Patent2Net\ErrorsLogs" directory
+
+Dont worry with the message 
+"dateutil\parser.py:330: UnicodeWarning: Unicode equal comparison failed to convert both arguments to Unicode - interpreting them as being unequal"
+It is just a warning, no infleunce on the results.
+
+If error appears, contribute in github! https://github.com/Patent2net/P2N
+Or register an issue... when we have time.

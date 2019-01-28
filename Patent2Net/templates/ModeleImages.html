@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Patents images for request: "{{request}}"</title>
+    <script charset="utf-8" type="text/javascript" language="javascript" src="../../../Patent2Net/media/jquery.js"></script>
+    <script charset="utf-8" type="text/javascript" language="javascript" src="../../../Patent2Net/extensions/MagnificPopup/dist/jquery.magnific-popup.js"></script>
+    <script charset="utf-8" type="text/javascript" language="javascript" src="../../../Patent2Net/extensions/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script charset="utf-8" type="text/javascript" language="javascript" src="../../../Patent2Net/media/pouchdb-6.4.3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script charset="utf-8" type="text/javascript" language="javascript" src="../../../Patent2Net/media/p2ngallery.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="../../../Patent2Net/extensions/MagnificPopup/dist/magnific-popup.css">
+    <link rel="stylesheet" type="text/css" href="../../../Patent2Net/extensions/bootstrap/css/bootstrap.min.css">
+    </script>
+    <link rel="stylesheet" type="text/css" href="../../../Patent2Net/P2N.css">
+    <link rel="stylesheet" type="text/css" href="../../../Patent2Net/media/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="../../../Patent2Net/media/css/main.css">
+    <link rel="stylesheet" type="text/css" href="../../../Patent2Net/media/p2ngallery.css">
+</head>
+
+<body>
+
+    <header class="wrapper dark">
+        <a href="../../index.html"><img class="logo" src="../../../Patent2Net/media/img/logo_dark.png" alt=""/></a>
+
+        <section>
+            <h1>Universe of OPS Patent Request: </h1>"{{request}}"</section>
+    </header>
+
+    <div id="galleryApp">
+        {% raw %}
+        <nav class="navbar navbar-expand navbar-dark bg-dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button>
+
+                <div class="collapse navbar-collapse" id="navbarsExample02">
+                    <ul class="navbar-nav my-2 my-md-0">
+                        <li class="nav-item">
+                            <a class="nav-link" @click="prevPage" href="#">&lt;</a>
+                        </li>
+                        <li class="nav-item">
+                            <form class="form-inline white-text">
+                                {{page}} of {{totalPages}} (total {{total}} images). Page Size: &nbsp;
+                                <select class="form-control" v-model="page_size" v-on:change="changePage">
+                                    <option>12</option>
+                                    <option>24</option>
+                                    <option>48</option>
+                                    <option>96</option>
+                                    <option>192</option>
+                                 </select>
+                            </form>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" @click="nextPage" href="#">&gt;</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+
+        <div class="container gallery">
+            <div class="popup-gallery row">
+                <div class="col-3 col-md-3 col-sm-6 gallery-obj" v-for="img in images">
+                    <a :href="img.orig" :title="img.label" :data-tiff="img.tiff" :data-code="img.code">
+                            <img :src="img.thumb" width="128" height="128">
+                            <p>{{img.code}}</p>
+                        </a>
+                </div>
+            </div>
+        </div>
+        {% endraw %}
+    </div>
+
+    <footer>
+        <a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=page">Patent2net documentation</a>
+    </footer>
+
+    <script>
+        var patents = {{json}};
+    </script>
+
+</body>
+
+</html>
