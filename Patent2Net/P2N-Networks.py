@@ -14,24 +14,24 @@ import sys
 import datetime
 import pydot
 import ctypes # pydot needed for pyinstaller !!! seems that ctype also I should learn making hooks....
-from urllib import quote as quot
+from urllib.parse import quote as quot
 import numpy as np
 import matplotlib.cm
 from collections import OrderedDict
 #from networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
-import cPickle as pickle
+import pickle as pickle
 import copy
-from P2N_Lib import UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize, flatten, DecoupeOnTheFly
+from .P2N_Lib import UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize, flatten, DecoupeOnTheFly
 #from P2N_Lib import getStatus2, getClassif,getCitations, getFamilyLenght, isMaj, quote, GenereDateLiens
 #from P2N_Lib import  symbole, ReturnBoolean, FormateGephi, GenereListeSansDate, GenereReseaux3, cmap_discretize
 #from Ops3 import UnNest2List
-from P2N_Config import LoadConfig
+from .P2N_Config import LoadConfig
 
 Nets = ["CountryCrossTech", "CrossTech", "InventorsCrossTech", "Applicants_CrossTech", "Inventors",
  "ApplicantInventor", "Applicants", "References", "Citations", "Equivalents"]
 
 if len(sys.argv)<2 or sys.argv[1] not in Nets:
-    print "give me a net as parameter, one from this list: ", Nets
+    print("give me a net as parameter, one from this list: ", Nets)
     sys.exit()
 else:
     Nets.remove(sys.argv[1])
@@ -72,7 +72,7 @@ ResultGephiPath = configFile.ResultGephiPath
 BiblioPath = configFile.ResultBiblioPath
 temporPath = configFile.temporPath
 
-print "bibliographic data of ", ndf, " patent universe found."
+print("bibliographic data of ", ndf, " patent universe found.")
 
 NeededInfo = ['label', 'date', 'prior-dateDate'] # mandatory
 
@@ -118,12 +118,12 @@ for prefix in prefixes:
         zoom = len(G)*1.0/Maxdegs
         MaxWeight = -1
         if len(pos)>0:
-            MaxPosX = max([pos[k][0] for k in pos.keys()])
-            MaxPosY = max([pos[k][1] for k in pos.keys()])
-            MinPosX = min([pos[k][0] for k in pos.keys()])
-            MinPosY = min([pos[k][1] for k in pos.keys()])
-            MaxPosZ = max([pos[k][2] for k in pos.keys()])
-            MinPosZ = min([pos[k][2] for k in pos.keys()])
+            MaxPosX = max([pos[k][0] for k in list(pos.keys())])
+            MaxPosY = max([pos[k][1] for k in list(pos.keys())])
+            MinPosX = min([pos[k][0] for k in list(pos.keys())])
+            MinPosY = min([pos[k][1] for k in list(pos.keys())])
+            MaxPosZ = max([pos[k][2] for k in list(pos.keys())])
+            MinPosZ = min([pos[k][2] for k in list(pos.keys())])
             GvScreenX = MaxPosX-MinPosX
             GvScreenY = MaxPosY-MinPosY
             GvScreenZ = MaxPosZ-MinPosZ
@@ -245,7 +245,7 @@ for prefix in prefixes:
                 mixNet.append('label')
             #factx, facty = 500, 400
             G.node[k]['viz'] =dict()
-            for cle in Visu.keys():
+            for cle in list(Visu.keys()):
                 G.node[k]['viz'][cle] = Visu[cle]
 
         outputFile = ndf+network+prefix+'.gexf'
@@ -340,7 +340,7 @@ for prefix in prefixes:
             except:
                 pass
             os.rename(ResultGephiPath+'/'+"Good"+outputFile, ResultGephiPath+'/'+outputFile)
-            print "Dynamic Gexf network file writen into ",  ResultGephiPath+' directory.\n See file: '+outputFile
+            print("Dynamic Gexf network file writen into ",  ResultGephiPath+' directory.\n See file: '+outputFile)
             os.remove(ResultGephiPath+'/Good'+outputFile)
         except:
             pass

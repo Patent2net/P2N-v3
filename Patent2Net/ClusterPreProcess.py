@@ -5,7 +5,7 @@ Created on Wed May 31 08:00:26 2017
 Only to build the ngramm distribution frequencies
 @author: dreymond
 """
-from __future__ import print_function
+
 
 import numpy as np
 import pandas as pd
@@ -14,8 +14,8 @@ import os
 import codecs
 from sklearn import feature_extraction
 import mpld3
-from P2N_Lib import LoadBiblioFile
-from P2N_Config import LoadConfig
+from .P2N_Lib import LoadBiblioFile
+from .P2N_Config import LoadConfig
 import sys, os
 from nltk.stem.snowball import SnowballStemmer
 import codecs
@@ -32,7 +32,7 @@ import matplotlib as mp
 from sklearn.manifold import MDS
 from sklearn.metrics.pairwise import cosine_similarity
 from collections import OrderedDict
-from TAL_P2N_Lib import tokenize_only 
+from .TAL_P2N_Lib import tokenize_only 
 stopwords = nltk.corpus.stopwords.words('english')
 cluster_colors = {0: '#1b9e77', 1: '#d95f02', 2: '#7570b3', 3: '#e7298a', 4: '#66a61e', 5: '#ff6a61',6: '#00ff1e', 7: '#0001FF'}
 #brev_stpswrds = ['production', 'method', 'preparation', 'preparing', 'use', \
@@ -77,7 +77,7 @@ else: #Retrocompatibility
     print ('gather your data again. sorry')
     sys.exit()
 
-if ficBrevet.has_key('brevets'):
+if 'brevets' in ficBrevet:
     lstBrevet = ficBrevet['brevets']
 #        if data.has_key('requete'):
 #            DataBrevet['requete'] = data["requete"]
@@ -231,7 +231,7 @@ cpt=0
 
    
 Voc = dict() #• check process
-for i in Labelle.keys():
+for i in list(Labelle.keys()):
     Voc[Labelle[i]]=[]
 for i in range(8):
     EnsVoc[i] = []
@@ -249,7 +249,7 @@ ALL =  ClassTextGramed | TitlesGrammed | AbstractsGrammed
     #texte='n_grams='+str(i-1)
    
 Voc = dict() #• check process
-for i in Labelle.keys():
+for i in list(Labelle.keys()):
     Voc[Labelle[i]]=[]
 for i in range(8):
     EnsVoc[i] = []

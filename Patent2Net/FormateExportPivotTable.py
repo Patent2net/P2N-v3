@@ -8,11 +8,11 @@ Created on Sat Dec 27 12:05:05 2014
 import json
 import os
 import collections
-import cPickle
+import pickle
 import sys
 import codecs
-from P2N_Lib import DecoupeOnTheFly, LoadBiblioFile, RenderTemplate # UnNest3#, UrlInventorBuild, UrlApplicantBuild
-from P2N_Config import LoadConfig
+from .P2N_Lib import DecoupeOnTheFly, LoadBiblioFile, RenderTemplate # UnNest3#, UrlInventorBuild, UrlApplicantBuild
+from .P2N_Config import LoadConfig
 
 import datetime
 aujourd = datetime.date.today()
@@ -42,8 +42,8 @@ if IsEnableScript:
     clesRef = ['label', 'title', 'year','priority-active-indicator',
     'IPCR11', 'kind', 'applicant', 'country', 'inventor', 'representative', 'IPCR4',
     'IPCR7', "Inventor-Country", "Applicant-Country", #"equivalents", "CPC",
-    u'references',  # the number of refences into the document len(CitP) + len(CitO)
-    u'Citations',   # the number of citations granted by the document
+    'references',  # the number of refences into the document len(CitP) + len(CitO)
+    'Citations',   # the number of citations granted by the document
     #u'CitedBy',     # the list of docs (patents) cititng this patent
     #'CitP',         # the patents cited by this patent
     #'CitO'          # the other docs cited by this patent
@@ -55,21 +55,21 @@ if IsEnableScript:
     for ndf in set(srcFile):
         if 'Description'+ndf in os.listdir(ListBiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
             DataBrevet = LoadBiblioFile(ListBiblioPath, ndf)
-            print "\n> Hi! This is FormateExportPivotTable"
+            print("\n> Hi! This is FormateExportPivotTable")
         else: #Retrocompatibility... prévious test is ugly: there is an issue with filename in lowercase (sometimes)
-            print "please use Comptatibilizer"
+            print("please use Comptatibilizer")
             DataBrevet = LoadBiblioFile(ListBiblioPath, ndf) #so I try to laod it....
 
         if isinstance(DataBrevet, collections.Mapping):
             #data = DataBrevet
             LstBrevet = DataBrevet['brevets']
-            if DataBrevet.has_key('number'):
-                print "Found ", DataBrevet["number"], " patents! Formating into HMTL Pivot tables"
+            if 'number' in DataBrevet:
+                print("Found ", DataBrevet["number"], " patents! Formating into HMTL Pivot tables")
             else:
-                print "Found ", len(DataBrevet["brevets"]), " patents! Trying to format into HMTL Pivot tables"
+                print("Found ", len(DataBrevet["brevets"]), " patents! Trying to format into HMTL Pivot tables")
         else:
-            print "Please delete you data directory... incompatible old stuff in it"
-            print "or try Comptatibilizer before"
+            print("Please delete you data directory... incompatible old stuff in it")
+            print("or try Comptatibilizer before")
         LstExp = []
         LstExp2 = []
         #just for testing las fnction in gathered should deseapear soon
@@ -111,8 +111,8 @@ if IsEnableScript:
                             if "empty" in brev[ket] or "Empty" in brev[ket]:
                                 tempo2[ket] = 0
                             else:
-                                print tempo2[ket]
-                        elif isinstance(brev[ket], str) or isinstance(brev[ket], unicode):
+                                print(tempo2[ket])
+                        elif isinstance(brev[ket], str) or isinstance(brev[ket], str):
                                 if brev[ket].lower() =='empty' or brev[ket] == '':
                                     tempo2[ket] = 0
                         else:
@@ -144,12 +144,12 @@ if IsEnableScript:
     #            print "error, compt=", compt
     #            contenu2 = json.dumps(LstExp2,  indent = 3, ensure_ascii=True) #,
 
-        print "Expanded to ", len(LstExp2), " lines with monomavue colums"
+        print("Expanded to ", len(LstExp2), " lines with monomavue colums")
     #    with open(ListBiblioPath + '//Expanded' + ndf, 'w') as SavFic:
     #        pickle.dump(LstExp2, SavFic) if "Families" not in ndf:
 
     #    Exclude = []
-        print "entering formating html process"
+        print("entering formating html process")
     #    dicoRes = dict()
     #    dicoRes['data'] = LstExp
         #contenu = json.dumps(dicoRes, indent = 3) #ensure_ascii=True,

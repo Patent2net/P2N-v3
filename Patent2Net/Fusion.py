@@ -6,7 +6,7 @@ Created on Sat Jan 10 07:50:48 2015
 """
 
 import sys, os
-import cPickle as pickle
+import pickle as pickle
 from collections import OrderedDict as dict
 import collections
 ndf1 = sys.argv[1]
@@ -121,8 +121,8 @@ if Go:
     for source in ListContentPath:
         commande = 'xcopy /Y /S '+source.replace('//', '\\') +'\\*.* ' + ResultFolderWin + '\\PatentContents\\'
         os.system(commande)
-    print "Collects " + ndf1 + " and " + ndf2 + " merged in file :" + res.title() + '\n'
-    print "in ", ResultFolder, " directory"
+    print("Collects " + ndf1 + " and " + ndf2 + " merged in file :" + res.title() + '\n')
+    print("in ", ResultFolder, " directory")
 #    print "would you like me to generate networks and threatment ?"
 #    print "Ensure requete.cql parameters you wish to launch are set to True\n"
 #    print "I will modify datadirectory for you."

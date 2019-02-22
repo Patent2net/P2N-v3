@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+#Special P2N
+Cles-epo.txt
+cles-epo.txt
+
 # C extensions
 *.so
 

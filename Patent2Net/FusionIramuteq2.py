@@ -7,7 +7,7 @@ Created on Fri Dec 19 07:53:30 2014
 
 
 import os
-from P2N_Lib import ReturnBoolean
+from .P2N_Lib import ReturnBoolean
 
 with open("..//requete.cql", "r") as fic:
     contenu = fic.readlines()
@@ -68,7 +68,7 @@ def Normalise(listeFic):
                 cpt+=1
             except:
                 pass
-    print cpt, " Abstracts files Names normalized" 
+    print(cpt, " Abstracts files Names normalized") 
 
 
 def coupeEnMots(texte):
@@ -129,10 +129,10 @@ def complete(listeFic, lang, det):
 #                Contenu+=LectureFichier(fichier)
 #            else:
 #                Ignore+=1
-    print len(set(resum)), "fichiers "+det+ " à traiter en langage : ", lang
-    print len(dejaVu), " fichiers "+det+ " traités",
+    print(len(set(resum)), "fichiers "+det+ " à traiter en langage : ", lang)
+    print(len(dejaVu), " fichiers "+det+ " traités", end=' ')
     if Ignore >0:
-        print " et ", Ignore, " fichier(s) ignores"
+        print(" et ", Ignore, " fichier(s) ignores")
 
     return Contenu
 
@@ -169,10 +169,10 @@ def complete2(listeFic, lang, det):
             
         else:
             Ignore+=1
-    print len(set(resum)), "fichiers "+det+ " à traiter en langage : ", lang
-    print len(dejaVu), " fichiers "+det+ " traités",
+    print(len(set(resum)), "fichiers "+det+ " à traiter en langage : ", lang)
+    print(len(dejaVu), " fichiers "+det+ " traités", end=' ')
     if Ignore >0:
-        print " et ", Ignore, " fichier(s) ignores (non dédoublés)"
+        print(" et ", Ignore, " fichier(s) ignores (non dédoublés)")
 
     return Contenu
 
@@ -199,11 +199,11 @@ if IsEnableScript:
     #        ind+=1
     #        ficRes.close()
             
-    for content in ['Abstract', 'Claims', u'Description', 'FamiliesAbstract', 'FamiliesClaims', u'FamiliesDescription' ]: 
+    for content in ['Abstract', 'Claims', 'Description', 'FamiliesAbstract', 'FamiliesClaims', 'FamiliesDescription' ]: 
         
         lstfic = os.listdir(ResultPathContent+'//'+content)
-        print len(lstfic), " not so empty", content, " gathered. See ", ResultPathContent + '//'+ content+'// directory for files'
-        print 'Over the ', len(lstfic),  ' patents...'+ content
+        print(len(lstfic), " not so empty", content, " gathered. See ", ResultPathContent + '//'+ content+'// directory for files')
+        print('Over the ', len(lstfic),  ' patents...'+ content)
         
         Langues = set()
         for fi in lstfic:
@@ -217,5 +217,5 @@ if IsEnableScript:
                         data = absFic.read().strip()
                         ficRes.write(data +'\n')
                         cpt+=1
-            print str(cpt) + ' ' + ling + ' ' + content + ' merged' 
-        print "Done. use it with whatever you want :-) or IRAMUTEQ. See DATA/"+ndf+"/PatentContents"  
+            print(str(cpt) + ' ' + ling + ' ' + content + ' merged') 
+        print("Done. use it with whatever you want :-) or IRAMUTEQ. See DATA/"+ndf+"/PatentContents")  

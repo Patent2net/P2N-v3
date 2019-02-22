@@ -3,8 +3,8 @@
 import os
 import json
 import logging
-from P2N_Lib import LoadBiblioFile, RenderTemplate
-from P2N_Config import LoadConfig
+from .P2N_Lib import LoadBiblioFile, RenderTemplate
+from .P2N_Config import LoadConfig
 from p2n.config import label_from_prefix
 from p2n.util import boot_logging, to_png
 

@@ -7,13 +7,13 @@ Created on Sat Dec 27 12:05:05 2014
 
 import json
 
-import cPickle
+import pickle
 import os
 import codecs
 
 #import bs4
-from P2N_Lib import LoadBiblioFile, Decoupe, UnNest3, UrlInventorBuild, UrlApplicantBuild, UrlIPCRBuild
-from P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import LoadBiblioFile, Decoupe, UnNest3, UrlInventorBuild, UrlApplicantBuild, UrlIPCRBuild
+from Patent2Net.P2N_Config import LoadConfig
 
 import datetime
 aujourd = datetime.date.today()
@@ -36,7 +36,7 @@ if IsEnableScript:
     # the list of keys for filtering for datatable
     clesRef = ['label', 'title', 'year','priority-active-indicator',
     'IPCR11', 'kind', 'applicant', 'country', 'inventor', 'representative', 'IPCR4',
-    'IPCR7', "Inventor-Country", "Applicant-Country", "equivalents", "CPC", u'references', u'Citations', u'CitedBy']
+    'IPCR7', "Inventor-Country", "Applicant-Country", "equivalents", "CPC", 'references', 'Citations', 'CitedBy']
 
     prefixes = [""]
     if GatherFamilly:
@@ -47,20 +47,20 @@ if IsEnableScript:
 
         if 'Description'+ndf in os.listdir(ListBiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
             LstBrevet = LoadBiblioFile(ListBiblioPath, ndf)
-            with open(ListBiblioPath +'//Description'+ndf, 'r') as ficRes:
-                DataBrevet = cPickle.load(ficRes)
+            with open(ListBiblioPath +'//Description'+ndf, 'rb') as ficRes:
+                DataBrevet = pickle.load(ficRes)
         else: #Retrocompatibility
-            with open(ListBiblioPath+'//'+ndf, 'r') as data:
-                LstBrevet = cPickle.load(data)
+            with open(ListBiblioPath+'//'+ndf, 'rb') as data:
+                LstBrevet = pickle.load(data)
 
         ##next may need clarifying update
 
         data = LstBrevet
         LstBrevet = data['brevets']
-        if data.has_key('requete'):
+        if 'requete' in data:
             requete = data["requete"]
-        if data.has_key('number'):
-            print "Found ", data["number"], " patents! Formating to HMTL tables"
+        if 'number' in data:
+            print("Found ", data["number"], " patents! Formating to HMTL tables")
 
         LstExp = []
 
@@ -70,7 +70,7 @@ if IsEnableScript:
         with codecs.open(ResultPathContent + '//'  +ndf+'.bib', 'w', 'utf-8') as resFic:
             cleBib = ['year', 'kind', 'title', 'inventor', 'IPCR11', 'label', 'country']
             for bre in LstBrevet:
-                if len(cleBib) == len([cle for cle in cleBib if cle in bre.keys()]):
+                if len(cleBib) == len([cle for cle in cleBib if cle in list(bre.keys())]):
                     Gogo = True #checkin consistency
         #==============================================================================
         #            for cle in cleBib:
@@ -81,7 +81,7 @@ if IsEnableScript:
         #==============================================================================
                     if Gogo>0:
                         if "A" in ' '.join(bre['kind']) or "B" in ' '.join(bre['kind']) or "C" in ' '.join(bre['kind']): #filter patent list again their status... only published
-                            if bre['dateDate'] is not None or bre['dateDate'] != u'None' or bre['dateDate'] != u'' or u'None' not in bre['dateDate'] or None in bre['dateDate']:
+                            if bre['dateDate'] is not None or bre['dateDate'] != 'None' or bre['dateDate'] != '' or 'None' not in bre['dateDate'] or None in bre['dateDate']:
                                 if len(bre['year'])>0 and not isinstance(bre['date'], list):
                                     teatime=bre['date'].split('-')
                                     bre['dateDate'] = datetime.date(int(teatime[0]), int(teatime[1]), int(teatime[2]))
@@ -108,19 +108,19 @@ if IsEnableScript:
                                 try:
                                     entryName=bre['inventor'][0].split(' ')[0]+'etAl'+str(Date.year)
                                 except:
-                                    print
+                                    print()
                                 tempolist = [nom.replace(' ', ', ', 1).title() for nom in bre['inventor']]
     # Issue #7 - by cvanderlei in 4-jan-2016
                                 try:
-                                    Authors = unicode(' and '.join(tempolist))
+                                    Authors = str(' and '.join(tempolist))
                                 except UnicodeDecodeError:
-                                    Authors = u''
+                                    Authors = ''
                             else:
                                 entryName=bre['inventor'].split(' ')[0]+'etAl'+str(Date.year)
                                 Authors = bre['inventor'].replace(' ', ', ', 1).title()
                             entryName = entryName.replace("'", "")
                             if entryName in Dones:
-                                if Double.has_key(entryName):
+                                if entryName in Double:
                                     Double[entryName] += 1
                                 else:
                                     Double[entryName] = 1
@@ -131,30 +131,30 @@ if IsEnableScript:
                             Dones.append(entryName)
     # Issue #6 - by cvanderlei in 6-jan-2017
                             try:
-                                resFic.write(u'@Patent{'+entryName+',\n')
+                                resFic.write('@Patent{'+entryName+',\n')
                             except UnicodeDecodeError:
-                                resFic.write(u'@Patent{""\n')
-                            resFic.write(u'\t author={' + Authors + '},\n')
+                                resFic.write('@Patent{""\n')
+                            resFic.write('\t author={' + Authors + '},\n')
                             try:
-                                resFic.write(u"\t title = {"+unicode(bre['title']).capitalize() +"},\n")
+                                resFic.write("\t title = {"+str(bre['title']).capitalize() +"},\n")
                             except: #damm unicode
-                                resFic.write(u"\t title = {""},\n")
-                            resFic.write(u"\t year = {" +str(Date.year)+ "},\n")
-                            resFic.write(u"\t month = {" +str(Date.month)+ "},\n")
-                            resFic.write(u"\t day = {" +str(Date.day)+ "},\n")
-                            resFic.write(u"\t number = {" +str(bre['label'])+ "},\n")
-                            resFic.write(u"\t location = {" +str(bre['country'])+ "},\n")
+                                resFic.write("\t title = {""},\n")
+                            resFic.write("\t year = {" +str(Date.year)+ "},\n")
+                            resFic.write("\t month = {" +str(Date.month)+ "},\n")
+                            resFic.write("\t day = {" +str(Date.day)+ "},\n")
+                            resFic.write("\t number = {" +str(bre['label'])+ "},\n")
+                            resFic.write("\t location = {" +str(bre['country'])+ "},\n")
                             if isinstance(bre['IPCR11'], list):
-                                resFic.write(u"\t IPC_class = {" + str(', '.join(bre['IPCR11'])) + "},\n")
+                                resFic.write("\t IPC_class = {" + str(', '.join(bre['IPCR11'])) + "},\n")
                             else:
-                                resFic.write(u"\t IPC_class = {" + str(bre['IPCR11']) + "},\n")
-                            resFic.write(u"\t url = {" +"http://worldwide.espacenet.com/searchResults?compact=false&ST=singleline&query="+str(bre['label'])+"&locale=en_EP&DB=EPODOC" + "},\n")
-                            resFic.write(u"\t urlyear = {" +str(aujourd.year)+ "},\n")
-                            resFic.write(u"\t urlmonth = {" +str(aujourd.month)+ "},\n")
-                            resFic.write(u"\t urlday = {" +str(aujourd.day)+ "},\n")
-                            resFic.write(u"}\n \n")
+                                resFic.write("\t IPC_class = {" + str(bre['IPCR11']) + "},\n")
+                            resFic.write("\t url = {" +"http://worldwide.espacenet.com/searchResults?compact=false&ST=singleline&query="+str(bre['label'])+"&locale=en_EP&DB=EPODOC" + "},\n")
+                            resFic.write("\t urlyear = {" +str(aujourd.year)+ "},\n")
+                            resFic.write("\t urlmonth = {" +str(aujourd.month)+ "},\n")
+                            resFic.write("\t urlday = {" +str(aujourd.day)+ "},\n")
+                            resFic.write("}\n \n")
 
                     compt +=1
 
-        print compt, ' bibliographic data added in ', ndf +'.bib file'
-        print "Other bibliographic entry aren't consistent nor A, B, C statuses"
+        print(compt, ' bibliographic data added in ', ndf +'.bib file')
+        print("Other bibliographic entry aren't consistent nor A, B, C statuses")

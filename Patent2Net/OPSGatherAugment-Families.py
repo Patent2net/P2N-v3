@@ -22,11 +22,11 @@ Amy be unconsistent with pivotable formating... (almost)
 #import networkx as nx
 
 #from networkx_functs import *
-import cPickle
+import pickle
 #from Ops2 import ExtraitParties, Clean, ExtraitTitleEn, ExtraitKind, ExtraitCountry, ExtraitIPCR2, ExtractionDate
-from P2N_Lib import Update, GetFamilly, flatten
-from P2N_Lib import LoadBiblioFile
-from P2N_Config import LoadConfig
+from .P2N_Lib import Update, GetFamilly, flatten
+from .P2N_Lib import LoadBiblioFile
+from .P2N_Config import LoadConfig
 from p2n.config import OPSCredentials
 
 import epo_ops
@@ -66,10 +66,10 @@ rep = ndf
 
 clesRef = ['label', 'title', 'year','priority-active-indicator', 'prior-Date', 'prior-dateDate', # dates of priority claims
 'IPCR11', 'kind', 'applicant', 'country', 'inventor', 'representative', 'IPCR4',
-'IPCR7', "Inventor-Country", "Applicant-Country", "equivalents", "CPC", u'references', u'CitedBy', 'prior', 'family lenght', 'CitO', 'CitP']
+'IPCR7', "Inventor-Country", "Applicant-Country", "equivalents", "CPC", 'references', 'CitedBy', 'prior', 'family lenght', 'CitO', 'CitP']
 
 def dictCleaner(dico):
-    for clef in dico.keys():
+    for clef in list(dico.keys()):
         if isinstance(dico[clef], list) and len(dico[clef]) ==1:
             dico[clef] = dico[clef][0]
         elif isinstance(dico[clef], list) and len(dico[clef]) == 0:
@@ -86,7 +86,7 @@ def CleanNones(dico):
         Res = [CleanNones(subDict) for subDict in dico]
         return Res
     elif isinstance(dico, dict):
-        Keys = [key for key in dico.keys() if None in dico[key]]
+        Keys = [key for key in list(dico.keys()) if None in dico[key]]
         for cle in Keys:
             dico[cle] = [truc for truc in dico[cle] if truc is not None]
         return dico
@@ -94,30 +94,30 @@ def CleanNones(dico):
         return dico
 
 if GatherFamilly:
-    print "\n> Hi! This is the family gatherer. Processing ", ndf
+    print("\n> Hi! This is the family gatherer. Processing ", ndf)
     try:
 
         fic = open(ResultPath+ '//' + ndf, 'r')
 
-        print "loading data file ", ndf+' from ', ResultPath, " directory."
+        print("loading data file ", ndf+' from ', ResultPath, " directory.")
         if 'Description'+ndf or "Description" + ndf.title() in os.listdir(ResultPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
             data = LoadBiblioFile(ResultPath, ndf)
 
         else: #Retrocompatibility :-)
-            print "gather your data again"
+            print("gather your data again")
             sys.exit()
         if isinstance(data, collections.Mapping):
             ListeBrevet = data['brevets']
-            if data.has_key('number'):
-                print "Found ", data["number"], " patents!  and ", len(ListeBrevet), " gathered."
+            if 'number' in data:
+                print("Found ", data["number"], " patents!  and ", len(ListeBrevet), " gathered.")
         else:
-            print 'data corrupted. Do something (destroying data directory is a nice idea)'
+            print('data corrupted. Do something (destroying data directory is a nice idea)')
             sys.exit()
-        print len(ListeBrevet), " patents loaded from file."
-        print "Augmenting list with families."
+        print(len(ListeBrevet), " patents loaded from file.")
+        print("Augmenting list with families.")
         ficOk = True
     except:
-        print "file ", ResultPath +"/"+ndf,"  missing. try gather again."
+        print("file ", ResultPath +"/"+ndf,"  missing. try gather again.")
         ficOk = False
 
     ndf2 = "Complete"+ndf
@@ -129,7 +129,7 @@ if GatherFamilly:
 
     try: #temporar directory if gathering processing have already started
         DoneLstBrev = open(temporPath+'//DoneTempo'+ ndf, 'r')
-        Done = cPickle.load(DoneLstBrev) # these won't be gathered again
+        Done = pickle.load(DoneLstBrev) # these won't be gathered again
         DoneLab = [pat['label'] for pat in Done]
     except:
         DoneLab = []
@@ -144,7 +144,7 @@ if GatherFamilly:
 #                ListeBrevetAug = data['brevets']
 #            else:
 #                ListeBrevetAug = data
-            print len(ListeBrevetAug), " patents loaded, already in families list"
+            print(len(ListeBrevetAug), " patents loaded, already in families list")
             if len(ListeBrevetAug) ==0:
                 Done =[]
             else:
@@ -154,10 +154,10 @@ if GatherFamilly:
                             if brev['label'] == k:
                                 tempoList.append(brev)
                 ListeBrevet = list(set(tempoList))
-            print len(DoneLab), ' patents treated yet... doing others : ', len(ListeBrevet)
+            print(len(DoneLab), ' patents treated yet... doing others : ', len(ListeBrevet))
             if len(ListeBrevet) == 0:
-                print "Good, nothing to do!"
-                print "If you want to gather again, please destroy the temporary file in ", temporPath
+                print("Good, nothing to do!")
+                print("If you want to gather again, please destroy the temporary file in ", temporPath)
                 sys.exit()
 
         except: #particular cases when I supress familiFile in Biblio ^_^
@@ -176,7 +176,7 @@ if GatherFamilly:
 
             if Brev is not None and Brev != '':
                 temp = GetFamilly(ops_client, Brev, ResultContentsPath)
-                print "... loading ", Brev['label']
+                print("... loading ", Brev['label'])
                 temp = CleanNones(temp)
                 if temp is not None:
                     tempFiltered =[]
@@ -190,7 +190,7 @@ if GatherFamilly:
                         tempoRar = dict()
                         for pate in tempoPat:
                             tempoRar = Update(pate, tempoRar)
-                            for clef in tempoRar.keys():
+                            for clef in list(tempoRar.keys()):
                                 if isinstance(tempoRar[clef], list):
                                     tempoRar[clef] = flatten(tempoRar[clef])
                                     tempo = []
@@ -229,12 +229,12 @@ if GatherFamilly:
 
                                with open(ResultPath+'//Families'+ ndf, 'a') as ndfLstBrev:
                                    for bre in ListeBrevetAug:
-                                       cPickle.dump(bre , ndfLstBrev)
+                                       pickle.dump(bre , ndfLstBrev)
                             else:
                                 DejaVu.append(pat['label'])
                                 ListeBrevetAug.append(dictCleaner(pat))
                                 with open(ResultPath+'//Families'+ ndf, 'a') as ndfLstBrev:
-                                    cPickle.dump(pat , ndfLstBrev)
+                                    pickle.dump(pat , ndfLstBrev)
                         else:
                             # hum it is already in so, nothing to do
                              pass
@@ -299,21 +299,21 @@ if GatherFamilly:
                 Data['ficBrevets'] = 'Families'+ ndf
                 Data['number'] = len(ListeBrevetAug)
                 Data['requete'] = "Families of: " + requete
-                cPickle.dump(Data, ndfLstBrev)
+                pickle.dump(Data, ndfLstBrev)
             with open(temporPath+'//DoneTempo'+ ndf, 'w') as DoneLstBrev:
-                cPickle.dump(Done, DoneLstBrev)
+                pickle.dump(Done, DoneLstBrev)
 
 
 
-    print "before", len(ListeBrevet)
-    print "now", len(ListeBrevetAug)
+    print("before", len(ListeBrevet))
+    print("now", len(ListeBrevetAug))
     #####
     Data = dict()
     with open(ResultPath+'//DescriptionFamilies'+ ndf, 'w') as ficRes:
         Data['ficBrevets'] = 'Families'+ ndf
         Data['number'] = len(ListeBrevetAug)
         Data['requete'] = "Families of: " + requete
-        cPickle.dump(Data, ficRes)
+        pickle.dump(Data, ficRes)
 
-    print len(ListeBrevetAug), ' patents found and saved in file: '+ ResultPath+'//Families'+ ndf
+    print(len(ListeBrevetAug), ' patents found and saved in file: '+ ResultPath+'//Families'+ ndf)
     #    os.system("FormateExportFamilies.exe Families"+ndf)

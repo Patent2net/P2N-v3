@@ -14,24 +14,24 @@ import sys
 import datetime
 import pydot
 import ctypes # pydot needed for pyinstaller !!! seems that ctype also I should learn making hooks....
-from urllib import quote as quot
+from urllib.parse import quote as quot
 import numpy as np
 import matplotlib.cm
 from collections import OrderedDict
 #from networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
-import cPickle
+import pickle
 import copy
-from P2N_Lib import flatten, DecoupeOnTheFly, LoadBiblioFile, UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize
+from .P2N_Lib import flatten, DecoupeOnTheFly, LoadBiblioFile, UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize
 #from P2N_Lib import getStatus2, getClassif,getCitations, getFamilyLenght, isMaj, quote, GenereDateLiens
 #from P2N_Lib import  symbole, ReturnBoolean, FormateGephi, GenereListeSansDate, GenereReseaux3, cmap_discretize
 #from Ops3 import UnNest2List
-from P2N_Config import LoadConfig
+from .P2N_Config import LoadConfig
 
 Nets = ["CountryCrossTech", "CrossTech", "InventorsCrossTech", "Applicants_CrossTech", "Inventors",
  "ApplicantInventor", "Applicants", "References", "Citations", "Equivalents"]
 
 if len(sys.argv)<2 or sys.argv[1] not in Nets:
-    print "give me a net as parameter, one from this list: ", Nets
+    print("give me a net as parameter, one from this list: ", Nets)
     sys.exit()
 else:
     Nets.remove(sys.argv[1])
@@ -130,17 +130,17 @@ for prefix in prefixes:
         # flat net for gexf.js may be it is possible to use previous instead of this one...
 
         if 'Description'+ndf in os.listdir(BiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
-            print network, ": loading data with ", " and ".join(mixNet), " fields."
+            print(network, ": loading data with ", " and ".join(mixNet), " fields.")
             DataBrevet = LoadBiblioFile(BiblioPath, ndf)
-            print "Hi this is Pre-Network processor. Bibliographic data of ", ndf, " patent universe found."
+            print("Hi this is Pre-Network processor. Bibliographic data of ", ndf, " patent universe found.")
         else: #Retrocompatibility
-            print "please use Comptatibilizer"
+            print("please use Comptatibilizer")
 
-        print "Nice, ", len(DataBrevet["brevets"]), " patents found. Pre-formating ", sys.argv[1], " net."
+        print("Nice, ", len(DataBrevet["brevets"]), " patents found. Pre-formating ", sys.argv[1], " net.")
         for brev in DataBrevet["brevets"]:
                 #tempo = pickle.load(fic) # we only memorize needed nfo
             pat = OrderedDict ()
-            if "date" not in brev.keys():
+            if "date" not in list(brev.keys()):
                 brev['date'] = '1-1-1'
             if isinstance(brev['label'], list):
                 brev['label'] = brev['label'][0]
@@ -165,7 +165,7 @@ for prefix in prefixes:
                     else:
                        pat[key]= [cont for cont in brev[key] if (cont not in ['', 'empty', 'none'] or cont !=None)]
 
-                elif isinstance (brev[key], unicode) or isinstance (brev[key], str):
+                elif isinstance (brev[key], str) or isinstance (brev[key], str):
                     pat[key]= Cleaning(brev[key])
 
                 if brev[key] is not None and not isinstance(brev[key], datetime.date):
@@ -177,7 +177,7 @@ for prefix in prefixes:
                     pat[key] = brev[key]
                 else:
                     pat[key] =''
-            if 'CitO' in pat.keys():
+            if 'CitO' in list(pat.keys()):
                 if pat['CitO'] != '' and pat['CitO'] != []:
                     pat['CitO'] =[thing.replace('\n', ' ') for thing in pat['CitO']]
                     if isinstance(pat['CitO'], list):
@@ -206,7 +206,7 @@ for prefix in prefixes:
 
             if len(temp)>1: # only collaborators in the net
      #               Appariement.append(([noeud[0] for noeud in temp], Dates))
-                if lab not in Category.keys():
+                if lab not in list(Category.keys()):
                     Category[lab] = 'label'
                 if network in ["_Citations", "_Equivalents", "_References"]:
                     for ind in range(1, len(temp)):
@@ -245,18 +245,18 @@ for prefix in prefixes:
                 if Category[source] in mixNet and Category[target] in mixNet and source!=target:
                     datum = [ddd for ddd in datum if isinstance(ddd, datetime.date)]
 
-                    if source not in Nodes.keys() and source != '':
+                    if source not in list(Nodes.keys()) and source != '':
                             Nodes[source] = OrderedDict ()
                             Nodes[source]['date'] = datum
                             Nodes[source]['category'] = Category[source]
                             Nodes[source]['label'] = source
-                            Nodes[source]['index'] = len(Nodes.keys())-1
+                            Nodes[source]['index'] = len(list(Nodes.keys()))-1
                             Nodes[source]['date']= flatten(Nodes[source]['date'])
                     elif datum not in Nodes[source]['date']:
                             Nodes[source]['date'].extend(datum)
                     else:
                             pass
-                    if target not in Nodes.keys() and target != '':
+                    if target not in list(Nodes.keys()) and target != '':
                             Nodes[target] = OrderedDict ()
                             Nodes[target]['date'] = datum
                             Nodes[target]['category'] = Category[target]
@@ -265,7 +265,7 @@ for prefix in prefixes:
                             else:
                                 Nodes[target]['label'] = target
 
-                            Nodes[target]['index'] = len(Nodes.keys())-1
+                            Nodes[target]['index'] = len(list(Nodes.keys()))-1
                             Nodes[target]['date']= flatten(Nodes[target]['date'])
                     elif datum not in Nodes[target]['date']:
                             Nodes[target]['date'].extend(datum)
@@ -273,7 +273,7 @@ for prefix in prefixes:
                             pass
                     indSRC = Nodes[source]['index']
                     indTGT = Nodes[target]['index']
-                    if (indSRC, indTGT) not in WeightDyn.keys():
+                    if (indSRC, indTGT) not in list(WeightDyn.keys()):
                         WeightDyn[(indSRC, indTGT)] = dict()
                     for dat in datum:
                         if isinstance(dat, list):
@@ -302,22 +302,22 @@ for prefix in prefixes:
                             WeightDyn[(indSRC, indTGT)] = tempo
                         attr_dict_lab = dict()
                         attr_dict_weight = dict()
-                        if Nodes.keys().index(source) in AtribDynLab.keys():
-                            existant =  AtribDynLab[Nodes.keys().index(source)] ['label']['start'].split('-')
+                        if list(Nodes.keys()).index(source) in list(AtribDynLab.keys()):
+                            existant =  AtribDynLab[list(Nodes.keys()).index(source)] ['label']['start'].split('-')
                             dateActu = datetime.date (int(existant[0]), int(existant[1]), int(existant[2]))
                             G1deb= min(dat, dateActu).isoformat()
-                            existant =  AtribDynLab[Nodes.keys().index(source)] ['label']['end'].split('-')
+                            existant =  AtribDynLab[list(Nodes.keys()).index(source)] ['label']['end'].split('-')
                             dateActu = datetime.date (int(existant[0]), int(existant[1]), int(existant[2]))
                             G1fin = max(fin, dateActu ).isoformat()
-                            G1poids = int(AtribDynLab[Nodes.keys().index(source)] ['weight']['value']) +1
+                            G1poids = int(AtribDynLab[list(Nodes.keys()).index(source)] ['weight']['value']) +1
                             attr_dict_lab['label'] = Nodes[source]['label']
                             attr_dict_lab['start'] = G1deb
                             attr_dict_lab['end'] = G1fin
                             attr_dict_weight['value'] =str(G1poids)
                             attr_dict_weight['start'] = G1deb
                             attr_dict_weight['end'] = G1fin
-                            AtribDynLab[Nodes.keys().index(source)] ['label'] = copy.copy(attr_dict_lab)
-                            AtribDynLab[Nodes.keys().index(source)] ['weight'] = copy.copy(attr_dict_weight)
+                            AtribDynLab[list(Nodes.keys()).index(source)] ['label'] = copy.copy(attr_dict_lab)
+                            AtribDynLab[list(Nodes.keys()).index(source)] ['weight'] = copy.copy(attr_dict_weight)
                         else:
                             G1deb=dat.isoformat()
                             G1fin = fin.isoformat()
@@ -328,26 +328,26 @@ for prefix in prefixes:
                             attr_dict_weight['value'] =str(G1poids)
                             attr_dict_weight['start'] = G1deb
                             attr_dict_weight['end'] = G1fin
-                            AtribDynLab[Nodes.keys().index(source)] = dict()
-                            AtribDynLab[Nodes.keys().index(source)] ['label'] = copy.copy(attr_dict_lab)
-                            AtribDynLab[Nodes.keys().index(source)] ['weight'] = copy.copy(attr_dict_weight)
+                            AtribDynLab[list(Nodes.keys()).index(source)] = dict()
+                            AtribDynLab[list(Nodes.keys()).index(source)] ['label'] = copy.copy(attr_dict_lab)
+                            AtribDynLab[list(Nodes.keys()).index(source)] ['weight'] = copy.copy(attr_dict_weight)
                         #setting node properties (target)
-                        if Nodes.keys().index(target) in AtribDynLab.keys():
-                            existant =  AtribDynLab[Nodes.keys().index(target)] ['label']['start'].split('-')
+                        if list(Nodes.keys()).index(target) in list(AtribDynLab.keys()):
+                            existant =  AtribDynLab[list(Nodes.keys()).index(target)] ['label']['start'].split('-')
                             dateActu = datetime.date (int(existant[0]), int(existant[1]), int(existant[2]))
                             G1deb= min(dat, dateActu).isoformat()
-                            existant =  AtribDynLab[Nodes.keys().index(target)] ['label']['end'].split('-')
+                            existant =  AtribDynLab[list(Nodes.keys()).index(target)] ['label']['end'].split('-')
                             dateActu = datetime.date (int(existant[0]), int(existant[1]), int(existant[2]))
                             G1fin = max(fin, dateActu ).isoformat()
-                            G1poids = int(AtribDynLab[Nodes.keys().index(target)] ['weight']['value']) +1
+                            G1poids = int(AtribDynLab[list(Nodes.keys()).index(target)] ['weight']['value']) +1
                             attr_dict_lab['label'] = Nodes[target]['label']
                             attr_dict_lab['start'] = G1deb
                             attr_dict_lab['end'] = G1fin
                             attr_dict_weight['value'] =str(G1poids)
                             attr_dict_weight['start'] = G1deb
                             attr_dict_weight['end'] = G1fin
-                            AtribDynLab[Nodes.keys().index(target)] ['label'] =copy.copy( attr_dict_lab)
-                            AtribDynLab[Nodes.keys().index(target)] ['weight'] = copy.copy(attr_dict_weight)
+                            AtribDynLab[list(Nodes.keys()).index(target)] ['label'] =copy.copy( attr_dict_lab)
+                            AtribDynLab[list(Nodes.keys()).index(target)] ['weight'] = copy.copy(attr_dict_weight)
                         else:
                             G1deb=dat.isoformat()
                             G1fin = fin.isoformat()
@@ -358,9 +358,9 @@ for prefix in prefixes:
                             attr_dict_weight['value'] =str(G1poids)
                             attr_dict_weight['start'] = G1deb
                             attr_dict_weight['end'] = G1fin
-                            AtribDynLab[Nodes.keys().index(target)] = dict()
-                            AtribDynLab[Nodes.keys().index(target)] ['label'] = copy.copy(attr_dict_lab)
-                            AtribDynLab[Nodes.keys().index(target)] ['weight'] = copy.copy(attr_dict_weight)
+                            AtribDynLab[list(Nodes.keys()).index(target)] = dict()
+                            AtribDynLab[list(Nodes.keys()).index(target)] ['label'] = copy.copy(attr_dict_lab)
+                            AtribDynLab[list(Nodes.keys()).index(target)] ['weight'] = copy.copy(attr_dict_weight)
 
 
 
@@ -377,9 +377,9 @@ for prefix in prefixes:
 
         AtribDyn=OrderedDict()
         Atrib = OrderedDict()
-        for noeud in AtribDynLab.keys():
+        for noeud in list(AtribDynLab.keys()):
             AtribDyn[noeud] = dict()
-            AtribDyn[noeud]['id']= AtribDynLab.keys().index(noeud)
+            AtribDyn[noeud]['id']= list(AtribDynLab.keys()).index(noeud)
             AtribDyn[noeud]['start']= AtribDynLab[noeud]['label']['start']
             AtribDyn[noeud]['end']= AtribDynLab[noeud]['label']['end']
             AtribDyn[noeud]['label']= AtribDynLab[noeud]['label']['label']
@@ -387,7 +387,7 @@ for prefix in prefixes:
         nx.set_node_attributes(G1, 'id' , AtribDyn)
 
         Atrib = dict()
-        for noeud in AtribDynLab.keys(): # ?????????
+        for noeud in list(AtribDynLab.keys()): # ?????????
             AtribDyn[noeud] = AtribDynLab[noeud]['weight']
             Atrib [noeud] = AtribDynLab[noeud]['weight']['value']
         nx.set_node_attributes(G1,  'weight', AtribDyn)

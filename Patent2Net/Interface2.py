@@ -5,11 +5,11 @@ Created on Sun Feb 15 09:12:25 2015
 @author: dreymond
 """
 
-from P2N_Lib import LoadBiblioFile, RenderTemplate
-from P2N_Config import LoadConfig
+from .P2N_Lib import LoadBiblioFile, RenderTemplate
+from .P2N_Config import LoadConfig
 import codecs
 import os
-import cPickle
+import pickle
 nbFam = 0
 
 configFile = LoadConfig()
@@ -35,7 +35,7 @@ if 'Description' + ndf in os.listdir(ResultBiblioPath):
     data = LoadBiblioFile(ResultBiblioPath, ndf)
     requete = data['requete']
 else:  # Retrocompatibility
-    print "please use Comptatibilizer"
+    print("please use Comptatibilizer")
     # if 'Fusion' in data.keys()
     data = dict()
 if GatherFamilly:  # pdate needed for families
@@ -44,7 +44,7 @@ if GatherFamilly:  # pdate needed for families
         data2 = LoadBiblioFile(ResultBiblioPath, 'Families' + ndf)
         nbFam = len(data2['brevets'])
     else:  # Retrocompatibility
-        print "please use Comptatibilizer"
+        print("please use Comptatibilizer")
     # if 'Fusion' in data.keys()with open( ResultBiblioPath+'//Families'+ndf, 'r') as ficBib:
  #        data2 = cPickle.load(ficBib)
 
@@ -56,7 +56,7 @@ today = datetime.datetime.today()
 date = today.strftime('%d, %b %Y')
 
 totalPatents = ""
-if data.has_key("brevets"):  # compatibility, this may be useless
+if "brevets" in data:  # compatibility, this may be useless
     totalPatents = len(data["brevets"])
 else:
     totalPatents = "see datatable :-)"
@@ -79,7 +79,7 @@ if Gather:
                 "languages": totalLanguages
             }
         else:
-            print 'WARNING: Directory "{}" does not exist'.format(path)
+            print('WARNING: Directory "{}" does not exist'.format(path))
 
         return {
             "type": content,
@@ -87,14 +87,14 @@ if Gather:
             "languages": {},
         }
 
-    for content in [u'Abstract', u'Claims', u'Description']:
+    for content in ['Abstract', 'Claims', 'Description']:
         totalsPerType.append(generateTotal(content))
 
-    for content in [u'FamiliesAbstract', u'FamiliesClaims', u'FamiliesDescription']:
+    for content in ['FamiliesAbstract', 'FamiliesClaims', 'FamiliesDescription']:
         totalsPerFamilyType.append(generateTotal(content))
 
 outfile = GlobalPath + '//' + ndf + '.html'
-print 'Writing "{outfile}"'.format(outfile=outfile)
+print('Writing "{outfile}"'.format(outfile=outfile))
 
 RenderTemplate(
     "ModeleContenuIndex.html",

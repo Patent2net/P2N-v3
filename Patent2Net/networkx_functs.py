@@ -35,8 +35,8 @@ def read_in_edges(filename, info=True):
      
     g_orig = nx.read_edgelist(filename, create_using=nx.DiGraph(), data=(('weight', int),))
     if info:
-        print "Read in edgelist file ", filename
-        print nx.info(g_orig)
+        print("Read in edgelist file ", filename)
+        print(nx.info(g_orig))
     return g_orig
     
 def save_to_jsonfile(filename, graph):
@@ -53,8 +53,8 @@ def read_json_file(filename, info=True):
     '''
     graph = json_graph.load(open(filename))
     if info:
-        print "Read in file ", filename
-        print nx.info(graph)
+        print("Read in file ", filename)
+        print(nx.info(graph))
     return graph
     
 def report_node_data(graph, node=""):
@@ -65,11 +65,11 @@ def report_node_data(graph, node=""):
     
     g = graph
     if len(node) == 0:
-        print "Found these sample attributes on the nodes:"
-        print g.nodes(data=True)[0]
+        print("Found these sample attributes on the nodes:")
+        print(g.nodes(data=True)[0])
     else:
-        print "Values for node " + node
-        print [d for n,d in g.nodes_iter(data=True) if n==node]
+        print("Values for node " + node)
+        print([d for n,d in g.nodes_iter(data=True) if n==node])
 
 def calculate_degree(graph):
     '''
@@ -123,7 +123,7 @@ def calculate_degree_centrality(graph):
     g = graph
     dc = nx.degree_centrality(g)
     nx.set_node_attributes(g,'degree_cent',dc)
-    degcent_sorted = sorted(dc.items(), key=itemgetter(1), reverse=True)
+    degcent_sorted = sorted(list(dc.items()), key=itemgetter(1), reverse=True)
 #    for key,value in degcent_sorted[0:10]:
 #        print "Highest degree Centrality:", key, value
     return graph, dc
@@ -134,9 +134,9 @@ def find_cliques(graph):
     g = graph
     cl = nx.find_cliques(g)
     cl = sorted(list( cl ), key=len, reverse=True)
-    print "Number of cliques:", len(cl)
+    print("Number of cliques:", len(cl))
     cl_sizes = [len(c) for c in cl]
-    print "Size of cliques:", cl_sizes
+    print("Size of cliques:", cl_sizes)
     return cl
     
 def find_partition(graph):
@@ -149,7 +149,7 @@ def find_partition(graph):
     import community          # download the code from link above and put in same dir.
     g = graph
     partition = community.best_partition( g )
-    print "Partitions found: ", len(set(partition.values()))
+    print("Partitions found: ", len(set(partition.values())))
     # Uncomment this to show members of each partition:
     #for i in set(partition.values()):
         #members = [nodes for nodes in partition.keys() if partition[nodes] == i]
@@ -178,7 +178,7 @@ def draw_partition(graph, partition):
     pos = nx.spring_layout(g)
     for com in set(partition.values()):
         count = count + 1
-        list_nodes = [nodes for nodes in partition.keys()
+        list_nodes = [nodes for nodes in list(partition.keys())
                                     if partition[nodes] == com]
         nx.draw_networkx_nodes(g, pos, list_nodes, node_size = 20,
                                     node_color = str(count / size))
@@ -193,7 +193,7 @@ def trim_nodes_by_attribute_for_remaining_number(graph, attributelist, count):
     g = graph
     to_remove = len(graph.nodes()) - count - 2
     g.remove_nodes_from([x[0] for x in attributelist[0:to_remove]])
-    print "Now graph has node count: ", len(g.nodes())
+    print("Now graph has node count: ", len(g.nodes()))
     return g
 
 def trim_nodes_by_attribute_value(graph, attributedict, threshold):
@@ -201,7 +201,7 @@ def trim_nodes_by_attribute_value(graph, attributedict, threshold):
     Returns graph without those nodes.
     '''
     g = graph 
-    g.remove_nodes_from([k for k,v in attributedict.iteritems() if v <= threshold])
+    g.remove_nodes_from([k for k,v in attributedict.items() if v <= threshold])
     return g
     
 def write_node_attributes(graph, attributes):
@@ -211,10 +211,10 @@ def write_node_attributes(graph, attributes):
         attributes = [attributes]
     for node in graph.nodes():
         vals = [str(dict[node]) for dict in [nx.get_node_attributes(graph,x) for x in attributes]]
-        print node, ",", ",".join(vals) 
+        print(node, ",", ",".join(vals)) 
         
 def numeric_comp(a,b):
-    print a, b, float(b) > float(a)
+    print(a, b, float(b) > float(a))
     return float(b) > float(a)
 
 def ChargeAffectation(fichier):
@@ -320,12 +320,12 @@ def main():
     #for key, val in eigen_sorted[0:5]:
     #    print "lowest eigenvector centrality nodes:", key, val
     
-    print nx.info(g)
-    print "**********"
+    print(nx.info(g))
+    print("**********")
         
     outputjsonfile = 'I3M_test.json'
     save_to_jsonfile( path+outputjsonfile, g)
-    print "Saved to new file: ", path+outputjsonfile
+    print("Saved to new file: ", path+outputjsonfile)
     apparie = dict()
     
     # this function actually modifies the graph itself - so beware and don't do it before saving the big gaph above.

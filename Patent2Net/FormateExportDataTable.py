@@ -7,10 +7,10 @@ Created on Sat Dec 27 12:05:05 2014
 
 import json
 import os
-import cPickle
+import pickle
 #import bs4
-from P2N_Lib import UrlInventorBuild, UrlApplicantBuild, UrlIPCRBuild, UrlPatent, LoadBiblioFile, RenderTemplate
-from P2N_Config import LoadConfig
+from .P2N_Lib import UrlInventorBuild, UrlApplicantBuild, UrlIPCRBuild, UrlPatent, LoadBiblioFile, RenderTemplate
+from .P2N_Config import LoadConfig
 
 import datetime
 aujourd = datetime.date.today()
@@ -35,9 +35,9 @@ if IsEnableScript:
     'IPCR11', 'kind', 'applicant', 'country', 'inventor', 'representative', 'IPCR4',
     'IPCR7', "Inventor-Country", "Applicant-Country", "equivalents", "CPC",
     'prior-Date', #'prior-dateDate', # dates of priority claims
-    u'references',  # the number of refences into the document len(CitP) + len(CitO)
-    u'Citations',   # the number of citations granted by the document
-    u'CitedBy',     # the list of docs (patents) cititng this patent
+    'references',  # the number of refences into the document len(CitP) + len(CitO)
+    'Citations',   # the number of citations granted by the document
+    'CitedBy',     # the list of docs (patents) cititng this patent
     'CitP',         # the patents cited by this patent
     'CitO'          # the other docs cited by this patent
     ] #"citations"
@@ -48,15 +48,15 @@ if IsEnableScript:
 
     else: #Retrocompatibility
         with open(ListBiblioPath+'//'+ndf, 'r') as data:
-            dico = cPickle.load(data)
+            dico = pickle.load(data)
 
     LstBrevet = dico['brevets']
-    if dico.has_key('requete'):
+    if 'requete' in dico:
         requete = dico["requete"]
-    if dico.has_key('number'):
-        print "Found ", dico["number"], " patents! Formating to HMTL tables"
+    if 'number' in dico:
+        print("Found ", dico["number"], " patents! Formating to HMTL tables")
     else:
-        print "Found ", len(LstBrevet), " patents! Formating to HMTL tables"
+        print("Found ", len(LstBrevet), " patents! Formating to HMTL tables")
     LstExp = []
     LstExp2 = []
     #just for testing las fnction in gathered should deseapear soon
@@ -81,7 +81,7 @@ if IsEnableScript:
     #            brev[cle] = datetime.date.today()
     #        else:
     #            brev[cle] = u''
-        for cle in brev.keys():
+        for cle in list(brev.keys()):
             if isinstance(brev[cle], list):
                 brev[cle] = [cont for cont in brev[cle] if cont is not None]
                 if cle not in ['prior-dateDate', 'dateDate']:
@@ -98,13 +98,13 @@ if IsEnableScript:
                 elif isinstance(brev[key], list) and len(brev[key]) == 1:
                     tempo[key] = brev[key][0].title().strip()
                 elif isinstance(brev[key], list) and len(brev[key]) == 0:
-                    tempo[key] = u''
+                    tempo[key] = ''
                 else:
                     tempo[key] = brev[key].title().strip()
 
             elif key =='title':
                 if isinstance(brev[key], list):
-                    tempo[key] = unicode(brev[key]).capitalize().strip()
+                    tempo[key] = str(brev[key]).capitalize().strip()
                 else:
                     tempo[key] = brev[key].capitalize().strip()
             else:
@@ -113,14 +113,14 @@ if IsEnableScript:
                         try:
                             tempo[key] = ', '.join(brev[key])
                         except:
-                            print "pas youp ", key, brev[key]
+                            print("pas youp ", key, brev[key])
                     elif isinstance(brev[key], list) and len(brev[key]) == 1:
                         if brev[key][0] is not None:
                             tempo[key] = brev[key][0]
                         else:
-                            tempo[key] = u''
+                            tempo[key] = ''
                     elif brev[key] is None:
-                        tempo[key] = u''
+                        tempo[key] = ''
                     else:
                         tempo[key] = brev[key]
                 except:
@@ -128,9 +128,9 @@ if IsEnableScript:
     #   tempo[url]
 
         tempo['inventor-url'] = UrlInventorBuild(brev['inventor'])
-        tempo[u'applicant-url']= UrlApplicantBuild(brev['applicant'])
+        tempo['applicant-url']= UrlApplicantBuild(brev['applicant'])
         for nb in [1, 3, 4, 7, 11]:
-            tempo[u'IPCR'+str(nb)+'-url']= UrlIPCRBuild(brev['IPCR'+str(nb)])
+            tempo['IPCR'+str(nb)+'-url']= UrlIPCRBuild(brev['IPCR'+str(nb)])
         LstExp.append(tempo)
         tempo['equivalents-url'] =  [UrlPatent(lab) for lab in brev['equivalents']]
         tempo['label-url'] = UrlPatent(brev['label'])
@@ -147,7 +147,7 @@ if IsEnableScript:
     #            tempo2[ket] = brev[ket]
 
     Exclude = []
-    print "entering formating html process"
+    print("entering formating html process")
     dicoRes = dict()
     dicoRes['data'] = LstExp
     contenu = json.dumps(dicoRes, indent = 3) #ensure_ascii=True,

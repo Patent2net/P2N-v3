@@ -1,0 +1,1 @@
+for /f "delims=" %%f in ('dir /ad /b /s *pycache*') do rd /s /q %%f

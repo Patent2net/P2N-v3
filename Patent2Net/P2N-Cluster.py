@@ -6,7 +6,7 @@ Created on Sat Jul 08 16:24:35 2017
 """
 
 
-from __future__ import print_function
+
 
 import os
 import sys
@@ -16,9 +16,9 @@ from sklearn.manifold import MDS
 from sklearn.cluster import KMeans
 from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import stopwords as nltkSW
-from TAL_P2N_Lib import tokenize_only, tokenize_and_stem
-from P2N_Lib import LoadBiblioFile
-from P2N_Config import LoadConfig
+from .TAL_P2N_Lib import tokenize_only, tokenize_and_stem
+from .P2N_Lib import LoadBiblioFile
+from .P2N_Config import LoadConfig
 
 from collections import OrderedDict
 
@@ -92,7 +92,7 @@ else: #Retrocompatibility
     print ('gather your data again. sorry')
     sys.exit()
 
-if ficBrevet.has_key('brevets'):
+if 'brevets' in ficBrevet:
     lstBrevet = ficBrevet['brevets']
 #        if data.has_key('requete'):
 #            DataBrevet['requete'] = data["requete"]
@@ -142,7 +142,7 @@ I1 = len( FreqTrie[FreqTrie['occurrences']==1]) # words of Occurence =1
 rankGoffman  = int(round(np.sqrt(1+8+I1)-1)/2) 
 GoodZone = FreqTrie[rankGoffman:CuttingRight] # non trivial and non noisy terms
 #`olders test with int(round(np.sqrt(1+8+I1)-1/2)) !!!!
-Goffman = range(rankGoffman -5, rankGoffman +5)
+Goffman = list(range(rankGoffman -5, rankGoffman +5))
 Rk, Val,Term = [], [], []
 #GoffmanWords = FreqTrie.values[Goffman]
 
@@ -212,19 +212,19 @@ for thing in GoodZone[rankGoffman-rankGoffman/2:CuttingRight].values:
 ###◘
 #learnig from IPC vocabulary 
 vectorizer = TfidfVectorizer(stop_words=stopwords, use_idf=True, tokenizer=tokenize_only, 
-                             ngram_range=(1,4), vocabulary = DicoMaxiGood.keys())
+                             ngram_range=(1,4), vocabulary = list(DicoMaxiGood.keys()))
 PreX = vectorizer.fit_transform(Contents)           
 km2 = KMeans(n_clusters=num_clusters , init='k-means++', max_iter=100, n_init=1, verbose=True)
 #define vectorizer parameters
 km2.fit(PreX)
 
 
-labels=range(num_clusters)
+labels=list(range(num_clusters))
 Preclusters = km2.labels_.tolist()
  
 terms = vectorizer.get_feature_names()
 
-print ("say enought with 3, 4-gramms", len(DicoMaxiGood.keys()))
+print ("say enought with 3, 4-gramms", len(list(DicoMaxiGood.keys())))
 #selcting document with the msemantic terms
 Precluster_names = dict()
 #X2 = pd.DataFrame.from_dict(Dico2, orient='columns')
@@ -247,9 +247,9 @@ for i in range(num_clusters):
                 Precluster_names [i].append(word )
     Precluster_names [i] = set(Precluster_names [i]) 
 NewClusName2 = dict()
-for ind in Precluster_names.keys():
+for ind in list(Precluster_names.keys()):
     NewClusName2[ind] =[]
-    OderKeys = Precluster_names.keys()
+    OderKeys = list(Precluster_names.keys())
     OderKeys.remove(ind)
     Other = []
     for termes in OderKeys:
@@ -284,7 +284,7 @@ km.fit(X)
 cluster_names = dict()
 print("Clustering sparse data with %s" % km)
 print()
-labels=range(num_clusters)
+labels=list(range(num_clusters))
 print("Top terms per cluster:")
 order_centroids = km.cluster_centers_.argsort()[:, ::-1]
 terms = vectorizer.get_feature_names()
@@ -321,9 +321,9 @@ for i in range(num_clusters):
                 cluster_names [i].append(word )
     cluster_names [i] = set(cluster_names [i]) 
 NewClusName = dict()
-for ind in cluster_names.keys():
+for ind in list(cluster_names.keys()):
     NewClusName[ind] =[]
-    OderKeys = cluster_names.keys()
+    OderKeys = list(cluster_names.keys())
     OderKeys.remove(ind)
     Other = []
     for termes in OderKeys:
@@ -499,7 +499,7 @@ memoLab2=[]#Lab memoriz
 ClickNfo = []
 tempoLab =[]
 tempoFic = []
-Here = os.getcwdu().replace('\\', '//')
+Here = os.getcwd().replace('\\', '//')
 Here = Here.replace('Patent2Net', ResultPathContentAug[ResultPathContentAug.index('DATA'):])+'//'
 
 
@@ -523,7 +523,7 @@ for name, group in groups2:
     points = ax.plot(group.x, group.y, marker='x', linestyle='', ms=10, mew=3, #♀title = 'test1a',
                      mec= 'red',color=cluster_colors[name], alpha=0.9)
     
-    for cle in group.x.keys():
+    for cle in list(group.x.keys()):
         MemoPoints[(group.x[cle], group.y[cle])] =group.title[cle]
     memoFig2.append(points)
     memoLab2.append(NewClusName2[name])
@@ -582,7 +582,7 @@ for ligne in fig.get_axes()[0].lines:
         Urls=[]
         labels =[]
         for point in ligne.get_xydata():
-            if tuple(point) in MemoPoints.keys():
+            if tuple(point) in list(MemoPoints.keys()):
                 Urls.append('file:///'+ Here +Tit2FicName [MemoPoints[tuple(point)]])
                 labels.append(MemoPoints[tuple(point)])
             else:

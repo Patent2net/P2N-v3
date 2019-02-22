@@ -24,15 +24,15 @@ BiblioProperties =  ['applicant', 'application-ref', 'citations', 'classificatio
 "CPC", "prior", "priority-claim", "year", "family-id", "equivalent",
  'inventor-country', 'applicant-country', 'inventor-nice', 'applicant-nice', 'CitP', 'CitO', 'references']
 #from networkx_functs import *
-import cPickle
+import pickle
 
 import os
 import sys
 import epo_ops
 from epo_ops.models import Docdb
 from epo_ops.models import Epodoc
-from P2N_Lib import MakeIram2, LoadBiblioFile
-from P2N_Config import LoadConfig
+from .P2N_Lib import MakeIram2, LoadBiblioFile
+from .P2N_Config import LoadConfig
 
 
 os.environ['REQUESTS_CA_BUNDLE'] = 'cacert.pem'#cacert.pem
@@ -78,7 +78,7 @@ ficOk = False
 
 cptNotFound=0
 def dictCleaner(dico): #same in OpsGatherAugmentFamilies
-    for clef in dico.keys():
+    for clef in list(dico.keys()):
         if isinstance(dico[clef], list) and len(dico[clef]) ==1:
             dico[clef] = dico[clef][0]
         elif isinstance(dico[clef], list) and len(dico[clef]) == 0:
@@ -107,16 +107,16 @@ if IsEnableScript:
             ficBrevet = LoadBiblioFile(ResultBiblioPath, ndf)
 
         else: #Retrocompatibility
-            print 'gather your data again. sorry'
+            print('gather your data again. sorry')
             sys.exit()
 
-        if ficBrevet.has_key('brevets'):
+        if 'brevets' in ficBrevet:
             lstBrevet = ficBrevet['brevets']
     #        if data.has_key('requete'):
     #            DataBrevet['requete'] = data["requete"]
-            print "Found ",typeSrc, ' file and', len(lstBrevet), " patents! Gathering contents"
+            print("Found ",typeSrc, ' file and', len(lstBrevet), " patents! Gathering contents")
         else:
-            print 'gather your data again'
+            print('gather your data again')
             sys.exit()
 
         ops_client = epo_ops.Client(key, secret)
@@ -127,7 +127,7 @@ if IsEnableScript:
 
         RepDir = ResultPathContent
         try:
-            for directory in ['Abstract', 'Claims', u'Description']:
+            for directory in ['Abstract', 'Claims', 'Description']:
                 if directory not in os.listdir(RepDir):
                     os.makedirs(RepDir+"//"+directory)
                 if 'Families'+directory not in os.listdir(RepDir):
@@ -142,12 +142,12 @@ if IsEnableScript:
             Nombre = dict()
             for brevet in lstBrevet:
                 brevet = dictCleaner(brevet)
-                ndb = brevet[u'label']#[u'document-id'][u'country']['$']+brevet[u'document-id'][u'doc-number']['$']brevet['publication-ref'][u'document-id'][0][u'kind']['$'])
-                print "Retrieving ", ndb
+                ndb = brevet['label']#[u'document-id'][u'country']['$']+brevet[u'document-id'][u'doc-number']['$']brevet['publication-ref'][u'document-id'][0][u'kind']['$'])
+                print("Retrieving ", ndb)
         #check for already gathered patents
                 pays = brevet['country']
                 if isinstance(ndb, list):
-                    print ndb, "using first one..."
+                    print(ndb, "using first one...")
                     ndb = ndb[0]
                     for key in ['label', 'country', 'kind']:
                         brevet[key] = list(set(brevet[key])) # hum some problem (again) in cleaning data within the family gatherer... 22/12/15
@@ -155,7 +155,7 @@ if IsEnableScript:
                     pays = pays[0]
                 for content in [typeSrc+'Abstract', typeSrc+'Claims',typeSrc+'Description']:
 
-                    if content not in Nombre.keys():
+                    if content not in list(Nombre.keys()):
                         Nombre [content] = 0
                     try:
                         lstfic = os.listdir(ResultPathContent+'//' + content)
@@ -177,9 +177,9 @@ if IsEnableScript:
                         except Exception as err:
                             CheckDocDB = True
                         if CheckDocDB:
-                            if isinstance(brevet[u'kind'], list):
+                            if isinstance(brevet['kind'], list):
                                 tempoData = []
-                                for cc in brevet[u'kind']:
+                                for cc in brevet['kind']:
                                     temp =('publication', Docdb(ndb[2:],pays, cc)) # hope all comes from same country
                                     try:
                                         tempoData.append(ops_client.published_data(*temp, endpoint = endP))
@@ -196,7 +196,7 @@ if IsEnableScript:
                                             for contenu in ['Claims', 'Description']:
                                                 Langs = MakeIram2(brevet, ndb +'.txt', patentCont, RepDir+ '//'+ typeSrc + contenu+'//', contenu)
                             else:
-                                temp =('publication', Docdb(brevet[u'label'][2:],brevet[u'country'], brevet[u'kind']))
+                                temp =('publication', Docdb(brevet['label'][2:],brevet['country'], brevet['kind']))
                                 try:
                                     data = ops_client.published_data(*temp, endpoint = endP)
                                 except:
@@ -222,7 +222,7 @@ if IsEnableScript:
                                 # Next line is for setting analyses variables for Iramuteq....
 
         else:
-            print "no gather parameter set. Finishing."
+            print("no gather parameter set. Finishing.")
 
 
 

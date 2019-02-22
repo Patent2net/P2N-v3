@@ -8,10 +8,10 @@
 
 import os
 import shutil
-from P2N_Lib import LoadBiblioFile
-from P2N_FreePlaneLib import LoadDescs, nodecolor, Ipc1Text, CalcSizeIpc1
-from P2N_FreePlaneLib import Ipc3Text, CalcSizeIpc3, Ipc4Text, CalcSizeIpc4, Ipc7Text, CalcSizeIpc7, CalcSizeIpc11, Ipc11Text
-from P2N_Config import LoadConfig
+from .P2N_Lib import LoadBiblioFile
+from .P2N_FreePlaneLib import LoadDescs, nodecolor, Ipc1Text, CalcSizeIpc1
+from .P2N_FreePlaneLib import Ipc3Text, CalcSizeIpc3, Ipc4Text, CalcSizeIpc4, Ipc7Text, CalcSizeIpc7, CalcSizeIpc11, Ipc11Text
+from .P2N_Config import LoadConfig
 
 DataBrevets1 = []
 
@@ -57,7 +57,7 @@ if IsEnableScript:
                 DataBrevets1 = LoadBiblioFile(ResultBiblioPath, ndf)
                 BrevetsTotal = str(len(DataBrevets1['brevets']))
         except:
-            print "Error: there are no data to generate de FreePlane file"
+            print("Error: there are no data to generate de FreePlane file")
         # End of Load patent file
         #
 
@@ -193,7 +193,7 @@ if IsEnableScript:
     # Abstracts
                                                                     for q1 in DataBrevets1['brevets']:
                                                                         if q1['IPCR11'].count(nIpc11) != 0:
-                                                                            nodetext = q1['label'] + ": " + unicode(q1['title'], 'utf8', 'replace').replace('"','').replace('& ','AND ').replace('&','')
+                                                                            nodetext = q1['label'] + ": " + str(q1['title'], 'utf8', 'replace').replace('"','').replace('& ','AND ').replace('&','')
                                                                             nameLink = q1['label']
                                                                             try:
                                                                                 fictemp1=open( '..//DATA//'+rep+'//PatentContents//' + prefix + 'Abstract//en-'+q1['label']+'.txt', 'r')
@@ -253,7 +253,7 @@ if IsEnableScript:
 
         fictemp.close()
 
-        print "Mindmap file writen in " + '..//DATA//'+rep
+        print("Mindmap file writen in " + '..//DATA//'+rep)
 
         fictemp=open( '..//DATA//'+rep+'//'+ndf+ 'FP.html', 'w')
 

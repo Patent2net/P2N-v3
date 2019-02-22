@@ -32,12 +32,12 @@ def d3plus_data_brevets(document_list, field):
         if isinstance(country, list):
             for country in country:
                 if country in NomPays.keys(): # patent country in name (ouf)
-                    if cptPay.has_key(NomPays[country]): # has it been found yet?
+                    if NomPays[country] in cptPay.keys(): # has it been found yet?
                         cptPay[NomPays[country]] += 1 # so add one
                     else: # set it instead to one
                         cptPay[NomPays[country]] = 1
                 elif country == 'SU':
-                    if cptPay.has_key('RU'): # has it been found yet?
+                    if "RU" in cptPay.keys(): # has it been found yet?
                         cptPay[NomPays['RU']] += 1 # so add one
                     else: # set it instead to one
                         cptPay[NomPays['RU']] = 1
@@ -46,7 +46,7 @@ def d3plus_data_brevets(document_list, field):
                     logger.info(msg)
 
         elif country in NomPays.keys(): #patent country in name (saved :-)
-            if cptPay.has_key(NomPays[country]): #has it been found yet ?
+            if NomPays[country] in cptPay.keys(): #has it been found yet ?
                 cptPay[NomPays[country]] += 1 #so add one
             else: #set it intead to one
                 cptPay[NomPays[country]] = 1
@@ -184,7 +184,7 @@ def read_name_country_map(filename=None):
         for line in fic.readlines():
 
             # Read line
-            row = line.decode('utf-8').strip().split(';')
+            row = line.strip().split(';') # py3 had to remove .decode('utf-8') here
 
             # Decode row
             longcode = row[0]

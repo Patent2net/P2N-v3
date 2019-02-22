@@ -6,12 +6,12 @@ Created on Fri Dec 19 07:53:30 2014
 """
 import os
 import codecs
-import cPickle
+import pickle
 import bs4
 from xml.sax.saxutils import escape
 
-from P2N_Lib import LoadBiblioFile
-from P2N_Config import LoadConfig
+from .P2N_Lib import LoadBiblioFile
+from .P2N_Config import LoadConfig
 
 configFile = LoadConfig()
 requete = configFile.requete
@@ -60,7 +60,7 @@ def Normalise(listeFic):
                 cpt+=1
             except:
                 pass
-    print cpt, " Abstracts files Names normalized"
+    print(cpt, " Abstracts files Names normalized")
 
 
 def coupeEnMots(texte):
@@ -150,12 +150,12 @@ def complete3(listeFic, lang, det, Brevets):
                             # tempo=tempo.replace('&', '&amp;')
                             if tempo not in dejaVu2:
                                 dejaVu2.append(tempo)
-                                Contenu+=u'<document id="%s">\n' %cmpt
-                                Contenu+=u'<title>%s</title>\n' % escape(titre)
-                                Contenu+=u'<url>%s</url>\n' % url
+                                Contenu+='<document id="%s">\n' %cmpt
+                                Contenu+='<title>%s</title>\n' % escape(titre)
+                                Contenu+='<url>%s</url>\n' % url
 
-                                Contenu+=u'<snippet>%s</snippet>\n' %escape(unicode(tempo))
-                                Contenu+=u"</document>\n"
+                                Contenu+='<snippet>%s</snippet>\n' %escape(str(tempo))
+                                Contenu+="</document>\n"
                         except:
                             #print #bad encoding should be here
                             Ignore+=1
@@ -172,11 +172,11 @@ def complete3(listeFic, lang, det, Brevets):
 
         else:
             Ignore+=1
-    print len(set(resum)), "fichiers "+det+ " à traiter en langage : ", lang
-    print cmpt, " fichiers "+det+ " traités",
+    print(len(set(resum)), "fichiers "+det+ " à traiter en langage : ", lang)
+    print(cmpt, " fichiers "+det+ " traités", end=' ')
     if Ignore >0:
-        print " et ", Ignore, " fichier(s) ignores (non dédoublés)"
-    Contenu += u"</searchresult>"
+        print(" et ", Ignore, " fichier(s) ignores (non dédoublés)")
+    Contenu += "</searchresult>"
 
     return Contenu.lower()
 
@@ -196,7 +196,7 @@ if IsEnableScript:
             DataBrevet = LoadBiblioFile(Bib, ndf)
             LstBrevet = DataBrevet['brevets']
         else: #Retrocompatibility
-            print "please use Comptatibilizer"
+            print("please use Comptatibilizer")
 
         try:
             os.makedirs(Rep+"//Carrot2")

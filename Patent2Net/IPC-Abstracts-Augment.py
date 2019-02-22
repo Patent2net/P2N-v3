@@ -10,8 +10,8 @@ in the patent metadata
 """
 
 from lxml import etree
-from P2N_Lib import LoadBiblioFile, symbole
-from P2N_Config import LoadConfig
+from .P2N_Lib import LoadBiblioFile, symbole
+from .P2N_Config import LoadConfig
 import sys, os
 configFile = LoadConfig()
 requete = configFile.requete
@@ -32,16 +32,16 @@ if 'Description'+ndf or 'Description'+ndf.lower() in os.listdir(ResultBiblioPath
     ficBrevet = LoadBiblioFile(ResultBiblioPath, ndf)
 
 else: #Retrocompatibility
-    print 'gather your data again. sorry'
+    print('gather your data again. sorry')
     sys.exit()
 
-if ficBrevet.has_key('brevets'):
+if 'brevets' in ficBrevet:
     lstBrevet = ficBrevet['brevets']
 #        if data.has_key('requete'):
 #            DataBrevet['requete'] = data["requete"]
-    print "Found  datafile with ", len(lstBrevet), " patents!"
+    print("Found  datafile with ", len(lstBrevet), " patents!")
 else:
-    print 'gather your data again'
+    print('gather your data again')
     sys.exit()
 
 cles =  ['IPCR11', 'CitO', 'dateDate', 'inventor-nice', 'equivalents', 'CitedBy', 'representative', 'Inventor-Country', 'date', 'inventor', 'kind', 'priority-active-indicator', 'applicant-nice', 'IPCR1', 'country', 'IPCR3', 'applicant', 'IPCR4', 'IPCR7', 'title', 'application-ref']
@@ -62,14 +62,14 @@ def ExtractTextFromNode(NodeSchema, IPC):
     ancetre = ancestor[len(ancestor)-1]
     for truc in ancetre.iterchildren():
         if truc.tag == 'textBody':
-            print truc.text
+            print(truc.text)
         elif truc.tag== 'ipcentry':
-            if 'symbol' in truc.keys():
+            if 'symbol' in list(truc.keys()):
                 if truc.attrib['symbol'] == IPC:
-                    print 'textBody'
+                    print('textBody')
         else:
-            print
-        print truc
+            print()
+        print(truc)
     return truc
 
 def GenereListeFichiers(rep):
@@ -102,11 +102,11 @@ def GenereListeFichiers(rep):
 def GetIPCdef(SchemaIPC, IPCR, CacheCIB):
  #   EntreIPCR = [nn for nn in SchemaIPC.iter() if nn.tag=='ipcEntry' if IPCR in nn.values() or ]
  # should crate a single function that insert all  concerned nodes to extract information from
-    EventConcerned =[nn for nn in SchemaIPC.iter() if nn.tag=='ipcEntry' and 'endSymbol' in nn.keys() and 'EN' in nn.values()] 
+    EventConcerned =[nn for nn in SchemaIPC.iter() if nn.tag=='ipcEntry' and 'endSymbol' in list(nn.keys()) and 'EN' in list(nn.values())] 
     #next line works but unused: as far as I could see the notes only concerns CIB readers
     #and do not deliver information on definitions
     Concerned = [nn for nn in EventConcerned if IPCR >= nn.attrib['symbol'] and IPCR < nn.attrib['endSymbol'] ]
-    noeud= [nn for nn in SchemaIPC.iter() if nn.tag=='ipcEntry' and IPCR in nn.values() and 'EN' in nn.values()]
+    noeud= [nn for nn in SchemaIPC.iter() if nn.tag=='ipcEntry' and IPCR in list(nn.values()) and 'EN' in list(nn.values())]
     #noeud should be the node of the IPCR
     tct=[]
     for noe in noeud:
@@ -121,32 +121,32 @@ def GetIPCdef(SchemaIPC, IPCR, CacheCIB):
             pretexte = [truc for truc in node.iterchildren() if truc.tag == 'textBody'] #description
             for machin in pretexte:
                 if machin.tag =='mref':
-                            print "alert machin"
+                            print("alert machin")
                 if machin.tag == 'references' or machin.tag=='entryReference':
-                    print "refs"
+                    print("refs")
                 temporar, temporar2=[], []
                # ExtractTextFromNode(node, IPCR)
                 for tit in machin.iterchildren():   
                     if tit.tag =='mref':
-                            print "alert ti"
+                            print("alert ti")
                     for el in tit.iterchildren():
                         if el.tag =='mref':
-                            print "alert el"
+                            print("alert el")
                         cpt=0
                         app = False
                         for tlepart in el.iterchildren():
                             memo = [tlepart.text, False]
                             if tlepart.tag =='mref':
-                                print "alert titll" 
+                                print("alert titll") 
                             cpt+=1
                             if "reference" in tlepart.tag:
-                                print "alert"
+                                print("alert")
                             if tlepart.tag=='entryReference':
                                 testi = tlepart.getchildren()
                                 cpt = 0
                                 for sub in testi:
                                     if sub.tag=='sref':
-                                        for ref in sub.items():
+                                        for ref in list(sub.items()):
                                             if IPCR.startswith(ref[1]):
                                                 app = True #not sure this isn't useless
                                                 
@@ -173,8 +173,8 @@ def GetIPCdef(SchemaIPC, IPCR, CacheCIB):
                                         if IPCR>sub.attrib['ref'] and IPCR<sub.attrib['endRef']:
                                             if tlepart.text not in temporar and tlepart.text.strip() not in temporar :
                                                 temporar.append(tlepart.text)
-                                            print " Mutltiple refsssss", tlepart.text
-                                            print etree.tostring(tlepart)
+                                            print(" Mutltiple refsssss", tlepart.text)
+                                            print(etree.tostring(tlepart))
                                     else: #  hope nbsp tag are threaten anyway
                                         pass
                                     memo= [sub.tail, False]
@@ -244,12 +244,12 @@ if True:
     #temporar = GenereListeFichiers(Rep)
     content="Abstract"
     lstfic = os.listdir(ResultContentsPath +'//'+content)
-    print "found also ", str(len(lstfic)), " abstracts in english"
+    print("found also ", str(len(lstfic)), " abstracts in english")
 cpt = 0
 for brevet in lstBrevet:
     
     
-    ClassTxt = u''
+    ClassTxt = ''
     cur = "current classif level"
 #    cpt=0 # index of IPC levels
     
@@ -261,7 +261,7 @@ for brevet in lstBrevet:
                 brevet[cur] = [brevet[cur]]
             for cla in brevet[cur]:# may be we should use only primary classification
                 if len(cla) >0 and cla != "empty":
-                    if cla not in CIB.keys():
+                    if cla not in list(CIB.keys()):
                         tempora, CIB = GetIPCdef(IPCtree,symbole(cla), CIB)
                     else:
                         tempora = CIB[cla]
@@ -287,20 +287,20 @@ for brevet in lstBrevet:
                 with codecs.open(contenuFic, 'r', 'utf8') as absFic:
                     data = absFic.read().strip()
                     ClassTxt=ClassTxt.lower()
-                    ficRes.write(data+ u'\n\n'+ClassTxt)
-                    ficRes.write(u'\n')
+                    ficRes.write(data+ '\n\n'+ClassTxt)
+                    ficRes.write('\n')
                     cpt+=1
         with codecs.open(ResultContentsPath +'//CIBDesc//'+fi.replace('.txt','')+'Desc.txt', 'w', 'utf8') as ficDescCib:
                 ficDescCib.write(ClassTxt)
                 ficDescCib.write('\n')  
 with codecs.open(ResultContentsPath +'//ClassementCorpus.txt', 'w', 'utf8') as ficCib:
-    for key in CIB.keys():
+    for key in list(CIB.keys()):
         ficCib.write(key + '\n') #CIB code is noisy for further process
         ficCib.write(CIB[key])
         ficCib.write('\n')               
-print str(cpt) + ' ' + ' abstract and CIB merged' 
-print "Done. use it with whatever you want :-) or IRAMUTEQ. See DATA/"+ResultContentsPath +'//Metrics//*.AumentCIB.txt'  
-print "See also ", ResultContentsPath +'//ClassementCorpus.txt', " for CIB description used"
+print(str(cpt) + ' ' + ' abstract and CIB merged') 
+print("Done. use it with whatever you want :-) or IRAMUTEQ. See DATA/"+ResultContentsPath +'//Metrics//*.AumentCIB.txt')  
+print("See also ", ResultContentsPath +'//ClassementCorpus.txt', " for CIB description used")
   
         
         

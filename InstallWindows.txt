@@ -1,0 +1,5 @@
+Using conda from anaconda3
+create enironnent Python 3.6
+conda install graphviz pygraphviz -c alubbock
+follow then the installation process from the doc :
+python setup.py develop

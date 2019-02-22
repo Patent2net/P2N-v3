@@ -23,7 +23,7 @@ def SafeOpenWriteRequests(FileName, SavReq, TempoForderReq):
         "print should put a request in folder... doing it for you"
     command = 'copy /Y ' +FileName +' ..\\requete.cql'
     os.system(command)
-    print "done saving requete, replaced by", FileName    
+    print("done saving requete, replaced by", FileName)    
 
 
 def RestoreRequests(FileName, SavReq, TempoForderReq):
@@ -32,7 +32,7 @@ def RestoreRequests(FileName, SavReq, TempoForderReq):
     os.system(command)     
     os.remove(TempoForderReq+'\\' + SavReq)
     
-    print "done restoring " , FileName," replacing by previous"   
+    print("done restoring " , FileName," replacing by previous")   
     
 
 if TempoFolderReq not in os.listdir('.'):
@@ -129,6 +129,6 @@ if __name__ == '__main__':
         QueueNets3.map(os.system, traite3)
         os.system('.\\Interface2.exe >> ErrorsLogs\\' + req.replace('.cql','')+NetProc[0] +net+'.log') # last program
 #    for req in lstReq:
-        print req, " processed"
+        print(req, " processed")
         
 #

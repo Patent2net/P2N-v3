@@ -8,10 +8,10 @@ Created on Sat Dec 27 12:05:05 2014
 import json
 import os
 import sys
-import cPickle as pickle
+import pickle as pickle
 #import bs4
-from P2N_Lib import UrlInventorBuild, UrlApplicantBuild, UrlIPCRBuild, UrlPatent, LoadBiblioFile, RenderTemplate
-from P2N_Config import LoadConfig
+from .P2N_Lib import UrlInventorBuild, UrlApplicantBuild, UrlIPCRBuild, UrlPatent, LoadBiblioFile, RenderTemplate
+from .P2N_Config import LoadConfig
 
 import datetime
 aujourd = datetime.date.today()
@@ -37,19 +37,19 @@ if IsEnableScript and GatherFamilly:
     clesRef = ['label', 'title', 'year','priority-active-indicator',
     'prior-Date', #'prior-dateDate', # dates of priority claims
     'IPCR11', 'kind', 'applicant', 'country', 'inventor', 'representative', 'IPCR4',
-    'IPCR7', "Inventor-Country", "Applicant-Country", "equivalents", "CPC", u'references', u'CitedBy', 'prior', 'family lenght', 'CitO', 'CitP']
+    'IPCR7', "Inventor-Country", "Applicant-Country", "equivalents", "CPC", 'references', 'CitedBy', 'prior', 'family lenght', 'CitO', 'CitP']
 
-    print "\n> Hi! This is DataTable Families formater", ndf
+    print("\n> Hi! This is DataTable Families formater", ndf)
     if 'Description'+ndf in os.listdir(ListBiblioPath):
         with open(ListBiblioPath+'//'+ndf, 'r') as data:
             dico = LoadBiblioFile(ListBiblioPath, ndf)
     else: #Retrocompatibility
-        print "please use Comptatibilizer"
+        print("please use Comptatibilizer")
         sys.exit()
     LstBrevet = dico['brevets']
-    if dico.has_key('requete'):
+    if 'requete' in dico:
         requete = dico["requete"]
-        print "Using ", ndf," file. Found ", len(dico["brevets"]), " patents! Formating to HMTL tables"
+        print("Using ", ndf," file. Found ", len(dico["brevets"]), " patents! Formating to HMTL tables")
 
     LstExp = []
     LstExp2 = []
@@ -66,9 +66,9 @@ if IsEnableScript and GatherFamilly:
     #    tempo = CleanPatent(brev)
     #    brevet= SeparateCountryField(tempo)
         #cleaning classification
-        for key in brev.keys():
+        for key in list(brev.keys()):
             if isinstance (brev[key], list):
-                brev[key] = filter(None, brev[key])  #hum this should be done at the gathering processes
+                brev[key] = [_f for _f in brev[key] if _f]  #hum this should be done at the gathering processes
                 if "NEANT" in brev[key]:
                     for nb in range(brev[key].count('NEANT')):
                             brev[key].remove('NEANT')
@@ -103,13 +103,13 @@ if IsEnableScript and GatherFamilly:
                     elif isinstance(brev[key], list) and len(brev[key]) == 1:
                         tempo[key] = brev[key][0].title().strip()
                     elif isinstance(brev[key], list) and len(brev[key]) == 0:
-                        tempo[key] = u''
+                        tempo[key] = ''
                     else:
                         tempo[key] = brev[key].title().strip()
 
                 elif key =='title':
                     if isinstance(brev[key], list):
-                        tempo[key] = unicode(brev[key]).capitalize().strip()
+                        tempo[key] = str(brev[key]).capitalize().strip()
                     else:
                         tempo[key] = brev[key].capitalize().strip()
                 elif isinstance(brev[key], list) and key=='references':
@@ -129,30 +129,30 @@ if IsEnableScript and GatherFamilly:
                         try:
                             tempo[key] = ', '.join(brev[key])
                         except:
-                            print "pas youp ", key, brev[key]
+                            print("pas youp ", key, brev[key])
                     elif isinstance(brev[key], list) and len(brev[key]) == 1:
                         if brev[key][0] is not None:
                             tempo[key] = brev[key][0]
                         else:
-                            tempo[key] = u''
+                            tempo[key] = ''
                     elif brev[key] is None:
-                        tempo[key] = u''
+                        tempo[key] = ''
                     else:
                         tempo[key] = brev[key]
             else:
-                tempo[key] = u''
+                tempo[key] = ''
     #   tempo[url]
 
         tempo['inventor-url'] = UrlInventorBuild(brev['inventor'])
-        tempo[u'applicant-url']= UrlApplicantBuild(brev['applicant'])
+        tempo['applicant-url']= UrlApplicantBuild(brev['applicant'])
         for nb in [1, 3, 4, 7, 11]:
-            tempo[u'IPCR'+str(nb)+'-url']= UrlIPCRBuild(brev['IPCR'+str(nb)])
+            tempo['IPCR'+str(nb)+'-url']= UrlIPCRBuild(brev['IPCR'+str(nb)])
 
         tempo['equivalents-url'] =  [UrlPatent(lab) for lab in brev['equivalents']]
         tempo['label-url'] = UrlPatent(brev['label'])
         LstExp.append(tempo)
-        if 'references' not in tempo.keys():
-            print
+        if 'references' not in list(tempo.keys()):
+            print()
     #    filtering against keys in clesRefs2 for pivottable
     #    tempo2=dict()
     #    clesRef2 = ['label', 'year',  'priority-active-indicator', 'kind', 'applicant', 'country', 'inventor',  'IPCR4', 'IPCR7', "Inventor-Country", "Applicant-Country", 'Citations', u'references', 'CitedBy', ] #'citations','representative',
@@ -165,7 +165,7 @@ if IsEnableScript and GatherFamilly:
     #            tempo2[ket] = brev[ket]
 
     Exclude = []
-    print "entering formating html process"
+    print("entering formating html process")
     dicoRes = dict()
     dicoRes['data'] = LstExp
     contenu = json.dumps(dicoRes, indent = 3) #ensure_ascii=True,
