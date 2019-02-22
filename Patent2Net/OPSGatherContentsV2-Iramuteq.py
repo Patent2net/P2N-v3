@@ -24,7 +24,7 @@ BiblioProperties =  ['applicant', 'application-ref', 'citations', 'classificatio
 "CPC", "prior", "priority-claim", "year", "family-id", "equivalent",
  'inventor-country', 'applicant-country', 'inventor-nice', 'applicant-nice', 'CitP', 'CitO', 'references']
 #from networkx_functs import *
-import pickle
+#import pickle
 
 import os
 import sys

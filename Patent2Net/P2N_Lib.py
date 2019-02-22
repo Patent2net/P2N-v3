@@ -2164,7 +2164,8 @@ def GatherPatentsData(brevet, client, ContentsPath, AbstractsPath, PatIgnored, B
                 lstCitants, nbCitants = PatentCitersSearch(client, request)
                 tempoPat['CitedBy'] = lstCitants
                 tempoPat['Citations'] = nbCitants
-#                MakeIram(tempoPat, ndb, patentBib, AbstractsPath)
+                #store the abstract in IramuTeq format
+                MakeIram(tempoPat, ndb, patentBib, AbstractsPath)
                 BP[len(BP) - 1] = tempoPat
                 return BP
 
@@ -2256,7 +2257,7 @@ def byteify(input):
 def LoadBiblioFile(rep, name):
     # new       12/12/05
     import pickle
-    import codecs
+
     DataBrevets = dict()
     DataBrevets['brevets'] = []
     if "Description" + name in os.listdir(rep):
@@ -2646,7 +2647,7 @@ def GetFamilly(client, brev, rep):
 
 
 def EcritContenu(contenu, fic):
-    with open(fic, 'w') as ficW:
+    with open(fic, 'wb') as ficW:
         ficW.write(contenu.encode('utf8'))
         return 'OK'
 

@@ -11,8 +11,8 @@ import collections
 import pickle
 import sys
 import codecs
-from .P2N_Lib import DecoupeOnTheFly, LoadBiblioFile, RenderTemplate # UnNest3#, UrlInventorBuild, UrlApplicantBuild
-from .P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import DecoupeOnTheFly, LoadBiblioFile, RenderTemplate # UnNest3#, UrlInventorBuild, UrlApplicantBuild
+from Patent2Net.P2N_Config import LoadConfig
 
 import datetime
 aujourd = datetime.date.today()

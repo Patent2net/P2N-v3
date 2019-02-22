@@ -16,8 +16,8 @@ import p2n.storage
 import p2n.formatter.maps
 from p2n.config import label_from_prefix
 from p2n.util import boot_logging
-from .P2N_Config import LoadConfig
-from .P2N_Lib import RenderTemplate
+from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import RenderTemplate
 
 logger_name = os.path.basename(__file__).replace('FormateExport', '').replace('.py', '')
 logger = logging.getLogger(logger_name)

@@ -10,8 +10,8 @@ in the patent metadata
 """
 
 from lxml import etree
-from .P2N_Lib import LoadBiblioFile, symbole
-from .P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import LoadBiblioFile, symbole
+from Patent2Net.P2N_Config import LoadConfig
 import sys, os
 configFile = LoadConfig()
 requete = configFile.requete
@@ -50,7 +50,7 @@ classe = ['IPCR1',  'IPCR3', 'IPCR4', 'IPCR7','IPCR11']
 classe.reverse()
 
 
-with open('ipcr_2015.xml', 'r') as fic:
+with open('ipcr_2015.xml', 'rb') as fic:
 
     xml = fic.read()
 IPCtree = etree.fromstring(xml)

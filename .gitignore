@@ -6,6 +6,7 @@ __pycache__/
 #Special P2N
 Cles-epo.txt
 cles-epo.txt
+DATA/
 
 # C extensions
 *.so

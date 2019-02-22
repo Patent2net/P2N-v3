@@ -8,10 +8,10 @@ OPSGather-BiblioPatent), the script will proceed a check for each patent
 if it is orphan or has a family. In the last case, family patents are added to
 the initial list (may be some are already in it), and a hierarchic within
 the priority patent (selected as the oldest representative) and its brothers is created.
-V2:
-#applications filling uncomplete are ignored
+
+#uncomplete applications filling are   ignored
 added citing field separating Patent citations ['CitP'] and External citations ['CitO']
-#unconsistent with OPSGatherPatents...
+
 
 12/12/15: file is update to get success in loading bibliofile. BUT, data is stored as a pickle file of the whole data patent set, not
 like in OPSGatherV2 witch is separated: one file for patents(append on file dump), the other for the description witch is much better
@@ -24,9 +24,9 @@ Amy be unconsistent with pivotable formating... (almost)
 #from networkx_functs import *
 import pickle
 #from Ops2 import ExtraitParties, Clean, ExtraitTitleEn, ExtraitKind, ExtraitCountry, ExtraitIPCR2, ExtractionDate
-from .P2N_Lib import Update, GetFamilly, flatten
-from .P2N_Lib import LoadBiblioFile
-from .P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import Update, GetFamilly, flatten
+from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Config import LoadConfig
 from p2n.config import OPSCredentials
 
 import epo_ops
@@ -227,13 +227,13 @@ if GatherFamilly:
                                   # remove previous
                                ListeBrevetAug.append(tempoBre) # save new
 
-                               with open(ResultPath+'//Families'+ ndf, 'a') as ndfLstBrev:
+                               with open(ResultPath+'//Families'+ ndf, 'ab') as ndfLstBrev:
                                    for bre in ListeBrevetAug:
                                        pickle.dump(bre , ndfLstBrev)
                             else:
                                 DejaVu.append(pat['label'])
                                 ListeBrevetAug.append(dictCleaner(pat))
-                                with open(ResultPath+'//Families'+ ndf, 'a') as ndfLstBrev:
+                                with open(ResultPath+'//Families'+ ndf, 'ab') as ndfLstBrev:
                                     pickle.dump(pat , ndfLstBrev)
                         else:
                             # hum it is already in so, nothing to do
@@ -295,12 +295,12 @@ if GatherFamilly:
 
             Done.append(Brev)
             Data = dict()
-            with open(ResultPath+'//DescriptionFamilies'+ ndf, 'w') as ndfLstBrev:
+            with open(ResultPath+'//DescriptionFamilies'+ ndf, 'wb') as ndfLstBrev:
                 Data['ficBrevets'] = 'Families'+ ndf
                 Data['number'] = len(ListeBrevetAug)
                 Data['requete'] = "Families of: " + requete
                 pickle.dump(Data, ndfLstBrev)
-            with open(temporPath+'//DoneTempo'+ ndf, 'w') as DoneLstBrev:
+            with open(temporPath+'//DoneTempo'+ ndf, 'wb') as DoneLstBrev:
                 pickle.dump(Done, DoneLstBrev)
 
 
@@ -309,7 +309,7 @@ if GatherFamilly:
     print("now", len(ListeBrevetAug))
     #####
     Data = dict()
-    with open(ResultPath+'//DescriptionFamilies'+ ndf, 'w') as ficRes:
+    with open(ResultPath+'//DescriptionFamilies'+ ndf, 'wb') as ficRes:
         Data['ficBrevets'] = 'Families'+ ndf
         Data['number'] = len(ListeBrevetAug)
         Data['requete'] = "Families of: " + requete
