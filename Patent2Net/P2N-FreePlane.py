@@ -8,10 +8,10 @@
 
 import os
 import shutil
-from .P2N_Lib import LoadBiblioFile
-from .P2N_FreePlaneLib import LoadDescs, nodecolor, Ipc1Text, CalcSizeIpc1
-from .P2N_FreePlaneLib import Ipc3Text, CalcSizeIpc3, Ipc4Text, CalcSizeIpc4, Ipc7Text, CalcSizeIpc7, CalcSizeIpc11, Ipc11Text
-from .P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_FreePlaneLib import LoadDescs, nodecolor, Ipc1Text, CalcSizeIpc1
+from Patent2Net.P2N_FreePlaneLib import Ipc3Text, CalcSizeIpc3, Ipc4Text, CalcSizeIpc4, Ipc7Text, CalcSizeIpc7, CalcSizeIpc11, Ipc11Text
+from Patent2Net.P2N_Config import LoadConfig
 
 DataBrevets1 = []
 
@@ -193,7 +193,8 @@ if IsEnableScript:
     # Abstracts
                                                                     for q1 in DataBrevets1['brevets']:
                                                                         if q1['IPCR11'].count(nIpc11) != 0:
-                                                                            nodetext = q1['label'] + ": " + str(q1['title'], 'utf8', 'replace').replace('"','').replace('& ','AND ').replace('&','')
+                                                                            # I had to remove this from str(q1['title'], 'utf8', 'replace'
+                                                                            nodetext = q1['label'] + ": " + str(q1['title']).replace('"','').replace('& ','AND ').replace('&','')
                                                                             nameLink = q1['label']
                                                                             try:
                                                                                 fictemp1=open( '..//DATA//'+rep+'//PatentContents//' + prefix + 'Abstract//en-'+q1['label']+'.txt', 'r')
