@@ -6,8 +6,8 @@ import epo_ops
 import json
 import pickle
 from epo_ops.models import Epodoc
-from .P2N_Lib import LoadBiblioFile
-from .P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Config import LoadConfig
 import traceback
 
 
@@ -39,17 +39,20 @@ def extract_meta_json_images(js):
 def get_images_meta(ops_client, patent_label, path_json):
     # Try to retrieve JSON meta info from local, otherwise get online from OPS
     try:
-        return json.load(file(path_json))
+        with open (path_json, 'r') as fic:
+            return json.load(fic)
     except:
         try:
             ans = ops_client.published_data(reference_type='publication',
                                             input=Epodoc(patent_label), endpoint='images')
-            file(path_json, 'w').write(ans.content)
+            with open (path_json, 'wb') as fic:    
+                fic.write(ans.content)
             return ans.json()
         except Exception as err:
             print("...Image meta for {} error".format(patent_label), err)
             if hasattr(err, 'response') and err.response.status_code == 404:
-                file(path_json, 'w').write('{}')
+                with open (path_json, 'wb') as fic:
+                    fic.write('{}')
     return None
 
 
@@ -84,13 +87,15 @@ def get_images_files(ops_client, path_image, link, page_start, num_pages):
         if not os.path.exists(path_img):
             print('... Retrieving img page {} of {}'.format(page, (page_start + num_pages - 1)))
             resp = ops_client.image(link, range=page)
-            file(path_img, 'wb').write(resp.content)
+            with open (path_img, 'wb') as fic:    
+                fic.write(resp.content)
         pathes.append(path_img)
     return pathes
 
 
 def save_array_data(images_path, obj):
-    pickle.dump(obj, file(os.path.join(images_path, 'image_data'), 'w'))
+    with open (os.path.join(images_path, 'image_data'), 'wb') as fic: 
+        pickle.dump(obj, fic)
 
 
 os.environ['REQUESTS_CA_BUNDLE'] = 'cacert.pem'  # cacert.pem
@@ -101,10 +106,10 @@ global secret
 
 # put your credential from epo client in this file...
 # chargement clés de client
-fic = open('../cles-epo.txt', 'r')
-key, secret = fic.read().split(',')
+fic2 = open('../cles-epo.txt', 'r')
+key, secret = fic2.read().split(',')
 key, secret = key.strip(), secret.strip()
-fic.close()
+fic2.close()
 
 configFile = LoadConfig()
 IsEnableScript = configFile.GatherImages
