@@ -3,6 +3,9 @@
 Created on Tue Avr 1 13:41:21 2014
 This script will extract the data from biblio file and prepare them for each net.
 Parameter of the script specifies the targeted net. Ouputs a graph file.
+
+This file is broken in version 3 !!!
+21/02/2019
 @author: dreymond
 """
 import networkx as nx
@@ -21,11 +24,11 @@ from collections import OrderedDict
 #from networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
 import pickle
 import copy
-from .P2N_Lib import flatten, DecoupeOnTheFly, LoadBiblioFile, UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize
+from Patent2Net.P2N_Lib import flatten, DecoupeOnTheFly, LoadBiblioFile, UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize
 #from P2N_Lib import getStatus2, getClassif,getCitations, getFamilyLenght, isMaj, quote, GenereDateLiens
 #from P2N_Lib import  symbole, ReturnBoolean, FormateGephi, GenereListeSansDate, GenereReseaux3, cmap_discretize
 #from Ops3 import UnNest2List
-from .P2N_Config import LoadConfig
+from Patent2Net.P2N_Config import LoadConfig
 
 Nets = ["CountryCrossTech", "CrossTech", "InventorsCrossTech", "Applicants_CrossTech", "Inventors",
  "ApplicantInventor", "Applicants", "References", "Citations", "Equivalents"]
@@ -88,12 +91,14 @@ def Cleaning(texte): # this is for graphviz. Maybe an ascii converter would be o
     #    tempo = tempo.replace('&', '')
     #    tempo = tempo.replace("'", "")
     #    tempo = tempo.replace('"', "")
-        import curses.ascii
-        try:
-            tutu = [car for car in tempo.encode('ascii', 'ignore') if curses.ascii.isalnum(car) or curses.ascii.isblank(car)]
-        except:
-            tutu = ''  # damn unicode
-        tempo = ''.join(tutu)
+    #PY 3... something goes wrong with the code bellow
+    # commenting and seeing what appens
+#        import curses.ascii
+#        try:
+#            tutu = [car for car in tempo.encode('ascii', 'ignore') if curses.ascii.isalnum(car) or curses.ascii.isblank(car)]
+#        except:
+#            tutu = ''  # damn unicode
+#        tempo = ''.join(tutu)
         if tempo != '':
             return tempo.strip()
         else:
@@ -221,6 +226,8 @@ for prefix in prefixes:
                                 couple =  [Cleaning(temp[ind][0]), Cleaning(temp[ind+1][0])]
                                 if couple[0] is not None and couple[1] is not None:
                                     appars.append((couple,Dates))
+                                else:
+                                    print(couple)
 
                 for noeud, cat in temp:
                     if noeud is not None and noeud != '' and noeud.lower() != 'empty':
@@ -364,13 +371,25 @@ for prefix in prefixes:
 
 
 
-                        G1.add_node(indSRC, attr_dict={'label':Nodes[source]['label'], 'category':Nodes[source]['category']})
-                        G1.add_node(indTGT, attr_dict={'label':Nodes[target]['label'], 'category':Nodes[target]['category']})
+                        G1.add_node(indSRC)
+                        #nx.set_node_attributes(G1[indSRC],, 'label')
+                        G1.nodes [indSRC]['label'] =  Nodes[source]['label']
+                        #nx.set_node_attributes(G1[indSRC], Nodes[source]['category'], 'category')
+                        G1.nodes[indSRC]['category'] = Nodes[source]['category']
+                        #G1.add_node(indTGT, attr_dict={'label':Nodes[target]['label'], 'category':Nodes[target]['category']})
+                        
+                        G1.add_node(indTGT)
+                        G1.nodes [indTGT]['label'] =  Nodes[target]['label']
+                        #nx.set_node_attributes(G1[indSRC], Nodes[source]['category'], 'category')
+                        G1.nodes [indTGT]['category'] = Nodes[target]['category']
+#                        nx.set_node_attributes(G1[indTGT], Nodes[target]['label'], 'label')
+#                        nx.set_node_attributes(G1[indTGT], Nodes[target]['category'], 'category')
+
                         if Nodes[target]['category'] == 'CitedBy':
-                            G1.add_edge(indTGT, indSRC, attr_dict= WeightDyn[(indSRC, indTGT)])# reverse link for citind the patent
+                            G1.add_edge(indTGT, indSRC, key='CitedBy', new_attr=WeightDyn[(indSRC, indTGT)])# reverse link for citind the patent
 
                         else:
-                            G1.add_edge(indSRC, indTGT, attr_dict= WeightDyn[(indSRC, indTGT)])#
+                            G1.add_edge(indSRC, indTGT, key='CitedBy', new_attr=WeightDyn[(indSRC, indTGT)])#
             #                G2.add_edge(indSRC, indTGT, attr_dict)
     #
                 #print
@@ -384,12 +403,12 @@ for prefix in prefixes:
             AtribDyn[noeud]['end']= AtribDynLab[noeud]['label']['end']
             AtribDyn[noeud]['label']= AtribDynLab[noeud]['label']['label']
        #     Atrib[noeud] = AtribDynLab[noeud]['label']['label']
-        nx.set_node_attributes(G1, 'id' , AtribDyn)
+        nx.set_node_attributes(G1, dict(AtribDyn), 'id')
 
         Atrib = dict()
         for noeud in list(AtribDynLab.keys()): # ?????????
-            AtribDyn[noeud] = AtribDynLab[noeud]['weight']
+            Atrib[noeud] = AtribDynLab[noeud]['weight']
             Atrib [noeud] = AtribDynLab[noeud]['weight']['value']
-        nx.set_node_attributes(G1,  'weight', AtribDyn)
+        nx.set_node_attributes(G1,  Atrib, 'weight')
 
         nx.write_gpickle(G1, temporPath+'/'+network+prefix)

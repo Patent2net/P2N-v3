@@ -21,11 +21,11 @@ from collections import OrderedDict
 #from networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
 import pickle as pickle
 import copy
-from .P2N_Lib import UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize, flatten, DecoupeOnTheFly
+from Patent2Net.P2N_Lib import UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize, flatten, DecoupeOnTheFly
 #from P2N_Lib import getStatus2, getClassif,getCitations, getFamilyLenght, isMaj, quote, GenereDateLiens
 #from P2N_Lib import  symbole, ReturnBoolean, FormateGephi, GenereListeSansDate, GenereReseaux3, cmap_discretize
 #from Ops3 import UnNest2List
-from .P2N_Config import LoadConfig
+from Patent2Net.P2N_Config import LoadConfig
 
 Nets = ["CountryCrossTech", "CrossTech", "InventorsCrossTech", "Applicants_CrossTech", "Inventors",
  "ApplicantInventor", "Applicants", "References", "Citations", "Equivalents"]
@@ -110,7 +110,7 @@ for prefix in prefixes:
 
         pos = nx.spring_layout( G, dim=3,  scale =10, iterations = 100)
         factx, facty = 1, 1 # neatto
-        tutu = [int(G.node[tt]['weight']['value']) for tt in G.nodes()]
+        tutu = [int(G.node[tt]['weight']) for tt in G.nodes()]
         if len(tutu)>0:
             Maxdegs = max(tutu)
         else:
@@ -298,8 +298,8 @@ for prefix in prefixes:
 
                     lig = lig.replace('id="{', '')
                     lig = lig.replace("'id': ", 'id="')
-                    ind1 = lig.index(", 'label'")
-                    ind2 = lig[ind1:].index(" label")+ind1
+                    ind1 = lig.index(", 'label")
+                    ind2 = lig[ind1:].index(" label=")+ind1
                     memo = lig[ind1:ind2]
                     lig = lig.replace(memo, '"')
     #                if lig.count('attvalue')>0 and lig.count('for="1"')>0:
