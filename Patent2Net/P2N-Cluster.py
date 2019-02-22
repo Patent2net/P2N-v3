@@ -16,9 +16,9 @@ from sklearn.manifold import MDS
 from sklearn.cluster import KMeans
 from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import stopwords as nltkSW
-from .TAL_P2N_Lib import tokenize_only, tokenize_and_stem
-from .P2N_Lib import LoadBiblioFile
-from .P2N_Config import LoadConfig
+from Patent2Net.TAL_P2N_Lib import tokenize_only, tokenize_and_stem
+from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Config import LoadConfig
 
 from collections import OrderedDict
 
