@@ -20,14 +20,14 @@ from urllib.parse import quote as quot
 import numpy as np
 import matplotlib.cm
 from collections import OrderedDict
-from .networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
+from networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
 import pickle as pickle
 import copy
-from .P2N_Lib import UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize, flatten, DecoupeOnTheFly, RenderTemplate
+from P2N_Lib import UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize, flatten, DecoupeOnTheFly, RenderTemplate
 #from P2N_Lib import getStatus2, getClassif,getCitations, getFamilyLenght, isMaj, quote, GenereDateLiens
 #from P2N_Lib import  symbole, ReturnBoolean, FormateGephi, GenereListeSansDate, GenereReseaux3, cmap_discretize
 #from Ops3 import UnNest2List
-from .P2N_Config import LoadConfig
+from P2N_Config import LoadConfig
 
 #read running mode
 #screen size of JS windows (from Gexf-JS, should be 800x600)

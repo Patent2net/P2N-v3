@@ -107,8 +107,8 @@ for prefix in prefixes:
         count = -1
 
 
-
-        pos = nx.spring_layout( G, dim=3,  scale =10, iterations = 100)
+        nx.spring_layout()
+        pos = nx.spring_layout( G, dim=2,  scale =10, iterations = 100)
         factx, facty = 1, 1 # neatto
         tutu = [int(G.node[tt]['weight']) for tt in G.nodes()]
         if len(tutu)>0:
@@ -255,92 +255,93 @@ for prefix in prefixes:
         except:
             pass
         nx.write_gexf(G, ResultGephiPath+'/'+outputFile, version='1.2draft')
-        fic = open(ResultGephiPath+'/'+outputFile, 'r')
+       # fic = open(ResultGephiPath+'/'+outputFile, 'r')
 
         # Next is a hack to correct the bad writing of the header of the gexf file
         # with dynamics properties
-        fictemp=open(ResultGephiPath+'/'+"Good"+outputFile, 'w')
-        fictemp.write("""<?xml version="1.0" encoding="utf-8"?><gexf version="1.2" xmlns="http://www.gexf.net/1.2draft" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd">
-      <graph defaultedgetype="directed" mode="dynamic" timeformat="date">
-      <attributes class="node" mode="static">
-      <attribute id="0" title="category" type="string" />
-       <attribute id="2" title="url" type="string" />
-       </attributes>
-    	<attributes class="node" mode="dynamic">
-    		<attribute id="1" title="weight" type="integer" />
-    	</attributes>
-    	<attributes class="edge" mode="static">
-    		<attribute id="3" title="weight" type="integer" />
-    	</attributes>
-    	<attributes class="edge" mode="dynamic">
-    	</attributes>
-
-         """)
-
-        ecrit  =False
-        data = fic.read()
-        # VERY VERY VERY UGLY Hack here !!!!
-        data = data.replace('ns0:', 'viz:') # may be someone knows how to set namespace in networkx...
-        data = data.replace('a="None"', '') # may be someone knows why network set the "a" attribute...
-
-        data = data.replace('value="{', '')
-        data = data.replace("'start': ", "start=")
-        data = data.replace("'end': ", "end=")
-        data = data.replace("'value': ", 'value=')
-        data = data.replace("',", "'")
-        data = data.replace("}", "")
-        for lig in data.split('\n'): # in french we call that bricolage...
-        # mistakes have been done in data associations... bugssssss
-            if lig.count('<nodes>'):
-                ecrit = True
-            if ecrit:
-                if lig.count('<node ')>0:
-
-                    lig = lig.replace('id="{', '')
-                    lig = lig.replace("'id': ", 'id="')
-                    ind1 = lig.index(", 'label")
-                    ind2 = lig[ind1:].index(" label=")+ind1
-                    memo = lig[ind1:ind2]
-                    lig = lig.replace(memo, '"')
-    #                if lig.count('attvalue')>0 and lig.count('for="1"')>0:
-    #                    lig = lig.replace('" />', " />")
-                if lig.count('<edge')>0 and lig.count('<edges>')==0:
-                    ind1 = lig.index('start=')
-                    ind2 = lig[ind1:].index(" 'id': ")+ind1
-                    memo = lig[ind1:ind2]
-                    lig = lig.replace(lig[ind1:ind2+7], '')
-                    lig = lig.replace('target="{', 'target="')
-                    lig = lig.replace('source="{', 'source="')
-
-                    ind = lig.index(", 'label")
-                    ind2 = lig[ind:].index('target') + ind
-                    lig = lig.replace(lig[ind:ind2], '" ')
-                    ind = lig.index(", 'label")
-                    ind2 = lig[ind:].index('">') + ind+2
-                    lig = lig.replace(lig[ind:ind2], '" '+ memo +' >')
-                    if lig.count('start') ==2:
-                        ind= lig.index('target')
-                        ind2= lig[ind+14:].index(": ")
-                        lig = lig.replace(lig[ind: 14+len(lig[:ind])+ind2+2], 'target="')
-                if lig.count('attvalue')>0 and lig.count('for="1"')>0:
-                    lig = lig.replace("""'\" />""", "' />")
-    #                    lig = lig.replace("'id': ", 'source="', 1)
-    #                    lig = lig.replace("id': ", 'target="',1)
-    #                    ind1 = lig.index("end='")
-    #                    ind2 = lig.index("source")
-    #                    lig = lig.replace(lig[ind1:ind2], '')
-    #                    lig = lig.replace("'", '"')
-                fictemp.write(lig+'\n')
-        fictemp.close()
-        fic.close()
-
-        try:
-            try:
-                os.remove(ResultGephiPath+'/'+outputFile)
-            except:
-                pass
-            os.rename(ResultGephiPath+'/'+"Good"+outputFile, ResultGephiPath+'/'+outputFile)
-            print("Dynamic Gexf network file writen into ",  ResultGephiPath+' directory.\n See file: '+outputFile)
-            os.remove(ResultGephiPath+'/Good'+outputFile)
-        except:
-            pass
+#        fictemp=open(ResultGephiPath+'/'+"Good"+outputFile, 'w')
+#        fictemp.write("""<?xml version="1.0" encoding="utf-8"?><gexf version="1.2" xmlns="http://www.gexf.net/1.2draft" xmlns:viz="http://www.gexf.net/1.2draft/viz" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.w3.org/2001/XMLSchema-instance http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd">
+#      <graph defaultedgetype="directed" mode="dynamic" timeformat="date">
+#      <attributes class="node" mode="static">
+#      <attribute id="0" title="category" type="string" />
+#       <attribute id="2" title="url" type="string" />
+#       </attributes>
+#    	<attributes class="node" mode="dynamic">
+#    		<attribute id="1" title="weight" type="integer" />
+#    	</attributes>
+#    	<attributes class="edge" mode="static">
+#    		<attribute id="3" title="weight" type="integer" />
+#    	</attributes>
+#    	<attributes class="edge" mode="dynamic">
+#    	</attributes>
+#
+#         """)
+#
+#        ecrit  =False
+#        data = fic.read()
+#        # VERY VERY VERY UGLY Hack here !!!!
+#        data = data.replace('ns0:', 'viz:') # may be someone knows how to set namespace in networkx...
+#        data = data.replace('a="None"', '') # may be someone knows why network set the "a" attribute...
+#
+#        data = data.replace('value="{', '')
+#        data = data.replace("'start': ", "start=")
+#        data = data.replace("'end': ", "end=")
+#        data = data.replace("'value': ", 'value=')
+#        data = data.replace("',", "'")
+#        data = data.replace("}", "")
+#        for lig in data.split('\n'): # in french we call that bricolage...
+#        # mistakes have been done in data associations... bugssssss
+#            if lig.count('<nodes>'):
+#                ecrit = True
+#            if ecrit:
+#                if lig.count('<node ')>0:
+#
+#                    lig = lig.replace('id="{', '')
+#                    lig = lig.replace("'id': ", 'id="')
+#                    lig = lig.replace(', ','", ')
+#                    ind1 = lig.index(", 'label")
+#                    ind2 = lig[ind1:].index(" label=")+ind1
+#                    memo = lig[ind1:ind2]
+#                    lig = lig.replace(memo, '"')
+#    #                if lig.count('attvalue')>0 and lig.count('for="1"')>0:
+#    #                    lig = lig.replace('" />', " />")
+#                if lig.count('<edge')>0 and lig.count('<edges>')==0:
+#                    ind1 = lig.index('start=')
+#                    ind2 = lig[ind1:].index(" 'id': ")+ind1
+#                    memo = lig[ind1:ind2]
+#                    lig = lig.replace(lig[ind1:ind2+7], '')
+#                    lig = lig.replace('target="{', 'target="')
+#                    lig = lig.replace('source="{', 'source="')
+#
+#                    ind = lig.index(", 'label")
+#                    ind2 = lig[ind:].index('target') + ind
+#                    lig = lig.replace(lig[ind:ind2], '" ')
+#                    ind = lig.index(", 'label")
+#                    ind2 = lig[ind:].index('">') + ind+2
+#                    lig = lig.replace(lig[ind:ind2], '" '+ memo +' >')
+#                    if lig.count('start') ==2:
+#                        ind= lig.index('target')
+#                        ind2= lig[ind+14:].index(": ")
+#                        lig = lig.replace(lig[ind: 14+len(lig[:ind])+ind2+2], 'target="')
+#                if lig.count('attvalue')>0 and lig.count('for="1"')>0:
+#                    lig = lig.replace("""'\" />""", "' />")
+#    #                    lig = lig.replace("'id': ", 'source="', 1)
+#    #                    lig = lig.replace("id': ", 'target="',1)
+#    #                    ind1 = lig.index("end='")
+#    #                    ind2 = lig.index("source")
+#    #                    lig = lig.replace(lig[ind1:ind2], '')
+#    #                    lig = lig.replace("'", '"')
+#                fictemp.write(lig+'\n')
+#        fictemp.close()
+#        fic.close()
+#
+#        try:
+#            try:
+#                os.remove(ResultGephiPath+'/'+outputFile)
+#            except:
+#                pass
+#            os.rename(ResultGephiPath+'/'+"Good"+outputFile, ResultGephiPath+'/'+outputFile)
+#            print("Dynamic Gexf network file writen into ",  ResultGephiPath+' directory.\n See file: '+outputFile)
+#            os.remove(ResultGephiPath+'/Good'+outputFile)
+#        except:
+#            pass
