@@ -15,16 +15,17 @@ import networkx as nx
 import os
 import sys
 import datetime
-import pydot
-import ctypes # pydot needed for pyinstaller !!! seems that ctype also I should learn making hooks....
-from urllib.parse import quote as quot
-import numpy as np
-import matplotlib.cm
+#import pydot
+#import ctypes # pydot needed for pyinstaller !!! seems that ctype also I should learn making hooks....
+#from urllib.parse import quote as quot
+#import numpy as np
+#import matplotlib.cm
 from collections import OrderedDict
 #from networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
-import pickle
+from lxml import etree
+
 import copy
-from Patent2Net.P2N_Lib import flatten, DecoupeOnTheFly, LoadBiblioFile, UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize
+#from Patent2Net.P2N_Lib import flatten, DecoupeOnTheFly, LoadBiblioFile, UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize
 #from P2N_Lib import getStatus2, getClassif,getCitations, getFamilyLenght, isMaj, quote, GenereDateLiens
 #from P2N_Lib import  symbole, ReturnBoolean, FormateGephi, GenereListeSansDate, GenereReseaux3, cmap_discretize
 #from Ops3 import UnNest2List
@@ -49,8 +50,6 @@ Gather = configFile.GatherContent
 GatherBiblio = configFile.GatherBiblio
 GatherPatent = configFile.GatherPatent
 GatherFamilly = configFile.GatherFamilly
-
-
 
 Networks = dict()
 #next lines are here to avoid the changing scheme lecture of requete.cql
@@ -87,10 +86,10 @@ def Cleaning(texte): # this is for graphviz. Maybe an ascii converter would be o
     try:
         tempo = texte.replace('empty', '')
         tempo= tempo.replace('Empty', '')
-    #    tempo = tempo.replace('-', '')
-    #    tempo = tempo.replace('&', '')
-    #    tempo = tempo.replace("'", "")
-    #    tempo = tempo.replace('"', "")
+        tempo = tempo.replace('-', '')
+        tempo = tempo.replace('&', '')
+        tempo = tempo.replace("'", "")
+        tempo = tempo.replace('"', "")
     #PY 3... something goes wrong with the code bellow
     # commenting and seeing what appens
 #        import curses.ascii
@@ -130,7 +129,7 @@ for prefix in prefixes:
         # class OrderedNodeGraph(nx.Graph):
         #   node_dict_factory=OrderedDict
         # G = OrderedNodeGraph()
-        G1 = nx.DiGraph()        # dynamic network for Gephi
+        G1 = nx.MultiDiGraph()        # Multi edges directed network for Gephi
         attr_dict = dict()       # attributes for the net
         # flat net for gexf.js may be it is possible to use previous instead of this one...
 
@@ -237,13 +236,6 @@ for prefix in prefixes:
                             Category[noeud] = 'label'
                 #Building nodes properties
 
-
-    #    for thing in Category.keys():
-    #        if thing in Patents:
-    #            Category[thing] = 'label'
-    #    mixNet.extend(['CitP', "CitO", "CitedBy"]) #colouring as
-
-
         # CREATING THE WEIGHTED GRAPH
         WeightDyn = dict()
         AtribDynLab = dict()
@@ -280,8 +272,8 @@ for prefix in prefixes:
                             pass
                     indSRC = Nodes[source]['index']
                     indTGT = Nodes[target]['index']
-                    if (indSRC, indTGT) not in list(WeightDyn.keys()):
-                        WeightDyn[(indSRC, indTGT)] = dict()
+#                    if (indSRC, indTGT) not in list(WeightDyn.keys()):
+#                        WeightDyn[(indSRC, indTGT)] = dict()
                     for dat in datum:
                         if isinstance(dat, list):
                                 deb = min([dates for dates in dat])
@@ -291,22 +283,25 @@ for prefix in prefixes:
                             deb = min(datum)
                             fin = datetime.date(dat.year+20, dat.month, dat.day) #setting endtime collaboration to 20 year after starting date....
                         if int(fin.year) - int(datetime.date.today().year)>2:
-                            fin = datetime.date(int(datetime.date.today().year)+4, int(datetime.date.today().month), int(datetime.date.today().day))
-                        if len(WeightDyn[(indSRC, indTGT)])==0:
+                            fin = datetime.date(int(datetime.date.today().year)+20, 
+                                                int(datetime.date.today().month), 
+                                                int(datetime.date.today().day))
+                        if (indSRC, indTGT) not in WeightDyn.keys():
                             WeightDyn[(indSRC, indTGT)] = dict()
                             tempo = dict()
                             tempo['value'] = 1
-
+                            tempo['start'] = dat.isoformat()
             #                        tempo['start'] = deb.isoformat()
-            #                        tempo['end'] = fin.isoformat()
-                            WeightDyn[(indSRC, indTGT)]= tempo
+                            tempo['end'] = fin.isoformat()
+                            WeightDyn[(indSRC, indTGT)]= [tempo]
 
                         else:
                             tempo = dict()
-                            tempo['value'] = WeightDyn[(indSRC, indTGT)]['value']+1
-            #                        tempo['start'] = [WeightDyn[(indSRC, indTGT)]['start']].append(dat.isoformat())
-            #                        tempo['end'] = [WeightDyn[(indSRC, indTGT)]["end"]].append(fin.isoformat())
-                            WeightDyn[(indSRC, indTGT)] = tempo
+                            tempo['value'] = WeightDyn[(indSRC, indTGT)][len(WeightDyn[(indSRC, indTGT)])-1]['value']+1
+            #                        
+                            tempo['start'] = dat.isoformat()
+                            tempo['end'] = fin.isoformat()
+                            WeightDyn[(indSRC, indTGT)].append(tempo)
                         attr_dict_lab = dict()
                         attr_dict_weight = dict()
                         if list(Nodes.keys()).index(source) in list(AtribDynLab.keys()):
@@ -369,8 +364,6 @@ for prefix in prefixes:
                             AtribDynLab[list(Nodes.keys()).index(target)] ['label'] = copy.copy(attr_dict_lab)
                             AtribDynLab[list(Nodes.keys()).index(target)] ['weight'] = copy.copy(attr_dict_weight)
 
-
-
                         G1.add_node(indSRC)
                         #nx.set_node_attributes(G1[indSRC],, 'label')
                         G1.nodes [indSRC]['label'] =  Nodes[source]['label']
@@ -384,16 +377,45 @@ for prefix in prefixes:
                         G1.nodes [indTGT]['category'] = Nodes[target]['category']
 #                        nx.set_node_attributes(G1[indTGT], Nodes[target]['label'], 'label')
 #                        nx.set_node_attributes(G1[indTGT], Nodes[target]['category'], 'category')
-
-                        if Nodes[target]['category'] == 'CitedBy':
-                            G1.add_edge(indTGT, indSRC, key='CitedBy', new_attr=WeightDyn[(indSRC, indTGT)])# reverse link for citind the patent
-
-                        else:
-                            G1.add_edge(indSRC, indTGT, key='CitedBy', new_attr=WeightDyn[(indSRC, indTGT)])#
-            #                G2.add_edge(indSRC, indTGT, attr_dict)
+        OtherMEm = list()            
+        for ed in WeightDyn.keys():
+#            Starts = [Weight['start'] for Weight in WeightDyn[ed]]
+#            Ends = [Weight['end'] for Weight in WeightDyn[ed]]
+            if Nodes[AtribDynLab[ed[1]]['label']['label']]['category'] == 'CitedBy':
+                for Weight in WeightDyn[ed]:
+                    #if (ed[1], ed[0]) in OtherMEm.keys():  
+                      #  for cplDat in OtherMEm [(ed[1], ed[0])]:
+   
+                      num = G1.add_edge(ed[1], ed[0], name = 'CitedBy')
+#                      G1.edges[ed[1], ed[0], num]['weight'] ={'value': Weight['value'], 
+#                              'start':Weight['start'], 
+#                              'end':fin.isoformat() 
+#                              }#Weight['end'] #the edge exists ad vitam
+                              
+                    #if (ed[1], ed[0]) not in OtherMEm.keys():
+#                        OtherMEm[(ed[1], ed[0])] = [(Weight['start'], Weight['end'])]
+#                    else:
+#                        OtherMEm[(ed[1], ed[0])].append((Weight['start'], Weight['end']))
+#                        
+                # new_attr=WeightDyn[(indSRC, indTGT)])# reverse link for citind the patent
+            else:
+                for Weight in WeightDyn[ed]:
+#                   
+                    num = G1.add_edge(ed[0], ed[1], name = 'CitedBy')
+#                    G1.edges[ed[0], ed[1], num]['weight'] ={'value': Weight['value'], 
+#                              'start':Weight['start'], 
+#                              'end':fin.isoformat() 
+#                              }
+#                    G1.add_edge(ed[0], ed[1],  weight=Weight['value'],
+#                              start=Weight['start'], 
+#                              end=fin.isoformat()#end=Weight['end']
+#                              )# key='CitedBy', new_attr=WeightDyn[(indSRC, indTGT)])#
+#                G2.add_edge(indSRC, indTGT, attr_dict)
     #
                 #print
+                
 
+       # nx.set_edge_attributes( G1, WeightDyn, "weight")
         AtribDyn=OrderedDict()
         Atrib = OrderedDict()
         for noeud in list(AtribDynLab.keys()):
@@ -402,13 +424,92 @@ for prefix in prefixes:
             AtribDyn[noeud]['start']= AtribDynLab[noeud]['label']['start']
             AtribDyn[noeud]['end']= AtribDynLab[noeud]['label']['end']
             AtribDyn[noeud]['label']= AtribDynLab[noeud]['label']['label']
-       #     Atrib[noeud] = AtribDynLab[noeud]['label']['label']
-        nx.set_node_attributes(G1, dict(AtribDyn), 'id')
-
-        Atrib = dict()
-        for noeud in list(AtribDynLab.keys()): # ?????????
-            Atrib[noeud] = AtribDynLab[noeud]['weight']
-            Atrib [noeud] = AtribDynLab[noeud]['weight']['value']
-        nx.set_node_attributes(G1,  Atrib, 'weight')
+            
+       
+        nx.set_node_attributes(G1, AtribDyn)
 
         nx.write_gpickle(G1, temporPath+'/'+network+prefix)
+        
+        
+        nx.write_gexf(G1, ResultGephiPath+'/test.gexf', version='1.2draft')
+
+#from there its a hack (sometimes ugly) as networkx2.2 doesn't deal correctly with dynamics nets
+        with open(ResultGephiPath+'/test.gexf') as fic:
+            data = fic.readlines()
+        enco = data[0:2]
+        temp=data[1:1]
+        temp.append("""  <graph defaultedgetype="directed" mode="dynamic" name="" timeformat="date">\n""")
+        enco.append("""  <graph defaultedgetype="directed" mode="dynamic" name="" timeformat="date">\n""")
+        temp.append("""   <attributes class="edge" mode="static">\n""")
+        temp.append("""      <attribute id="1" title="name" type="string" />\n""")
+        temp.append("""      </attributes>\n""")
+        temp.append("""   <attributes class="edge" mode="dynamic" timeformat="date">\n""" )
+        temp.append("""      <attribute id="2" title="weight" type="double" />\n""")
+        temp.append("""    </attributes>\n""")
+        temp.append("""    <attributes class="node" mode="dynamic" timeformat="date">\n""")
+        temp.append("""      <attribute id="0" title="category" type="string" />\n""")
+        temp.append("""     </attributes>\n""")
+        
+        temp.append("""    <meta>\n""")
+        temp.append("""      <creator>Patent2Net V3</creator>\n""")
+        temp += data[12:]
+        data= "".join(temp)
+        with open(ResultGephiPath+'/test.gexf', "w") as fic:
+            fic.write(enco[1] + data)
+        
+        with open(ResultGephiPath+'/test.gexf') as fic:
+#            don = fic.readlines()
+#            data = ''.join(don[1:])
+            data=fic.read()
+        don = data.splitlines()
+        root = etree.fromstring(data.strip())
+        nodes = [truc for truc in root.iterdescendants()]
+        bords = [truc for truc in don if truc.count('edges')]
+        with open(ResultGephiPath+'/HackTest.gexf', 'w') as ficRes:
+            ficRes.write("".join(enco))
+#            ficRes.write(don[1])
+#            ficRes.write(don[2])
+            for el  in  nodes:
+                if el.tag in ["{http://www.gexf.net/1.2draft}attributes",
+                              "{http://www.gexf.net/1.2draft}meta",
+                              ]:
+                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
+        
+                elif  el.tag in ["{http://www.gexf.net/1.2draft}nodes"]:
+                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
+                    ficRes.write(bords[0])
+                elif el.tag == "{http://www.gexf.net/1.2draft}edge":
+                    rac = copy.copy(el)
+                    rac.clear()
+                    rac.attrib['source']= el.attrib['source']
+                    rac.attrib['target'] = el.attrib['target']
+                    for attr in el.iterchildren():
+                        compt = 0
+                        NewAttr=etree.Element(attr.tag)
+                        for attrs in attr.iterchildren():
+                          #  NewAttrs =etree.Element( attrs.tag)
+                            
+                            if attrs.attrib['for'] == '2':
+                                
+                                SRC = int(el.attrib['source'])
+                                TGT = int(el.attrib['target'])
+                                if (SRC, TGT) in WeightDyn.keys():
+                                    for poids in WeightDyn[(SRC, TGT)]:
+        
+                                        attrs.attrib['value'] = str(poids['value'])
+                                        attrs.attrib['start'] = poids['start']
+                                        attrs.attrib['end'] = poids['end']
+                                        #NewAttrs =etree.Element(attrs)
+                                        NewAttr.append(attrs)
+                            else:
+                                NewAttr.append(attrs)
+                        rac.append(NewAttr)
+                        ficRes.write(str(etree.tostring( rac, pretty_print=True, encoding='unicode', method='xml')))
+                        
+            ficRes.write(don[len(don)-3])
+            ficRes.write(don[len(don)-2].strip())
+            ficRes.write(don[len(don)-1])
+        if ndf+network+'.gexf'in os.listdir(ResultGephiPath+'/'):
+            os.remove(ResultGephiPath+'/'+ndf+network+'.gexf')
+        os.rename(ResultGephiPath+'/HackTest.gexf', ResultGephiPath+'/'+ndf+network+'.gexf')
+        os.remove( ResultGephiPath+'/test.gexf')
