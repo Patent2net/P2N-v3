@@ -9,7 +9,7 @@ request: TA=lentille
 
 ###############################
 # Name of files OR directories
-DataDirectory: Lentille
+DataDirectory: lentille
 
 ###############################
 #Patent2Net options : Set to *True* or False
