@@ -8,7 +8,7 @@ Created on Sat Dec 27 12:05:05 2014
 import json
 import os
 import sys
-import pickle as pickle
+#import pickle as pickle
 #import bs4
 from Patent2Net.P2N_Lib import UrlInventorBuild, UrlApplicantBuild, UrlIPCRBuild, UrlPatent, LoadBiblioFile, RenderTemplate
 from Patent2Net.P2N_Config import LoadConfig
