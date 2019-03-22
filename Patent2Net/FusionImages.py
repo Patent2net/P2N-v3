@@ -3,6 +3,7 @@
 import os
 import json
 import logging
+
 from Patent2Net.P2N_Lib import LoadBiblioFile, RenderTemplate
 from Patent2Net.P2N_Config import LoadConfig
 from p2n.config import label_from_prefix
