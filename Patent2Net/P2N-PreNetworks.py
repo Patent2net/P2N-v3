@@ -25,7 +25,7 @@ from collections import OrderedDict
 from lxml import etree
 
 import copy
-#from Patent2Net.P2N_Lib import flatten, DecoupeOnTheFly, LoadBiblioFile, UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize
+from Patent2Net.P2N_Lib import flatten, DecoupeOnTheFly, LoadBiblioFile #UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize
 #from P2N_Lib import getStatus2, getClassif,getCitations, getFamilyLenght, isMaj, quote, GenereDateLiens
 #from P2N_Lib import  symbole, ReturnBoolean, FormateGephi, GenereListeSansDate, GenereReseaux3, cmap_discretize
 #from Ops3 import UnNest2List
@@ -377,10 +377,14 @@ for prefix in prefixes:
                         G1.nodes [indTGT]['category'] = Nodes[target]['category']
 #                        nx.set_node_attributes(G1[indTGT], Nodes[target]['label'], 'label')
 #                        nx.set_node_attributes(G1[indTGT], Nodes[target]['category'], 'category')
-        OtherMEm = list()            
+        OtherMEm = list()       
+        # this way (in comments) we add edges and the attributes (dynamic)
+        # but networks adds them once a time as edge attributes
+        # hence only the last one wins in the list of potential attributes for an edge
+        # so I just created the edges and parse after the xml gexf produced to
+        # insert the attributes (see )
         for ed in WeightDyn.keys():
-#            Starts = [Weight['start'] for Weight in WeightDyn[ed]]
-#            Ends = [Weight['end'] for Weight in WeightDyn[ed]]
+
             if Nodes[AtribDynLab[ed[1]]['label']['label']]['category'] == 'CitedBy':
                 for Weight in WeightDyn[ed]:
                     #if (ed[1], ed[0]) in OtherMEm.keys():  
@@ -425,7 +429,7 @@ for prefix in prefixes:
             AtribDyn[noeud]['end']= AtribDynLab[noeud]['label']['end']
             AtribDyn[noeud]['label']= AtribDynLab[noeud]['label']['label']
             
-       
+       # setting nodes attributes (id, start, end in time format)
         nx.set_node_attributes(G1, AtribDyn)
 
         nx.write_gpickle(G1, temporPath+'/'+network+prefix)
