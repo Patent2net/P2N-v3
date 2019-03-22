@@ -38,7 +38,7 @@ from Patent2Net.P2N_Lib import Initialize, PatentSearch,  GatherPatentsData, Loa
 #from P2N_Lib import EcritContenu, coupeEnMots
 from Patent2Net.P2N_Config import LoadConfig
 from p2n.config import OPSCredentials
-
+import datetime
 import epo_ops
 import os
 import sys
@@ -275,7 +275,7 @@ if GatherBibli and GatherBiblio:
 
     else:
         YetGathered = []
-    import datetime
+
     for brevet in lstBrevets:
 
         # may be current patent has already be gathered in a previous attempt
