@@ -18,7 +18,7 @@ from urllib.parse import quote as quot
 import numpy as np
 import matplotlib.cm
 from collections import OrderedDict
-#from networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
+from networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
 import pickle as pickle
 import copy
 from Patent2Net.P2N_Lib import UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize, flatten, DecoupeOnTheFly
@@ -99,7 +99,7 @@ for prefix in prefixes:
     #    G.graph['start'] = dateMini
     #    G.graph['end'] = dateMaxi
 
-    #            G, deg = calculate_degree(G)
+        G, deg = calculate_degree(G)
     #            G, bet = calculate_betweenness(G)
     #            #g, eigen = calculate_eigenvector_centrality(g)
     #            G, degcent = calculate_degree_centrality(G)
@@ -107,14 +107,15 @@ for prefix in prefixes:
         count = -1
 
 
-        nx.spring_layout()
-        pos = nx.spring_layout( G, dim=2,  scale =10, iterations = 100)
+        #nx.spring_layout()
+        pos = nx.spring_layout( G, dim=3,  scale =10, iterations = 100)
         factx, facty = 1, 1 # neatto
-        tutu = [int(G.node[tt]['weight']) for tt in G.nodes()]
-        if len(tutu)>0:
-            Maxdegs = max(tutu)
-        else:
-            Maxdegs = 1
+#        tutu = [int(G.node[tt]['weight']) for tt in G.nodes()]
+#        if len(tutu)>0:
+#            Maxdegs = max(tutu)
+#        else:
+#            Maxdegs = 1
+        Maxdegs = max([de for node, de in deg])
         zoom = len(G)*1.0/Maxdegs
         MaxWeight = -1
         if len(pos)>0:
