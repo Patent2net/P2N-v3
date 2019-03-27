@@ -269,9 +269,9 @@ def classic_interface(options):
         ]
 
         for network in networks:
-            run_script('P2N-PreNetworks.py {network}'.format(network=network), configfile)
-            run_script('P2N-Networks.py {network}'.format(network=network), configfile)
-            run_script('P2N-NetworksJS.py {network}'.format(network=network), configfile)
+#             run_script('P2N-PreNetworks.py {network}'.format(network=network), configfile)
+             run_script('P2N-NetworksBis.py {network}'.format(network=network), configfile)
+#            run_script('P2N-NetworksJS.py {network}'.format(network=network), configfile)
 
     if options['freeplane'] or options['run']:
         run_script('P2N-FreePlane.py', configfile)
