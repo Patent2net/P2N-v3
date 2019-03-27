@@ -115,11 +115,24 @@ if ndf in os.listdir(ResultListPath):
                 print("care of using on file for one request, deleting this one.")
                 input('sure? Unlee use ^C ( CTRL+C)')
             lstBrevets2, nbTrouves = PatentSearch(ops_client, requete)
-            if len(lstBrevets) == nbTrouves and nbActus == nbTrouves:
+            if len(lstBrevets) == nbTrouves and nbActus != nbTrouves:
                 ficOk = True
                 print(nbTrouves, " patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
                 Gatherbibli = True
                 GatherPatent = False
+            elif len(lstBrevets) == nbTrouves and nbActus == nbTrouves:
+                Gatherbibli = False
+                GatherPatent = False
+                DataB =dict()
+                with open(ResultBiblioPath + '//Description' + ndf, 'wb') as ficRes:
+                        DataB['ficBrevets'] = ndf
+                        DataB['requete'] = requete
+                        DataB["YetGathered"] = nbActus
+                        
+                        pickle.dump(DataB, ficRes)
+                print('Checking bibliographic data')
+                
+                #we should exit now
             else:
                 ficOk = False
                 print(nbTrouves, " patents corresponding to the request.")
@@ -147,11 +160,12 @@ STOP = False
 #
 #    print "Good, nothing to do"
 if not ficOk and GatherPatent:
+    ajouts = 0
     while len(lstBrevets) < nbTrouves and not STOP:
         if len(lstBrevets) + 25 < 2000:
             temp,  nbTrouves = PatentSearch(
                 ops_client, requete, len(lstBrevets) + 1, len(lstBrevets) + 25)
-            ajouts = 0
+            
         else:
             temp,  nbTrouves = PatentSearch(ops_client, requete, len(
                 lstBrevets) - 25, 2000)  # hum should gather twice here
@@ -179,17 +193,18 @@ if not ficOk and GatherPatent:
         DataBrevets['requete'] = requete
         pickle.dump(DataBrevets, ficRes1)
 listeLabel = []
-for brevet in lstBrevets:
-        # nameOfPatent for file system save (abstract, claims...)
-        ndb = brevet['document-id']['country']['$'] + brevet['document-id']['doc-number']['$']
-        listeLabel.append(ndb)
-print("Found almost", len(lstBrevets), " patents. Saving list")
-print("Within ", len(set(listeLabel)), " unique patents")
+
 
 #listeLabel = []
 # Entering PatentBiblio feeding
-print("Checking and gathering bibliographic data")
+print("Checking and/or gathering bibliographic data")
 if GatherBibli and GatherBiblio:
+    for brevet in lstBrevets:
+        # nameOfPatent for file system save (abstract, claims...)
+        ndb = brevet['document-id']['country']['$'] + brevet['document-id']['doc-number']['$']
+        listeLabel.append(ndb)
+    print("Found almost", len(lstBrevets), " patents. Saving list")
+    print("Within ", len(set(listeLabel)), " unique patents")
     DataBrevets = dict()
     DataBrevets['brevets'] = []
     if ndf in os.listdir(ResultBiblioPath):
@@ -202,8 +217,9 @@ if GatherBibli and GatherBiblio:
 #                    break
 
         if len(DataBrevets['brevets']) == len(listeLabel):
-                print(len(DataBrevets['brevets']), " bibliographic patent data gathered yet? Nothing else to do :-)")
+                print(len(DataBrevets['brevets']), " bibliographic patent data gathered yet? ")
                 GatherBibli = False
+                sys.exit('Nothing else to do :-). Good bye')
         else:
             print(len(listeLabel)-len(DataBrevets['brevets']), " patent misssing... processing")
             GatherBibli = True
@@ -291,7 +307,10 @@ if GatherBibli and GatherBiblio:
                         brevet, ops_client, ResultContentsPath, ResultAbstractPath,  PatIgnored, [])
                 except:
                     print(ndb, " ignored... error occured")
+                    #some errors coming from OEB inconsistency
                     next
+                
+                # parsing
                 if BiblioPatents is None:
                     BiblioPatents = []
                 tempor = []
