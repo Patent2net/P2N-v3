@@ -2257,7 +2257,7 @@ def byteify(input):
 def LoadBiblioFile(rep, name):
     # new       12/12/05
     import pickle
-
+    name=name.title()
     DataBrevets = dict()
     DataBrevets['brevets'] = []
     if "Description" + name in os.listdir(rep):

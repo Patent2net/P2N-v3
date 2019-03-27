@@ -45,7 +45,7 @@ class P2NConfig:
             if line.count('request:') > 0:
                 self.requete = self.getStr(line)
             elif line.count('DataDirectory:') > 0:
-                self.ndf = self.getStr(line)
+                self.ndf = self.getStr(line).title()
             elif line.count('OPSGatherContentsv2-Iramuteq') > 0:
                 self.GatherIramuteq = self.getBoolean(line)
             elif line.count('GatherContent') > 0:

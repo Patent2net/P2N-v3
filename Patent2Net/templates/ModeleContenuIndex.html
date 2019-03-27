@@ -31,7 +31,7 @@
         if (navigator.userAgent.indexOf("Chrome") != -1) {
             alert('This website is not compliant with your browser, please come back with another browser like Internet Explorer, or Firefox. ' +
                 'We gonna close this website, thanks you !');
-            close();
+            <!--close(); May be chrome is ok now ?--> 
         }
     </script>
 
@@ -78,7 +78,7 @@
         <li style="padding-top: 8px">Number of patents retrieved: {{ TotalPatents }}</li>
         {% for obj in TotalsPerType %}
         <li>{{obj.type}}:
-            {% for lang, total in obj.languages.iteritems() %}
+            {% for lang, total in obj.languages.items() %}
                 {{total}} ({{lang.upper()}})  &nbsp;
             {% endfor %}
         </li>
@@ -88,7 +88,7 @@
         <li style="padding-top: 8px">Number of family patents retrieved: {{ TotalFamily }}</li>
         {% for obj in TotalsPerFamilyType %}
         <li>{{obj.type}}:
-            {% for lang, total in obj.languages.iteritems() %}
+            {% for lang, total in obj.languages.items() %}
                 {{total}} ({{lang.upper()}})  &nbsp;
             {% endfor %}
         </li>
