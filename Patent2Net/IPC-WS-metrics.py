@@ -257,7 +257,7 @@ for brevet in lstBrevet:
         #while not len(ClassTxt)>0 or cur == 'IPCR1':
        
         for cur in classe:
-            if bre[cur] is not None and not isinstance(brevet[cur], list):
+            if brevet[cur] is not None and not isinstance(brevet[cur], list):
                 brevet[cur] = [brevet[cur]]
             for cla in brevet[cur]:# may be we should use only primary classification
                 if len(cla) >0 and cla != "empty":
