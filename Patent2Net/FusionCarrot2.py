@@ -10,8 +10,8 @@ import pickle
 import bs4
 from xml.sax.saxutils import escape
 
-from .P2N_Lib import LoadBiblioFile
-from .P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Config import LoadConfig
 
 configFile = LoadConfig()
 requete = configFile.requete

@@ -7,7 +7,7 @@ Created on Fri Dec 19 07:53:30 2014
 
 
 import os
-from .P2N_Lib import ReturnBoolean
+from Patent2Net.P2N_Lib import ReturnBoolean
 
 with open("..//requete.cql", "r") as fic:
     contenu = fic.readlines()

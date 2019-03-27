@@ -100,7 +100,7 @@ if GatherFamilly:
         fic = open(ResultPath+ '//' + ndf, 'r')
 
         print("loading data file ", ndf+' from ', ResultPath, " directory.")
-        if 'Description'+ndf or "Description" + ndf.title() in os.listdir(ResultPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
+        if 'Description'+ndf in os.listdir(ResultPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
             data = LoadBiblioFile(ResultPath, ndf)
 
         else: #Retrocompatibility :-)
@@ -134,16 +134,21 @@ if GatherFamilly:
     except:
         DoneLab = []
         Done =[]
-    if  0 < len(Done) <= len(ListeBrevet):
+    if  0 <= len(Done) < len(ListeBrevet):
         tempoList = []
         try:
             #ndfLstBrev = open(ResultPath+'//Families'+ ndf, 'r')
             BrevetFam = LoadBiblioFile(ResultPath, "Families"+ndf)
             ListeBrevetAug = BrevetFam['brevets']
+            #adding already gathered
+            for bre in ListeBrevetAug:
+                DoneLab.append(bre['label'])
+                
 #            if isinstance(data, collections.Mapping):
 #                ListeBrevetAug = data['brevets']
 #            else:
 #                ListeBrevetAug = data
+            flatten(DoneLab)
             print(len(ListeBrevetAug), " patents loaded, already in families list")
             if len(ListeBrevetAug) ==0:
                 Done =[]
@@ -158,6 +163,7 @@ if GatherFamilly:
             if len(ListeBrevet) == 0:
                 print("Good, nothing to do!")
                 print("If you want to gather again, please destroy the temporary file in ", temporPath)
+                
                 sys.exit()
 
         except: #particular cases when I supress familiFile in Biblio ^_^

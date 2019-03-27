@@ -31,8 +31,8 @@ import sys
 import epo_ops
 from epo_ops.models import Docdb
 from epo_ops.models import Epodoc
-from .P2N_Lib import MakeIram2, LoadBiblioFile
-from .P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import MakeIram2, LoadBiblioFile
+from Patent2Net.P2N_Config import LoadConfig
 
 
 os.environ['REQUESTS_CA_BUNDLE'] = 'cacert.pem'#cacert.pem
