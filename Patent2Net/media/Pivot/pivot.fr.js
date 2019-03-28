@@ -33,16 +33,18 @@
     });
     return $.pivotUtilities.locales.fr = {
       localeStrings: {
-        renderError: "Une erreur est survenue en dessinant le tableau crois&eacute;.",
-        computeError: "Une erreur est survenue en calculant le tableau crois&eacute;.",
-        uiRenderError: "Une erreur est survenue en dessinant l'interface du tableau crois&eacute; dynamique.",
-        selectAll: "S&eacute;lectionner tout",
-        selectNone: "S&eacute;lectionner rien",
-        tooMany: "(trop de valeurs &agrave; afficher)",
+        renderError: "Une erreur est survenue en dessinant le tableau croisé.",
+        computeError: "Une erreur est survenue en calculant le tableau croisé.",
+        uiRenderError: "Une erreur est survenue en dessinant l'interface du tableau croisé dynamique.",
+        selectAll: "Sélectionner tout",
+        selectNone: "Sélectionner rien",
+        tooMany: "(trop de valeurs à afficher)",
         filterResults: "Filtrer les valeurs",
         totals: "Totaux",
         vs: "sur",
-        by: "par"
+        by: "par",
+        apply: "Appliquer",
+        cancel: "Annuler"
       },
       aggregators: {
         "Nombre": tpl.count(frFmtInt),
@@ -51,9 +53,13 @@
         "Somme": tpl.sum(frFmt),
         "Somme en entiers": tpl.sum(frFmtInt),
         "Moyenne": tpl.average(frFmt),
+        "Minimum": tpl.min(frFmt),
+        "Maximum": tpl.max(frFmt),
+        "Premier": tpl.first(frFmt),
+        "Dernier": tpl.last(frFmt),
         "Ratio de sommes": tpl.sumOverSum(frFmt),
-        "Borne sup&eacute;rieure 80%": tpl.sumOverSumBound80(true, frFmt),
-        "Borne inf&eacute;rieure 80%": tpl.sumOverSumBound80(false, frFmt),
+        "Borne supérieure 80%": tpl.sumOverSumBound80(true, frFmt),
+        "Borne inférieure 80%": tpl.sumOverSumBound80(false, frFmt),
         "Somme en proportion du totale": tpl.fractionOf(tpl.sum(), "total", frFmtPct),
         "Somme en proportion de la ligne": tpl.fractionOf(tpl.sum(), "row", frFmtPct),
         "Somme en proportion de la colonne": tpl.fractionOf(tpl.sum(), "col", frFmtPct),
@@ -66,14 +72,8 @@
         "Table avec barres": $.pivotUtilities.renderers["Table Barchart"],
         "Carte de chaleur": $.pivotUtilities.renderers["Heatmap"],
         "Carte de chaleur par ligne": $.pivotUtilities.renderers["Row Heatmap"],
-        "Carte de chaleur par colonne": $.pivotUtilities.renderers["Col Heatmap"],
-        "Graphique de Courbes": $.pivotUtilities.gchart_renderers["Line Chart"],
-        "Graphique de Barres": $.pivotUtilities.gchart_renderers["Bar Chart"],
-        "Graphique de Barres Empillés": $.pivotUtilities.gchart_renderers["Stacked Bar Chart"],
-        "Graphique de Aires": $.pivotUtilities.gchart_renderers["Area Chart"],
-        "Graphique Treemap": $.pivotUtilities.d3_renderers["Treemap"],
-        "Exporter Excel" : $.pivotUtilities.export_renderers ["TSV Export"]
-       }
+        "Carte de chaleur par colonne": $.pivotUtilities.renderers["Col Heatmap"]
+      }
     };
   });
 
