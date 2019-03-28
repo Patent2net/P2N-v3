@@ -23,7 +23,7 @@ import datetime
 from collections import OrderedDict
 from networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
 from lxml import etree
-
+import numpy
 import copy
 from Patent2Net.P2N_Lib import flatten, DecoupeOnTheFly, RenderTemplate, \
                         LoadBiblioFile, UrlPatent,UrlApplicantBuild,\
@@ -434,7 +434,11 @@ for prefix in prefixes:
 
 
         #nx.spring_layout()
-        pos = nx.spring_layout( G1, dim=3,  scale =10, iterations = 100)
+        pos3 = nx.spring_layout( G1, dim=3,  scale =10, iterations = 100)
+        pos2 = nx.spring_layout( G1, dim=2,  scale =10, iterations = 100)
+        pos = dict()
+        for noed in pos2.keys():
+            pos[noed] = numpy.append(pos2[noed], pos3[noed])
         factx, facty = 1, 1 # neatto
         tutu = [int(G1.node[tt]['degree']) for tt in G1.nodes()]
         if len(tutu)>0:
