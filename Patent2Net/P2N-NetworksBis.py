@@ -25,7 +25,9 @@ from networkx_functs import calculate_degree, calculate_betweenness, calculate_d
 from lxml import etree
 
 import copy
-from Patent2Net.P2N_Lib import flatten, DecoupeOnTheFly, LoadBiblioFile, UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize
+from Patent2Net.P2N_Lib import flatten, DecoupeOnTheFly, RenderTemplate, \
+                        LoadBiblioFile, UrlPatent,UrlApplicantBuild,\
+                        UrlInventorBuild,UrlIPCRBuild#, cmap_discretize
 #from P2N_Lib import getStatus2, getClassif,getCitations, getFamilyLenght, isMaj, quote, GenereDateLiens
 #from P2N_Lib import  symbole, ReturnBoolean, FormateGephi, GenereListeSansDate, GenereReseaux3, cmap_discretize
 #from Ops3 import UnNest2List
@@ -571,12 +573,13 @@ for prefix in prefixes:
             if "label" not in mixNet:
                 mixNet.append('label')
             #factx, facty = 500, 400
+            Visu['size'] = G1.node[k]["degree"]*10.0/Maxdegs
             G1.node[k]['viz'] =dict()
             for cle in list(Visu.keys()):
                 G1.node[k]['viz'][cle] = Visu[cle]
 
         outputFile = ndf+network +'.gexf'
-
+        outputFileJS = ndf+network +'JS.gexf'
         try:
             os.remove(ResultGephiPath+'/'+outputFile)
         except:
@@ -625,10 +628,10 @@ for prefix in prefixes:
         temp.append("""      <creator>Patent2Net V3</creator>\n""")
         temp += data[16:]
         data= "".join(temp)
-        with open(ResultGephiPath+'/temp.gexf', "w") as fic:
+        with open(ResultGephiPath+'/temp2.gexf', "w") as fic:
             fic.write(enco[1] + data)
         
-        with open(ResultGephiPath+'/temp.gexf') as fic:
+        with open(ResultGephiPath+'/temp2.gexf') as fic:
 #            don = fic.readlines()
 #            data = ''.join(don[1:])
             data=fic.read()
@@ -684,5 +687,119 @@ for prefix in prefixes:
             ficRes.write(don[len(don)-1])
         if outputFile in os.listdir(ResultGephiPath+'/'):
             os.remove(ResultGephiPath+'/'+outputFile)
+        #Doing same hacking system for networkJS exports
+        # this could be factorised!!!!
+        with open(ResultGephiPath+'/temp.gexf') as fic:
+            data = fic.readlines()
+        enco = data[0:1]
+        temp=data[1:2]
+        temp.append("""  <graph defaultedgetype="directed" mode="static" name="" >\n""")
+        enco.append("""  <graph defaultedgetype="directed" mode="static" name="">\n""")
+#        temp.append("""   <attributes class="edge" mode="static">\n""") 
+#        temp.append("""      <attribute id="5" title="name" type="string" />\n""")
+#        temp.append("""      </attributes>\n""")
+        temp.append("""   <attributes class="edge" mode="static">\n""" )
+        temp.append("""      <attribute id="5" title="weight" type="double" />\n""")
+        temp.append("""    </attributes>\n""")
+        temp.append("""    <attributes class="node" mode="static" timeformat="date">\n""")
+        temp.append("""      <attribute id="0" title="category" type="string" />\n""")
+        temp.append("""      <attribute id="1" title="degree_in" type="long" />\n""")
+        temp.append("""     <attribute id="2" title="degree_out" type="long" /> \n""")
+        temp.append("""     <attribute id="3" title="degree" type="long" />\n""")
+        temp.append("""     <attribute id="4" title="url" type="string" />\n""")
+        temp.append("""     </attributes>\n""")
+        
+        temp.append("""    <meta>\n""")
+        temp.append("""      <creator>Patent2Net V3</creator>\n""")
+        temp += data[14:]
+        data= "".join(temp)
+        
+        with open(ResultGephiPath+'/temp2.gexf', "w") as fic:
+            fic.write( data)
+        
+        with open(ResultGephiPath+'/temp2.gexf') as fic:
+#            don = fic.readlines()
+#            data = ''.join(don[1:])
+            data=fic.read()
+        don = data.splitlines()
+        root = etree.fromstring(data.strip())
+        nodes = [truc for truc in root.iterdescendants()]
+        bords = [truc for truc in don if truc.count('edges')]
+        if ResultGephiPath+'/HackTestJS.gexf' in os.listdir(ResultGephiPath+'/'):
+            os.remove(ResultGephiPath+'/HackTestJS.gexf')
+        with open(ResultGephiPath+'/HackTestJS.gexf', 'w') as ficRes:
+            ficRes.write("".join(enco))
+#            ficRes.write(don[1])
+#            ficRes.write(don[2])
+            for el  in  nodes:
+                if el.tag in ["{http://www.gexf.net/1.2draft}attributes",
+                              "{http://www.gexf.net/1.2draft}meta",
+                              ]:
+                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
+        
+                elif  el.tag in ["{http://www.gexf.net/1.2draft}edges"]:
+                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
+                    ficRes.write(bords[0])
+                    #parsing this time node attributes to avoid dynamic attributes (LOL)
+                elif el.tag == "{http://www.gexf.net/1.2draft}node":
+                    rac = copy.copy(el)
+                    rac.clear()
+                    rac.attrib['id']= el.attrib['id']
+                    rac.attrib['label'] = el.attrib['label']
+                    for attr in el.iterchildren():
+                        
+                        rac.append(attr)
+                        compt = 0
+                        NewAttr=etree.Element(attr.tag)
+                        for attrs in attr.iterchildren():
+                             #NewAttrs =etree.Element( attrs.tag)
+                             NewAttr.append(attrs)
+#                            if attrs.attrib['for'] == '5':
+#                                
+#                                SRC = int(el.attrib['source'])
+#                                TGT = int(el.attrib['target'])
+#                                if (SRC, TGT) in WeightDyn.keys():
+#                                    for poids in WeightDyn[(SRC, TGT)]:
+#        
+#                                        attrs.attrib['value'] = str(poids['value'])
+#                                        attrs.attrib['start'] = poids['start']
+#                                        attrs.attrib['end'] = poids['end']
+#                                        #NewAttrs =etree.Element(attrs)
+#                                        NewAttr.append(attrs)
+#                            else:
+#                                
+                        rac.append(NewAttr)
+                    ficRes.write(str(etree.tostring( rac, pretty_print=True, encoding='unicode', method='xml')))
+                        
+            ficRes.write(don[len(don)-3])
+            ficRes.write(don[len(don)-2].strip())
+            ficRes.write(don[len(don)-1])
+
+
+            #making the html from model
+            RenderTemplate(
+                "Graphe.html",
+                ResultGephiPath + '/'+outputFile.replace('.gexf','.html'),
+                TitleNet=network[1:]+' Network for ' + requete,
+                fichierConfigJS=outputFile.replace('.gexf','') +'Conf.js',
+                mediaStyle='../../../Patent2Net/media/styles',
+                mediaJs='../../../Patent2Net/media/js',
+            )
+    
+            # making the js from model
+            # maybe we could adjust node size and other parameters here
+            RenderTemplate(
+                "gephiConfig.js",
+                ResultGephiPath + '/'+outputFile.replace('.gexf','') +'Conf.js',
+                FicRezo=outputFile,
+            )
+        if outputFileJS in os.listdir(ResultGephiPath+'/'):
+            os.remove(ResultGephiPath+'/' +outputFileJS)
+        if outputFile in os.listdir(ResultGephiPath+'/'):
+            os.remove(ResultGephiPath+'/' +outputFile)
+        os.rename(ResultGephiPath+'/HackTestJS.gexf', ResultGephiPath+'/'+outputFileJS)
+        print("Network file writen in ",  ResultGephiPath+' directory.\n See file: '+outputFileJS)
         os.rename(ResultGephiPath+'/HackTest.gexf', ResultGephiPath+'/'+outputFile)
+        print("Network file writen in ",  ResultGephiPath+' directory.\n See file: '+outputFile)
         os.remove( ResultGephiPath+'/temp.gexf')
+        os.remove( ResultGephiPath+'/temp2.gexf')
