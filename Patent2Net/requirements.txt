@@ -1,14 +1,15 @@
-pyparsing==2.1.10
-python-epo-ops-client==2.3.1
+pyparsing
+python-epo-ops-client
 requests
 networkx
 pydot
-pygraphviz
-beautifulsoup4==4.5.3
-numpy==1.12.0
-matplotlib==2.0.0
-python-louvain==0.5
+pygraphviz #care this won 't work.... see Install windows.txt
+beautifulsoup4
+numpy
+matplotlib
+python-louvain
 jinja2
-lxml==3.8.0
+lxml
 Pillow
-curses = 2.2
+community
+
