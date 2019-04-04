@@ -3,7 +3,7 @@ python-epo-ops-client
 requests
 networkx
 pydot
-pygraphviz #care this won 't work.... see Install windows.txt
+pygraphviz
 beautifulsoup4
 numpy
 matplotlib
