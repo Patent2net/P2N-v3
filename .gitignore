@@ -108,7 +108,9 @@ venv.bak/
 # mypy
 .mypy_cache/
 DATA/*
-DATA\
+DATA\*
 
 
 cle-epo.txt
+Acad
+
