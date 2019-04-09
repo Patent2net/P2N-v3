@@ -213,15 +213,15 @@ class Author(object):
         else:
             self.id = re.findall(_CITATIONAUTHRE, __data('a')[0]['href'])[0]
             self.url_picture = __data('img')[0]['src']
-            self.name = __data.find('h3', class_='gsc_1usr_name').text
-            affiliation = __data.find('div', class_='gsc_1usr_aff')
+            self.name = __data.find('h3', class_='gs_ai_name').text # DR: replaced 08/04/2019 gsc_1usr_name
+            affiliation = __data.find('div', class_='gs_ai_aff') # gsc_1usr_aff
             if affiliation:
                 self.affiliation = affiliation.text
-            email = __data.find('div', class_='gsc_1usr_emlb')
+            email = __data.find('div', class_='gs_ai_eml')#gsc_1usr_emlb
             if email:
                 self.email = email.text
-            self.interests = [i.text.strip() for i in __data.findAll('a', class_='gsc_co_int')]
-            citedby = __data.find('div', class_='gsc_1usr_cby')
+            self.interests = [i.text.strip() for i in __data.findAll('a', class_='gs_ai_one_int')]#gsc_co_int
+            citedby = __data.find('div', class_='gs_ai_cby') #gsc_1usr_cby
             if citedby:
                 self.citedby = int(citedby.text[9:])
         self._filled = False
