@@ -1,9 +1,9 @@
 pyparsing
-python-epo-ops-client
 requests
 networkx
 pydot
-pygraphviz
+graphviz 
+pygraphviz -c alubbock
 beautifulsoup4
 numpy
 matplotlib

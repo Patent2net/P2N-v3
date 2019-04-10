@@ -48,7 +48,8 @@ corpus1['ressources'] = get_resource_by_name(corpus1['name'] )
 Aut='"David Reymond"'
 #corpus1['path'] = newCorpus(project, source="hal", name="test", 
 HalDocs =  CollecteHal(Aut, start=0, nbColl=0)
-    
+
+def 
     
 print()
 #authFirstName_s
