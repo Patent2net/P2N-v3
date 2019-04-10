@@ -1,22 +1,23 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Apr  8 11:26:06 2019
+Created on Mon Apr  10 11:26:06 2019
 
 @author: dreymond
 """
 
-import scholarly
+from gargDown_biblio import newCorpus, get_resource_by_name, parse2
+import pickle
+
 #import pprint
 import codecs
 from urllib.parse import urlparse
-import os
+
 import requests
 import epo_ops
 from epo_ops.models import Docdb
 from epo_ops.models import Epodoc
 from Patent2Net.P2N_Lib import MakeIram2, LoadBiblioFile
-os.environ['REQUESTS_CA_BUNDLE'] = 'cacert.pem'#cacert.pem
-os.environ['CA_BUNDLE'] = 'cacert.pem'
+
 
 global key
 global secret
@@ -44,8 +45,6 @@ projectName = configFile.ndf
 #prefixes = [""]
 #if P2NFamilly:
 #    prefixes.append("Families")
-
-    
     
 NeededInfo = ['label', 'date', 'inventor', 'title', 'abstract']
 ndf = projectName
@@ -54,7 +53,9 @@ ResultBiblioPath = configFile.ResultBiblioPath
 temporPath = configFile.temporPath
 ResultPathContent= configFile.ResultContentsPath
 ResultAbstractPath = configFile.ResultAbstractPath
+Auteur = configFile.ResultPath + '\AcadCorpora'
 RepDir = configFile.ResultPath + '\AcadCorpora'
+project = RepDir
 if 'AcadCorpora' not in os.listdir(configFile.ResultPath):
     os.makedirs(RepDir)
 #Version simple... on ne prends pas les familles
@@ -71,13 +72,38 @@ else: #Retrocompatibility #Je me demande si c'est utile depuis la V3....
 #            typeSrc = ''
 #        if ('Description'+ndf in os.listdir(ResultBiblioPath)) or ('Description'+ndf.lower() in os.listdir(ResultBiblioPath)): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
 #            ficBrevet = LoadBiblioFile(ResultBiblioPath, ndf)
+def SearchAuthorHal(aut):
+    class Dummy(object):
+        pass
 
+    request = Dummy()
+    request.method = 'POST'
+    request.path = 'nowhere'
+    request.META = {}
+    # XXX 'string' only have effect on moissonneurs.pubmed; its value is added
+    #     when processing request client-side, take a deep breath and see
+    #     templates/projects/project.html for more details.
+    request.POST = {'string': name,
+                    'query': query,
+                    'N': QUERY_SIZE_N_MAX}
+    
 typeSrc = ''
 print("Nice, ", len(DataBrevet["brevets"]), " patents found. On cherche les auteurs...")
 for brevet in DataBrevet["brevets"]:
     for Auteur in brevet['inventor'] :
-        #Auteur = 'David Reymond'
-        res = scholarly.search_author(Auteur)
+        Auteur = 'David Reymond'
+        Auteur = Auteur.title()
+        corpus = dict()
+        corpus['name'] = 'HAL (english) [API]' #conforme aux déclarations de constants.py
+        corpus['fileName'] = Auteur #Adapter à la requete
+        corpus['ressources'] = get_resource_by_name(corpus['name'] )
+        corpus['path'] = newCorpus(project, source="hal", name=Auteur, query='authFullName_s:%s&fl=label_s,abstract_s,docid,keyword_s,authEmailDomain_s,deptStructCountry_s' %(Auteur))
+        #sans les facettes: https://api.archives-ouvertes.fr/search/?q=authFullName_s:%22David%20Reymond%22&&fl=label_s,abstract_s,docid,keyword_s,authEmailDomain_s
+        #avec : https://api.archives-ouvertes.fr/search/?q=authFullName_s:%22David%20Reymond%22&facet=true&facet.field=abstract_s&facet.field=keyword_s&facet.field=authEmailDomain_s&facet.limit=5
+        if corpus['path']  is not None:
+            parse2(corpus)
+        else:
+            pass # rien dans HAL
         RepResult = "AcadCheck"
         try:
             PotentielAuteurs.append( next(res).fill())
