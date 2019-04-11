@@ -1,9 +1,0 @@
-1. Using conda from anaconda3
-    create enironnent Python 3.6
-2. iopen terminal in this environment
-a. conda install graphviz pygraphviz -c alubbock
-b. install curses from : https://www.lfd.uci.edu/~gohlke/pythonlibs/#curses
-pip install 'the good whl file"
-
-3. follow then the installation process from the doc :
-python setup.py develop

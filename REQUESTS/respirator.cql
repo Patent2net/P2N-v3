@@ -1,6 +1,9 @@
 # Patent2Net configuration file
 ##############################
-# request
+# This example treat of around 20-30 patents dealing with drainage systems for respirator aparatus
+# very restrictive search example, just for testing purpose
+##############################
+# the "patents universe" corresponding to the request
 # insert below your request in cql format as done in the example
 request: TI=Respirator AND IPC= A61M1
 
@@ -21,13 +24,10 @@ GatherBiblio: True
 
 # patent content (description, abstract, claims) completing patents bibliographic data
 GatherContent: True
-OPSGatherContentsv2-Iramuteq: False
+OPSGatherContentsv2-Iramuteq: True
 
 #patents families extending the PU to families
 GatherFamilly: True
-
-#NEW 2018: images
-GatherImages: True
 
 ###############################
 # Networks. Produce both online and for download and local use of Gephi
@@ -41,7 +41,7 @@ ApplicantNetwork: True
 CrossTechNetwork: True
 
 # Applicants and Inventors network
-ApplicantInventorNet: True
+ApplicantInventorNetwork: True
 
 # Applicants and IPCs' network
 ApplicantCrossTechNetwork: True
@@ -95,9 +95,4 @@ FormateExportPivotTable: True
 # for download and local use of Carrot2 and Iramuteq
 FusionCarrot2: True
 FusionIramuteq2: True
-
-###############################
-# NEW Feature (BETA)
-# Double clustering system based on non so trivial words
-P2N-Cluster: True
 
