@@ -1,1 +1,1 @@
-for /F "delims=~" %%f in (requirementsPip.txt) do pip install --upgrade "%%f"
+for /F "delims=~" %%f in (Patent2Net\requirementsPip.txt) do pip install --upgrade "%%f"

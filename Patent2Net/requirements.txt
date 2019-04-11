@@ -11,5 +11,4 @@ python-louvain
 jinja2
 lxml
 Pillow
-community
 

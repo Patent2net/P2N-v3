@@ -49,8 +49,7 @@ Aut='"David Reymond"'
 #corpus1['path'] = newCorpus(project, source="hal", name="test", 
 HalDocs =  CollecteHal(Aut, start=0, nbColl=0)
 
-def 
-    
+
 print()
 #authFirstName_s
 #authLastName_s
