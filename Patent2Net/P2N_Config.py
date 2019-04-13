@@ -105,15 +105,15 @@ class P2NConfig:
         return open("..//requete.cql", "r").readlines()
 
     def generatePaths(self):
-        self.ResultPath = os.path.normpath(os.path.join(self.GlobalPath, self.ndf))
-        self.ResultListPath = os.path.normpath(self.ResultPath + '//PatentLists')
-        self.ResultBiblioPath = os.path.normpath(self.ResultPath + '//PatentBiblios')
-        self.ResultContentsPath = os.path.normpath(self.ResultPath + '//PatentContents')
-        self.temporPath = os.path.normpath(self.ResultPath + '//tempo')
-        self.ResultAbstractPath = os.path.normpath(self.ResultContentsPath + '//Abstract')
-        self.ResultFamiliesAbstractPath = os.path.normpath(self.ResultContentsPath + '//FamiliesAbstract')
-        self.ResultGephiPath = os.path.normpath(self.ResultPath + '//GephiFiles')
-        self.ResultPathImages = os.path.normpath(self.ResultPath + '//PatentImages')
+        self.ResultPath = os.path.normpath(os.path.join(self.GlobalPath, self.ndf)).replace('\\','/')
+        self.ResultListPath = os.path.normpath(self.ResultPath + '//PatentLists').replace('\\','/')
+        self.ResultBiblioPath = os.path.normpath(self.ResultPath + '//PatentBiblios').replace('\\','/')
+        self.ResultContentsPath = os.path.normpath(self.ResultPath + '//PatentContents').replace('\\','/')
+        self.temporPath = os.path.normpath(self.ResultPath + '//tempo').replace('\\','/')
+        self.ResultAbstractPath = os.path.normpath(self.ResultContentsPath + '//Abstract').replace('\\','/')
+        self.ResultFamiliesAbstractPath = os.path.normpath(self.ResultContentsPath + '//FamiliesAbstract').replace('\\','/')
+        self.ResultGephiPath = os.path.normpath(self.ResultPath + '//GephiFiles').replace('\\','/')
+        self.ResultPathImages = os.path.normpath(self.ResultPath + '//PatentImages').replace('\\','/')
         for path in [
             self.ResultListPath,
             self.ResultBiblioPath,

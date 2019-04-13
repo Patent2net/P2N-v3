@@ -66,7 +66,7 @@ totalsPerType = []
 totalsPerFamilyType = []
 if Gather:
     def generateTotal(content):
-        path = os.path.join(ResultContentsPath, content)
+        path = os.path.join(ResultContentsPath, content).replace('\\','/')
         if os.path.isdir(path):
             lstfic = os.listdir(path)
             languages = set([str(fi[0:2]) for fi in lstfic])
