@@ -267,25 +267,32 @@ def classic_interface(options):
             "Citations",
             "Equivalents",
         ]
-
+        
         for network in networks:
 #             run_script('P2N-PreNetworks.py {network}'.format(network=network), configfile)
              run_script('P2N-NetworksBis.py {network}'.format(network=network), configfile)
 #            run_script('P2N-NetworksJS.py {network}'.format(network=network), configfile)
-
+    #adding the complete net a very very slow process
+    
+        run_script('P2N-NetworksFull.py', configfile)
     if options['freeplane'] or options['run']:
         run_script('P2N-FreePlane.py', configfile)
 
-    if options['carrot'] or options['run']:
-        run_script('FusionCarrot2.py', configfile)
-
-    if options['interface'] or options['run']:
-        run_script('Interface2.py', configfile)
-
+    #Gather more textual data if it exsts (Claims, Descriptions) an format them
+    #for Iramuteq
     if options['iramuteq'] or options['run']:
         run_script('OPSGatherContentsV2-Iramuteq.py', configfile)
         run_script('FusionIramuteq2.py', configfile)
-
+    
+    #format xml files for Carrot2
+    if options['carrot'] or options['run']:
+        run_script('FusionCarrot2.py', configfile)
+        
+    #Gather images
     if options['images'] or options['run']:
         run_script('OPSGatherContentsV2-Images.py', configfile)
         run_script('FusionImages.py', configfile)
+
+    #Present data through HTML
+    if options['interface'] or options['run']:
+        run_script('Interface2.py', configfile)

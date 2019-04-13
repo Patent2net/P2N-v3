@@ -139,7 +139,7 @@ for prefix in prefixes:
         if 'Description'+ndf in os.listdir(BiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
             print(network, ": loading data with ", " and ".join(mixNet), " fields.")
             DataBrevet = LoadBiblioFile(BiblioPath, ndf)
-            print("Hi this is Pre-Network processor. Bibliographic data of ", ndf, " patent universe found.")
+            print("Hi this is the Network processor. Bibliographic data of ", ndf, " patent universe found.")
         else: #Retrocompatibility
             print("please use Comptatibilizer")
             break

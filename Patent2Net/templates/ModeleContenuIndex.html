@@ -27,13 +27,13 @@
     }
     </style>
 
-    <script type="text/javascript">
-        if (navigator.userAgent.indexOf("Chrome") != -1) {
-            alert('This website is not compliant with your browser, please come back with another browser like Internet Explorer, or Firefox. ' +
-                'We gonna close this website, thanks you !');
-            <!--close(); May be chrome is ok now ?--> 
-        }
-    </script>
+    <!-- <script type="text/javascript"> -->
+        <!-- if (navigator.userAgent.indexOf("Chrome") != -1) { -->
+            <!-- alert('This website is not compliant with your browser, please come back with another browser like Internet Explorer, or Firefox. ' + -->
+                <!-- 'We gonna close this website, thanks you !'); -->
+            <!-- close(); May be chrome is ok now ?- -->
+        <!-- } -->
+    <!-- </script> -->
 
 
 </head>
@@ -62,7 +62,7 @@
         </header>
         <div class="caption dark animated wow fadeInDown clearfix">
         <h1><a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=page" title="Patent2Net documentation" target="_blank">A patent collector and analyser</a> to expand <br/> your horizon with various data processing tools<br/> for education and scientific purposes</h1>
-            <p>using EPO's database of over <a href="http://worldwide.espacenet.com/"> 90 000 000 patents </a></p>
+            <p>using EPO's database of over <a href="http://worldwide.espacenet.com/"> 100 000 000 patents </a></p>
 
             <hr>
         </div>
@@ -129,6 +129,12 @@
             <a href="#" onclick="{{wo('GephiFiles/*CollectName*_EquivalentsJS.html')}} {{wo('GephiFiles/*CollectName*_ReferencesJS.html')}} {{wo('GephiFiles/*CollectName*_CitationsJS.html')}} return false;">Equivalents, Reference (References to other patents or External references), Patents citations networks</a>
         </li>
         {% endif %}
+		{% if CompleteNetwork %}
+		<li>
+            <a href="#" onclick="{{wo('GephiFiles/*CollectName*_FullJS.html')}} 
+			 return false;">Full network</a>
+        </li>
+        {% endif %}
     </ul>
     {% if HasFamily %}
     <h2>Families</h2>
@@ -150,17 +156,23 @@
         {% endif %}
         {% if InventorNetwork or ApplicantNetwork or CrossTechNetwork %}
         <li>
-            <a href="#" onclick="{{wo('GephiFiles/*CollectName*_InventorsFamiliesJS.html')}} {{wo('GephiFiles/*CollectName*_ApplicantsFamiliesJS.html')}} {{wo('GephiFiles/*CollectName*_CrossTechFamiliesJS.html')}} return false;">Networks (Inventor, Applicant, Technology)</a>
+            <a href="#" onclick="{{wo('GephiFiles/Families*CollectName*_InventorsJS.html')}} {{wo('GephiFiles/Families*CollectName*_ApplicantsJS.html')}} {{wo('GephiFiles/Families*CollectName*_CrossTechJS.html')}} return false;">Networks (Inventor, Applicant, Technology)</a>
         </li>
         {% endif %}
         {% if InventorCrossTechNetwork or ApplicantCrossTechNetwork or CountryCrossTechNetwork %}
         <li>
-            <a href="#" onclick="{{wo('GephiFiles/*CollectName*_CountryCrossTechFamiliesJS.html')}} {{wo('GephiFiles/*CollectName*_InventorsCrossTechFamiliesJS.html')}} {{wo('GephiFiles/*CollectName*_Applicants_CrossTechFamiliesJS.html')}} {{wo('GephiFiles/*CollectName*_ApplicantInventorFamiliesJS.html')}} return false;">Mixed Networks (Country-Technology, Inventor-Technology,  Applicant-Technology, Applicant-Inventor)</a>
+            <a href="#" onclick="{{wo('GephiFiles/Families*CollectName*_CountryCrossTechJS.html')}} {{wo('GephiFiles/Families*CollectName*_InventorsCrossTechJS.html')}} {{wo('GephiFiles/Families*CollectName*_Applicants_CrossTechJS.html')}} {{wo('GephiFiles/Families*CollectName*_ApplicantInventorJS.html')}} return false;">Mixed Networks (Country-Technology, Inventor-Technology,  Applicant-Technology, Applicant-Inventor)</a>
         </li>
         {% endif %}
         {% if References or Citations or Equivalents %}
         <li>
-            <a href="#" onclick="{{wo('GephiFiles/*CollectName*_EquivalentsFamiliesJS.html')}} {{wo('GephiFiles/*CollectName*_ReferencesFamiliesJS.html')}} {{wo('GephiFiles/*CollectName*_CitationsFamiliesJS.html')}}  return false;">Equivalents, Reference (References to other patents or External references), Patents citations networks</a>
+            <a href="#" onclick="{{wo('GephiFiles/Families*CollectName*_EquivalentsJS.html')}} {{wo('GephiFiles/Families*CollectName*_ReferencesJS.html')}} {{wo('GephiFiles/Families*CollectName*_CitationsJS.html')}}  return false;">Equivalents, Reference (References to other patents or External references), Patents citations networks</a>
+        </li>
+        {% endif %}
+		{% if CompleteNetwork %}
+		<li>
+            <a href="#" onclick="{{wo('GephiFiles/Families*CollectName*_FullJS.html')}} 
+			 return false;">Full network</a>
         </li>
         {% endif %}
     </ul>
@@ -196,8 +208,11 @@
                     <a href="{{u('GephiFiles/*CollectName*_InventorsCrossTech.gexf')}}" download>Inventors and technologies</a>                    </td>
                 <td>
                     <a href="{{u('GephiFiles/*CollectName*_Applicants_CrossTech.gexf')}}" download>Applicants and technologies</a>                    </td>
-
-            </tr>
+			</tr>
+			<tr>
+                <td>
+                    <a href="{{u('GephiFiles/*CollectName*_Full.gexf')}}" download>Full Net</a>                    </td>
+            
         </table>
         <h3><a href="http://freeplane.sourceforge.net"  target="_blank">FreePlane compatible file</a> </h3>
         <ul>
@@ -241,31 +256,37 @@
         <table style="width:100%">
             <tr>
                 <td>
-                    <a href="{{u('GephiFiles/*CollectName*_ApplicantsFamilies.gexf')}}" download>Applicants </a> </td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_Applicants.gexf')}}" download>Applicants </a> </td>
                 <td>
-                    <a href="{{u('GephiFiles/*CollectName*_InventorsFamilies.gexf')}}" download>Inventors </a> </td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_Inventors.gexf')}}" download>Inventors </a> </td>
                 <td>
-                    <a href="{{u('GephiFiles/*CollectName*_CrossTechFamilies.gexf')}}" download>Technologies (IPC7) </a> </td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_CrossTech.gexf')}}" download>Technologies (IPC7) </a> </td>
             </tr>
             <tr>
                 <td>
-                    <a href="{{u('GephiFiles/*CollectName*_CitationsFamilies.gexf')}}" download>Citations</a> </td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_Citations.gexf')}}" download>Citations</a> </td>
                 <td>
-                    <a href="{{u('GephiFiles/*CollectName*_ReferencesFamilies.gexf')}}" download>References</a> </td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_References.gexf')}}" download>References</a> </td>
                 <td>
-                    <a href="{{u('GephiFiles/*CollectName*_EquivalentsFamilies.gexf')}}" download>Equivalents</a> </td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_Equivalents.gexf')}}" download>Equivalents</a> </td>
             </tr>
             <tr>
                 <td>
-                    <a href="{{u('GephiFiles/*CollectName*_CountryCrossTechFamilies.gexf')}}" download>Countries and technologies</a> </td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_CountryCrossTech.gexf')}}" download>Countries and technologies</a> </td>
                 <td>
-                    <a href="{{u('GephiFiles/*CollectName*_ApplicantInventorFamilies.gexf')}}" download>Inventors and applicants</a> </td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_ApplicantInventor.gexf')}}" download>Inventors and applicants</a> </td>
                 <td>
-                    <a href="{{u('GephiFiles/*CollectName*_InventorsCrossTechFamilies.gexf')}}" download>Inventors and technologies</a>                    </td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_InventorsCrossTech.gexf')}}" download>Inventors and technologies</a>                    </td>
+		
                 <td>
-                    <a href="{{u('GephiFiles/*CollectName*_Applicants_CrossTechFamilies.gexf')}}" download>Applicants and technologies</a>                    </td>
-
-            </tr>
+                    <a href="{{u('GephiFiles/Families*CollectName*_Applicants_CrossTech.gexf')}}" download>Applicants and technologies</a>                    </td>
+		</tr>
+		<tr>
+		 <td>
+            <a href="{{u('GephiFiles/Families*CollectName*_FullJS.html')}}">Full family network</a>
+        </td>
+		</tr>
+            
 
         </table>
         <h3><a href="http://freeplane.sourceforge.net"  target="_blank">FreePlane compatible file</a> </h3>
