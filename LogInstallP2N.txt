@@ -12,6 +12,7 @@ writing manifest file 'patent2net.egg-info\SOURCES.txt'
 installing library code to build\bdist.win-amd64\egg
 running install_lib
 running build_py
+copying Patent2Net\P2N_Lib.py -> build\lib\Patent2Net
 creating build\bdist.win-amd64\egg
 creating build\bdist.win-amd64\egg\p2n
 copying build\lib\p2n\api.py -> build\bdist.win-amd64\egg\p2n
@@ -53,6 +54,39 @@ copying build\lib\Patent2Net\Interface2.py -> build\bdist.win-amd64\egg\Patent2N
 copying build\lib\Patent2Net\IPC-Abstracts-Augment.py -> build\bdist.win-amd64\egg\Patent2Net
 copying build\lib\Patent2Net\IPC-WS-metrics.py -> build\bdist.win-amd64\egg\Patent2Net
 copying build\lib\Patent2Net\networkx_functs.py -> build\bdist.win-amd64\egg\Patent2Net
+creating build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\ClusterPreProcess.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\FormateExportAttractivityCartography.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\FormateExportBiblio.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\FormateExportCountryCartography.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\FormateExportDataTable.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\FormateExportDataTableFamilies.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\FormateExportPivotTable.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\Fusion.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\FusionCarrot2.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\FusionImages.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\FusionIramuteq2.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\FusionPatentList2.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\Interface2.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\IPC-Abstracts-Augment.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\IPC-WS-metrics.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\networkx_functs.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\OPSGatherAugment-Families.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\OPSGatherContentsV2-Images.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\OPSGatherContentsV2-Iramuteq.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\OPSGatherPatentsv2.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\P2N-Cluster.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\P2N-FreePlane.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\P2N-Networks.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\P2N-NetworksJS.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\P2N-PreNetworks.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\P2N_Config.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\P2N_FreePlaneLib.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\P2N_Lib.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\P2N_Version.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\Parallel3.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\TAL_P2N_Lib.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
+copying build\lib\Patent2Net\OLD\__init__.py -> build\bdist.win-amd64\egg\Patent2Net\OLD
 copying build\lib\Patent2Net\OPSGatherAugment-Families.py -> build\bdist.win-amd64\egg\Patent2Net
 copying build\lib\Patent2Net\OPSGatherContentsV2-Images.py -> build\bdist.win-amd64\egg\Patent2Net
 copying build\lib\Patent2Net\OPSGatherContentsV2-Iramuteq.py -> build\bdist.win-amd64\egg\Patent2Net
@@ -106,6 +140,38 @@ byte-compiling build\bdist.win-amd64\egg\Patent2Net\Interface2.py to Interface2.
 byte-compiling build\bdist.win-amd64\egg\Patent2Net\IPC-Abstracts-Augment.py to IPC-Abstracts-Augment.cpython-36.pyc
 byte-compiling build\bdist.win-amd64\egg\Patent2Net\IPC-WS-metrics.py to IPC-WS-metrics.cpython-36.pyc
 byte-compiling build\bdist.win-amd64\egg\Patent2Net\networkx_functs.py to networkx_functs.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\ClusterPreProcess.py to ClusterPreProcess.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\FormateExportAttractivityCartography.py to FormateExportAttractivityCartography.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\FormateExportBiblio.py to FormateExportBiblio.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\FormateExportCountryCartography.py to FormateExportCountryCartography.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\FormateExportDataTable.py to FormateExportDataTable.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\FormateExportDataTableFamilies.py to FormateExportDataTableFamilies.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\FormateExportPivotTable.py to FormateExportPivotTable.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\Fusion.py to Fusion.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\FusionCarrot2.py to FusionCarrot2.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\FusionImages.py to FusionImages.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\FusionIramuteq2.py to FusionIramuteq2.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\FusionPatentList2.py to FusionPatentList2.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\Interface2.py to Interface2.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\IPC-Abstracts-Augment.py to IPC-Abstracts-Augment.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\IPC-WS-metrics.py to IPC-WS-metrics.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\networkx_functs.py to networkx_functs.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\OPSGatherAugment-Families.py to OPSGatherAugment-Families.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\OPSGatherContentsV2-Images.py to OPSGatherContentsV2-Images.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\OPSGatherContentsV2-Iramuteq.py to OPSGatherContentsV2-Iramuteq.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\OPSGatherPatentsv2.py to OPSGatherPatentsv2.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\P2N-Cluster.py to P2N-Cluster.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\P2N-FreePlane.py to P2N-FreePlane.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\P2N-Networks.py to P2N-Networks.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\P2N-NetworksJS.py to P2N-NetworksJS.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\P2N-PreNetworks.py to P2N-PreNetworks.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\P2N_Config.py to P2N_Config.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\P2N_FreePlaneLib.py to P2N_FreePlaneLib.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\P2N_Lib.py to P2N_Lib.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\P2N_Version.py to P2N_Version.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\Parallel3.py to Parallel3.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\TAL_P2N_Lib.py to TAL_P2N_Lib.cpython-36.pyc
+byte-compiling build\bdist.win-amd64\egg\Patent2Net\OLD\__init__.py to __init__.cpython-36.pyc
 byte-compiling build\bdist.win-amd64\egg\Patent2Net\OPSGatherAugment-Families.py to OPSGatherAugment-Families.cpython-36.pyc
 byte-compiling build\bdist.win-amd64\egg\Patent2Net\OPSGatherContentsV2-Images.py to OPSGatherContentsV2-Images.cpython-36.pyc
 byte-compiling build\bdist.win-amd64\egg\Patent2Net\OPSGatherContentsV2-Iramuteq.py to OPSGatherContentsV2-Iramuteq.cpython-36.pyc
@@ -136,122 +202,122 @@ copying patent2net.egg-info\top_level.txt -> build\bdist.win-amd64\egg\EGG-INFO
 creating 'dist\patent2net-3.0.0.dev6-py3.6.egg' and adding 'build\bdist.win-amd64\egg' to it
 removing 'build\bdist.win-amd64\egg' (and everything under it)
 Processing patent2net-3.0.0.dev6-py3.6.egg
-creating c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages\patent2net-3.0.0.dev6-py3.6.egg
-Extracting patent2net-3.0.0.dev6-py3.6.egg to c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
+creating d:\anaconda3\envs\p2n\lib\site-packages\patent2net-3.0.0.dev6-py3.6.egg
+Extracting patent2net-3.0.0.dev6-py3.6.egg to d:\anaconda3\envs\p2n\lib\site-packages
 Adding patent2net 3.0.0.dev6 to easy-install.pth file
-Installing p2n-script.py script to C:\Users\Luc Quoniam\.conda\envs\P2N\Scripts
-Installing p2n.exe script to C:\Users\Luc Quoniam\.conda\envs\P2N\Scripts
+Installing p2n-script.py script to D:\Anaconda3\envs\P2N\Scripts
+Installing p2n.exe script to D:\Anaconda3\envs\P2N\Scripts
 
-Installed c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages\patent2net-3.0.0.dev6-py3.6.egg
+Installed d:\anaconda3\envs\p2n\lib\site-packages\patent2net-3.0.0.dev6-py3.6.egg
 Processing dependencies for patent2net==3.0.0.dev6
 Searching for where
 Reading https://pypi.org/simple/where/
 Downloading https://files.pythonhosted.org/packages/1d/cb/2063ca883753a6a000d0f76c26d7e34433f489fd9ccb6f319e7165c2db72/where-1.0.2-py2.py3-none-any.whl#sha256=66abc8edf95be7516e949d08a771f25acacff708ef481618562ab484fe5bc63e
 Best match: where 1.0.2
 Processing where-1.0.2-py2.py3-none-any.whl
-Installing where-1.0.2-py2.py3-none-any.whl to c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
-writing requirements to c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages\where-1.0.2-py3.6.egg\EGG-INFO\requires.txt
+Installing where-1.0.2-py2.py3-none-any.whl to d:\anaconda3\envs\p2n\lib\site-packages
+writing requirements to d:\anaconda3\envs\p2n\lib\site-packages\where-1.0.2-py3.6.egg\EGG-INFO\requires.txt
 Adding where 1.0.2 to easy-install.pth file
-Installing where-script.py script to C:\Users\Luc Quoniam\.conda\envs\P2N\Scripts
-Installing where.exe script to C:\Users\Luc Quoniam\.conda\envs\P2N\Scripts
+Installing where-script.py script to D:\Anaconda3\envs\P2N\Scripts
+Installing where.exe script to D:\Anaconda3\envs\P2N\Scripts
 
-Installed c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages\where-1.0.2-py3.6.egg
+Installed d:\anaconda3\envs\p2n\lib\site-packages\where-1.0.2-py3.6.egg
 Searching for attrs
 Reading https://pypi.org/simple/attrs/
 Downloading https://files.pythonhosted.org/packages/23/96/d828354fa2dbdf216eaa7b7de0db692f12c234f7ef888cc14980ef40d1d2/attrs-19.1.0-py2.py3-none-any.whl#sha256=69c0dbf2ed392de1cb5ec704444b08a5ef81680a61cb899dc08127123af36a79
 Best match: attrs 19.1.0
 Processing attrs-19.1.0-py2.py3-none-any.whl
-Installing attrs-19.1.0-py2.py3-none-any.whl to c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
-writing requirements to c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages\attrs-19.1.0-py3.6.egg\EGG-INFO\requires.txt
+Installing attrs-19.1.0-py2.py3-none-any.whl to d:\anaconda3\envs\p2n\lib\site-packages
+writing requirements to d:\anaconda3\envs\p2n\lib\site-packages\attrs-19.1.0-py3.6.egg\EGG-INFO\requires.txt
 Adding attrs 19.1.0 to easy-install.pth file
 
-Installed c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages\attrs-19.1.0-py3.6.egg
+Installed d:\anaconda3\envs\p2n\lib\site-packages\attrs-19.1.0-py3.6.egg
 Searching for jsonpointer
 Reading https://pypi.org/simple/jsonpointer/
 Downloading https://files.pythonhosted.org/packages/18/b0/a80d29577c08eea401659254dfaed87f1af45272899e1812d7e01b679bc5/jsonpointer-2.0-py2.py3-none-any.whl#sha256=ff379fa021d1b81ab539f5ec467c7745beb1a5671463f9dcc2b2d458bd361c1e
 Best match: jsonpointer 2.0
 Processing jsonpointer-2.0-py2.py3-none-any.whl
-Installing jsonpointer-2.0-py2.py3-none-any.whl to c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
+Installing jsonpointer-2.0-py2.py3-none-any.whl to d:\anaconda3\envs\p2n\lib\site-packages
 Adding jsonpointer 2.0 to easy-install.pth file
-Installing jsonpointer script to C:\Users\Luc Quoniam\.conda\envs\P2N\Scripts
+Installing jsonpointer script to D:\Anaconda3\envs\P2N\Scripts
 
-Installed c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages\jsonpointer-2.0-py3.6.egg
+Installed d:\anaconda3\envs\p2n\lib\site-packages\jsonpointer-2.0-py3.6.egg
 Searching for docopt
 Reading https://pypi.org/simple/docopt/
 Downloading https://files.pythonhosted.org/packages/a2/55/8f8cab2afd404cf578136ef2cc5dfb50baa1761b68c9da1fb1e4eed343c9/docopt-0.6.2.tar.gz#sha256=49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491
 Best match: docopt 0.6.2
 Processing docopt-0.6.2.tar.gz
-Writing C:\Users\LUCQUO~1\AppData\Local\Temp\easy_install-oitoaljy\docopt-0.6.2\setup.cfg
-Running docopt-0.6.2\setup.py -q bdist_egg --dist-dir C:\Users\LUCQUO~1\AppData\Local\Temp\easy_install-oitoaljy\docopt-0.6.2\egg-dist-tmp-yho34shq
-Copying docopt-0.6.2-py3.6.egg to c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
+Writing C:\Users\dreymond\AppData\Local\Temp\easy_install-sojvgg5_\docopt-0.6.2\setup.cfg
+Running docopt-0.6.2\setup.py -q bdist_egg --dist-dir C:\Users\dreymond\AppData\Local\Temp\easy_install-sojvgg5_\docopt-0.6.2\egg-dist-tmp-4mw3g709
+Copying docopt-0.6.2-py3.6.egg to d:\anaconda3\envs\p2n\lib\site-packages
 Adding docopt 0.6.2 to easy-install.pth file
 
-Installed c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages\docopt-0.6.2-py3.6.egg
+Installed d:\anaconda3\envs\p2n\lib\site-packages\docopt-0.6.2-py3.6.egg
 Searching for dogpile.cache
 Reading https://pypi.org/simple/dogpile.cache/
 Downloading https://files.pythonhosted.org/packages/84/3e/dbf1cfc5228f1d3dca80ef714db2c5aaec5cd9efaf54d7e3daef6bc48b19/dogpile.cache-0.7.1.tar.gz#sha256=691b7f199561c4bd6e7e96f164a43cc3781b0c87bea29b7d59d859f873fd4a31
 Best match: dogpile.cache 0.7.1
 Processing dogpile.cache-0.7.1.tar.gz
-Writing C:\Users\LUCQUO~1\AppData\Local\Temp\easy_install-gjqown7o\dogpile.cache-0.7.1\setup.cfg
-Running dogpile.cache-0.7.1\setup.py -q bdist_egg --dist-dir C:\Users\LUCQUO~1\AppData\Local\Temp\easy_install-gjqown7o\dogpile.cache-0.7.1\egg-dist-tmp-6a2zb7ct
-creating c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages\dogpile.cache-0.7.1-py3.6.egg
-Extracting dogpile.cache-0.7.1-py3.6.egg to c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
+Writing C:\Users\dreymond\AppData\Local\Temp\easy_install-0t632xzm\dogpile.cache-0.7.1\setup.cfg
+Running dogpile.cache-0.7.1\setup.py -q bdist_egg --dist-dir C:\Users\dreymond\AppData\Local\Temp\easy_install-0t632xzm\dogpile.cache-0.7.1\egg-dist-tmp-7h1isoxy
+creating d:\anaconda3\envs\p2n\lib\site-packages\dogpile.cache-0.7.1-py3.6.egg
+Extracting dogpile.cache-0.7.1-py3.6.egg to d:\anaconda3\envs\p2n\lib\site-packages
 Adding dogpile.cache 0.7.1 to easy-install.pth file
 
-Installed c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages\dogpile.cache-0.7.1-py3.6.egg
+Installed d:\anaconda3\envs\p2n\lib\site-packages\dogpile.cache-0.7.1-py3.6.egg
 Searching for itermate==1.0.2
 Reading https://pypi.org/simple/itermate/
 Downloading https://files.pythonhosted.org/packages/dc/56/9de3f418ae1d0663fa98e9296d0671ff5cc3582acf54dfbd6490bcdf8ee7/itermate-1.0.2.zip#sha256=5ee758cbb363493156cee7a29effc2b148a1a19d2be3097e92fc824991901e2a
 Best match: itermate 1.0.2
 Processing itermate-1.0.2.zip
-Writing C:\Users\LUCQUO~1\AppData\Local\Temp\easy_install-jg_sr59r\itermate-1.0.2\setup.cfg
-Running itermate-1.0.2\setup.py -q bdist_egg --dist-dir C:\Users\LUCQUO~1\AppData\Local\Temp\easy_install-jg_sr59r\itermate-1.0.2\egg-dist-tmp-1hrst4bm
-Copying itermate-1.0.2-py3.6.egg to c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
+Writing C:\Users\dreymond\AppData\Local\Temp\easy_install-b1mbpfhf\itermate-1.0.2\setup.cfg
+Running itermate-1.0.2\setup.py -q bdist_egg --dist-dir C:\Users\dreymond\AppData\Local\Temp\easy_install-b1mbpfhf\itermate-1.0.2\egg-dist-tmp-kd2naosh
+Copying itermate-1.0.2-py3.6.egg to d:\anaconda3\envs\p2n\lib\site-packages
 Adding itermate 1.0.2 to easy-install.pth file
 
-Installed c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages\itermate-1.0.2-py3.6.egg
+Installed d:\anaconda3\envs\p2n\lib\site-packages\itermate-1.0.2-py3.6.egg
 Searching for numpy==1.16.2
 Best match: numpy 1.16.2
 Adding numpy 1.16.2 to easy-install.pth file
-Installing f2py-script.py script to C:\Users\Luc Quoniam\.conda\envs\P2N\Scripts
-Installing f2py.exe script to C:\Users\Luc Quoniam\.conda\envs\P2N\Scripts
+Installing f2py-script.py script to D:\Anaconda3\envs\P2N\Scripts
+Installing f2py.exe script to D:\Anaconda3\envs\P2N\Scripts
 
-Using c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
+Using d:\anaconda3\envs\p2n\lib\site-packages
 Searching for requests==2.21.0
 Best match: requests 2.21.0
 Adding requests 2.21.0 to easy-install.pth file
 
-Using c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
-Searching for pyparsing==2.3.1
-Best match: pyparsing 2.3.1
-Adding pyparsing 2.3.1 to easy-install.pth file
+Using d:\anaconda3\envs\p2n\lib\site-packages
+Searching for pyparsing==2.4.0
+Best match: pyparsing 2.4.0
+Adding pyparsing 2.4.0 to easy-install.pth file
 
-Using c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
-Searching for urllib3==1.24.1
-Best match: urllib3 1.24.1
-Adding urllib3 1.24.1 to easy-install.pth file
-
-Using c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
-Searching for chardet==3.0.4
-Best match: chardet 3.0.4
-Adding chardet 3.0.4 to easy-install.pth file
-Installing chardetect-script.py script to C:\Users\Luc Quoniam\.conda\envs\P2N\Scripts
-Installing chardetect.exe script to C:\Users\Luc Quoniam\.conda\envs\P2N\Scripts
-
-Using c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
+Using d:\anaconda3\envs\p2n\lib\site-packages
 Searching for certifi==2019.3.9
 Best match: certifi 2019.3.9
 Adding certifi 2019.3.9 to easy-install.pth file
 
-Using c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
+Using d:\anaconda3\envs\p2n\lib\site-packages
+Searching for chardet==3.0.4
+Best match: chardet 3.0.4
+Adding chardet 3.0.4 to easy-install.pth file
+Installing chardetect-script.py script to D:\Anaconda3\envs\P2N\Scripts
+Installing chardetect.exe script to D:\Anaconda3\envs\P2N\Scripts
+
+Using d:\anaconda3\envs\p2n\lib\site-packages
 Searching for idna==2.8
 Best match: idna 2.8
 Adding idna 2.8 to easy-install.pth file
 
-Using c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
+Using d:\anaconda3\envs\p2n\lib\site-packages
+Searching for urllib3==1.24.1
+Best match: urllib3 1.24.1
+Adding urllib3 1.24.1 to easy-install.pth file
+
+Using d:\anaconda3\envs\p2n\lib\site-packages
 Searching for decorator==4.4.0
 Best match: decorator 4.4.0
 Adding decorator 4.4.0 to easy-install.pth file
 
-Using c:\users\luc quoniam\.conda\envs\p2n\lib\site-packages
+Using d:\anaconda3\envs\p2n\lib\site-packages
 Finished processing dependencies for patent2net==3.0.0.dev6
