@@ -783,7 +783,7 @@ for prefix in prefixes:
             #making the html from model
             RenderTemplate(
                 "Graphe.html",
-                ResultGephiPath + '/'+outputFile.replace('.gexf','.html'),
+                ResultGephiPath + '/'+outputFile.replace('.gexf','JS.html'),
                 TitleNet=network[1:]+' Network for ' + requete,
                 fichierConfigJS=outputFile.replace('.gexf','') +'Conf.js',
                 mediaStyle='../../../Patent2Net/media/styles',

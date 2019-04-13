@@ -3310,7 +3310,7 @@ def NomBrevet(Brev):
 def wo(CollectName, GlobalPath, WindowOpenFlag=True):
     def window_open(url):
         url = url.replace('*CollectName*', CollectName)
-        has_path = os.path.exists(os.path.join(GlobalPath, CollectName, url))
+        has_path = os.path.exists(os.path.join(GlobalPath, CollectName, url).replace('\\','/'))
         # print 'URL', url, GlobalPath, has_path
         if has_path:
             full_url = '%s/%s' % (CollectName, url)
