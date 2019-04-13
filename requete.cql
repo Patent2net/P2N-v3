@@ -1,77 +1,103 @@
-#insert below your request in cql format as done in the example
-#insert also a compliant name (no space or special characters) for 
-#the "patents universe" corresponding to the request
+﻿# Patent2Net configuration file
+##############################
+# request
+# insert below your request in cql format as done in the example
 request: lentille
 
-###############################
-# Name of files OR directories
+##############################
+# Directory to use
+# insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
 DataDirectory: lentille
 
 ###############################
-# Set next to *True* to collect patent list
-GatherPatent: False
+#Patent2Net options : Set to *True* or False
+###############################
+# Collecting
+# patents list corresponding to the request. e.g the "Patent Universe" (PU)
+GatherPatent: True
+
+# patents bibliographic data corresponding to patent list
+GatherBiblio: True
+
+# patent content (description, abstract, claims) completing patents bibliographic data
+GatherContent: True
+OPSGatherContentsv2-Iramuteq: True
+
+#patents families extending the PU to families
+GatherFamilly: True
+
+#NEW 2018: images
+GatherImages: True
 
 ###############################
-# Set it to *True* to collect patent bibliographic data
-GatherBiblio: False
-
-###############################
-# Set it to *True* to collect patent content (description, abstract, claims)
-GatherContent: False
-
-###############################
-# Set it to *True* to collect patent families
-GatherFamilly: False
-
-###############################
-# Set it to *True* to produce the Inventors' network 
+# Networks. Produce both online and for download and local use of Gephi
+# Inventors' network 
 InventorNetwork: True
 
-###############################
-# Set it to *True* to produce the GUESS
+# Applicants' network
 ApplicantNetwork: True
 
-###############################
-# Set it to *True* to produce the GUESS
-ApplicantInventorNet: True
+# IPCs' network
+CrossTechNetwork: True
 
-###############################
-# Set it to *True* to produce the GUESS
+# Applicants and Inventors network
+ApplicantInventorNetwork: True
+
+# Applicants and IPCs' network
 ApplicantCrossTechNetwork: True
 
-###############################
-# Set it to *True* to produce the GUESS
+# Inventors and IPCs' network 
 InventorCrossTechNetwork: True
 
-###############################
-# Set it to *True* to produce the GUESS
-CompleteNetwork: True
-
-###############################
-# Set it to *True* to produce the GUESS
+# Countries and IPCs' network
 CountryCrossTechNetwork: True
 
-###############################
-# Set it to *True* to produce the GUESS
+# Network of references for the PU (each reference cited by each patent within the PU, includes external bibliographic refs) 
 ReferencesNetwork: True
 
-###############################
-# Set it to *True* to produce the GUESS
+# Network of citation for the PU (each patent cited within the PU cited in the rest of the patents world) 
 CitationsTechNetwork: True
 
-###############################
-# Set it to *True* to produce the GUESS
+# Network of equivalent patents for each patent within the PU
 EquivalentsTechNetwork: True
 
+# The total network
+CompleteNetwork: True
 
-
-###############################
-# Set it to *True* to produce the GUESS
+# Complete families network
 FamiliesNetwork: True
-
-###############################
-# Set it to *True* to produce the GUESS
 FamiliesHierarchicNetwork: True
 
 ###############################
-# Should put here formating resulting switching option...
+#  Mindmaps of IPCs both online and for download and local use of freeplane
+P2N-FreePlane: True
+
+###############################
+# export patents as a bibligraphic file in bibTex format
+FormateExportBiblio: True
+
+###############################
+# Produce the world maps of inventors, applicants, deposit country
+FormateExportAttractivityCartography: True
+FormateExportCountryCartography: True
+
+###############################
+# Patents as a table
+FormateExportDataTable: True
+FormateExportDataTableFamilies: True
+
+###############################
+# Prepare interactive pivottable
+FormateExportPivotTable: True
+
+###############################
+# prepare Abstracts, descriptions, claims for text analysis
+# for download and local use of Carrot2 and Iramuteq
+FusionCarrot2: True
+FusionIramuteq2: True
+
+###############################
+# NEW Feature (BETA)
+# Double clustering system based on non so trivial words
+P2N-Cluster: True
+
