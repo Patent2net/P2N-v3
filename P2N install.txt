@@ -1,0 +1,10 @@
+Windows :
+	Download Anaconda 3 (big installation, https://www.anaconda.com/distribution/) OR Miniconda https://docs.conda.io/en/latest/miniconda.html
+	Download P2N latest https://github.com/Patent2net/P2N-v3
+	Unzip to a temporary directory
+	Launch (double click) installP2N.bat
+	(let it work; do not close windows; that process can be quite long depending on you machine and network access)
+	copy or create cles-epo.txt file (be aware must be ANSI encode caracters!)
+	formulate the desired *.cql file in ./REQUESTS/ directory
+	double click runP2N.bat
+
