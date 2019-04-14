@@ -19,6 +19,16 @@ Installation
 
 Install from source
 ===================
+- Download Anaconda 3 (big installation, https://www.anaconda.com/distribution/) OR Miniconda https://docs.conda.io/en/latest/miniconda.html
+- Download P2N latest https://github.com/Patent2net/P2N-v3
+- Unzip to a the P2N directory (please choose a safe path: the root of your second hard drive (d:\P2N) for instance is the prefered choice)
+- Launch (double click) installP2N.bat (let it work; do not close windows; that process can be quite long depending on you machine and network access)
+- Copy or create cles-epo.txt file (be aware must be ANSI encode caracters!). See https://docs.ip-tools.org/patent2net/configure.html
+- Formulate the desired *.cql file in ./REQUESTS/ directory. See https://docs.ip-tools.org/patent2net/usage/index.html 
+- Double click runP2N.bat and have fun!
+
+
+Nexr seems broken
 - Source releases are available from GitHub: https://github.com/Patent2net/P2N/releases
 - Install a specific version::
 
@@ -30,7 +40,7 @@ Install from source
 
 
 
-Install binary package
+Install binary package (Old features)
 ======================
 - | Binary releases are available at
   | http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=user_manual:download_install
