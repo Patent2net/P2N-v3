@@ -11,4 +11,5 @@ python-louvain
 jinja2
 lxml
 Pillow
+gensim
 
