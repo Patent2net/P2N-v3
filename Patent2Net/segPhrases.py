@@ -8,7 +8,7 @@ import time
 from operator import add
 from textblob import TextBlob # importation de textblob outil liguistique 
 from nltk.corpus import stopwords
-
+from Patent2Net.P2N_Lib import LoadBiblioFile
 from Patent2Net.P2N_Config import LoadConfig
 configFile = LoadConfig()
 
@@ -35,10 +35,10 @@ ResultBiblioPath = configFile.ResultBiblioPath
 temporPath = configFile.temporPath
 ResultPathContent= configFile.ResultContentsPath
 ResultAbstractPath = configFile.ResultAbstractPath
-RepDir = configFile.ResultPath + '\NezhaWork'
+RepDir = configFile.ResultPath + '/NezhaWork'
 
 if 'Description'+ndf in os.listdir(BiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
-    print( "loading patent biblio data with ", " and ".join(NeededInfo), " fields.")
+    print( "loading patent biblio data with")
     DataBrevet = LoadBiblioFile(BiblioPath, ndf)
     print("Hi this is Scholar processor. Bibliographic data of ", ndf, " patent universe found.")
 corpus = []
