@@ -42,11 +42,47 @@ if 'Description'+ndf in os.listdir(BiblioPath): # NEW 12/12/15 new gatherer appe
     DataBrevet = LoadBiblioFile(BiblioPath, ndf)
     print("Hi this is Scholar processor. Bibliographic data of ", ndf, " patent universe found.")
 corpus = []
-for brevet in DataBrevet["brevets"]:
-    for abstract in brevet['abstract'] :
-        corpus.append(abstract)
-        
-#        
+Rep = '..//DATA//'+ndf+'//PatentContents'
+temporar = GenereListeFichiers(Rep)
+    
+    #for det in ['FamiliesAbstract']:
+    #    ind = 0
+    #    for lang in ['FR', 'EN', 'UNK']:
+    #        NomResult = lang+'_'+det.replace('Abstract', '') + '_' + ndf.title()+'.txt'
+    #        ficRes = open(Rep+'//'+NomResult, "w")
+    #        ficRes.write(complete(temporar[ind], lang, det))
+    #        ind+=1
+    #        ficRes.close()
+    #
+    #for det in ['Abstract']:
+    #    ind = 0
+    #    for lang in ['FR', 'EN', 'UNK']:
+    #        NomResult = lang+'_'+det.replace('Abstracts', '') + '_' + ndf.title() +'.txt'
+    #        ficRes = open(Rep+'//'+NomResult, "w")
+    #        ficRes.write(complete2(temporar[ind], lang, det))
+    #        ind+=1
+    #        ficRes.close()
+            
+   
+    
+lstfic = os.listdir(ResultPathContent+'//Abstract')
+print(len(lstfic), " not so empty abstracts gathered. See ", ResultPathContent + '//'+ content+'// directory for files')
+
+Langues = set()
+for fi in lstfic:
+    Langues.add(fi[0:2])
+for ling in Langues:
+    cpt =0
+    with codecs.open(ResultPathContent+'//'+ling.upper()+ '_Abstracts_' +ndf+'.txt', "w", 'utf8') as ficRes:
+        for fi in [fic2 for fic2 in lstfic if fic2.startswith(ling)]:
+            contenuFic = ResultPathContent+ '//Abstract//'+fi
+            with codecs.open(contenuFic, 'r', 'utf8') as absFic:
+                data = absFic.read().strip()
+            tempo = data.split('\n')
+            corpus.append(tempo[1])
+
+print(len(corpus))
+#
 #corpus = [
 #          'Text of the first document.',
 #          'Text of the second document made longer.',
