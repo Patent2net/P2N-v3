@@ -45,7 +45,10 @@ projectName = configFile.ndf
 #if P2NFamilly:
 #    prefixes.append("Families")
 
-    
+
+# La liste des structures adéquates 
+BonneAffiliation=['laboratoire', 'institut', "centre de recherche", "université"] #à compléter
+
     
 NeededInfo = ['label', 'date', 'inventor', 'title', 'abstract']
 ndf = projectName
@@ -94,9 +97,6 @@ for brevet in DataBrevet["brevets"]:
         # PotentielAuteurs Contient la liste des homonymes (approximatifs Reymond, Raymond sont collectés)
         
         # Extractions selon affiliation
-        
-        BonneAffiliation=['laboratoire', 'france', "centre", "université"]
-        
         GoodPotentielAuteur = [aut for aut in PotentielAuteurs for aff in BonneAffiliation if aff in aut.affiliation.lower()]
         
         #Au cas où on rajoute les email en .fr

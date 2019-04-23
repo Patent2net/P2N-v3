@@ -11,7 +11,7 @@ import pickle
 #import pprint
 import codecs
 from urllib.parse import urlparse
-
+import os
 import requests
 import epo_ops
 from epo_ops.models import Docdb
@@ -42,9 +42,9 @@ configFile = LoadConfig()
 
 requete = configFile.requete
 projectName = configFile.ndf
-#prefixes = [""]
-#if P2NFamilly:
-#    prefixes.append("Families")
+
+# La liste des structures adéquates 
+BonneAffiliation=['laboratoire', 'institut', "centre de recherche", "université"] #à compléter
     
 NeededInfo = ['label', 'date', 'inventor', 'title', 'abstract']
 ndf = projectName
@@ -121,7 +121,7 @@ for brevet in DataBrevet["brevets"]:
         
         # Extractions selon affiliation
         
-        BonneAffiliation=['laboratoire', 'france', "centre", "université"]
+        
         
         GoodPotentielAuteur = [aut for aut in PotentielAuteurs for aff in BonneAffiliation if aff in aut.affiliation.lower()]
         
