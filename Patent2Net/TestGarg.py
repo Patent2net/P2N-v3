@@ -19,8 +19,7 @@ project = "Data"
 # # Corpus HAL
 # =============================================================================
 # =============================================================================
-# #Commentez jusqu')à la ligne 22 sia collecte a déjà été réalisée
-# =============================================================================
+## =============================================================================
 def CollecteHal(Auteur, start, nbColl):
     UrlHal = "https://api.archives-ouvertes.fr/search/?q="
     req = "authFullName_s:%s&start=%s&fl=label_s,abstract_s,docid,keyword_s,authEmailDomain_s,deptStructCountry_s" %(Auteur, start)
@@ -29,6 +28,11 @@ def CollecteHal(Auteur, start, nbColl):
     if reponse.status_code == 200:
         data = reponse.json()
         if "response" in data.keys():
+            charset = ( reponse.headers["Content-Type"]
+                                .split("; ")[1]
+                                .split("=" )[1]
+                      )
+            
             data = data['response']#dict_keys(['numFound', 'start', 'docs'])
             if data['numFound']>30 and nbColl<data['numFound']:
                 start+=30
@@ -36,9 +40,9 @@ def CollecteHal(Auteur, start, nbColl):
                 data['docs'].extend(CollecteHal(Auteur, start=start, nbColl= nbColl))
                 
             else:
-                return data
-        else:
-            print ("oups")
+                return data #return (json.loads(reponse.content.decode(charset)))
+    else:
+        raise ValueError(reponse.status_code, reponse.reason)
     return data
 
 corpus1 = dict()

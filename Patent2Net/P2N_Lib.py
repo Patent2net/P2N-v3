@@ -2624,6 +2624,7 @@ def MakeIram2(patent, FileName, patentBibData, SavePath, contenu):
         try:
             EcritContenu(IRAM + '\n'.join(TXT[lang]), SavePath + lang + '-' + FileName)
         except UnicodeDecodeError:
+            print ('Error unicode when writing patent file', patent)
             pass
 #        if len(TXT.keys())>0:
 #            nb = 1
