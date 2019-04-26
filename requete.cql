@@ -2,12 +2,12 @@
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: lentille
+request: TI=Respirator AND IPC= A61M1
 
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: lentille
+DataDirectory: Respirator
 
 ###############################
 #Patent2Net options : Set to *True* or False
@@ -61,8 +61,8 @@ CitationsTechNetwork: True
 # Network of equivalent patents for each patent within the PU
 EquivalentsTechNetwork: True
 
-# The total network
-CompleteNetwork: True
+# The total network (buggy or too long for my tests 25/04/19)
+CompleteNetwork: False
 
 # Complete families network
 FamiliesNetwork: True
@@ -78,7 +78,7 @@ FormateExportBiblio: True
 
 ###############################
 # Produce the world maps of inventors, applicants, deposit country
-FormateExportAttractivityCartography: True
+FormateExportAttractivityCartography: False
 FormateExportCountryCartography: True
 
 ###############################

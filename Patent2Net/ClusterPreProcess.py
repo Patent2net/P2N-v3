@@ -14,8 +14,8 @@ import os
 import codecs
 from sklearn import feature_extraction
 import mpld3
-from .P2N_Lib import LoadBiblioFile
-from .P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Config import LoadConfig
 import sys, os
 from nltk.stem.snowball import SnowballStemmer
 import codecs
@@ -32,8 +32,10 @@ import matplotlib as mp
 from sklearn.manifold import MDS
 from sklearn.metrics.pairwise import cosine_similarity
 from collections import OrderedDict
-from .TAL_P2N_Lib import tokenize_only 
+from Patent2Net.TAL_P2N_Lib import tokenize_only 
 stopwords = nltk.corpus.stopwords.words('english')
+
+
 cluster_colors = {0: '#1b9e77', 1: '#d95f02', 2: '#7570b3', 3: '#e7298a', 4: '#66a61e', 5: '#ff6a61',6: '#00ff1e', 7: '#0001FF'}
 #brev_stpswrds = ['production', 'method', 'preparation', 'preparing', 'use', \
  #                'effective', "provide", "containing", "extract", "invention", "materials", 'relates', \
@@ -67,9 +69,22 @@ else:
 		brev_stpswrds  = data.split(',')
 		stopwords.extend(brev_stpswrds)
     
+#adding stopwords
+with open('StoplistEnglish.txt', 'r') as fic:
+    wrds = fic.readlines()
+
+
+stopwords.extend(wrds)
+
+
+tokStop = nltk.word_tokenize(' '.join(stopwords))
+stopwords.extend(tokStop)
+tempo = set(stopwords)
+stopwords = list(tempo)
 
 EnsVoc = dict()
 Labelle  = OrderedDict()
+
 
 if 'Description'+ndf or 'Description'+ndf.lower() in os.listdir(ResultBiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
     ficBrevet = LoadBiblioFile(ResultBiblioPath, ndf)
@@ -128,14 +143,14 @@ for bre in lstBrevet:
             PureAbstract.encode('ascii')
             
             with codecs.open(ResultPathContentAug+'//'+FicName, 'w', encoding='ascii', errors="ignore") as fic:
-                 tempo = fic.write(IPCRsTexte+' \n'+ toto.lower()+' \n'+ PureAbstract +' \n')
+                 tempo = fic.write(IPCRsTexte+' \n'+ toto.decode().lower()+' \n'+ PureAbstract +' \n')
             Abstracts.append(PureAbstract)
             IPCRsText.append(IPCRsTexte)
-            Contents.append(IPCRsTexte+' \n'+ toto.lower()+' \n'+ PureAbstract +' \n')
+            Contents.append(IPCRsTexte+' \n'+ toto.decode().lower()+' \n'+ PureAbstract +' \n')
              #should explode on chinese titles
-            Titles.append(toto.lower())
+            Titles.append(toto.decode().lower())
             Labels.append(bre['label'])    
-            Tit2FicName[toto.lower()] = FicName
+            Tit2FicName[toto.decode().lower()] = FicName
         except:
             pass # no file OR bad coding
         
@@ -268,28 +283,29 @@ TCA= (TitlesGrammed & ClassTextGramed)-AbstractsGrammed
 CTA = ClassTextGramed & TitlesGrammed & AbstractsGrammed
 InterAll = ContentsGrammed-ALL
 for entr in  FreqTrie.values:
-    if entr[1] in AbstractsGrammedNOTCTGTG:# abstract only
+    if entr[0] in AbstractsGrammedNOTCTGTG:# abstract only 29/04/19 : I had to change here entr[1] to entr[0]
+        # may be due to library change ???????
         EnsVoc[0].append((entr[0], cpt, entr[2]))
         Voc['Res'].append(entr[1]) 
-    elif entr[1] in ClassTextGrammedNOTTGGAG :# IPC only
+    elif entr[0] in ClassTextGrammedNOTTGGAG :# IPC only
         EnsVoc[3].append((entr[0], cpt, entr[2]))
         Voc['IPC'].append(entr[1]) 
-    elif entr[1] in  TitlesGrammedNOTCTGAG :# Titles only
+    elif entr[0] in  TitlesGrammedNOTCTGAG :# Titles only
         EnsVoc[1].append((entr[0], cpt, entr[2]))
         Voc['Tit'].append(entr[1]) 
-    elif entr[1] in  CAT:# IPC and Abstract
+    elif entr[0] in  CAT:# IPC and Abstract
         EnsVoc[2].append((entr[0], cpt, entr[2]))
         Voc["IPC & Res"].append(entr[1]) 
-    elif entr[1] in  TAC :# Title and Abstract
+    elif entr[0] in  TAC :# Title and Abstract
         EnsVoc[4].append((entr[0], cpt, entr[2]))
         Voc["Tit & Res"].append(entr[1]) 
-    elif entr[1] in  TCA: # IPC, Title
+    elif entr[0] in  TCA: # IPC, Title
         EnsVoc[5].append((entr[0], cpt, entr[2]))
         Voc["Tit & IPC"].append(entr[1]) 
-    elif entr[1] in CTA:
+    elif entr[0] in CTA:
         EnsVoc[6].append((entr[0], cpt, entr[2]))
         Voc['$\cap All$'].append(entr[1]) 
-    elif entr[1] in InterAll:
+    elif entr[0] in InterAll:
         EnsVoc[7].append((entr[0], cpt, entr[2]))
         Voc['Border'].append(entr[1])
     else:

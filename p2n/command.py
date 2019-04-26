@@ -30,6 +30,7 @@ def run():
       p2n freeplane [--config=requete.cql]
       p2n carrot [--config=requete.cql]
       p2n images [--config=requete.cql]
+      p2n cluster [--config=requete.cql]
       p2n interface [--config=requete.cql]
       p2n adhoc search --expression=<expression>
       p2n adhoc dump --expression=<expression> [--format=<format>] [--with-family] [--with-register]
@@ -55,8 +56,8 @@ def run():
       p2n freeplane                         Build mind map for Freeplane
       p2n carrot                            Export data to XML suitable for using in Carrot
       p2n images                            Fetch images and build thumbnails
+      p2n cluster                           Build a double clusterer interface mixing abstracts and IPC description
       p2n interface                         Build main Patent2Net html interface
-
     Options:
       --config=<config>                     Path to requete.cql. Will fall back to environment variable "P2N_CONFIG".
 
@@ -292,7 +293,12 @@ def classic_interface(options):
     if options['images'] or options['run']:
         run_script('OPSGatherContentsV2-Images.py', configfile)
         run_script('FusionImages.py', configfile)
-
+    
+    #Cluster processing
+    if options['cluster'] or options['run']:
+        run_script('IPC-WS-metrics.py', configfile)
+        run_script('ClusterPreProcess.py', configfile)
+        run_script('P2N-Cluster.py', configfile)
     #Present data through HTML
     if options['interface'] or options['run']:
         run_script('Interface2.py', configfile)

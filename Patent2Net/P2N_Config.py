@@ -36,7 +36,7 @@ class P2NConfig:
 
         self.FreePlane = False
         self.FusionCarrot2 = False
-
+        self.Cluster = False
         # opening request file, reading parameters
         content = self.readInputFile()
 
@@ -94,7 +94,8 @@ class P2NConfig:
                 self.FreePlane = self.getBoolean(line)
             elif line.count('FusionCarrot2') > 0:
                 self.FusionCarrot2 = self.getBoolean(line)
-
+            elif line.count('P2N-Cluster') > 0:
+                self.Cluster = self.getBoolean(line)
         self.generatePaths()
 
     def readInputFile(self):
@@ -114,6 +115,7 @@ class P2NConfig:
         self.ResultFamiliesAbstractPath = os.path.normpath(self.ResultContentsPath + '//FamiliesAbstract').replace('\\','/')
         self.ResultGephiPath = os.path.normpath(self.ResultPath + '//GephiFiles').replace('\\','/')
         self.ResultPathImages = os.path.normpath(self.ResultPath + '//PatentImages').replace('\\','/')
+        self.ResultClusterPath =  os.path.normpath(self.ResultContentsPath+'//Metrics').replace('\\','/')
         for path in [
             self.ResultListPath,
             self.ResultBiblioPath,
@@ -123,6 +125,7 @@ class P2NConfig:
             self.ResultFamiliesAbstractPath,
             self.ResultGephiPath,
             self.ResultPathImages,
+            self.ResultClusterPath,
         ]:
             
             if not os.path.isdir(path):

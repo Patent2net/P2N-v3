@@ -12,4 +12,10 @@ jinja2
 lxml
 Pillow
 gensim
-
+nltk
+numpy
+scipy
+matplotlib
+mpld3
+scikit-learn
+pandas

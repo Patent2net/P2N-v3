@@ -134,6 +134,12 @@
             <a href="#" onclick="{{wo('GephiFiles/*CollectName*_FullJS.html')}} 
 			 return false;">Full network</a>
         </li>
+		{% endif %}
+		{% if Cluster %}
+        <li>
+            <a href="#" onclick="{{wo('*CollectName*-Clust.html')}} return false;"> P2N Clusterer</a>
+								   
+        </li>
         {% endif %}
     </ul>
     {% if HasFamily %}
