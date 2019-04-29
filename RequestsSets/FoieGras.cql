@@ -1,12 +1,7 @@
-﻿# Patent2Net configuration file
-##############################
-# This example treat of around 55 patents dealing with "foie gras"
-# A real simple case
-##############################
-# the "patents universe" corresponding to the request
-# insert below your request in cql format as done in the example
+﻿#insert below your request in cql format as done in the example
+#insert also a compliant name (no space or special characters) for 
+#the "patents universe" corresponding to the request
 request: TA="foie gras"
-
 ###############################
 # Name of files OR directories
 DataDirectory: FoieGras
@@ -27,6 +22,9 @@ OPSGatherContentsv2-Iramuteq: True
 
 #patents families extending the PU to families
 GatherFamilly: True
+
+#NEW 2018: images
+GatherImages: True
 
 ###############################
 # Networks. Produce both online and for download and local use of Gephi
@@ -61,7 +59,7 @@ CitationsTechNetwork: True
 EquivalentsTechNetwork: True
 
 # The total network
-CompleteNetwork: True
+CompleteNetwork: False
 
 # Complete families network
 FamiliesNetwork: True
@@ -95,3 +93,9 @@ FormateExportPivotTable: True
 FusionCarrot2: True
 FusionIramuteq2: True
 
+###############################
+# NEW Feature (BETA)
+# Double clustering system based on non so trivial words
+# New online text analysis of titles, abstracts, description, claims of the PU
+# methodology described in David Reymond Hadilitationh ttps://hal.archives-ouvertes.fr/tel-01660717
+P2N-Cluster: True
