@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.rst')).read()
 
-requires = [
+requires = [ #I had to comment here to use conda installation instead of pip
     'pyparsing',
 #    'python-epo-ops-client',
     'dogpile.cache',
@@ -85,3 +85,8 @@ setup(name='patent2net',
   },
 
 )
+
+#downloading some corpora for nltk processes
+# @ Nezha add your spécifics needs down here...
+import nltk
+nltk.download('stopwords')

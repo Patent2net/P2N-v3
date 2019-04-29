@@ -51,7 +51,7 @@ def get_images_meta(ops_client, patent_label, path_json):
         except Exception as err:
             print("...Image meta for {} error".format(patent_label), err)
             if hasattr(err, 'response') and err.response.status_code == 404:
-                with open (path_json, 'wb') as fic:
+                with open (path_json, 'w') as fic:
                     fic.write('{}')
     return None
 
