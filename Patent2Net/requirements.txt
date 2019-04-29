@@ -3,7 +3,6 @@ requests
 networkx
 pydot
 graphviz 
-pygraphviz -c alubbock
 beautifulsoup4
 numpy
 matplotlib
