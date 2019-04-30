@@ -26,9 +26,9 @@
 
 <script>
 
-  if (error) return console.warn(error);
+ 
 d3.json('{{jsonFile}}', function(error, data) {
-
+if (error) return console.warn(error);
 var visualization  = d3plus.viz()
 .container("#viz")
 .data(data["data"])
