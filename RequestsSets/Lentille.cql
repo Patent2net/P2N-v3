@@ -25,10 +25,10 @@ GatherBiblio: True
 GatherContent: True
 OPSGatherContentsv2-Iramuteq: True
 
-# patents families extending the PU to families
+#patents families extending the PU to families
 GatherFamilly: True
 
-# fetch images
+#NEW 2018: images
 GatherImages: True
 
 ###############################
@@ -64,7 +64,7 @@ CitationsTechNetwork: True
 EquivalentsTechNetwork: True
 
 # The total network
-CompleteNetwork: True
+CompleteNetwork: False
 
 # Complete families network
 FamiliesNetwork: True
@@ -98,3 +98,9 @@ FormateExportPivotTable: True
 FusionCarrot2: True
 FusionIramuteq2: True
 
+###############################
+# NEW Feature (BETA)
+# Double clustering system based on non so trivial words
+# New online text analysis of titles, abstracts, description, claims of the PU
+# methodology described in David Reymond Hadilitationh ttps://hal.archives-ouvertes.fr/tel-01660717
+P2N-Cluster: True
