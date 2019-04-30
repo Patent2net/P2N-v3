@@ -90,3 +90,4 @@ setup(name='patent2net',
 # @ Nezha add your spécifics needs down here...
 import nltk
 nltk.download('stopwords')
+nltk.download('punkt')
