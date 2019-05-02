@@ -4,7 +4,10 @@
         <title>{{requete}}</title>
 		<meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="../../Patent2Net/media/Pivot/pivot.css">
+		<script type="text/javascript" src="../../Patent2Net/media/Pivot/plotly-basic-v1.47.4.min.js"></script>
     <script type="text/javascript" src="../../Patent2Net/media/Pivot/d3.v5.js"></script>
+	<script type="text/javascript" src="../../Patent2Net/media/Pivot/c3.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../Patent2Net/media/Pivot/c3.min.css">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript" src="../../Patent2Net/media/Pivot/jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="../../Patent2Net/media/Pivot/jquery-ui-1.9.2.custom.min.js"></script>
@@ -12,7 +15,9 @@
     <script type="text/javascript" src="../../Patent2Net/media/Pivot/pivot.js"></script>
     <script type="text/javascript" src="../../Patent2Net/media/Pivot/gchart_renderers.js"></script>
     <script type="text/javascript" src="../../Patent2Net/media/Pivot/d3_renderers.js"></script>
-    <script type="text/javascript" src="../../Patent2Net/media/Pivot/jquery.ui.touch-punch.min.js"></script>
+	<script type="text/javascript" src="../../Patent2Net/media/Pivot/c3_renderers.js"></script>   
+	<script type="text/javascript" src="../../Patent2Net/media/Pivot/plotly_renderers.js"></script> 
+	<script type="text/javascript" src="../../Patent2Net/media/Pivot/jquery.ui.touch-punch.min.js"></script>
     <script type="text/javascript" src="../../Patent2Net/media/Pivot/export_renderers.js"></script>
     <script type="text/javascript" src="../../Patent2Net/media/Pivot/pivot.fr.js"></script>
     <script type="text/javascript" src="../../Patent2Net/media/Pivot/pivot.pt.js"></script>
@@ -40,46 +45,58 @@
     <body>
         <script type="text/javascript">
             google.load("visualization", "1", {packages:["corechart", "charteditor"]});
-            $(function(){
-                var lingua = "en",
-                rendererName = "Line Chart";
-                aggregatorName = "Count Unique Values";
-                var userLang = (navigator.language || navigator.userLanguage).split("-")[0];
-                    if (userLang == "pt") {
-                        var lingua="pt",
-                            rendererName = "Grafico de Linhas";
-                            aggregatorName = "Contagem de Valores Unicos";
-                    } else if (userLang == "fr") {
-                        var lingua="fr",
-                            rendererName = "Graphique de Courbes";
+           $(function(){
+		var derivers = $.pivotUtilities.derivers;
+        var lingua = (navigator.language || navigator.userLanguage).split("-")[0];        
+        var renderers = $.extend(
+		    $.pivotUtilities.locales[lingua].renderers,
+			$.pivotUtilities.c3_renderers,
+            $.pivotUtilities.d3_renderers,
+			$.pivotUtilities.plotly_renderers,
+            $.pivotUtilities.export_renderers
+             );
+        if (lingua == "pt") {
+                            rendererName = "Bar Chart";
+                            aggregatorName = "Contagem de valores únicos";
+                    } else if (lingua == "fr") {
+                            rendererName = "Bar Chart";
                             aggregatorName = "Nombre de valeurs uniques";
                     }
-                    else if (userLang == "es") {
+                    else if (lingua == "es") {
                         var lingua="es",
-                            rendererName = "Curvas gráficas";
-                            aggregatorName = "Cuenta valores Unicos";
+                            rendererName = "Bar Chart";
+                            aggregatorName = "Cuenta de valores únicos";
                     }
 
                     else {
-                        var lingua="en";
                         aggregatorName = "Count Unique Values";
-                        rendererName = "Line Chart"
-                    }
-
-
-                var derivers = $.pivotUtilities.derivers;
-                var renderers = $.pivotUtilities.locales[lingua].renderers;
-                $.getJSON("{{fichier}}", function(mps) {
-                    $("#output").pivotUI(mps, {
-                    renderers: renderers,
-                     derivedAttributes: {"Cita": derivers.bin("Citations",10)},
-                     cols: ["year"],
-                     aggregatorName: aggregatorName,
-                     vals: ["label"],
-                     rendererName: rendererName
-                    },false,lingua);
-                });
-             });
+                        rendererName = "Bar	Chart"
+                    }	 
+        $.getJSON("RespiratorPivot.json", function(mps) {
+            $("#output").pivotUI(mps, {
+                renderers: renderers,
+                "derivedAttributes": {},
+                "hiddenAttributes": [],
+                "hiddenFromAggregators": [],
+                "hiddenFromDragDrop": [],
+                "menuLimit": 10000,
+                "cols": ["year"],
+                "rows": [],
+                "vals": ["label"],
+                "rowOrder": "key_a_to_z",
+                "colOrder": "key_a_to_z",
+                "exclusions": {},
+                "inclusions": {},
+                "unusedAttrsVertical": 150,
+                "autoSortUnusedAttrs": true,
+                "showUI": true,
+                "sorters": {},
+                "inclusionsInfo": {},
+				"rendererName" : rendererName,
+				"aggregatorName": aggregatorName 
+            },false, lingua);
+        });
+     });
     </script>
 		<header>
         <a href="../../index.html"><img class="logo" src="../../Patent2Net/media/img/logo_dark.png" alt=""/></a>
