@@ -73,7 +73,7 @@ $(function(){
                         aggregatorName = "Count Unique Values";
                         rendererName = "Bar	Chart"
                     }	 
-        $.getJSON("RespiratorPivot.json", function(mps) {
+        $.getJSON("{{fichier}}.json", function(mps) {
             $("#output").pivotUI(mps, {
                 renderers: renderers,
                 "derivedAttributes": {},
