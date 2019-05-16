@@ -5,117 +5,42 @@ Created on Mon Apr  10 11:26:06 2019
 @author: dreymond
 """
 
-#from gargDown_biblio import newCorpus, get_resource_by_name, parse2
-import pickle
 
-#import pprint
+
 import codecs
-from urllib.parse import urlparse
 import os
-import requests
-import epo_ops
-from epo_ops.models import Docdb
-from epo_ops.models import Epodoc
-from Patent2Net.P2N_Lib import MakeIram2, LoadBiblioFile
+
+from Patent2Net.P2N_Lib import MakeIram3, LoadBiblioFile
 from pymed import PubMed
-import xmltodict
-global key
-global secret
-pubmed = PubMed(tool="P2N-Acad", email="patent2net@gmail.com")
 
-def getAffiliation(pubmedId, auteur):
-    Base = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=%s&rettype=fasta&retmode=xml" %(pubmedId)
-    reponse = requests.get(Base)
-    data = None
-    if reponse.status_code == 200:
-        data = xmltodict.parse(reponse.text)
-        ListeAuteur = data ['PubmedArticleSet']['PubmedArticle']['MedlineCitation']['Article']['AuthorList']
-        for Aut in ListeAuteur ['Author']:
-            Nom = Aut['LastName'] +' ' + Aut['ForeName']+ ' ' + Aut['Initials']
-            if 'AffiliationInfo' in Aut.keys():
-                Affiliaton = Aut['AffiliationInfo']
-            if auteur.split(' ')[0] in Nom and auteur.split(' ')[1] in Nom:
-                if 'AffiliationInfo' in Aut.keys():
-                    if 'Affiliation' in Aut['AffiliationInfo'].keys():
-                        return Aut['AffiliationInfo']['Affiliation']
-                    else:
-                        print ('inconsistent')
-                else:
-                    return Affiliaton['Affiliation'] #if author is the second author in the same structure as primary then the affiliation is not mentioned twice. We use previos.
-                # I hope the rule is the same for all the number of authors.
-    
-    else:
-        raise ValueError(reponse.status_code, reponse.reason)
-    return data    
+from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib_Acad import IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
 
-def ChercheAbstractBrevet(pat, DirStockage ):
-    ndb = pat['label']#[u'document-id'][u'country']['$']+brevet[u'document-id'][u'doc-number']['$']brevet['publication-ref'][u'document-id'][0][u'kind']['$'])
-    if isinstance(ndb, list):
-        ndb = ndb[0]
-    print("Retrieving ", ndb)
-    pays = pat['country']
+#from gargDown_biblio import newCorpus, get_resource_by_name, parse2
+#import pprint
+#from Patent2Net.P2N_Lib import flatten, DecoupeOnTheFl, flatten_dict RenderTemplate, \
+#                         UrlPatent,UrlApplicantBuild,\
+#                        UrlInventorBuild,UrlIPCRBuild#, cmap_discretize
+#import pickle
+#from urllib.parse import urlparse
 
-    
-    for key in ['label', 'country', 'kind']:
-        brevet[key] = list(set(brevet[key])) # hum some problem (again) in cleaning data within the family gatherer... 22/12/15
-    if isinstance(pays, list):
-        pays = pays[0]
-#    for content in ['Abstract']:# , typeSrc+'Claims',typeSrc+'Description']:
-        
-    content = 'Abstract'
-    endP = 'biblio'
+
 #
-    temp =('publication', Epodoc(pays+ndb[2:])) #, brevet[u'document-id'][u'kind']['$']))
-    try:
-        data = ops_client.published_data(*temp, endpoint = endP)             #ops_client.published_data()
-        if data.ok and content.replace(typeSrc, "").lower() in str(data.json()):
-            CheckDocDB = False
-        else:
-            CheckDocDB = True
-    except Exception as err:
-        CheckDocDB = True
-    if CheckDocDB:
-        if isinstance(brevet['kind'], list):
-            tempoData = []
-            for cc in brevet['kind']:
-                temp =('publication', Docdb(ndb[2:],pays, cc)) # hope all comes from same country
-                try:
-                    tempoData.append(ops_client.published_data(*temp, endpoint = endP))
-                except:
-                    data = None
-                    pass
-            for dat in tempoData:
-                if dat is not None and dat.ok: 
-                    contenu = content
+# =============================================================================
+# Paramétrage
+# =============================================================================
+# Pour IPCCat
+SeuilScorePrediction = 500 # les IPC de la catégorisation par l'API dont 
+# le score est > SeuilScorePrediction sont retenus. 100 c'est bien
 
-                    patentCont = dat.json()
-                    Langs = MakeIram2(brevet, ndb +'.txt', patentCont, DirStockage, contenu)
-                    # Make2Iram2 devrait formater le brevet dans un fichier txt au format Iramuteq dans le bon repertoire
-                    # Lang est un truc :-) (je crois que cela renvoit la langue de l'abstract récupéré))
-    else:
-        temp =('publication', Docdb(brevet['label'][2:],brevet['country'], brevet['kind']))
-        if data is not None and data.ok:
-            contenu = content
-            patentCont = data.json()
-            Langs = MakeIram2(brevet, ndb +'.txt', patentCont, RepStockage, contenu)
-    return patentCont
-#
 # put your credential from epo client in this file...
 # chargement clés de client, utilisé pour récupérer l'abstract du brevet du gugusse retrouvé
-fic = open('../cles-epo.txt', 'r')
-key, secret = fic.read().split(',')
-key, secret = key.strip(), secret.strip()
-fic.close()
 
-ops_client = epo_ops.Client(key, secret)
-ops_client.accept_type = 'application/json'
-    
+
+pubmed = PubMed(tool="P2N-Acad", email="patent2net@gmail.com")    
 PotentielAuteurs = list()
 
-from Patent2Net.P2N_Lib import flatten, DecoupeOnTheFly, RenderTemplate, \
-                         UrlPatent,UrlApplicantBuild,\
-                        UrlInventorBuild,UrlIPCRBuild#, cmap_discretize
-from Patent2Net.P2N_Config import LoadConfig
+
 configFile = LoadConfig()
 
 requete = configFile.requete
@@ -126,6 +51,8 @@ projectName = configFile.ndf
 #BonneAffiliation= LoadAffiliation('BonnesAffiliations.csv') #['laboratoire', 'institut', "centre de recherche", "université"] #à compléter
 # Les champs nécessaires par brevet.
 NeededInfo = ['label', 'date', 'inventor', 'title', 'abstract']
+#Paramétrages pour sauvegarde des résultats : les répertoire sont fonction du fichier 
+#requete.cql
 ndf = projectName
 BiblioPath = configFile.ResultBiblioPath
 ResultBiblioPath = configFile.ResultBiblioPath
@@ -142,7 +69,7 @@ if 'Description'+ndf in os.listdir(BiblioPath): # NEW 12/12/15 new gatherer appe
     print( "loading patent biblio data with ", " and ".join(NeededInfo), " fields.")
     DataBrevet = LoadBiblioFile(BiblioPath, ndf)
     print("Hi this is Hal processor. Bibliographic data of ", ndf, " patent universe found.")
-else: #Retrocompatibility #Je me demande si c'est utile depuis la V3....
+else: #Retrocompatibility #Je me demande si c'est utile depuis la V3 ???
     print("please use Comptatibilizer")
 #    for ndf in [fic2 for fic2 in os.listdir(ResultBiblioPath) if fic2.count('Description')==0]:
 #        if ndf.startswith('Families'):
@@ -154,42 +81,131 @@ else: #Retrocompatibility #Je me demande si c'est utile depuis la V3....
 
 typeSrc = ''
 print("Nice, ", len(DataBrevet["brevets"]), " patents found. On cherche les auteurs...")
+NbAut = 0 # Auteurs brevets testés
+NbArt = 0 # Articles retrouvés
+NumAut = 0 #Numero d'auteur pour les homonymes
+NbFr = 0 # les pampollos Français
+match =  0 # Le nombre de match par corpus
 
-NumAut = 0
 for brevet in DataBrevet["brevets"]:
     SavBrevet = False # Commutateur pour éviter de requêter 15 fois pour un brevet
     for Auteur in brevet['inventor'] :
+        LigneCsv = """""" # the csv file for mathching articles and patent at CIB level
+        NbAut +=1
         Auteur = Auteur.title()
         NumAut +=1 
         query = "%s[Author - Full]" %(Auteur)
         DocsAuteur = pubmed.query(query, max_results=500)
         IramFull = """"""# le contenu du fichier IRAMUTEQ complet
+        Num = 0 #le numéro de doc pour sauvegarde
         for article in DocsAuteur:
+            NbArt +=1 
+            SAV = False  # switch pour savegarder dans le csv
         #    print(type(article))
         #    print(article.toJSON())
-            Affi = getAffiliation(article.pubmed_id.split('\n')[0], Auteur) # the first pubmed_id is the article. Others are citations
-            print (Affi)
-            if " france" in Affi.lower():
-                RepStockage = RepDir + "//" + Auteur.title().replace(' ', '').replace('"', '') +str(NumAut)
-                if "AcadCorpora" not in os.listdir(configFile.ResultPath):
-                    os.makedirs(RepDir)
-                if Auteur.title().replace(' ', '').replace('"','') +str(NumAut) not in os.listdir(RepDir):
-                        try:
-                            os.makedirs(RepStockage+"//publis")
-                            os.makedirs(RepStockage+"//abstracts")
-                        except:
-                            pass
-                Num = 0 #le numéro de doc pour sauvegarde
-                if 'abstract' in article.keys():
-                    if not SavBrevet:
-                        ChercheAbstractBrevet(brevet, RepStockage )
-                        SavBrevet = True
+            Num +=1
+            Affi = PubMedCheckNameAndGetAffiliation(article.pubmed_id.split('\n')[0], Auteur) # the first pubmed_id is the article. Others are citations
+            if Affi is not None:
+                if " france" in Affi.lower():
+                    NbFr +=1
+                    RepStockage = RepDir + "//" + Auteur.title().replace(' ', '').replace('"', '') +str(NumAut)
+                    if "AcadCorpora" not in os.listdir(configFile.ResultPath):
+                        os.makedirs(RepDir)
+                    if Auteur.title().replace(' ', '').replace('"','') +str(NumAut) not in os.listdir(RepDir):
+                            try:
+                                os.makedirs(RepStockage+"//publis")
+                                os.makedirs(RepStockage+"//abstracts")
+                            except:
+                                pass
                     
+                    
+                    if not SavBrevet: #sauvegarde de l'abstract brevet
+                        AbsBrevet = OPSChercheAbstractBrevet(brevet, RepStockage+'//')
+                        SavBrevet = True
+                        EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(brevet['year']) + '\n'
+                        Contenu = brevet['title'] + '\n'
+                        if 'fr' in AbsBrevet.keys():
+                            Contenu += '\n'.join(AbsBrevet ['fr'])
+                            IPCBrevet = IPCCategorizer(Contenu, 'fr')
+                            IPCBrevet= IPCExtractPredictionBrevet(IPCBrevet, SeuilScorePrediction)
+                            ResumeBrevet = '\n'.join (AbsBrevet ['fr'])
+                        else:
+                            for lang in AbsBrevet.keys():
+                                score = 0
+                                if lang in ['en', 'fr', 'es', 'de', 'ru']:
+                                    IPCBrevetTemp = IPCCategorizer(Contenu, lang)
+                                    IPCBrevetTemp= IPCExtractPredictionBrevet(IPCBrevetTemp, SeuilScorePrediction)
+                                    scoretemp = max([cat['score'] for cat in IPCBrevetTemp])
+                                    if scoretemp > score:
+                                        IPCBrevet =IPCBrevetTemp
+                                        ResumeBrevet = '\n'.join (AbsBrevet [lang])
+                                        score = scoretemp
+                                Contenu += '\n'.join (AbsBrevet [lang])
+                        IramFull += EnTete + Contenu +'\n'
+                        #On rajoute l'article
+                        EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(article.publication_date.year) + '\n'
+                        Contenu = article.title + '\n' + article.abstract + '\n'
+                        IramFull += EnTete + Contenu
+                        ndf = str(article.publication_date.year) + '-' + str(Num) + '.txt'
+#                               # On stocke chaque résumé dans un fichier dans le rep abstract
+                        with codecs.open(RepStockage+ '\\abstracts\\' + ndf, 'w', 'utf8') as fic:
+                            fic.write(EnTete + Contenu+'\n')
+                        
+                        IPC = IPCCategorizer(Contenu, 'en') # on suppose tous les aarticles en anglais
+                        IPCArt = IPCExtractPredictionBrevet(IPC, SeuilScorePrediction)
+                        for cat in IPCArt:
+                            for cat2 in IPCBrevet:
+                                if cat['category'] == cat2 ["category"]:
+                                    print ("Match found")
+                                    SAV = True
+                                 
+                        
+                    else: # Le brevet a déjà été retrouvé
+                        EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(article.publication_date.year) + '\n'
+                        Contenu = article.title + '\n' + article.abstract + '\n'
+                        IramFull += EnTete + Contenu+'\n'
+                        ndf = str(article.publication_date.year) + '-' + str(Num) + '.txt'
+#                               # On stocke chaque résumé dans un fichier dans le rep abstract
+                        with codecs.open(RepStockage+ '\\abstracts\\' + ndf, 'w', 'utf8') as fic:
+                            fic.write(EnTete + Contenu+'\n')
+                        IPC = IPCCategorizer(Contenu, 'en')# on suppose tous les aarticles en anglais
+                        IPCArt = IPCExtractPredictionBrevet(IPC, SeuilScorePrediction)
+                        for cat in IPCArt:
+                            for cat2 in IPCBrevet:
+                                if cat['category'] == cat2 ["category"]:
+                                    print ("IPC's Match found")
+                                    SAV = True
+                                    
+                    if SAV:
+                        match +=1
+                        dateArticle = str(article.publication_date.year)
+                        temp =  brevet['label'] +';'+ ResumeBrevet.replace(';', '*%*').replace('\n', '') + ';' +\
+                                      ','.join([cat["category"] for cat in IPCBrevet]) +';' +\
+                                     str(','.join(brevet['year']))+';' + article.pubmed_id +';'+\
+                                     article.doi +';' + Contenu.replace(';', '*%*').replace('\n', '') + ';' +\
+                                     ','.join([cat["category"] for cat in IPCArt]) + ';' + dateArticle  +';' + Affi  + '\n'
+                        LigneCsv += temp
+                else:
+                    pass #Not en frenchy
+                    #print ("pas glop", Affi)
             else:
-                
-                print ("pas glop", Affi)
-                
-       
+                #prablement un nom et prénom de correspondent pas
+                #ou l'affiliation n'a pas été reconnue
+                pass
+           
+        if len(IramFull) >0:
+            with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'IRAM.txt', 'w', 'utf8') as fic:
+                fic.write(IramFull)
+        if len(LigneCsv) >0:
+            with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv', 'w', 'utf8') as fic:
+                fic.write('Label Brevet;Résume brevet;CIBs associées;année;Article Pubmed_id;Article DOI;Article résumé;CIBs associées;Année;Affiliation\n')
+                fic.write(LigneCsv)
+
+print(" Auteurs brevets testés --> ", NbAut)
+print("Articles retrouvés -->", NbArt)# 
+print('Match ings articles / brevets', match)
+print("les pampollos Français -->", NbFr) # 
+
 #        ScoreAuteur = 0
 #        ListePaysAffiliation = list()  #Les pays de l'affiliation des documents
 #                  for document in DocsAuteur['docs']:

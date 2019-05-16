@@ -1,0 +1,254 @@
+source --> 
+Nature
+title --> 
+Mirror extreme BMI phenotypes associated with gene dosage at the chromosome 16p11.2 locus.
+abstract --> 
+Both obesity and being underweight have been associated with increased mortality. Underweight, defined as a body mass index (BMI) ≤ 18.5 kg per m(2) in adults and ≤ -2 standard deviations from the mean in children, is the main sign of a series of heterogeneous clinical conditions including failure to thrive, feeding and eating disorder and/or anorexia nervosa. In contrast to obesity, few genetic variants underlying these clinical conditions have been reported. We previously showed that hemizygosity of a ∼600-kilobase (kb) region on the short arm of chromosome 16 causes a highly penetrant form of obesity that is often associated with hyperphagia and intellectual disabilities. Here we show that the corresponding reciprocal duplication is associated with being underweight. We identified 138 duplication carriers (including 132 novel cases and 108 unrelated carriers) from individuals clinically referred for developmental or intellectual disabilities (DD/ID) or psychiatric disorders, or recruited from population-based cohorts. These carriers show significantly reduced postnatal weight and BMI. Half of the boys younger than five years are underweight with a probable diagnosis of failure to thrive, whereas adult duplication carriers have an 8.3-fold increased risk of being clinically underweight. We observe a trend towards increased severity in males, as well as a depletion of male carriers among non-medically ascertained cases. These features are associated with an unusually high frequency of selective and restrictive eating behaviours and a significant reduction in head circumference. Each of the observed phenotypes is the converse of one reported in carriers of deletions at this locus. The phenotypes correlate with changes in transcript levels for genes mapping within the duplication but not in flanking regions. The reciprocal impact of these 16p11.2 copy-number variants indicates that severe obesity and being underweight could have mirror aetiologies, possibly through contrasting effects on energy balance.
+language_iso3 --> 
+eng
+publication_year --> 
+2011
+publication_month --> 
+8
+publication_day --> 
+31
+authors --> 
+Sébastien Jacquemont, Alexandre Reymond, Flore Zufferey, Louise Harewood, Robin G Walters, Zoltán Kutalik, Danielle Martinet, Yiping Shen, Armand Valsesia, Noam D Beckmann, Gudmar Thorleifsson, Marco Belfiore, Sonia Bouquillon, Dominique Campion, Nicole de Leeuw, Bert B A de Vries, Tõnu Esko, Bridget A Fernandez, Fernando Fernández-Aranda, José Manuel Fernández-Real, Mònica Gratacòs, Audrey Guilmatre, Juliane Hoyer, Marjo-Riitta Jarvelin, R Frank Kooy, Ants Kurg, Cédric Le Caignec, Katrin Männik, Orah S Platt, Damien Sanlaville, Mieke M Van Haelst, Sergi Villatoro Gomez, Faida Walha, Bai-Lin Wu, Yongguo Yu, Azzedine Aboura, Marie-Claude Addor, Yves Alembik, Stylianos E Antonarakis, Benoît Arveiler, Magalie Barth, Nathalie Bednarek, Frédérique Béna, Sven Bergmann, Mylène Beri, Laura Bernardini, Bettina Blaumeiser, Dominique Bonneau, Armand Bottani, Odile Boute, Han G Brunner, Dorothée Cailley, Patrick Callier, Jean Chiesa, Jacqueline Chrast, Lachlan Coin, Charles Coutton, Jean-Marie Cuisset, Jean-Christophe Cuvellier, Albert David, Bénédicte de Freminville, Bruno Delobel, Marie-Ange Delrue, Bénédicte Demeer, Dominique Descamps, Gérard Didelot, Klaus Dieterich, Vittoria Disciglio, Martine Doco-Fenzy, Séverine Drunat, Bénédicte Duban-Bedu, Christèle Dubourg, Julia S El-Sayed Moustafa, Paul Elliott, Brigitte H W Faas, Laurence Faivre, Anne Faudet, Florence Fellmann, Alessandra Ferrarini, Richard Fisher, Elisabeth Flori, Lukas Forer, Dominique Gaillard, Marion Gerard, Christian Gieger, Stefania Gimelli, Giorgio Gimelli, Hans J Grabe, Agnès Guichet, Olivier Guillin, Anna-Liisa Hartikainen, Délphine Heron, Loyse Hippolyte, Muriel Holder, Georg Homuth, Bertrand Isidor, Sylvie Jaillard, Zdenek Jaros, Susana Jiménez-Murcia, Géraldine Joly Helas, Philippe Jonveaux, Satu Kaksonen, Boris Keren, Anita Kloss-Brandstätter, Nine V A M Knoers, David A Koolen, Peter M Kroisel, Florian Kronenberg, Audrey Labalme, Emilie Landais, Elisabetta Lapi, Valérie Layet, Solenn Legallic, Bruno Leheup, Barbara Leube, Suzanne Lewis, Josette Lucas, Kay D MacDermot, Pall Magnusson, Christian Marshall, Michèle Mathieu-Dramard, Mark I McCarthy, Thomas Meitinger, Maria Antonietta Mencarelli, Giuseppe Merla, Alexandre Moerman, Vincent Mooser, Fanny Morice-Picard, Mafalda Mucciolo, Matthias Nauck, Ndeye Coumba Ndiaye, Ann Nordgren, Laurent Pasquier, Florence Petit, Rolph Pfundt, Ghislaine Plessis, Evica Rajcan-Separovic, Gian Paolo Ramelli, Anita Rauch, Roberto Ravazzolo, Andre Reis, Alessandra Renieri, Cristobal Richart, Janina S Ried, Claudine Rieubland, Wendy Roberts, Katharina M Roetzer, Caroline Rooryck, Massimiliano Rossi, Evald Saemundsen, Véronique Satre, Claudia Schurmann, Engilbert Sigurdsson, Dimitri J Stavropoulos, Hreinn Stefansson, Carola Tengström, Unnur Thorsteinsdóttir, Francisco J Tinahones, Renaud Touraine, Louis Vallée, Ellen van Binsbergen, Nathalie Van der Aa, Catherine Vincent-Delorme, Sophie Visvikis-Siest, Peter Vollenweider, Henry Völzke, Anneke T Vulto-van Silfhout, Gérard Waeber, Carina Wallgren-Pettersson, Robert M Witwicki, Simon Zwolinksi, Joris Andrieux, Xavier Estivill, James F Gusella, Omar Gustafsson, Andres Metspalu, Stephen W Scherer, Kari Stefansson, Alexandra I F Blakemore, Jacques S Beckmann, Philippe Froguel
+realdate_full_ --> 
+2011 02 09
+publication_date --> 
+2011-08-31 00:00:00+00:00
+publication_hour --> 
+0
+publication_minute --> 
+0
+publication_second --> 
+0
+error --> 
+Error normalize_chars
+statuses --> 
+[{'action': 'Parsing', 'error': 'Error normalize_chars'}]
+source --> 
+Biological psychiatry
+title --> 
+The Number of Genomic Copies at the 16p11.2 Locus Modulates Language, Verbal Memory, and Inhibition.
+abstract --> 
+Deletions and duplications of the 16p11.2 BP4-BP5 locus are prevalent copy number variations (CNVs), highly associated with autism spectrum disorder and schizophrenia. Beyond language and global cognition, neuropsychological assessments of these two CNVs have not yet been reported.
+language_iso3 --> 
+eng
+publication_year --> 
+2015
+publication_month --> 
+11
+publication_day --> 
+10
+realdate_full_ --> 
+2015 04 07
+publication_date --> 
+2015-11-10 00:00:00+00:00
+publication_hour --> 
+0
+publication_minute --> 
+0
+publication_second --> 
+0
+error --> 
+Error normalize_chars
+statuses --> 
+[{'action': 'Parsing', 'error': 'Error normalize_chars'}]
+source --> 
+International journal of obesity (2005)
+title --> 
+16p11.2 Locus modulates response to satiety before the onset of obesity.
+abstract --> 
+The 600 kb BP4-BP5 copy number variants (CNVs) at the 16p11.2 locus have been associated with a range of neurodevelopmental conditions including autism spectrum disorders and schizophrenia. The number of genomic copies in this region is inversely correlated with body mass index (BMI): the deletion is associated with a highly penetrant form of obesity (present in 50% of carriers by the age of 7 years and in 70% of adults), and the duplication with being underweight. Mechanisms underlying this energy imbalance remain unknown.
+language_iso3 --> 
+eng
+publication_year --> 
+2015
+publication_month --> 
+12
+publication_day --> 
+1
+realdate_full_ --> 
+2015 08 24
+publication_date --> 
+2015-12-01 00:00:00+00:00
+publication_hour --> 
+0
+publication_minute --> 
+0
+publication_second --> 
+0
+error --> 
+Error normalize_chars
+statuses --> 
+[{'action': 'Parsing', 'error': 'Error normalize_chars'}]
+source --> 
+PloS one
+title --> 
+Use of Anticoagulants and Antiplatelet Agents in Stable Outpatients with Coronary Artery Disease and Atrial Fibrillation. International CLARIFY Registry.
+abstract --> 
+Few data are available regarding the use of antithrombotic strategies in coronary artery disease patients with atrial fibrillation (AF) in everyday practice. We sought to describe the prevalence of AF and its antithrombotic management in a contemporary population of patients with stable coronary artery disease.
+language_iso3 --> 
+eng
+publication_year --> 
+2015
+publication_month --> 
+4
+publication_day --> 
+27
+realdate_full_ --> 
+2014 11 17
+publication_date --> 
+2015-04-27 00:00:00+00:00
+publication_hour --> 
+0
+publication_minute --> 
+0
+publication_second --> 
+0
+error --> 
+Error normalize_chars
+statuses --> 
+[{'action': 'Parsing', 'error': 'Error normalize_chars'}]
+source --> 
+Molecular psychiatry
+title --> 
+The 16p11.2 locus modulates brain structures common to autism, schizophrenia and obesity.
+abstract --> 
+Anatomical structures and mechanisms linking genes to neuropsychiatric disorders are not deciphered. Reciprocal copy number variants at the 16p11.2 BP4-BP5 locus offer a unique opportunity to study the intermediate phenotypes in carriers at high risk for autism spectrum disorder (ASD) or schizophrenia (SZ). We investigated the variation in brain anatomy in 16p11.2 deletion and duplication carriers. Beyond gene dosage effects on global brain metrics, we show that the number of genomic copies negatively correlated to the gray matter volume and white matter tissue properties in cortico-subcortical regions implicated in reward, language and social cognition. Despite the near absence of ASD or SZ diagnoses in our 16p11.2 cohort, the pattern of brain anatomy changes in carriers spatially overlaps with the well-established structural abnormalities in ASD and SZ. Using measures of peripheral mRNA levels, we confirm our genomic copy number findings. This combined molecular, neuroimaging and clinical approach, applied to larger datasets, will help interpret the relative contributions of genes to neuropsychiatric conditions by measuring their effect on local brain anatomy. 
+language_iso3 --> 
+eng
+publication_year --> 
+2014
+publication_month --> 
+11
+publication_day --> 
+25
+realdate_full_ --> 
+2014 06 26
+publication_date --> 
+2014-11-25 00:00:00+00:00
+publication_hour --> 
+0
+publication_minute --> 
+0
+publication_second --> 
+0
+error --> 
+Error normalize_chars
+statuses --> 
+[{'action': 'Parsing', 'error': 'Error normalize_chars'}]
+source --> 
+PloS one
+title --> 
+Heart rate and use of beta-blockers in stable outpatients with coronary artery disease.
+abstract --> 
+Heart rate (HR) is an emerging risk factor in coronary artery disease (CAD). However, there is little contemporary data regarding HR and the use of HR-lowering medications, particularly beta-blockers, among patients with stable CAD in routine clinical practice. The goal of the present analysis was to describe HR in such patients, overall and in relation to beta-blocker use, and to describe the determinants of HR.
+language_iso3 --> 
+eng
+publication_year --> 
+2012
+publication_month --> 
+5
+publication_day --> 
+3
+realdate_full_ --> 
+2012 02 15
+publication_date --> 
+2012-05-03 00:00:00+00:00
+publication_hour --> 
+0
+publication_minute --> 
+0
+publication_second --> 
+0
+error --> 
+Error normalize_chars
+statuses --> 
+[{'action': 'Parsing', 'error': 'Error normalize_chars'}]
+source --> 
+Molecular psychiatry
+title --> 
+The 16p11.2 locus modulates brain structures common to autism, schizophrenia and obesity.
+abstract --> 
+Anatomical structures and mechanisms linking genes to neuropsychiatric disorders are not deciphered. Reciprocal copy number variants at the 16p11.2 BP4-BP5 locus offer a unique opportunity to study the intermediate phenotypes in carriers at high risk for autism spectrum disorder (ASD) or schizophrenia (SZ). We investigated the variation in brain anatomy in 16p11.2 deletion and duplication carriers. Beyond gene dosage effects on global brain metrics, we show that the number of genomic copies negatively correlated to the gray matter volume and white matter tissue properties in cortico-subcortical regions implicated in reward, language and social cognition. Despite the near absence of ASD or SZ diagnoses in our 16p11.2 cohort, the pattern of brain anatomy changes in carriers spatially overlaps with the well-established structural abnormalities in ASD and SZ. Using measures of peripheral mRNA levels, we confirm our genomic copy number findings. This combined molecular, neuroimaging and clinical approach, applied to larger datasets, will help interpret the relative contributions of genes to neuropsychiatric conditions by measuring their effect on local brain anatomy. 
+language_iso3 --> 
+eng
+publication_year --> 
+2014
+publication_month --> 
+11
+publication_day --> 
+25
+realdate_full_ --> 
+2014 06 26
+publication_date --> 
+2014-11-25 00:00:00+00:00
+publication_hour --> 
+0
+publication_minute --> 
+0
+publication_second --> 
+0
+error --> 
+Error normalize_chars
+statuses --> 
+[{'action': 'Parsing', 'error': 'Error normalize_chars'}]
+source --> 
+PloS one
+title --> 
+Impact of chronic kidney disease on use of evidence-based therapy in stable coronary artery disease: a prospective analysis of 22,272 patients.
+abstract --> 
+To assess the frequency of chronic kidney disease (CKD), define the associated demographics, and evaluate its association with use of evidence-based drug therapy in a contemporary global study of patients with stable coronary artery disease.
+language_iso3 --> 
+eng
+publication_year --> 
+2014
+publication_month --> 
+7
+publication_day --> 
+22
+realdate_full_ --> 
+2014 03 10
+publication_date --> 
+2014-07-22 00:00:00+00:00
+publication_hour --> 
+0
+publication_minute --> 
+0
+publication_second --> 
+0
+error --> 
+Error normalize_chars
+statuses --> 
+[{'action': 'Parsing', 'error': 'Error normalize_chars'}]
+source --> 
+Human molecular genetics
+title --> 
+16p11.2 600 kb Duplications confer risk for typical and atypical Rolandic epilepsy.
+abstract --> 
+Rolandic epilepsy (RE) is the most common idiopathic focal childhood epilepsy. Its molecular basis is largely unknown and a complex genetic etiology is assumed in the majority of affected individuals. The present study tested whether six large recurrent copy number variants at 1q21, 15q11.2, 15q13.3, 16p11.2, 16p13.11 and 22q11.2 previously associated with neurodevelopmental disorders also increase risk of RE. Our association analyses revealed a significant excess of the 600 kb genomic duplication at the 16p11.2 locus (chr16: 29.5-30.1 Mb) in 393 unrelated patients with typical (n = 339) and atypical (ARE; n = 54) RE compared with the prevalence in 65,046 European population controls (5/393 cases versus 32/65,046 controls; Fisher's exact test P = 2.83 × 10(-6), odds ratio = 26.2, 95% confidence interval: 7.9-68.2). In contrast, the 16p11.2 duplication was not detected in 1738 European epilepsy patients with either temporal lobe epilepsy (n = 330) and genetic generalized epilepsies (n = 1408), suggesting a selective enrichment of the 16p11.2 duplication in idiopathic focal childhood epilepsies (Fisher's exact test P = 2.1 × 10(-4)). In a subsequent screen among children carrying the 16p11.2 600 kb rearrangement we identified three patients with RE-spectrum epilepsies in 117 duplication carriers (2.6%) but none in 202 carriers of the reciprocal deletion. Our results suggest that the 16p11.2 duplication represents a significant genetic risk factor for typical and atypical RE.
+language_iso3 --> 
+eng
+publication_year --> 
+2014
+publication_month --> 
+6
+publication_day --> 
+16
+realdate_full_ --> 
+2014 6 19
+publication_date --> 
+2014-06-16 00:00:00+00:00
+publication_hour --> 
+0
+publication_minute --> 
+0
+publication_second --> 
+0
+error --> 
+Error normalize_chars
+statuses --> 
+[{'action': 'Parsing', 'error': 'Error normalize_chars'}]

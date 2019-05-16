@@ -73,7 +73,7 @@ Networks["_Full"] = [configFile.CompleteNetwork, [ 'label', "equivalents", 'CitP
 #Networks["_Full"][1][0] = True #setting net to true but reading parameter file can reverse this
 
 P2NComp = configFile.CompleteNetwork
-
+P2NComp = True
 P2NFamilly = configFile.GatherFamilly
 
 # should set a working dir one upon a time... done it is temporPath
@@ -248,142 +248,142 @@ if P2NComp:
             WeightDyn = dict()
             AtribDynLab = dict()
             for (source, target), datum in appars:
-                    if Category[source] in mixNet and Category[target] in mixNet and source!=target:
-                        datum = [ddd for ddd in datum if isinstance(ddd, datetime.date)]
-    
-                        if source not in list(Nodes.keys()) and source != '':
-                                Nodes[source] = OrderedDict ()
-                                Nodes[source]['date'] = datum
-                                Nodes[source]['category'] = Category[source]
-                                Nodes[source]['label'] = source
-                                Nodes[source]['index'] = len(list(Nodes.keys()))-1
-                                Nodes[source]['date']= flatten(Nodes[source]['date'])
-                        elif datum not in Nodes[source]['date']:
-                                Nodes[source]['date'].extend(datum)
+                if Category[source] in mixNet and Category[target] in mixNet and source!=target:
+                    datum = [ddd for ddd in datum if isinstance(ddd, datetime.date)]
+
+                    if source not in list(Nodes.keys()) and source != '':
+                            Nodes[source] = OrderedDict ()
+                            Nodes[source]['date'] = datum
+                            Nodes[source]['category'] = Category[source]
+                            Nodes[source]['label'] = source
+                            Nodes[source]['index'] = len(list(Nodes.keys()))-1
+                            Nodes[source]['date']= flatten(Nodes[source]['date'])
+                    elif datum not in Nodes[source]['date']:
+                            Nodes[source]['date'].extend(datum)
+                    else:
+                            pass
+                    if target not in list(Nodes.keys()) and target != '':
+                            Nodes[target] = OrderedDict ()
+                            Nodes[target]['date'] = datum
+                            Nodes[target]['category'] = Category[target]
+                            if Nodes[target]['category'] == 'CitO':
+                                Nodes[target]['label'] = target[0:14]
+                            else:
+                                Nodes[target]['label'] = target
+
+                            Nodes[target]['index'] = len(list(Nodes.keys()))-1
+                            Nodes[target]['date']= flatten(Nodes[target]['date'])
+                    elif datum not in Nodes[target]['date']:
+                            Nodes[target]['date'].extend(datum)
+                    else:
+                            pass
+                    indSRC = Nodes[source]['index']
+                    indTGT = Nodes[target]['index']
+#                    if (indSRC, indTGT) not in list(WeightDyn.keys()):
+#                        WeightDyn[(indSRC, indTGT)] = dict()
+                    for dat in datum:
+                        if isinstance(dat, list):
+                                deb = min([dates for dates in dat])
+                                fin = max([dates for dates in dat])
+                                fin = datetime.date(fin.year+20, fin.month, fin.day)
                         else:
-                                pass
-                        if target not in list(Nodes.keys()) and target != '':
-                                Nodes[target] = OrderedDict ()
-                                Nodes[target]['date'] = datum
-                                Nodes[target]['category'] = Category[target]
-                                if Nodes[target]['category'] == 'CitO':
-                                    Nodes[target]['label'] = target[0:14]
-                                else:
-                                    Nodes[target]['label'] = target
-    
-                                Nodes[target]['index'] = len(list(Nodes.keys()))-1
-                                Nodes[target]['date']= flatten(Nodes[target]['date'])
-                        elif datum not in Nodes[target]['date']:
-                                Nodes[target]['date'].extend(datum)
+                            deb = min(datum)
+                            fin = datetime.date(dat.year+20, dat.month, dat.day) #setting endtime collaboration to 20 year after starting date....
+                        if int(fin.year) - int(datetime.date.today().year)>2:
+                            fin = datetime.date(int(datetime.date.today().year)+20, 
+                                                int(datetime.date.today().month), 
+                                                int(datetime.date.today().day))
+                        if (indSRC, indTGT) not in WeightDyn.keys():
+                            WeightDyn[(indSRC, indTGT)] = dict()
+                            tempo = dict()
+                            tempo['value'] = 1
+                            tempo['start'] = dat.isoformat()
+            #                        tempo['start'] = deb.isoformat()
+                            tempo['end'] = fin.isoformat()
+                            WeightDyn[(indSRC, indTGT)]= [tempo]
+
                         else:
-                                pass
-                        indSRC = Nodes[source]['index']
-                        indTGT = Nodes[target]['index']
-    #                    if (indSRC, indTGT) not in list(WeightDyn.keys()):
-    #                        WeightDyn[(indSRC, indTGT)] = dict()
-                        for dat in datum:
-                            if isinstance(dat, list):
-                                    deb = min([dates for dates in dat])
-                                    fin = max([dates for dates in dat])
-                                    fin = datetime.date(fin.year+20, fin.month, fin.day)
-                            else:
-                                deb = min(datum)
-                                fin = datetime.date(dat.year+20, dat.month, dat.day) #setting endtime collaboration to 20 year after starting date....
-                            if int(fin.year) - int(datetime.date.today().year)>2:
-                                fin = datetime.date(int(datetime.date.today().year)+20, 
-                                                    int(datetime.date.today().month), 
-                                                    int(datetime.date.today().day))
-                            if (indSRC, indTGT) not in WeightDyn.keys():
-                                WeightDyn[(indSRC, indTGT)] = dict()
-                                tempo = dict()
-                                tempo['value'] = 1
-                                tempo['start'] = dat.isoformat()
-                #                        tempo['start'] = deb.isoformat()
-                                tempo['end'] = fin.isoformat()
-                                WeightDyn[(indSRC, indTGT)]= [tempo]
-    
-                            else:
-                                tempo = dict()
-                                tempo['value'] = WeightDyn[(indSRC, indTGT)][len(WeightDyn[(indSRC, indTGT)])-1]['value']+1
-                #                        
-                                tempo['start'] = dat.isoformat()
-                                tempo['end'] = fin.isoformat()
-                                WeightDyn[(indSRC, indTGT)].append(tempo)
-                            attr_dict_lab = dict()
-                            attr_dict_weight = dict()
-                            if list(Nodes.keys()).index(source) in list(AtribDynLab.keys()):
-                                existant =  AtribDynLab[list(Nodes.keys()).index(source)] ['label']['start'].split('-')
-                                dateActu = datetime.date (int(existant[0]), int(existant[1]), int(existant[2]))
-                                G1deb= min(dat, dateActu).isoformat()
-                                existant =  AtribDynLab[list(Nodes.keys()).index(source)] ['label']['end'].split('-')
-                                dateActu = datetime.date (int(existant[0]), int(existant[1]), int(existant[2]))
-                                G1fin = max(fin, dateActu ).isoformat()
-                                G1poids = int(AtribDynLab[list(Nodes.keys()).index(source)] ['weight']['value']) +1
-                                attr_dict_lab['label'] = Nodes[source]['label']
-                                attr_dict_lab['start'] = G1deb
-                                attr_dict_lab['end'] = G1fin
-                                attr_dict_weight['value'] =str(G1poids)
-                                attr_dict_weight['start'] = G1deb
-                                attr_dict_weight['end'] = G1fin
-                                AtribDynLab[list(Nodes.keys()).index(source)] ['label'] = copy.copy(attr_dict_lab)
-                                AtribDynLab[list(Nodes.keys()).index(source)] ['weight'] = copy.copy(attr_dict_weight)
-                            else:
-                                G1deb=dat.isoformat()
-                                G1fin = fin.isoformat()
-                                G1poids = 1
-                                attr_dict_lab['label'] = Nodes[source]['label']
-                                attr_dict_lab['start'] = G1deb
-                                attr_dict_lab['end'] = G1fin
-                                attr_dict_weight['value'] =str(G1poids)
-                                attr_dict_weight['start'] = G1deb
-                                attr_dict_weight['end'] = G1fin
-                                AtribDynLab[list(Nodes.keys()).index(source)] = dict()
-                                AtribDynLab[list(Nodes.keys()).index(source)] ['label'] = copy.copy(attr_dict_lab)
-                                AtribDynLab[list(Nodes.keys()).index(source)] ['weight'] = copy.copy(attr_dict_weight)
-                            #setting node properties (target)
-                            if list(Nodes.keys()).index(target) in list(AtribDynLab.keys()):
-                                existant =  AtribDynLab[list(Nodes.keys()).index(target)] ['label']['start'].split('-')
-                                dateActu = datetime.date (int(existant[0]), int(existant[1]), int(existant[2]))
-                                G1deb= min(dat, dateActu).isoformat()
-                                existant =  AtribDynLab[list(Nodes.keys()).index(target)] ['label']['end'].split('-')
-                                dateActu = datetime.date (int(existant[0]), int(existant[1]), int(existant[2]))
-                                G1fin = max(fin, dateActu ).isoformat()
-                                G1poids = int(AtribDynLab[list(Nodes.keys()).index(target)] ['weight']['value']) +1
-                                attr_dict_lab['label'] = Nodes[target]['label']
-                                attr_dict_lab['start'] = G1deb
-                                attr_dict_lab['end'] = G1fin
-                                attr_dict_weight['value'] =str(G1poids)
-                                attr_dict_weight['start'] = G1deb
-                                attr_dict_weight['end'] = G1fin
-                                AtribDynLab[list(Nodes.keys()).index(target)] ['label'] =copy.copy( attr_dict_lab)
-                                AtribDynLab[list(Nodes.keys()).index(target)] ['weight'] = copy.copy(attr_dict_weight)
-                            else:
-                                G1deb=dat.isoformat()
-                                G1fin = fin.isoformat()
-                                G1poids = 1
-                                attr_dict_lab['label'] = Nodes[target]['label']
-                                attr_dict_lab['start'] = G1deb
-                                attr_dict_lab['end'] = G1fin
-                                attr_dict_weight['value'] =str(G1poids)
-                                attr_dict_weight['start'] = G1deb
-                                attr_dict_weight['end'] = G1fin
-                                AtribDynLab[list(Nodes.keys()).index(target)] = dict()
-                                AtribDynLab[list(Nodes.keys()).index(target)] ['label'] = copy.copy(attr_dict_lab)
-                                AtribDynLab[list(Nodes.keys()).index(target)] ['weight'] = copy.copy(attr_dict_weight)
-    
-                            G1.add_node(indSRC)
-                            #nx.set_node_attributes(G1[indSRC],, 'label')
-                            G1.nodes [indSRC]['label'] =  Nodes[source]['label']
-                            #nx.set_node_attributes(G1[indSRC], Nodes[source]['category'], 'category')
-                            G1.nodes[indSRC]['category'] = Nodes[source]['category']
-                            #G1.add_node(indTGT, attr_dict={'label':Nodes[target]['label'], 'category':Nodes[target]['category']})
-                            
-                            G1.add_node(indTGT)
-                            G1.nodes [indTGT]['label'] =  Nodes[target]['label']
-                            #nx.set_node_attributes(G1[indSRC], Nodes[source]['category'], 'category')
-                            G1.nodes [indTGT]['category'] = Nodes[target]['category']
-    #                        nx.set_node_attributes(G1[indTGT], Nodes[target]['label'], 'label')
-    #                        nx.set_node_attributes(G1[indTGT], Nodes[target]['category'], 'category')
+                            tempo = dict()
+                            tempo['value'] = WeightDyn[(indSRC, indTGT)][len(WeightDyn[(indSRC, indTGT)])-1]['value']+1
+            #                        
+                            tempo['start'] = dat.isoformat()
+                            tempo['end'] = fin.isoformat()
+                            WeightDyn[(indSRC, indTGT)].append(tempo)
+                        attr_dict_lab = dict()
+                        attr_dict_weight = dict()
+                        if list(Nodes.keys()).index(source) in list(AtribDynLab.keys()):
+                            existant =  AtribDynLab[list(Nodes.keys()).index(source)] ['label']['start'].split('-')
+                            dateActu = datetime.date (int(existant[0]), int(existant[1]), int(existant[2]))
+                            G1deb= min(dat, dateActu).isoformat()
+                            existant =  AtribDynLab[list(Nodes.keys()).index(source)] ['label']['end'].split('-')
+                            dateActu = datetime.date (int(existant[0]), int(existant[1]), int(existant[2]))
+                            G1fin = max(fin, dateActu ).isoformat()
+                            G1poids = int(AtribDynLab[list(Nodes.keys()).index(source)] ['weight']['value']) +1
+                            attr_dict_lab['label'] = Nodes[source]['label']
+                            attr_dict_lab['start'] = G1deb
+                            attr_dict_lab['end'] = G1fin
+                            attr_dict_weight['value'] =str(G1poids)
+                            attr_dict_weight['start'] = G1deb
+                            attr_dict_weight['end'] = G1fin
+                            AtribDynLab[list(Nodes.keys()).index(source)] ['label'] = copy.copy(attr_dict_lab)
+                            AtribDynLab[list(Nodes.keys()).index(source)] ['weight'] = copy.copy(attr_dict_weight)
+                        else:
+                            G1deb=dat.isoformat()
+                            G1fin = fin.isoformat()
+                            G1poids = 1
+                            attr_dict_lab['label'] = Nodes[source]['label']
+                            attr_dict_lab['start'] = G1deb
+                            attr_dict_lab['end'] = G1fin
+                            attr_dict_weight['value'] =str(G1poids)
+                            attr_dict_weight['start'] = G1deb
+                            attr_dict_weight['end'] = G1fin
+                            AtribDynLab[list(Nodes.keys()).index(source)] = dict()
+                            AtribDynLab[list(Nodes.keys()).index(source)] ['label'] = copy.copy(attr_dict_lab)
+                            AtribDynLab[list(Nodes.keys()).index(source)] ['weight'] = copy.copy(attr_dict_weight)
+                        #setting node properties (target)
+                        if list(Nodes.keys()).index(target) in list(AtribDynLab.keys()):
+                            existant =  AtribDynLab[list(Nodes.keys()).index(target)] ['label']['start'].split('-')
+                            dateActu = datetime.date (int(existant[0]), int(existant[1]), int(existant[2]))
+                            G1deb= min(dat, dateActu).isoformat()
+                            existant =  AtribDynLab[list(Nodes.keys()).index(target)] ['label']['end'].split('-')
+                            dateActu = datetime.date (int(existant[0]), int(existant[1]), int(existant[2]))
+                            G1fin = max(fin, dateActu ).isoformat()
+                            G1poids = int(AtribDynLab[list(Nodes.keys()).index(target)] ['weight']['value']) +1
+                            attr_dict_lab['label'] = Nodes[target]['label']
+                            attr_dict_lab['start'] = G1deb
+                            attr_dict_lab['end'] = G1fin
+                            attr_dict_weight['value'] =str(G1poids)
+                            attr_dict_weight['start'] = G1deb
+                            attr_dict_weight['end'] = G1fin
+                            AtribDynLab[list(Nodes.keys()).index(target)] ['label'] =copy.copy( attr_dict_lab)
+                            AtribDynLab[list(Nodes.keys()).index(target)] ['weight'] = copy.copy(attr_dict_weight)
+                        else:
+                            G1deb=dat.isoformat()
+                            G1fin = fin.isoformat()
+                            G1poids = 1
+                            attr_dict_lab['label'] = Nodes[target]['label']
+                            attr_dict_lab['start'] = G1deb
+                            attr_dict_lab['end'] = G1fin
+                            attr_dict_weight['value'] =str(G1poids)
+                            attr_dict_weight['start'] = G1deb
+                            attr_dict_weight['end'] = G1fin
+                            AtribDynLab[list(Nodes.keys()).index(target)] = dict()
+                            AtribDynLab[list(Nodes.keys()).index(target)] ['label'] = copy.copy(attr_dict_lab)
+                            AtribDynLab[list(Nodes.keys()).index(target)] ['weight'] = copy.copy(attr_dict_weight)
+
+                        G1.add_node(indSRC)
+                        #nx.set_node_attributes(G1[indSRC],, 'label')
+                        G1.nodes [indSRC]['label'] =  Nodes[source]['label']
+                        #nx.set_node_attributes(G1[indSRC], Nodes[source]['category'], 'category')
+                        G1.nodes[indSRC]['category'] = Nodes[source]['category']
+                        #G1.add_node(indTGT, attr_dict={'label':Nodes[target]['label'], 'category':Nodes[target]['category']})
+                        
+                        G1.add_node(indTGT)
+                        G1.nodes [indTGT]['label'] =  Nodes[target]['label']
+                        #nx.set_node_attributes(G1[indSRC], Nodes[source]['category'], 'category')
+                        G1.nodes [indTGT]['category'] = Nodes[target]['category']
+#                        nx.set_node_attributes(G1[indTGT], Nodes[target]['label'], 'label')
+#                        nx.set_node_attributes(G1[indTGT], Nodes[target]['category'], 'category')
            
             # this way (in comments) we add edges and the attributes (dynamic)
             # but networks adds them once a time as edge attributes

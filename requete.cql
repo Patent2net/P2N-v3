@@ -2,12 +2,12 @@
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: TI=Respirator AND IPC= A61M1
+request: lentille
 
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: Respirator
+DataDirectory: Lentille
 
 ###############################
 #Patent2Net options : Set to *True* or False

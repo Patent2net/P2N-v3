@@ -71,33 +71,6 @@ def GenereListeFichiers(rep):
     return (list(set(listeFicFR)), list(set(listeFicEN)), list(set(listeFicUNK)))
 
 
-def GenereListeFichiers(rep):
-    """ prend un dossier en paramètre (chemin absolu) et génère la liste
-    complète des fichiers TXT de l'arborescence"""
-    import os
-    listeFicFR = []
-    listeFicEN = []
-    listeFicUNK = []
-    for root, subFolders, files in os.walk(rep):
-
-        if len(subFolders)>0:
-            for sousRep in subFolders:
-                temporar = GenereListeFichiers(rep+'//'+sousRep)
-                listeFicFR.extend(temporar[0])
-                listeFicEN.extend(temporar[1])
-                listeFicUNK.extend(temporar[2])
-        else:
-            for fichier in files:
-                if fichier.endswith('.txt') and fichier.startswith('fr'):
-                    listeFicFR.append(root+'//'+fichier)
-                elif fichier.endswith('.txt') and fichier.startswith('en'):
-                    listeFicEN.append(root+'//'+fichier)
-                else:
-                    if fichier.endswith('.txt'):
-                        listeFicUNK.append(root+'//'+fichier)
-                
-    return (list(set(listeFicFR)), list(set(listeFicEN)), list(set(listeFicUNK)))
-
 def Normalise(listeFic):
     """Necessary becaus in OPSGatentsPAtents, I didn't care about abstracts name,
     there is a missing '-' in name creation: should be LANG-PatentNum.txt"""
@@ -115,16 +88,17 @@ def Normalise(listeFic):
                 pass
     print(cpt, " Abstracts files Names normalized") 
 
-
 def coupeEnMots(texte):
-    "renvoie une liste de mots propres des signes de ponctuation et autres cochonneries"
-    texte= texte.lower()
-    import re 
-    res = re.sub('['+"[]?!"+']', ' ', texte) # on vire la ponctuation 
-    res = re.sub('\d', ' ', res) # extraction des chiffres #numeric are avoided
-    res = re.findall('\w+', res, re.UNICODE) # extraction des lettres seulement #only letters, no symbols
+    "returns a list of words cleaned from punctuation, digits and other signs"
+    if isinstance(texte, list):
+        texte = ' '.join(texte)
+    texte = texte.lower()
+    res = re.sub('["\'<>]', ' ', texte)  # on vire une partie de la ponctuation
+    res = re.sub('\d', ' ', res)  # extraction des chiffres
+    res = re.findall('\w+', res, re.UNICODE)  # extraction des lettres seulement
     return res
-    
+
+
 def LectureFichier(fic):
     """read the file, and return purged from coupeEnMots content if lenght is greater thar arbitrary value, here 5"""
     with open(fic) as fi:
@@ -2050,16 +2024,6 @@ def Initialize(bool1, bool2):
         return "All"
 
 
-def coupeEnMots(texte):
-    "returns a list of words cleaned from punctuation, digits and other signs"
-    if isinstance(texte, list):
-        texte = ' '.join(texte)
-    texte = texte.lower()
-    res = re.sub('["\'<>]', ' ', texte)  # on vire une partie de la ponctuation
-    res = re.sub('\d', ' ', res)  # extraction des chiffres
-    res = re.findall('\w+', res, re.UNICODE)  # extraction des lettres seulement
-    return res
-
 
 def decoupParagraphEnPhrases(paragraph):
     """returns the paragraph splited in phrases ignoring specifics titles. To be completed"""
@@ -2619,6 +2583,7 @@ def MakeIram2(patent, FileName, patentBibData, SavePath, contenu):
     CleList = [cle for cle in CleList if contenu in cle.split('****')]
 #                        resu = ExtraitContenuDict(patentCont, temp)
     TXT = RetrouveLangue(CleList, patentBibData)
+    
     for lang in list(TXT.keys()):
         # Issue #6 - by cvanderlei in 6-jan-2017
         try:
@@ -2631,7 +2596,65 @@ def MakeIram2(patent, FileName, patentBibData, SavePath, contenu):
 #        else:
 #            nb = 0
     return list(TXT.keys())
+def MakeIram3(patent, FileName, patentBibData, SavePath, contenu):
+    #30/04 adding the return of obstract content in dict form
+    contenu = contenu.lower()
+    if isinstance(patent['IPCR1'], list):
+        CIB1 = '-'.join(dat for dat in patent['IPCR1'])
+    else:
+        CIB1 = patent['IPCR1']
 
+    if isinstance(patent['IPCR3'], list):
+        CIB3 = '-'.join(dat for dat in patent['IPCR3'])
+    else:
+        CIB3 = patent['IPCR3']
+    if isinstance(patent['IPCR4'], list):
+        CIB4 = '-'.join(dat for dat in patent['IPCR4'])
+    else:
+        CIB4 = patent['IPCR4']
+ # Issue #6 - by cvanderlei in 21-dec-2016
+    if 'year' in patent:
+        if isinstance(patent['year'], list):
+            Year = patent['year'][0]
+        else:
+            Year = patent['year']
+    else:
+        Year = 'empty'
+
+    if isinstance(patent['kind'], list):
+        kindIra = '-'.join(dat for dat in patent['kind'])
+    else:
+        kindIra = patent['kind']
+
+    invCountIra = '-'.join(dat for dat in patent['Inventor-Country'])
+    appCountIra = '-'.join(dat for dat in patent['Applicant-Country'])
+
+    IRAM = '**** *Label_' + FileName + ' *Country_' + patent['country'][0] + ' *CIB3_' + CIB3 + ' *CIB1_' + CIB1 + \
+        ' *CIB4_' + CIB4 + ' *Date_' + str(Year) + ' *Applicant_' + \
+        UniClean('-'.join(coupeEnMots(patent['applicant'])))[0:12]
+    IRAM = IRAM + ' *Kind_' + kindIra + ' *InventCountry_' + \
+        invCountIra + ' *ApplCountry_' + appCountIra + ' '
+
+    IRAM = IRAM.replace('_ ', '_empty ', IRAM.count('_ ')) + '\n'
+    Contenu = flatten_dict(patentBibData)
+    CleList = [cle for cle in list(Contenu.keys()) if cle.lower().count(contenu) > 0]
+    CleList = [cle for cle in CleList if contenu in cle.split('****')]
+#                        resu = ExtraitContenuDict(patentCont, temp)
+    TXT = RetrouveLangue(CleList, patentBibData)
+    
+    for lang in list(TXT.keys()):
+        # Issue #6 - by cvanderlei in 6-jan-2017
+        try:
+            
+            EcritContenu(IRAM + '\n'.join(TXT[lang]), SavePath + lang + '-' + FileName)
+        except UnicodeDecodeError:
+            print ('Error unicode when writing patent file', patent)
+            pass
+#        if len(TXT.keys())>0:
+#            nb = 1
+#        else:
+#            nb = 0
+    return TXT
 
 def GetFamilly(client, brev, rep):
     #from OPS2NetUtils2 import ExtractClassificationSimple2, SeparateCountryField, ExtractAbstract, UniClean

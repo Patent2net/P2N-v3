@@ -125,3 +125,5 @@ dex.js
 LogInstallP2N.txt
 Patent2Net/P2N-Cluster-Old.py
 REQUESTS/banana_peel.cql
+Patent2Net/AcadCorpora/*
+*.pkl

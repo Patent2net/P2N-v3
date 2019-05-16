@@ -62,7 +62,7 @@ CitationsTechNetwork: True
 EquivalentsTechNetwork: True
 
 # The total network
-CompleteNetwork: True
+CompleteNetwork: False
 
 # Complete families network
 FamiliesNetwork: True
