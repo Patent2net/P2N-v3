@@ -8,10 +8,10 @@ import time
 from operator import add
 from textblob import TextBlob # importation de textblob outil liguistique 
 from nltk.corpus import stopwords
-from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Lib import LoadBiblioFile, GenereListeFichiers
 from Patent2Net.P2N_Config import LoadConfig
 configFile = LoadConfig()
-
+import codecs
 requete = configFile.requete
 projectName = configFile.ndf
 phrase="invention relates to food industry, namely to production of granular caviar from hydrobionts, which has a high biological activity. Method for obtaining edible granular caviar from Artemia's gonad cancer includes cleaning the cysts by decapsulating them, drying the purified kernels of Artemia caviar to a residual moisture content of not more than 5-10 % by weight, at which the layers of the product are formed in polymer bags and processed by a stream of accelerated electrons obtained in a pulsed linear electron accelerator with an accelerated electron energy of 2.5-5 MeV and an absorbed radiation dose of not more than 20 kGy. Prior to formation of food product layers in polymer bags for irradiation with accelerated electrons, organoleptic and/or preservative additives are additionally added thereto at the following quantitative content of the components, % by weight: organoleptic and/or preservative additives 3.0-30.0; decapsulated cysts of Artemia crustaceans - the rest is up to 100 %.EFFECT: proposed method of obtaining food caviar provides for the expansion of the raw material base for the production of granular caviar, as well as production of granular caviar with new higher nutritional, biologically active and organoleptic properties.1 cl, 1 tbl, 10 ex"
@@ -66,7 +66,7 @@ temporar = GenereListeFichiers(Rep)
    
     
 lstfic = os.listdir(ResultPathContent+'//Abstract')
-print(len(lstfic), " not so empty abstracts gathered. See ", ResultPathContent + '//'+ content+'// directory for files')
+print(len(lstfic), " not so empty abstracts gathered. See ", ResultPathContent + '//')
 
 Langues = set()
 for fi in lstfic:
