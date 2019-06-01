@@ -1,8 +1,1 @@
-(%windir%\System32\cmd.exe "/K" d:\Miniconda3\Scripts\activate.bat d:\Miniconda3
-CALL conda update -n base -c defaults conda 
-CALL conda create --yes --name P2N python=3.6 
-CALL Patent2Net\InstallWindows.bat 2> LogInstall1.txt 
-CALL Patent2Net\InstallWindows2.bat 2> LogInstall2.txt
-CALL conda activate P2N && python setup.py install > LogInstallP2N.txt)
-
-
+CALL %windir%\System32\cmd.exe /K "d:\Anaconda3\Scripts\activate.bat d:\Anaconda3 && CALL Patent2Net\INSTALLP2N2.bat"
