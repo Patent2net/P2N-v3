@@ -13,7 +13,7 @@ import os
 
 from pymed import PubMed
 
-
+from Patent2Net.P2N_Lib import LoadBiblioFile
 from Patent2Net.P2N_Config import LoadConfig
 from Patent2Net.P2N_Lib_Acad import IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
 
@@ -201,12 +201,15 @@ for brevet in DataBrevet["brevets"]:
                                 fic.write(EnTete + Contenu+'\n')
                             IPC = IPCCategorizer(Contenu, 'en')# on suppose tous les aarticles en anglais
                             IPCArt = IPCExtractPredictionBrevet(IPC, SeuilScorePrediction)
-                            CatIPCArt = set([cat['category'][0:7] for cat in IPCArt])
-                            CatIPCBrevet = set([cat['category'][0:7] for cat in IPCBrevet])
-                            MatchCat = [cat for cat in CatIPCArt if cat in CatIPCBrevet]
-                            if len(MatchCat) >0:
-                                print ("Match found")
-                                SAV = True
+                            if IPCArt:
+                                CatIPCArt = set([cat['category'][0:7] for cat in IPCArt])
+                                CatIPCBrevet = set([cat['category'][0:7] for cat in IPCBrevet])
+                                MatchCat = [cat for cat in CatIPCArt if cat in CatIPCBrevet]
+                                if len(MatchCat) >0:
+                                    print ("Match found")
+                                    SAV = True
+                            else:
+                                pass
                         else:
                             pass
                                     
