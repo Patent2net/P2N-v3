@@ -13,8 +13,9 @@ import os
 
 from pymed import PubMed
 
+
 from Patent2Net.P2N_Config import LoadConfig
-from Patent2Net.P2N_Lib_Acad import MakeIram4, IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
+from Patent2Net.P2N_Lib_Acad import IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
 
 #from gargDown_biblio import newCorpus, get_resource_by_name, parse2
 #import pprint

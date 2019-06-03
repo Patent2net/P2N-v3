@@ -5,6 +5,9 @@ Created on Thu May  2 16:20:09 2019
 @author: dreymond
 """
 
+from Patent2Net.P2N_Lib import MakeIram4
+
+
 def OPSChercheAbstractBrevet(pat, DirStockage ):
     import epo_ops
     from epo_ops.models import Docdb
@@ -192,7 +195,7 @@ def PubMedCheckNameAndGetAffiliation(pubmedId, auteur):
                                     else:
                                         #print (Aut) # CollectiveName
                                         pass
-                             else:
+                            else:
                                 Aut = ListeAuteur ['Author'] 
                                 UnicName = False
                                 if not isinstance(Aut, dict):
@@ -252,56 +255,4 @@ def PubMedCheckNameAndGetAffiliation(pubmedId, auteur):
     else:
         raise ValueError(reponse.status_code, reponse.reason)
     return None    
-
-def MakeIram4(patent,  patentBibData, contenu):
-    #30/04 adding the return of obstract content in dict form
-    contenu = contenu.lower()
-    if isinstance(patent['IPCR1'], list):
-        CIB1 = '-'.join(dat for dat in patent['IPCR1'])
-    else:
-        CIB1 = patent['IPCR1']
-
-    if isinstance(patent['IPCR3'], list):
-        CIB3 = '-'.join(dat for dat in patent['IPCR3'])
-    else:
-        CIB3 = patent['IPCR3']
-    if isinstance(patent['IPCR4'], list):
-        CIB4 = '-'.join(dat for dat in patent['IPCR4'])
-    else:
-        CIB4 = patent['IPCR4']
- # Issue #6 - by cvanderlei in 21-dec-2016
-    if 'year' in patent:
-        if isinstance(patent['year'], list):
-            Year = patent['year'][0]
-        else:
-            Year = patent['year']
-    else:
-        Year = 'empty'
-
-    if isinstance(patent['kind'], list):
-        kindIra = '-'.join(dat for dat in patent['kind'])
-    else:
-        kindIra = patent['kind']
-
-    invCountIra = '-'.join(dat for dat in patent['Inventor-Country'])
-    appCountIra = '-'.join(dat for dat in patent['Applicant-Country'])
-
-    IRAM = '**** *Label_' + patent['label'] + ' *Country_' + patent['country'][0] + ' *CIB3_' + CIB3 + ' *CIB1_' + CIB1 + \
-        ' *CIB4_' + CIB4 + ' *Date_' + str(Year) + ' *Applicant_' + \
-        UniClean('-'.join(coupeEnMots(patent['applicant'])))[0:12]
-    IRAM = IRAM + ' *Kind_' + kindIra + ' *InventCountry_' + \
-        invCountIra + ' *ApplCountry_' + appCountIra + ' '
-
-    IRAM = IRAM.replace('_ ', '_empty ', IRAM.count('_ ')) + '\n'
-    Contenu = flatten_dict(patentBibData)
-    CleList = [cle for cle in list(Contenu.keys()) if cle.lower().count(contenu) > 0]
-    CleList = [cle for cle in CleList if contenu in cle.split('****')]
-#                        resu = ExtraitContenuDict(patentCont, temp)
-    TXT = RetrouveLangue(CleList, patentBibData)
-    
-#        if len(TXT.keys())>0:
-#            nb = 1
-#        else:
-#            nb = 0
-    return TXT
 
