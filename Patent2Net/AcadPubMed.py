@@ -171,7 +171,7 @@ for brevet in DataBrevet["brevets"]:
                             else:
                                 date = str(brevet['year'])
                             ndf = date + '-'+brevet['label']+'.txt'
-                            with codecs.open(RepStockage+ '\\abstracts\\' + ndf, 'w', 'utf8') as fic:
+                            with codecs.open(RepStockage+ '//abstracts//' + ndf, 'w', 'utf8') as fic:
                                 fic.write(EnTete + ContPat+'\n')
                             #On rajoute l'article
                             if article.abstract and article.title:
@@ -185,21 +185,24 @@ for brevet in DataBrevet["brevets"]:
                                 IramFull += EnTete + Contenu
                                 ndf = str(article.publication_date.year) + '-' + str(Num) + '.txt'
         #                               # On stocke chaque résumé dans un fichier dans le rep abstract
-                                with codecs.open(RepStockage+ '\\publis\\' + ndf, 'w', 'utf8') as fic:
+                                with codecs.open(RepStockage+ '//publis//' + ndf, 'w', 'utf8') as fic:
                                     fic.write(EnTete + Contenu+'\n')
                                 
                                 IPC = IPCCategorizer(Contenu, 'en') # on suppose tous les aarticles en anglais
                                 IPCArt = IPCExtractPredictionBrevet(IPC, SeuilScorePrediction)
-                                score = max([int(cat['score']) for cat in IPCArt])
+                                if IPCArt:
+                                    score = max([int(cat['score']) for cat in IPCArt])
                                 
         #                        for cat in IPCArt:
         #                            for cat2 in IPCBrevet:
         #                                if cat['category'] == cat2 ["category"]:
         #                                    print ("Match found")
         #                                    SAV = True
-                                CatIPCArt = set([cat['category'][0:7] for cat in IPCArt])
-                                CatIPCBrevet = set([cat['category'][0:7] for cat in IPCBrevet])
-                                MatchCat = [cat for cat in CatIPCArt if cat in CatIPCBrevet]
+                                    CatIPCArt = set([cat['category'][0:7] for cat in IPCArt])
+                                    CatIPCBrevet = set([cat['category'][0:7] for cat in IPCBrevet])
+                                    MatchCat = [cat for cat in CatIPCArt if cat in CatIPCBrevet]
+                                else:
+                                    MatchCat =''
                                 if len(MatchCat) >0:
                                     print ("Match found")
                                     SAV = True
@@ -218,7 +221,7 @@ for brevet in DataBrevet["brevets"]:
                                 IramFull += EnTete + Contenu+'\n'
                                 ndf = str(article.publication_date.year) + '-' + str(Num) + '.txt'
         #                               # On stocke chaque résumé dans un fichier dans le rep abstract
-                                with codecs.open(RepStockage+ '\\publis\\' + ndf, 'w', 'utf8') as fic:
+                                with codecs.open(RepStockage+ '//publis//' + ndf, 'w', 'utf8') as fic:
                                     fic.write(EnTete + Contenu+'\n')
                                 IPC = IPCCategorizer(Contenu, 'en')# on suppose tous les aarticles en anglais
                                 IPCArt = IPCExtractPredictionBrevet(IPC, SeuilScorePrediction)
@@ -285,8 +288,9 @@ for brevet in DataBrevet["brevets"]:
                     fic.write('Label Brevet;Résume brevet;CIBs associées;année;Article Pubmed_id;Article DOI;Article résumé;CIBs associées;CIB Match;score Max IPCCat;Année;Affiliation\n')
                     fic.write(LigneCsv)
         try:
-            with open(RepDir+"//DejaTraites.csv", "a") as ficVus:
-                ficVus.write(brevet['label'] + '\n')
+            if brevet['label'] not in DejaVus:
+                with open(RepDir+"//DejaTraites.csv", "a") as ficVus:
+                    ficVus.write(brevet['label'] + '\n')
         except:
             with open(RepDir+"//DejaTraites.csv", "w") as ficVus:
                 ficVus.write(brevet['label'] + '\n')

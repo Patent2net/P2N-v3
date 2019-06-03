@@ -100,21 +100,24 @@ def IPCCategorizer(texte, langue):
     
 def IPCExtractPredictionBrevet(Predic, seuil):
     Predict = [] # Les prédiction d'IPC dont le score dépasse le seuil
-    if 'predictions' in Predic.keys():
-        if "msg" in Predic['predictions'].keys():
-            if Predic['predictions']['msg'] == 'ok':
-                for predic in Predic['predictions']['prediction']:
-                    if int(predic["score"]) > seuil:
-                        Predict.append(predic)
-                    else:
-                        pass
+    if Predic:
+        if 'predictions' in Predic.keys():
+            if "msg" in Predic['predictions'].keys():
+                if Predic['predictions']['msg'] == 'ok':
+                    for predic in Predic['predictions']['prediction']:
+                        if int(predic["score"]) > seuil:
+                            Predict.append(predic)
+                        else:
+                            pass
+                else:
+                    return None
             else:
                 return None
         else:
             return None
+        return Predict
     else:
         return None
-    return Predict
     
 def strip_accents(text):
 
