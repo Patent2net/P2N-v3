@@ -156,13 +156,10 @@ for brevet in DataBrevet["brevets"]:
                                     if lang in ['en', 'fr', 'es', 'de', 'ru']:
                                         ContPat  += '\n'.join(AbsBrevet [lang]) 
                                         IPCBrevetTemp = IPCCategorizer(ContPat, lang)
-                                        IPCBrevetTemp= IPCExtractPredictionBrevet(IPCBrevetTemp, SeuilScorePrediction)
+                                        IPCBrevet= IPCExtractPredictionBrevet(IPCBrevetTemp, SeuilScorePrediction)
                                         
                                         ResumeBrevet = '\n'.join (AbsBrevet [lang])
-                                        if scoretemp > score:
-                                            IPCBrevet =IPCBrevetTemp
-                                            
-                                            score = scoretemp
+
                                                                   
                                     #Contenu += '\n'.join (AbsBrevet [lang])
                             IramFull += EnTete + ResumeBrevet  +'\n'
