@@ -219,7 +219,7 @@ for brevet in DataBrevet["brevets"]:
                                 
                                 Contenu = article.title + '\n' + article.abstract + '\n'
                                 IramFull += EnTete + Contenu+'\n'
-                                ndf = str(article.publication_date.year) + '-' + str(Num) + '.txt'
+                                ndf = str(date) + '-' + str(Num) + '.txt'
         #                               # On stocke chaque résumé dans un fichier dans le rep abstract
                                 with codecs.open(RepStockage+ '//publis//' + ndf, 'w', 'utf8') as fic:
                                     fic.write(EnTete + Contenu+'\n')
@@ -295,7 +295,11 @@ for brevet in DataBrevet["brevets"]:
             with open(RepDir+"//DejaTraites.csv", "w") as ficVus:
                 ficVus.write(brevet['label'] + '\n')
         DejaVus.append(brevet['label'])
-
+    else:
+        for Auteur in brevet['inventor'] :
+            NbAut +=1
+            NumAut +=1 
+            
 
 print("estimations Auteurs brevets testés --> ", NbAut)
 print("Articles retrouvés -->", NbArt)# 
