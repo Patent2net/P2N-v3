@@ -2656,6 +2656,60 @@ def MakeIram3(patent, FileName, patentBibData, SavePath, contenu):
 #            nb = 0
     return TXT
 
+
+def MakeIram4(patent,  patentBibData, contenu):
+    #30/04 adding the return of obstract content in dict form
+    #no saving data step... used by acad
+    contenu = contenu.lower()
+    if isinstance(patent['IPCR1'], list):
+        CIB1 = '-'.join(dat for dat in patent['IPCR1'])
+    else:
+        CIB1 = patent['IPCR1']
+
+    if isinstance(patent['IPCR3'], list):
+        CIB3 = '-'.join(dat for dat in patent['IPCR3'])
+    else:
+        CIB3 = patent['IPCR3']
+    if isinstance(patent['IPCR4'], list):
+        CIB4 = '-'.join(dat for dat in patent['IPCR4'])
+    else:
+        CIB4 = patent['IPCR4']
+ # Issue #6 - by cvanderlei in 21-dec-2016
+    if 'year' in patent:
+        if isinstance(patent['year'], list):
+            Year = patent['year'][0]
+        else:
+            Year = patent['year']
+    else:
+        Year = 'empty'
+
+    if isinstance(patent['kind'], list):
+        kindIra = '-'.join(dat for dat in patent['kind'])
+    else:
+        kindIra = patent['kind']
+
+    invCountIra = '-'.join(dat for dat in patent['Inventor-Country'])
+    appCountIra = '-'.join(dat for dat in patent['Applicant-Country'])
+
+    IRAM = '**** *Label_' + patent['label'] + ' *Country_' + patent['country'][0] + ' *CIB3_' + CIB3 + ' *CIB1_' + CIB1 + \
+        ' *CIB4_' + CIB4 + ' *Date_' + str(Year) + ' *Applicant_' + \
+        UniClean('-'.join(coupeEnMots(patent['applicant'])))[0:12]
+    IRAM = IRAM + ' *Kind_' + kindIra + ' *InventCountry_' + \
+        invCountIra + ' *ApplCountry_' + appCountIra + ' '
+
+    IRAM = IRAM.replace('_ ', '_empty ', IRAM.count('_ ')) + '\n'
+    Contenu = flatten_dict(patentBibData)
+    CleList = [cle for cle in list(Contenu.keys()) if cle.lower().count(contenu) > 0]
+    CleList = [cle for cle in CleList if contenu in cle.split('****')]
+#                        resu = ExtraitContenuDict(patentCont, temp)
+    TXT = RetrouveLangue(CleList, patentBibData)
+    
+#        if len(TXT.keys())>0:
+#            nb = 1
+#        else:
+#            nb = 0
+    return TXT
+
 def GetFamilly(client, brev, rep):
     #from OPS2NetUtils2 import ExtractClassificationSimple2, SeparateCountryField, ExtractAbstract, UniClean
     from epo_ops.models import Epodoc, Docdb
