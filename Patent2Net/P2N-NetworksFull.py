@@ -73,7 +73,7 @@ Networks["_Full"] = [configFile.CompleteNetwork, [ 'label', "equivalents", 'CitP
 #Networks["_Full"][1][0] = True #setting net to true but reading parameter file can reverse this
 
 P2NComp = configFile.CompleteNetwork
-P2NComp = True
+
 P2NFamilly = configFile.GatherFamilly
 
 # should set a working dir one upon a time... done it is temporPath
