@@ -82,7 +82,7 @@ def IPCCategorizer(texte, langue):
     number="5" #from 1 to 5
     level= "subgroup" # or class, subclass, maingroup
     # The API service of IPC cat
-    if len(texte)>0 and langue in ["fr", "es", "de", "ru"]:
+    if len(texte)>0 and langue in ["fr", "es", "de", "ru", "en"]:
         urlDer = "https://www.wipo.int/classifications/ipc/ipccat?&hierarchiclevel="+level.upper()+"&lang="+language +\
         "&numberofpredictions="+number+"&text="+texte.lower().replace("\n", " ")
         urlDer = requote_uri(urlDer)

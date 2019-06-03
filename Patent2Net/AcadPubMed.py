@@ -236,6 +236,7 @@ for brevet in DataBrevet["brevets"]:
                                         print ("Match found")
                                         SAV = True
                                 else:
+                                    print( IPCArt )
                                     pass
                             else:
                                 pass
