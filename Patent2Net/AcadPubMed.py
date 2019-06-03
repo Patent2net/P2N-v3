@@ -140,8 +140,9 @@ for brevet in DataBrevet["brevets"]:
                                     pass
                         else:
                             pass
-                        with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv', 'w', 'utf8') as fic:
-                            fic.write('Label Brevet;Résume brevet;CIBs associées;année;Article Pubmed_id;Article DOI;Article résumé;CIBs associées;CIB Match;score Max IPCCat;Année;Affiliation\n')
+                        if  Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv' not in os.listdir(RepStockage):
+                            with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv', 'w', 'utf8') as fic:
+                                fic.write('Label Brevet;Résume brevet;CIBs associées;année;Article Pubmed_id;Article DOI;Article résumé;CIBs associées;CIB Match;score Max IPCCat;Année;Affiliation\n')
                         
                         if not SavBrevet: #sauvegarde de l'abstract brevet
                             AbsBrevet = OPSChercheAbstractBrevet(brevet, RepStockage+'//')
@@ -286,8 +287,6 @@ for brevet in DataBrevet["brevets"]:
             if len(IramFull) >0:
                 with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'IRAM.txt', 'w', 'utf8') as fic:
                     fic.write(IramFull)
-            if len(LigneCsv) >0:
-                    fic.write(LigneCsv)
         try:
             if brevet['label'] not in DejaVus:
                 with open(RepDir+"//DejaTraites.csv", "a") as ficVus:
