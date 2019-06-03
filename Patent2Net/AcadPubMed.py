@@ -89,16 +89,18 @@ NbFr = 0 # les pampollos Français
 match =  0 # Le nombre de match par corpus
 DejaVus = [] # Les labels de brevets déjà traités
 for brevet in DataBrevet["brevets"]:
-    SavBrevet = False # Commutateur pour éviter de requêter 15 fois pour un brevet
+    
     AffilAuteur = dict()
     try:
         with open("RepDir+//DejaTraites.csv", "r") as ficVus:
             DejaVus = ficVus.readlines()
     except:
         pass
-    if brevet['label'] not in DejaVus:
 
+    if brevet['label'] not in DejaVus:
+        
         for Auteur in brevet['inventor'] :
+            SavBrevet = False # Commutateur pour éviter de requêter 15 fois pour un brevet
             LigneCsv = """""" # the csv file for mathching articles and patent at CIB level
             NbAut +=1
             Auteur = Auteur.title()
@@ -125,7 +127,7 @@ for brevet in DataBrevet["brevets"]:
                         AffilAuteur[Auteur].add(Affi)
                     if " france" in Affi.lower():
                         NbFr +=1
-                        RepStockage = RepDir + "//" + Auteur.title().replace(' ', '').replace('"', '') +str(NumAut)
+                        RepStockage = RepDir + "//" +str(NumAut) +'-'+ Auteur.title().replace(' ', '').replace('"', '') 
                         if "AcadCorpora" not in os.listdir(configFile.ResultPath):
                             os.makedirs(RepDir)
                         else:
@@ -138,6 +140,8 @@ for brevet in DataBrevet["brevets"]:
                                     pass
                         else:
                             pass
+                        with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv', 'w', 'utf8') as fic:
+                            fic.write('Label Brevet;Résume brevet;CIBs associées;année;Article Pubmed_id;Article DOI;Article résumé;CIBs associées;CIB Match;score Max IPCCat;Année;Affiliation\n')
                         
                         if not SavBrevet: #sauvegarde de l'abstract brevet
                             AbsBrevet = OPSChercheAbstractBrevet(brevet, RepStockage+'//')
@@ -251,8 +255,10 @@ for brevet in DataBrevet["brevets"]:
                                          article.doi +';' + Contenu.replace(';', '*%*').replace('\n', '') + ';' +\
                                          ','.join([cat["category"] for cat in IPCArt]) +";" +\
                                           ','.join([truc for truc in MatchCat]) + ";" + str(score) +';' + dateArticle +';' + Affi + '\n'
-
-                            LigneCsv += temp
+                            with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv', 'a', 'utf8') as fic:
+                                  fic.write(temp)  
+                            
+                          
                     else:
     #                    if not auteurDejaVu:
     #                        auteurDejaVu = True
@@ -281,8 +287,6 @@ for brevet in DataBrevet["brevets"]:
                 with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'IRAM.txt', 'w', 'utf8') as fic:
                     fic.write(IramFull)
             if len(LigneCsv) >0:
-                with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv', 'w', 'utf8') as fic:
-                    fic.write('Label Brevet;Résume brevet;CIBs associées;année;Article Pubmed_id;Article DOI;Article résumé;CIBs associées;CIB Match;score Max IPCCat;Année;Affiliation\n')
                     fic.write(LigneCsv)
         try:
             if brevet['label'] not in DejaVus:
