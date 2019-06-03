@@ -238,9 +238,9 @@ for brevet in DataBrevet["brevets"]:
                         if SAV:
                             match +=1
                             if not article.publication_date:
-                                    dateArticle = 1900
+                                    dateArticle = str(1900)
                             else:
-                                    dateArticle = article.publication_date.year
+                                    dateArticle = str(article.publication_date.year)
                             
                             if not article.doi:
                                 article.doi = ''
