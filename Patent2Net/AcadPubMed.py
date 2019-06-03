@@ -10,11 +10,11 @@ Created on Mon Apr  10 11:26:06 2019
 import codecs
 import os
 
-from Patent2Net.P2N_Lib import MakeIram3, LoadBiblioFile
+
 from pymed import PubMed
 
 from Patent2Net.P2N_Config import LoadConfig
-from Patent2Net.P2N_Lib_Acad import IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
+from Patent2Net.P2N_Lib_Acad import MakeIram4, IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
 
 #from gargDown_biblio import newCorpus, get_resource_by_name, parse2
 #import pprint
@@ -148,10 +148,12 @@ for brevet in DataBrevet["brevets"]:
                                     IPCBrevetTemp = IPCCategorizer(ContPat, lang)
                                     IPCBrevetTemp= IPCExtractPredictionBrevet(IPCBrevetTemp, SeuilScorePrediction)
                                     scoretemp = max([int(cat['score']) for cat in IPCBrevetTemp])
+                                    ResumeBrevet = '\n'.join (AbsBrevet [lang])
                                     if scoretemp > score:
                                         IPCBrevet =IPCBrevetTemp
-                                        ResumeBrevet = '\n'.join (AbsBrevet [lang])
+                                        
                                         score = scoretemp
+                                                              
                                 #Contenu += '\n'.join (AbsBrevet [lang])
                         IramFull += EnTete + ResumeBrevet  +'\n'
                         if isinstance(brevet['year'], list):
