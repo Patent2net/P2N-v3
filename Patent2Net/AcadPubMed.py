@@ -174,8 +174,13 @@ for brevet in DataBrevet["brevets"]:
                             with codecs.open(RepStockage+ '\\abstracts\\' + ndf, 'w', 'utf8') as fic:
                                 fic.write(EnTete + ContPat+'\n')
                             #On rajoute l'article
-                            EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(article.publication_date.year) + ' *brevet_article' + ' *article_'+article.pubmed_id.split('\n')[0]+ ' \n'
                             if article.abstract and article.title:
+                                if not article.publication_date:
+                                    date = 1900
+                                else:
+                                    date = article.publication_date.year
+                                EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(date) + ' *brevet_article' + ' *article_'+article.pubmed_id.split('\n')[0]+ ' \n'
+
                                 Contenu = article.title + '\n' + article.abstract + '\n'
                                 IramFull += EnTete + Contenu
                                 ndf = str(article.publication_date.year) + '-' + str(Num) + '.txt'
@@ -202,7 +207,12 @@ for brevet in DataBrevet["brevets"]:
                                 pass #titre ou contenu manquant
                         else: # Le brevet a déjà été retrouvé
                             if article.abstract and article.title:
-                                EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(article.publication_date.year)  + ' *brevet_article' +'\n'
+                                if not article.publication_date:
+                                    date = 1900
+                                else:
+                                    date = article.publication_date.year
+
+                                EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(date)  + ' *brevet_article' +'\n'
                                 
                                 Contenu = article.title + '\n' + article.abstract + '\n'
                                 IramFull += EnTete + Contenu+'\n'
