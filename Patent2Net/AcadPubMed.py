@@ -87,7 +87,7 @@ NbAut = 0 # Auteurs brevets testés
 NumAut = 0 #Numero d'auteur pour les homonymes
 NbFr = 0 # les pampollos Français
 match =  0 # Le nombre de match par corpus
-
+DejaVus = [] # Les labels de brevets déjà traités
 for brevet in DataBrevet["brevets"]:
     SavBrevet = False # Commutateur pour éviter de requêter 15 fois pour un brevet
     AffilAuteur = dict()
@@ -95,7 +95,7 @@ for brevet in DataBrevet["brevets"]:
         with open("RepDir+//DejaTraites.csv", "r") as ficVus:
             DejaVus = ficVus.readlines()
     except:
-        DejaVus.append(brevet['label'])
+        pass
     if brevet['label'] not in DejaVus:
 
         for Auteur in brevet['inventor'] :
@@ -237,7 +237,11 @@ for brevet in DataBrevet["brevets"]:
                                         
                         if SAV:
                             match +=1
-                            dateArticle = str(article.publication_date.year)
+                            if not article.publication_date:
+                                    dateArticle = 1900
+                            else:
+                                    dateArticle = article.publication_date.year
+                            
                             if not article.doi:
                                 article.doi = ''
                             
@@ -245,9 +249,9 @@ for brevet in DataBrevet["brevets"]:
                                           ','.join([cat["category"] for cat in IPCBrevet]) +';' +\
                                          str(','.join(brevet['year']))+';' +article.pubmed_id.split('\n')[0] +';'+\
                                          article.doi +';' + Contenu.replace(';', '*%*').replace('\n', '') + ';' +\
-                                         ','.join([cat["category"] for cat in IPCArt]) +\
-                                         ";" + ','.join([truc for truc in MatchCat] + ";" + str(score) +\
-                                         ';' + dateArticle  +';' + Affi  + '\n'
+                                         ','.join([cat["category"] for cat in IPCArt]) +";" +\
+                                          ','.join([truc for truc in MatchCat]) + ";" + str(score) +';' + dateArticle +';' + Affi + '\n'
+
                             LigneCsv += temp
                     else:
     #                    if not auteurDejaVu:
@@ -280,9 +284,14 @@ for brevet in DataBrevet["brevets"]:
                 with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv', 'w', 'utf8') as fic:
                     fic.write('Label Brevet;Résume brevet;CIBs associées;année;Article Pubmed_id;Article DOI;Article résumé;CIBs associées;CIB Match;score Max IPCCat;Année;Affiliation\n')
                     fic.write(LigneCsv)
-        with open("RepDir+//DejaTraites.csv", "r") as ficVus:
-            ficVus.write(brevet['label'] + '\n')
-        
+        try:
+            with open(RepDir+"//DejaTraites.csv", "a") as ficVus:
+                ficVus.write(brevet['label'] + '\n')
+        except:
+            with open(RepDir+"//DejaTraites.csv", "w") as ficVus:
+                ficVus.write(brevet['label'] + '\n')
+        DejaVus.append(brevet['label'])
+
 
 print("estimations Auteurs brevets testés --> ", NbAut)
 print("Articles retrouvés -->", NbArt)# 
