@@ -257,7 +257,7 @@ for brevet in DataBrevet["brevets"]:
                                          str(','.join(brevet['year']))+';' +article.pubmed_id.split('\n')[0] +';'+\
                                          article.doi +';' + Contenu.replace(';', '*%*').replace('\n', '') + ';' +\
                                          ','.join([cat["category"] for cat in IPCArt]) +";" +\
-                                          ','.join([truc for truc in MatchCat]) + ";" + str(score) +';' + dateArticle +';' + Affi + '\n'
+                                          ','.join([truc for truc in MatchCat]) + ";" + str(score) +';' + dateArticle +';' + Affi.replace('\n', '') + '\n'
                             with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv', 'a', 'utf8') as fic:
                                   fic.write(temp)  
                             
@@ -287,7 +287,7 @@ for brevet in DataBrevet["brevets"]:
                     temp = Auteur + ';' +";".join(AffilAuteur[Auteur]) + '\n'
                     if not Affi:
                         Affi='???'
-                    SavAutAffil.write(Auteur +';' + Affi.replace(';', '***') + '\n')   
+                    SavAutAffil.write(Auteur +';' + Affi.replace(';', '***').replace('\n', '') + '\n')   
             if len(IramFull) >0:
                 with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'IRAM.txt', 'w', 'utf8') as fic:
                     fic.write(IramFull)
