@@ -284,6 +284,8 @@ for brevet in DataBrevet["brevets"]:
             if Auteur in AffilAuteur.keys():
                 with open(RepDir + "//" "AuteursAffil.csv", "a") as  SavAutAffil:
                     temp = Auteur + ';' +";".join(AffilAuteur[Auteur]) + '\n'
+                    if not Affi:
+                        Affi='???'
                     SavAutAffil.write(Auteur +';' + Affi.replace(';', '***') + '\n')   
             if len(IramFull) >0:
                 with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'IRAM.txt', 'w', 'utf8') as fic:
