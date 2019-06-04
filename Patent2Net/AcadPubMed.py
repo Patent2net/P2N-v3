@@ -156,6 +156,7 @@ for brevet in DataBrevet["brevets"]:
                                 
                                 ResumeBrevet = '\n'.join (AbsBrevet ['fr'])
                             else:
+                                ResumeBrevet =''
                                 for lang in AbsBrevet.keys():
                                     score = 0
                                     if lang in ['en', 'fr', 'es', 'de', 'ru']:
@@ -163,7 +164,7 @@ for brevet in DataBrevet["brevets"]:
                                         IPCBrevetTemp = IPCCategorizer(ContPat, lang)
                                         IPCBrevet= IPCExtractPredictionBrevet(IPCBrevetTemp, SeuilScorePrediction)
                                         
-                                        ResumeBrevet = '\n'.join (AbsBrevet [lang])
+                                        ResumeBrevet += '\n'.join (AbsBrevet [lang])
 
                                                                   
                                     #Contenu += '\n'.join (AbsBrevet [lang])
@@ -185,7 +186,7 @@ for brevet in DataBrevet["brevets"]:
 
                                 Contenu = article.title + '\n' + article.abstract + '\n'
                                 IramFull += EnTete + Contenu
-                                ndf = str(article.publication_date.year) + '-' + str(Num) + '.txt'
+                                ndf = str(date) + '-' + str(Num) + '.txt'
         #                               # On stocke chaque résumé dans un fichier dans le rep abstract
                                 with codecs.open(RepStockage+ '//publis//' + ndf, 'w', 'utf8') as fic:
                                     fic.write(EnTete + Contenu+'\n')
