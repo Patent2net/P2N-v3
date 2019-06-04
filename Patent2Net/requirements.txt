@@ -12,3 +12,4 @@ jinja2
 lxml
 Pillow
 gensim
+nltk
