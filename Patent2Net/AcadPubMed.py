@@ -283,7 +283,7 @@ for brevet in DataBrevet["brevets"]:
                     
                     pass
             if Auteur in AffilAuteur.keys():
-                with open(RepDir + "//" "AuteursAffil.csv", "a") as  SavAutAffil:
+                with open(RepDir + "//" "AuteursAffil.csv", "a", encoding='utf8') as  SavAutAffil:
                     temp = Auteur + ';' +";".join(AffilAuteur[Auteur]) + '\n'
                     if not Affi:
                         Affi='???'
@@ -293,10 +293,10 @@ for brevet in DataBrevet["brevets"]:
                     fic.write(IramFull)
         try:
             if brevet['label'] not in DejaVus:
-                with open(RepDir+"//DejaTraites.csv", "a") as ficVus:
+                with open(RepDir+"//DejaTraites.csv", "a", encoding='utf8') as ficVus:
                     ficVus.write(brevet['label'] + '\n')
         except:
-            with open(RepDir+"//DejaTraites.csv", "w") as ficVus:
+            with open(RepDir+"//DejaTraites.csv", "a", encoding='utf8') as ficVus:
                 ficVus.write(brevet['label'] + '\n')
         DejaVus.append(brevet['label'])
     else:
