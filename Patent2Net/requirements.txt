@@ -13,3 +13,4 @@ lxml
 Pillow
 gensim
 nltk
+pandas
