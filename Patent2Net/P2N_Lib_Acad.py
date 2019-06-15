@@ -178,8 +178,14 @@ def PubMedCheckNameAndGetAffiliation(pubmedId, auteur):
                                                 elif isinstance(Aut['AffiliationInfo'], list):
                                                     tempo = [aff['Affiliation'] for aff in Aut['AffiliationInfo'] ]
                                                     Affiliaton = '\n'.join(tempo)
-                                        #checking it s Firstname and lastname (should work with initials)
-                                        if (strip_accents(auteur.split(' ')[0]) in Nom and strip_accents(auteur.split(' ')[1]) in Nom) or (UnicName and (strip_accents(auteur.split(' ')[0]) in Nom or strip_accents(auteur.split(' ')[1]) in Nom)) :
+                                        #checking it s Firstname and lastname (should work with initials).
+                                        try:
+                                            NomCheck = strip_accents(auteur.split(' ')[0])
+                                            PrenomCheck = strip_accents(auteur.split(' ')[1])
+                                        except:
+                                            NomCheck = strip_accents(auteur)
+                                            PrenomCheck  = strip_accents(auteur)
+                                        if (NomCheck in Nom and PrenomCheck in Nom) or (UnicName and (NomCheck in Nom or PrenomCheck in Nom)) :
                                             if 'AffiliationInfo' in Aut.keys():
                                                 if isinstance(Aut['AffiliationInfo'], dict) or  isinstance(Aut['AffiliationInfo'], OrderedDict):
                                                     if 'Affiliation' in Aut['AffiliationInfo'].keys():  
