@@ -50,7 +50,7 @@ ResultFolderWin = '..\\DATA\\'+res
 try:
     os.makedirs(ResultFolder+'//PatentLists')
 except:
-    if res.title() in lstReq[0]:
+    if res.title() in lstReq:
         lstReq[0].remove(res.title())
     pass
 lig= ""
@@ -58,11 +58,11 @@ BrevetRes = dict()
 BrevetRes["brevets"] = []
 BrevetRes["number"] =0
 BrevetRes["requete"] = ''
-with open(ResultFolder+'//PatentLists/'+res, 'w') as ficRes:
+with open(ResultFolder+'//PatentLists/'+res, 'wb') as ficRes:
     for ndf in lstReq:
         lstBrevets2, nbTrouves = [], 0
         if ndf in os.listdir('..//DATA//') and ndf in os.listdir('..//DATA//'+ndf+'//PatentLists//'):
-            with open('..//DATA//'+ndf+'//PatentLists//'+ndf) as fic:
+            with open('..//DATA//'+ndf+'//PatentLists//'+ndf, 'rb') as fic:
                 Brevet1 = pickle.load(fic)
                 print("Doing ", ndf, "Found ", len(Brevet1 ["brevets"]), "patents in list")
 
@@ -76,7 +76,7 @@ with open(ResultFolder+'//PatentLists/'+res, 'w') as ficRes:
     pickle.dump(BrevetRes, ficRes)
 
     print("Fusion done. Total in list: ", BrevetRes["number"])
-with open('..//Fusion'+res +'.txt', 'w') as ficSav:
+with open('..//Fusion'+res +'.txt', 'w', encoding='utf8') as ficSav:
     ficSav.write(BrevetRes["requete"])
 print("create requete.cql with ", res, " as dataDirectory and setting GatherPatent to False")
 print("Use the following sentence as Request value (writen in Fusion'"+res+".txt file) \n")
