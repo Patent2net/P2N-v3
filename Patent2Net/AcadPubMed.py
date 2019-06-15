@@ -88,14 +88,16 @@ NumAut = 0 #Numero d'auteur pour les homonymes
 NbFr = 0 # les pampollos Français
 match =  0 # Le nombre de match par corpus
 DejaVus = [] # Les labels de brevets déjà traités
+try:
+    with open(RepDir+"//DejaTraites.csv", "r") as ficVus:
+        DejaVus = ficVus.readlines()
+    DejaVus = [lab.strip() for lab in DejaVus]
+except:
+    pass
 for brevet in DataBrevet["brevets"]:
     
     AffilAuteur = dict()
-    try:
-        with open("RepDir+//DejaTraites.csv", "r") as ficVus:
-            DejaVus = ficVus.readlines()
-    except:
-        pass
+
 
     if brevet['label'] not in DejaVus:
         
