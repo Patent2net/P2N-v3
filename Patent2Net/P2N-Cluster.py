@@ -28,7 +28,7 @@ import mpld3
 from mpld3.utils import get_id
 import numpy as np
 import logging
-from sklearn.externals import joblib
+import joblib
 from optparse import OptionParser
 
 
