@@ -22,7 +22,7 @@ import codecs
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.cluster import KMeans
-from sklearn.externals import joblib
+import joblib
 from sklearn.metrics.pairwise import pairwise_distances
 from pandas.plotting import scatter_matrix
 import os  # for os.path.basename

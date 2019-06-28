@@ -1,3 +1,5 @@
 python-epo-ops-client
 community
+textblob
+
 
