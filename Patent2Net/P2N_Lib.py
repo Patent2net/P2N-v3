@@ -2121,7 +2121,9 @@ def ExtractPatentsData(patentBib, client, contentPath):
                 tempoPat['equivalents'] = 'empty'
                 # print "no equivalents"
         tempoPat, YetGathered, BP = ExtractPatent(tempoPat, contentPath, [])
+        request = 'ct=' + tempoPat['label']
 
+        lstCitants, nbCitants = PatentCitersSearch(client, request)
         if 'publication-reference' in list(patentBib.keys()):
             patents = patentBib['publication-reference']
             if isinstance(patents, list):
@@ -2129,12 +2131,10 @@ def ExtractPatentsData(patentBib, client, contentPath):
                     lstCitants.extend(ProcessCitingDoc(k))
             else:  # sometimes its a sole patent
                 lstCitants.extend(ProcessCitingDoc(patents))
-        else:
-            request = 'ct=' + tempoPat['label']
+        
 
-            lstCitants, nbCitants = PatentCitersSearch(client, request)
-        tempoPat['CitedBy'] = lstCitants
-        tempoPat['Citations'] = len(lstCitants)
+        tempoPat['CitedBy'] = list(set(lstCitants))
+        tempoPat['Citations'] = len(list(set(lstCitants)))
         MakeIram(tempoPat, tempoPat['label'], patentBib, AbstractsPath)
         return tempoPat
 
@@ -2856,9 +2856,9 @@ def GetFamilly(client, brev, rep):
             prior = brev['label']
         for brevet in lstres:
             brevet['prior'] = prior
+    return lstres #why do I have to add that here ? 30/06/2019 ????? it seemed to work before
 #        print "exceptions ", comptExcept
 #        print len(lstres), ' patents added'
-    return lstres
 
 # def RecupAbstract(dico):
 #    res = dict()
@@ -2958,8 +2958,7 @@ def PatentCitersSearch(client, requete, deb=1, fin=1):
             STOP = False
             cpt = 0
             data = data.json()
-            nbTrouv = int(data['ops:world-patent-data']
-                          ['ops:biblio-search']['@total-result-count'])
+            nbTrouv = int(data['ops:world-patent-data']['ops:biblio-search']['@total-result-count'])
             if nbTrouv > 0:
                 while len(Brevets) < nbTrouv and not STOP:
                     data = client.published_data_search(

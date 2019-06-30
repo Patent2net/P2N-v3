@@ -93,7 +93,7 @@ BiblioPatents, PatIgnored = [], Initialize(GatherPatent, GatherBiblio)
 ops_client = epo_ops.Client(key, secret)
 #        data = ops_client.family('publication', , 'biblio')
 ops_client.accept_type = 'application/json'
-GatherBibli = GatherBiblio  # this parametric option was added after...
+
 if ndf in os.listdir(ResultListPath):
     with codecs.open(ResultListPath + '//' + ndf, 'rb') as fic:
         DataBrevets = pickle.load(fic)

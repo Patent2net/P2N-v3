@@ -97,7 +97,7 @@ if GatherFamilly:
     print("\n> Hi! This is the family gatherer. Processing ", ndf)
     try:
 
-        fic = open(ResultPath+ '//' + ndf, 'r')
+        fic = open(ResultPath+ '//' + ndf, 'rb')
 
         print("loading data file ", ndf+' from ', ResultPath, " directory.")
         if 'Description'+ndf in os.listdir(ResultPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
@@ -128,7 +128,7 @@ if GatherFamilly:
     # Familly check
 
     try: #temporar directory if gathering processing have already started
-        DoneLstBrev = open(temporPath+'//DoneTempo'+ ndf, 'r')
+        DoneLstBrev = open(temporPath+'//DoneTempo'+ ndf, 'rb')#, encoding='utf8')
         Done = pickle.load(DoneLstBrev) # these won't be gathered again
         DoneLab = [pat['label'] for pat in Done]
     except:
@@ -158,7 +158,7 @@ if GatherFamilly:
                         for brev in ListeBrevet:
                             if brev['label'] == k:
                                 tempoList.append(brev)
-                ListeBrevet = list(set(tempoList))
+                ListeBrevet = tempoList
             print(len(DoneLab), ' patents treated yet... doing others : ', len(ListeBrevet))
             if len(ListeBrevet) == 0:
                 print("Good, nothing to do!")
@@ -172,6 +172,13 @@ if GatherFamilly:
     else:
         ListeBrevetAug = []
         Done = []
+        #ListeBrevet = list(set([bre for bre in ListeBrevet if bre not in Done]))
+        
+        if len(ListeBrevet)==0:
+            with open(ResultPath+'//Families'+ ndf, 'ab') as ndfLstBrev:
+                for bre in Done:
+                    pickle.dump(dictCleaner(bre) , ndfLstBrev)
+            #GatherFamilly = False
     if ficOk and GatherFamilly:
         ops_client = epo_ops.Client(key, secret)
     #        data = ops_client.family('publication', , 'biblio')
@@ -182,7 +189,6 @@ if GatherFamilly:
 
             if Brev is not None and Brev != '':
                 temp = GetFamilly(ops_client, Brev, ResultContentsPath)
-                print("... loading ", Brev['label'])
                 temp = CleanNones(temp)
                 if temp is not None:
                     tempFiltered =[]
@@ -235,7 +241,7 @@ if GatherFamilly:
 
                                with open(ResultPath+'//Families'+ ndf, 'ab') as ndfLstBrev:
                                    for bre in ListeBrevetAug:
-                                       pickle.dump(bre , ndfLstBrev)
+                                       pickle.dump(dictCleaner(bre) , ndfLstBrev)
                             else:
                                 DejaVu.append(pat['label'])
                                 ListeBrevetAug.append(dictCleaner(pat))
