@@ -33,7 +33,7 @@ class P2NConfig:
         self.FormateExportBiblio = False
         self.FormateExportDataTable = False
         self.FormateExportPivotTable = False
-
+        self.FusionIramuteq2 = False
         self.FreePlane = False
         self.FusionCarrot2 = False
         self.Cluster = False
@@ -94,6 +94,8 @@ class P2NConfig:
                 self.FreePlane = self.getBoolean(line)
             elif line.count('FusionCarrot2') > 0:
                 self.FusionCarrot2 = self.getBoolean(line)
+            elif line.count('FusionIramuteq2') > 0:
+                self.FusionIramuteq2 = self.getBoolean(line)    
             elif line.count('P2N-Cluster') > 0:
                 self.Cluster = self.getBoolean(line)
         self.generatePaths()

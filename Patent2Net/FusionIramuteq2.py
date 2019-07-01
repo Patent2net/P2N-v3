@@ -8,17 +8,32 @@ Created on Fri Dec 19 07:53:30 2014
 
 import os, codecs
 from Patent2Net.P2N_Lib import ReturnBoolean, GenereListeFichiers
+from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Config import LoadConfig
 
-with open("..//requete.cql", "r") as fic:
-    contenu = fic.readlines()
-    for lig in contenu:
-        #if not lig.startswith('#'):
-            if lig.count('request:')>0:
-                requete=lig.split(':')[1].strip()
-            if lig.count('DataDirectory:')>0:
-                ndf = lig.split(':')[1].strip()
-            if lig.count('FusionIramuteq2')>0:
-                IsEnableScript = ReturnBoolean(lig.split(':')[1].strip())
+configFile = LoadConfig()
+requete = configFile.requete
+ndf = configFile.ndf
+Gather = configFile.GatherContent
+GatherBiblio = configFile.GatherBiblio
+GatherPatent = configFile.GatherPatent
+GatherFamilly = configFile.GatherFamilly
+FusionIramuteq2 = configFile.FusionIramuteq2
+ #should set a working dir one upon a time... done it is temporPath
+ResultPath = configFile.ResultBiblioPath
+temporPath = configFile.temporPath
+ResultContentsPath = configFile.ResultContentsPath
+
+#with open("..//requete.cql", "r") as fic:
+#    contenu = fic.readlines()
+#    for lig in contenu:
+#        #if not lig.startswith('#'):
+#            if lig.count('request:')>0:
+#                requete=lig.split(':')[1].strip()
+#            if lig.count('DataDirectory:')>0:
+#                ndf = lig.split(':')[1].strip()
+#            if lig.count('FusionIramuteq2')>0:
+#                IsEnableScript = ReturnBoolean(lig.split(':')[1].strip())
 
 rep = ndf
 ResultListPath = '..//DATA//'+rep+'//PatentBiblios'#Lists'
@@ -28,7 +43,7 @@ ResultBiblioPath= '..//DATA//'+rep+'//PatentBiblios'
 
 
 
-if IsEnableScript:
+if FusionIramuteq2:
     Rep = '..//DATA//'+ndf+'//PatentContents'
     temporar = GenereListeFichiers(Rep)
     
