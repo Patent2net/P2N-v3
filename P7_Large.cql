@@ -7,14 +7,14 @@ request: ((ic=A63 OR IC=A62) AND pd within "2014, 2016") AND pr=FR
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: P7-Univ
+DataDirectory: P7-Large
 
 ###############################
 #Patent2Net options : Set to *True* or False
 ###############################
 # Collecting
 # patents list corresponding to the request. e.g the "Patent Universe" (PU)
-GatherPatent: True
+GatherPatent: False
 
 # patents bibliographic data corresponding to patent list
 GatherBiblio: True
@@ -27,11 +27,11 @@ OPSGatherContentsv2-Iramuteq: True
 GatherFamilly: True
 
 #NEW 2018: images
-GatherImages: True
+GatherImages: False
 
 ###############################
 # Networks. Produce both online and for download and local use of Gephi
-# Inventors' network
+# Inventors' network 
 InventorNetwork: True
 
 # Applicants' network
@@ -46,16 +46,16 @@ ApplicantInventorNetwork: True
 # Applicants and IPCs' network
 ApplicantCrossTechNetwork: True
 
-# Inventors and IPCs' network
+# Inventors and IPCs' network 
 InventorCrossTechNetwork: True
 
 # Countries and IPCs' network
 CountryCrossTechNetwork: True
 
-# Network of references for the PU (each reference cited by each patent within the PU, includes external bibliographic refs)
+# Network of references for the PU (each reference cited by each patent within the PU, includes external bibliographic refs) 
 ReferencesNetwork: True
 
-# Network of citation for the PU (each patent cited within the PU cited in the rest of the patents world)
+# Network of citation for the PU (each patent cited within the PU cited in the rest of the patents world) 
 CitationsTechNetwork: True
 
 # Network of equivalent patents for each patent within the PU
@@ -100,3 +100,4 @@ FusionIramuteq2: True
 # NEW Feature (BETA)
 # Double clustering system based on non so trivial words
 P2N-Cluster: True
+
