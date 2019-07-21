@@ -14,7 +14,7 @@ DataDirectory: P7-Large
 ###############################
 # Collecting
 # patents list corresponding to the request. e.g the "Patent Universe" (PU)
-GatherPatent: True
+GatherPatent: False
 
 # patents bibliographic data corresponding to patent list
 GatherBiblio: True
@@ -27,7 +27,7 @@ OPSGatherContentsv2-Iramuteq: True
 GatherFamilly: True
 
 #NEW 2018: images
-GatherImages: True
+GatherImages: False
 
 ###############################
 # Networks. Produce both online and for download and local use of Gephi

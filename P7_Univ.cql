@@ -2,19 +2,19 @@
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: ((ic=A63 OR IC=A62) AND pd within "2014, 2016") AND pr=FR
+request: ((((pa=univ or pa=institut or pa=laboratoire) AND (ic=A61)) AND (pd within "2014, 2016")) AND pr=FR)
 
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: P7-Large
+DataDirectory: P7-Univ
 
 ###############################
 #Patent2Net options : Set to *True* or False
 ###############################
 # Collecting
 # patents list corresponding to the request. e.g the "Patent Universe" (PU)
-GatherPatent: True
+GatherPatent: False
 
 # patents bibliographic data corresponding to patent list
 GatherBiblio: True
@@ -27,7 +27,7 @@ OPSGatherContentsv2-Iramuteq: True
 GatherFamilly: True
 
 #NEW 2018: images
-GatherImages: True
+GatherImages: False
 
 ###############################
 # Networks. Produce both online and for download and local use of Gephi

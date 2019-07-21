@@ -204,7 +204,12 @@ for brevet in DataBrevet["brevets"]:
         #                                    print ("Match found")
         #                                    SAV = True
                                     CatIPCArt = set([cat['category'][0:7] for cat in IPCArt])
-                                    CatIPCBrevet = set([cat['category'][0:7] for cat in IPCBrevet])
+                                    try:#on essaye le classement par IPCCat (pour ne pas avoir à éventuellement traiter les diff de schéma)
+                                        CatIPCBrevet = set([cat['category'][0:7] for cat in IPCBrevet])
+                                        
+                                    except: #le classement s'est mal passé on prend celui du brevet
+                                        IPCBrevet = [{'category' : cib} for cib in brevet['IPCR7']]
+                                        CatIPCBrevet = set([cat['category'][0:7] for cat in IPCBrevet])
                                     MatchCat = [cat for cat in CatIPCArt if cat in CatIPCBrevet]
                                 else:
                                     MatchCat =''
