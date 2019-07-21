@@ -131,3 +131,10 @@ requete.cql
 REQUESTS/FoieGras.cql
 *.json
 requete.cql
+RequestsSets/P7_Large.cql
+RequestsSets/P7_Univ.cql
+Patent2Net/AcadStats.py
+dex.js
+requete.cql
+DATA.zip
+Fusionkidney.txt

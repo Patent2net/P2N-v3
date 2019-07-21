@@ -2,12 +2,12 @@
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: lentille
+request: ((ic=A63 OR IC=A62) AND pd within "2014, 2016") AND pr=FR
 
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: Lentille
+DataDirectory: P7-Univ
 
 ###############################
 #Patent2Net options : Set to *True* or False
@@ -61,7 +61,7 @@ CitationsTechNetwork: True
 # Network of equivalent patents for each patent within the PU
 EquivalentsTechNetwork: True
 
-# The total network (buggy or too long for my tests 25/04/19)
+# The total network
 CompleteNetwork: False
 
 # Complete families network
@@ -78,7 +78,7 @@ FormateExportBiblio: True
 
 ###############################
 # Produce the world maps of inventors, applicants, deposit country
-FormateExportAttractivityCartography: False
+FormateExportAttractivityCartography: True
 FormateExportCountryCartography: True
 
 ###############################
