@@ -306,9 +306,11 @@ cluster_names = dict()
 #quite the same cleaning process as above
 for i in range(num_clusters):
     cluster_names [i] =[]
-    for ind in order_centroids[i, :15]: #arbitrar 20 
+    for ind in order_centroids[i, :11]: #arbitrar 20 
         #word=word_freq_df.ix[terms[ind].split(' ')].values.tolist()[0][0].encode('utf-8', 'ignore')
-        word=word_freq_df['term'].tolist()[ind]#.encode('utf-8', 'ignore') same he 04/19
+        #word=word_freq_df['term'].tolist()[ind]#.encode('utf-8', 'ignore') same he 04/19
+        #changed 21/07/19
+        word=terms[ind]
         if word not in stopwords and word not in ' '.join(cluster_names [i]):
             if isinstance(word.split(), list):
                 cpt =0

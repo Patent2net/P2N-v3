@@ -29,6 +29,7 @@ class P2NConfig:
         self.References = False
         self.Citations = False
         self.Equivalents = False
+        # Format process
         self.FormateExportCountryCartography = False
         self.FormateExportBiblio = False
         self.FormateExportDataTable = False

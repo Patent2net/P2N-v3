@@ -31,7 +31,7 @@ test_requires = [
 ]
 
 setup(name='patent2net',
-  version='3.0.0-dev6',
+  version='3.1.0-dev0',
   description='Patent2Net is a testbed for working on patent information processing and statistical analysis for education and science.',
   long_description=README,
   license="CeCILL-2.1",
@@ -60,7 +60,7 @@ setup(name='patent2net',
     "Topic :: Scientific/Engineering",
   ],
   author='The Patent2Net Developers',
-  url='https://github.com/Patent2net/P2N',
+  url='https://github.com/Patent2net/P2N-v3',
   keywords='patent information research '
            'patent patents patent-search patent-data information information-retrieval intellectual-property '
            'research researcher researchers research-data research-tool research-and-development '
