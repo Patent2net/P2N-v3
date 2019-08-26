@@ -4,7 +4,7 @@
 request: TA="foie gras"
 ###############################
 # Name of files OR directories
-DataDirectory: FoieGras
+DataDirectory: Foiegras
 
 ###############################
 #Patent2Net options : Set to *True* or False

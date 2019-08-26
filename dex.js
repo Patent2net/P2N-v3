@@ -8,6 +8,7 @@ document.write('\
 <li><a href="DATA/P7-Univ.html" target="_blank">P7-Univ</a></li>\
 <li><a href="DATA/Respirator.html" target="_blank">Respirator</a></li>\
 <li><a href="DATA/Lentille.html" target="_blank">Lentille</a></li>\
+<li><a href="DATA/Respirator.html" target="_blank">Respirator</a></li>\
 <li><a href="DATA/Water.html" target="_blank">Water</a></li>\
 </ul>\
 ');
