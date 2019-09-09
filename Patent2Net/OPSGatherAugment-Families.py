@@ -108,8 +108,7 @@ if GatherFamilly:
             sys.exit()
         if isinstance(data, collections.Mapping):
             ListeBrevet = data['brevets']
-            if 'number' in data:
-                print("Found ", data["number"], " patents!  and ", len(ListeBrevet), " gathered.")
+            print("Found ", len(ListeBrevet), " patents gathered.")
         else:
             print('data corrupted. Do something (destroying data directory is a nice idea)')
             sys.exit()
