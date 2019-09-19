@@ -1,6 +1,6 @@
 Windows :
 	1. Download Anaconda 3 (big installation, https://www.anaconda.com/distribution/) OR Miniconda https://docs.conda.io/en/latest/miniconda.html
-	2. Install it and remember the installation PATH eg. d:\Miniconda3 for instance
+	2. Install it and remember the installation PATH eg. c:\Miniconda3 for instance. Prefer ANSi friendly pathnames (no accent, no windows destop, no space, etc.). Check the "install in windows register database" button (or find to how to avoid this and consider the alert).
 	3. Download P2N latest https://github.com/Patent2net/P2N-v3
 		Unzip to a temporary directory
 		go to the unzipped P2N directory and edit installP2N.bat to replace d:\Miniconda3 with YOUR current installation directory (from step 2)
