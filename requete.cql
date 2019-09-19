@@ -2,12 +2,12 @@
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: ((ic=A63 OR IC=A62) AND pd within "2014, 2016") AND pr=FR
+request: TA=lentille
 
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: P7-Univ
+DataDirectory: Lentille
 
 ###############################
 #Patent2Net options : Set to *True* or False
@@ -24,7 +24,7 @@ GatherContent: True
 OPSGatherContentsv2-Iramuteq: True
 
 #patents families extending the PU to families
-GatherFamilly: True
+GatherFamilly: False
 
 #NEW 2018: images
 GatherImages: True
