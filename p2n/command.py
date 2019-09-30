@@ -243,7 +243,8 @@ def classic_interface(options):
             run_script('OPSGatherAugment-Families.py', configfile)
             # Added here 13/09/2019 a known bug in this scropt that works only when launched twice
             # help needed
-            run_script('OPSGatherAugment-Families.py', configfile)
+            # bad idea 13/09/2019 + 10 min
+            # run_script('OPSGatherAugment-Families.py', configfile)
     if options['maps'] or options['run']:
         run_script('FormateExportCountryCartography.py', configfile)
         run_script('FormateExportAttractivityCartography.py', configfile)
