@@ -14,4 +14,5 @@ note (October 2019):
 Since EPO-Client seems to be broken please use the forked version of epo-ops client (adapted from George Song one) in P2N. 
 Follow this procedure AFTER step 4:
 	a. Download the zip file https://github.com/Patent2net/python-epo-ops-client
-	b. Launch "InstallForP2N.bat"
+	b. unzip to a folder
+	c. launch "InstallForP2N.bat"
