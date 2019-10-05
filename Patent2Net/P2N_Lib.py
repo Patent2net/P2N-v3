@@ -2720,11 +2720,12 @@ def GetFamilly(client, brev, rep):
 
 #    try:
 #        url ='http://ops.epo.org/3.1/rest-services/family/publication/docdb/' +brev['label'] +'/biblio'
-#
+#data6 = client.family(reference_type='publication', input=Epodoc(brev['label']), constituents=['biblio'])
+#    data.request.url data.request.body
 #        data = requests.get(url, headers = headers)
     dico = None
     try:
-        data = client.family('publication', Epodoc(brev['label']), 'biblio')
+        data = client.family2('publication', Epodoc(brev['label']), 'biblio')
         data = data.json()
         dico = data['ops:world-patent-data']['ops:patent-family']['ops:family-member']
         #PatentDataFam[brev['label']] = dict()
@@ -2733,7 +2734,7 @@ def GetFamilly(client, brev, rep):
         cpt = 1
     except:
         try:
-            data = client.family('publication', Docdb(
+            data = client.family2('publication', Docdb(
                 brev['label'][2:], brev['label'][0:2], brev['kind']))
             data = data.json()
             dico = data['ops:world-patent-data']['ops:patent-family']['ops:family-member']
@@ -2743,6 +2744,7 @@ def GetFamilly(client, brev, rep):
             cpt = 1
         except:
             # IF WE ARE HERE? i SUPPOSE THAT EQUIVALENTS PATENTS SHOULD BE CHECKED
+            
             print("nothing found for ", brev)
             print("ignoring")
             return None
