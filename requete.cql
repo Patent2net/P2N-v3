@@ -7,6 +7,7 @@ request: TA=lentille
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
+
 DataDirectory: Lentille
 
 ###############################
