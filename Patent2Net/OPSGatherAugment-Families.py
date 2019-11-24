@@ -108,8 +108,7 @@ if GatherFamilly:
             sys.exit()
         if isinstance(data, collections.Mapping):
             ListeBrevet = data['brevets']
-            if 'number' in data:
-                print("Found ", data["number"], " patents!  and ", len(ListeBrevet), " gathered.")
+            print("Found ", len(ListeBrevet), " patents gathered.")
         else:
             print('data corrupted. Do something (destroying data directory is a nice idea)')
             sys.exit()
@@ -134,7 +133,7 @@ if GatherFamilly:
     except:
         DoneLab = []
         Done =[]
-    if  0 <= len(Done) < len(ListeBrevet):
+    if  0 <= len(Done) <= len(ListeBrevet):
         tempoList = []
         try:
             #ndfLstBrev = open(ResultPath+'//Families'+ ndf, 'r')
@@ -189,6 +188,7 @@ if GatherFamilly:
 
             if Brev is not None and Brev != '':
                 temp = GetFamilly(ops_client, Brev, ResultContentsPath)
+                
                 temp = CleanNones(temp)
                 if temp is not None:
                     tempFiltered =[]

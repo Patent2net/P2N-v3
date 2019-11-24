@@ -6,7 +6,7 @@ __pycache__/
 #Special P2N
 Cles-epo.txt
 cles-epo.txt
-DATA/
+DATA/*
 
 # C extensions
 *.so
@@ -132,3 +132,10 @@ REQUESTS/FoieGras.cql
 *.json
 requete.cql
 REQUESTS/IA.cql
+dex.js
+Fusionkidney.txt
+RequestsSets/LOREAL.cql
+RequestsSets/P7_Large.cql
+*.cql
+requete.cql
+DATA/Lentille/PatentLists/Lentille
