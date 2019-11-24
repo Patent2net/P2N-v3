@@ -237,7 +237,12 @@ for brevet in DataBrevet["brevets"]:
                                 IPCArt = IPCExtractPredictionBrevet(IPC, SeuilScorePrediction)
                                 if IPCArt:
                                     CatIPCArt = set([cat['category'][0:7] for cat in IPCArt])
-                                    CatIPCBrevet = set([cat['category'][0:7] for cat in IPCBrevet])
+                                    if IPCBrevet:
+                                        CatIPCBrevet  = set([cat['category'][0:7] for cat in IPCBrevet])
+                                    elif brevet ['IPCR7']:
+                                        CatIPCBrevet = set(brevet ['IPCR7'])
+                                    else:
+                                        break
                                     MatchCat = [cat for cat in CatIPCArt if cat in CatIPCBrevet]
                                     score = max([int(cat['score']) for cat in IPCArt])
                                     if len(MatchCat) >0:
