@@ -117,7 +117,7 @@ for inv in Inventeurs:
 
 Estrangers = [inv for inv in Inventeurs2 if inv not in Auteurs.keys() and inv.split(' ')[1] + inv.split(' ')[0] not in Auteurs.keys()]
 Estrangers += [inv for inv in Inventeurs1 if inv not in Auteurs.keys()]
-print ("nombre d'inventeurs non identifiés", len(Estrangers))
+print ("nombre d'inventeurs non affiliés FR", len(Estrangers))
 #distFonct = lambda x: { cle: max([fuzz.token_set_ratio( x, aut) for aut in Inventeurs]) for cle in Auteurs}
 print ("Nouvelles stats")
 BadCasInv = dict()
@@ -237,6 +237,7 @@ for ficCsv in Csv:
 
     if len(Datacsv)>1:
         matches+=1 # Mauvais compteurs si le processe de collecte n'a pas été correctement aboutit (en une fois)
+        
         for lig in Datacsv:
             if not lig.startswith('Label Brevet'):
                 cptPubli += 1
@@ -326,10 +327,10 @@ for num in Liste:
             
         else:
             loupes+=1
-            
+            print(LstAuteurs[num])
     else:
         loupes+=1
-        
+        print(LstAuteurs[num])
 print(loupes)    
 
 
