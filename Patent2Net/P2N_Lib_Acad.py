@@ -149,7 +149,7 @@ def PubMedCheckNameAndGetAffiliation(pubmedId, auteur):
     if reponse.status_code == 200:
         data = xmltodict.parse(reponse.text)
         Affiliaton = ''
-        if 'PubmedArticleSet' in data.keys():
+        if 'PubmedArticleSet' in data.keys() and data ['PubmedArticleSet'] is not None:
             if 'PubmedArticle' in  data ['PubmedArticleSet'].keys():
                 if 'MedlineCitation' in data ['PubmedArticleSet']['PubmedArticle'].keys():
                     if 'Article' in data ['PubmedArticleSet']['PubmedArticle']['MedlineCitation'].keys():
@@ -230,7 +230,24 @@ def PubMedCheckNameAndGetAffiliation(pubmedId, auteur):
                                                 tempo = [aff['Affiliation'] for aff in Aut['AffiliationInfo'] ]
                                                 Affiliaton = '\n'.join(tempo)
                                     #checking it s Firstname and lastname (should work with initials)
-                                    if (strip_accents(auteur.split(' ')[0]) in Nom and strip_accents(auteur.split(' ')[1]) in Nom) or (UnicName and (strip_accents(auteur.split(' ')[0]) in Nom or strip_accents(auteur.split(' ')[1]) in Nom)) :
+                                    if ' ' not in auteur:
+                                        #just a name :-( 
+                                        # Modif 01/10 
+                                        if strip_accents(auteur) in Nom:
+                                            if 'AffiliationInfo' in Aut.keys():
+                                                if isinstance(Aut['AffiliationInfo'], dict) or  isinstance(Aut['AffiliationInfo'], OrderedDict):
+                                                    if 'Affiliation' in Aut['AffiliationInfo'].keys():  
+                                                        return Aut['AffiliationInfo']['Affiliation']
+                                                    else:
+                                                        print ('inconsistent')
+                                                elif isinstance(Aut['AffiliationInfo'], list):
+                                                    tempo = [aff['Affiliation'] for aff in Aut['AffiliationInfo'] ]
+                                                    return ('\n'.join(tempo))
+                                                else:
+                                                    print ('Type Affiliation etrange ', type(Aut['AffiliationInfo']), ' --> ', Aut['AffiliationInfo'])
+                                            else:
+                                                return Affiliaton
+                                    elif (strip_accents(auteur.split(' ')[0]) in Nom and strip_accents(auteur.split(' ')[1]) in Nom) or (UnicName and (strip_accents(auteur.split(' ')[0]) in Nom or strip_accents(auteur.split(' ')[1]) in Nom)) :
                                         if 'AffiliationInfo' in Aut.keys():
                                             if isinstance(Aut['AffiliationInfo'], dict) or  isinstance(Aut['AffiliationInfo'], OrderedDict):
                                                 if 'Affiliation' in Aut['AffiliationInfo'].keys():  
