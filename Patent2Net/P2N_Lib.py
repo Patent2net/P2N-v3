@@ -2725,7 +2725,7 @@ def GetFamilly(client, brev, rep):
 #        data = requests.get(url, headers = headers)
     dico = None
     try:
-        data = client.family2('publication', Epodoc(brev['label']), 'biblio')
+        data = client.family('publication', Epodoc(brev['label']), 'biblio')
         data = data.json()
         dico = data['ops:world-patent-data']['ops:patent-family']['ops:family-member']
         #PatentDataFam[brev['label']] = dict()
@@ -2734,7 +2734,7 @@ def GetFamilly(client, brev, rep):
         cpt = 1
     except:
         try:
-            data = client.family2('publication', Docdb(
+            data = client.family('publication', Docdb(
                 brev['label'][2:], brev['label'][0:2], brev['kind']))
             data = data.json()
             dico = data['ops:world-patent-data']['ops:patent-family']['ops:family-member']
