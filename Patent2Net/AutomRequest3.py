@@ -16,7 +16,9 @@ import os
 import epo_ops
 
 jourOk, moisOk, ipcOk = False, False, False
-Request = 'PN=BR AND PD=date' 
+RequestOrig = 'PN=BR' 
+Request = RequestOrig + ' AND PD=date' 
+
 DataDir = 'Autom'
 fic =open("requestModelcql")
 DataReq = "..\RequestsAuto"
@@ -50,113 +52,124 @@ def checkRequest(req):
         return 0
 Total =0
 nbFiles = 0
-for AN in range(1970, 2019,1):
-    
-    Trouves = checkRequest(Request.replace('=date', '='+str(AN)))
-    if 2000>Trouves>0:
-        Total += Trouves
-        # a request for that year is ok
-        monthOk = False
-        ipcOk = False
-        Request2 = Request.replace('=date', '='+str(AN))
-        data2 = data.replace("***requete***", Request2)
-        data2 = data2.replace("***dataDir***", DataDir+str(AN))
-        NameFic = str(AN)+'Request.cql'
-        with open(DataReq+"\\"+NameFic, "w") as ficRes: #+"-"+ipc    
-            if ficRes.name.split('\\')[2] not in lstFicOk:
-                ficRes.write(data2)
-            nbFiles +=1
-            print ('file written, patent number expected : ', Trouves)
-    if Trouves == 0:
-        monthOk = False
-        ipcOk = False
-        jourOk = False
-        #nothing to do 
-    if Trouves >= 2000:
-        # we have to split by monthes
-        monthOk = True
-        jourOk = False
-            
-        cpt= 0 #used as monthes
+toBeFound= checkRequest(RequestOrig)
+
+if toBeFound>2000:
+    print ('wow ', toBeFound, ' patents to retreive... A good reason to use this script')
+    Need = True
+else:
+    print ("no need to split, gather directly your request '", RequestOrig, "' with p2n" )
+    Need = False
+
+if Need:
+    for AN in range(1970, 2021,1):
         
-        for month in Months.keys():
-            cpt +=1
-            if len(str(cpt))<2: # monthes are numbered thanks to cpt (ugly isn't it ?)
-                mois = '0'+str(cpt)
-            else:
-                mois = str(cpt)
-            Request2 = Request.replace('=date', '='+str(AN)+mois)
-            Trouves = checkRequest(Request2)
-            if 2000>Trouves>0:
-                Total += Trouves
-                # OK less than 2000 and more than 0 go ahead for that request
-                ipcOk = False
-                jourOk = False
-                data2 = data.replace("***requete***", Request2)
-                data2 = data2.replace("***dataDir***", DataDir+str(AN)+mois)
-                NameFic = str(AN)+mois+'Request.cql'
-                if NameFic not in lstFicOk:
-                    with open(DataReq+"\\"+NameFic, "w") as ficRes: #+"-"+ipc 
-                    
-                        ficRes.write(data2)
-                    nbFiles +=1
-                    print ('file written, patent number expected : ', Trouves)
-            if Trouves == 0:
-                ipcOk = False
-                jourOk = False
-                #nothing to do 
-            if Trouves >= 2000:
-                monthOk = True
-                jourOk = True
-                ipcOk = False
-                # spliting days for that month
-                for day in range(1, Months[month]+1):
-                    if len(str(day))<2:
-                        jour = '0'+str(day)  
-                    else:
-                        jour = str(day)
-                    Request2 = Request.replace('=date', '='+str(AN)+mois+jour)
-                    Trouves = checkRequest(Request2)
-                    if 2000>Trouves>0:
-                        Total += Trouves
-                        # go ahead for that day
-                        ipcOk = False
-                        data2 = data.replace("***requete***", Request2)
-                        data2 = data2.replace("***dataDir***", DataDir+str(AN)+mois+jour)
-                        NameFic = str(AN)+mois+jour+'Request.cql'
-                        if NameFic not in lstFicOk:
-                            with open(DataReq+"\\"+NameFic, "w") as ficRes: #+"-"+ipc    
-                                    ficRes.write(data2)
-                            nbFiles +=1
-                            print ('file written, patent number expected : ', Trouves)
-                    if Trouves == 0:
-                        ipcOk = False
-                        jourOk = False
-                        #nothing to do 
-                    if Trouves >= 2000:
-                        monthOk = True
-                        jourOk = True
-                        # bad days for EPO... we need to split again    
-                        # last solution IPC splitting
-                        # for that day only
-                        for ipc in IPC:
-                            Request3 = Request2 + " AND IC=" + ipc
-                            Trouves = checkRequest(Request3)
-                            if Trouves>2000:
-                                print ("thats bad... the request : " + Request3 + " should be splitted and the limits of this script are reached")
+        Trouves = checkRequest(Request.replace('=date', '='+str(AN)))
+        if 2000>Trouves>0:
+            Total += Trouves
+            # a request for that year is ok
+            monthOk = False
+            ipcOk = False
+            Request2 = Request.replace('=date', '='+str(AN))
+            data2 = data.replace("***requete***", Request2)
+            data2 = data2.replace("***dataDir***", DataDir+str(AN))
+            NameFic = str(AN)+'Request.cql'
+            with open(DataReq+"\\"+NameFic, "w") as ficRes: #+"-"+ipc    
+                if ficRes.name.split('\\')[2] not in lstFicOk:
+                    ficRes.write(data2)
+                nbFiles +=1
+                print (ficRes.name, 'file written, ', Trouves,' patents expected and ', Total, ' cumulative.' )
+        if Trouves == 0:
+            monthOk = False
+            ipcOk = False
+            jourOk = False
+            #nothing to do 
+        if Trouves >= 2000:
+            # we have to split by monthes
+            monthOk = True
+            jourOk = False
+                
+            cpt= 0 #used as monthes
+            
+            for month in Months.keys():
+                cpt +=1
+                if len(str(cpt))<2: # monthes are numbered thanks to cpt (ugly isn't it ?)
+                    mois = '0'+str(cpt)
+                else:
+                    mois = str(cpt)
+                Request2 = Request.replace('=date', '='+str(AN)+mois)
+                Trouves = checkRequest(Request2)
+                if 2000>Trouves>0:
+                    Total += Trouves
+                    # OK less than 2000 and more than 0 go ahead for that request
+                    ipcOk = False
+                    jourOk = False
+                    data2 = data.replace("***requete***", Request2)
+                    data2 = data2.replace("***dataDir***", DataDir+str(AN)+mois)
+                    NameFic = str(AN)+mois+'Request.cql'
+                    if NameFic not in lstFicOk:
+                        with open(DataReq+"\\"+NameFic, "w") as ficRes: #+"-"+ipc 
+                        
+                            ficRes.write(data2)
+                        nbFiles +=1
+                        print (ficRes.name, 'file written, ', Trouves,' patents expected and ', Total, ' cumulative.' )
+                if Trouves == 0:
+                    ipcOk = False
+                    jourOk = False
+                    #nothing to do 
+                if Trouves >= 2000:
+                    monthOk = True
+                    jourOk = True
+                    ipcOk = False
+                    # spliting days for that month
+                    for day in range(1, Months[month]+1):
+                        if len(str(day))<2:
+                            jour = '0'+str(day)  
+                        else:
+                            jour = str(day)
+                        Request2 = Request.replace('=date', '='+str(AN)+mois+jour)
+                        Trouves = checkRequest(Request2)
+                        if 2000>Trouves>0:
                             Total += Trouves
-                            data2 = data.replace("***requete***", Request3)
-                            data2 = data2.replace("***dataDir***", DataDir+str(AN)+mois+jour+ipc)
+                            # go ahead for that day
+                            ipcOk = False
+                            data2 = data.replace("***requete***", Request2)
+                            data2 = data2.replace("***dataDir***", DataDir+str(AN)+mois+jour)
+                            NameFic = str(AN)+mois+jour+'Request.cql'
                             if NameFic not in lstFicOk:
-                                with open(DataReq+"\\"+str(AN)+mois+'-'+jour+'-'+ipc+'Request.cql', "w") as ficRes: #+"-"+ipc    
+                                with open(DataReq+"\\"+NameFic, "w") as ficRes: #+"-"+ipc    
                                         ficRes.write(data2)
                                 nbFiles +=1
-                                print ('file written, patent number expected : ', Trouves)
-                        
-print ("request splitted in ", nbFiles, " files")
-            
-print ("Gathering with P2N all this request should lead to ", Trouves, " patents")
-            
+                                print (ficRes.name, 'file written, ', Trouves,' patents expected and ', Total, ' cumulative.' )
+                        if Trouves == 0:
+                            ipcOk = False
+                            jourOk = False
+                            #nothing to do 
+                        if Trouves >= 2000:
+                            monthOk = True
+                            jourOk = True
+                            # bad days for EPO... we need to split again    
+                            # last solution IPC splitting
+                            # for that day only
+                            for ipc in IPC:
+                                Request3 = Request2 + " AND IC=" + ipc
+                                Trouves = checkRequest(Request3)
+                                if Trouves>2000:
+                                    print ("thats bad... the request : " + Request3 + " should be splitted and the limits of this script are reached")
+                                    break
+                                Total += Trouves
+                                data2 = data.replace("***requete***", Request3)
+                                data2 = data2.replace("***dataDir***", DataDir+str(AN)+mois+jour+ipc)
+                                if NameFic not in lstFicOk:
+                                    with open(DataReq+"\\"+str(AN)+mois+'-'+jour+'-'+ipc+'Request.cql', "w") as ficRes: #+"-"+ipc    
+                                            ficRes.write(data2)
+                                    nbFiles +=1
+                                    print (ficRes.name, 'file written, ', Trouves,' patents expected and ', Total, ' cumulative.' )
+                            
+    print ("request splitted in ", nbFiles, " files")
+                
+    print ("Gathering with P2N all this request should lead to ", Total, " patents")
+                
             
             
             
