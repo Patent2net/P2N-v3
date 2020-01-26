@@ -66,6 +66,7 @@ for AN in range(1970, 2019,1):
             if ficRes.name.split('\\')[2] not in lstFicOk:
                 ficRes.write(data2)
             nbFiles +=1
+            print ('file written, patent number expected : ', Trouves)
     if Trouves == 0:
         monthOk = False
         ipcOk = False
@@ -99,6 +100,7 @@ for AN in range(1970, 2019,1):
                     
                         ficRes.write(data2)
                     nbFiles +=1
+                    print ('file written, patent number expected : ', Trouves)
             if Trouves == 0:
                 ipcOk = False
                 jourOk = False
@@ -126,6 +128,7 @@ for AN in range(1970, 2019,1):
                             with open(DataReq+"\\"+NameFic, "w") as ficRes: #+"-"+ipc    
                                     ficRes.write(data2)
                             nbFiles +=1
+                            print ('file written, patent number expected : ', Trouves)
                     if Trouves == 0:
                         ipcOk = False
                         jourOk = False
@@ -148,10 +151,11 @@ for AN in range(1970, 2019,1):
                                 with open(DataReq+"\\"+str(AN)+mois+'-'+jour+'-'+ipc+'Request.cql', "w") as ficRes: #+"-"+ipc    
                                         ficRes.write(data2)
                                 nbFiles +=1
+                                print ('file written, patent number expected : ', Trouves)
                         
 print ("request splitted in ", nbFiles, " files")
             
-print ("Gathering with P2N all this request should lead to ", Trouves, "patent")
+print ("Gathering with P2N all this request should lead to ", Trouves, " patents")
             
             
             
