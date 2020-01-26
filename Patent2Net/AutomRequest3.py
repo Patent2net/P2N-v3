@@ -14,6 +14,9 @@ from p2n.config import OPSCredentials
 from Patent2Net.P2N_Lib import PatentSearch
 import os
 import epo_ops
+import datetime
+
+today = datetime.datetime.today()
 
 jourOk, moisOk, ipcOk = False, False, False
 RequestOrig = 'PN=BR' 
@@ -62,7 +65,7 @@ else:
     Need = False
 
 if Need:
-    for AN in range(1970, 2021,1):
+    for AN in range(1900, today.year(),1):
         
         Trouves = checkRequest(Request.replace('=date', '='+str(AN)))
         if 2000>Trouves>0:
