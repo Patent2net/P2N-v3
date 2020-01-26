@@ -18,7 +18,7 @@ import epo_ops
 jourOk, moisOk, ipcOk = False, False, False
 Request = 'PN=BR AND PD=date' 
 DataDir = 'Autom'
-fic =open("requestModel.cql")
+fic =open("requestModelcql")
 DataReq = "..\RequestsAuto"
 data = fic.read()
 fic.close()
