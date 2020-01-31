@@ -76,6 +76,8 @@ with open(ResultFolder+'//PatentLists/'+res, 'wb') as ficRes:
     pickle.dump(BrevetRes, ficRes)
 
     print("Fusion done. Total in list: ", BrevetRes["number"])
+    
+
 with open('..//Fusion'+res +'.txt', 'w', encoding='utf8') as ficSav:
     ficSav.write(BrevetRes["requete"])
 print("create requete.cql with ", res, " as dataDirectory and setting GatherPatent to False")

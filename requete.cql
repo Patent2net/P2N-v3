@@ -2,29 +2,29 @@
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: (ic=A61 AND (pd within "201301, 201304")) AND pr=FR
+request: ic=A61 AND (pd within "2012, 2014") AND pr=FR
 
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: P7-LargeBis1
+DataDirectory: P7-LargeBis
 
 ###############################
 #Patent2Net options : Set to *True* or False
 ###############################
 # Collecting
 # patents list corresponding to the request. e.g the "Patent Universe" (PU)
-GatherPatent: True
+GatherPatent: False
 
 # patents bibliographic data corresponding to patent list
-GatherBiblio: True
+GatherBiblio: False
 
 # patent content (description, abstract, claims) completing patents bibliographic data
-GatherContent: True
-OPSGatherContentsv2-Iramuteq: True
+GatherContent: False
+OPSGatherContentsv2-Iramuteq: False
 
 #patents families extending the PU to families
-GatherFamilly: True
+GatherFamilly: False
 
 #NEW 2018: images
 GatherImages: False

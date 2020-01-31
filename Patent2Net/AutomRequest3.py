@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Dec 07 17:27:54 2015 in variable 'Request'), and day, moth, ipc as parameters also.
+Created on Mon Dec 19 17:27:54 2015 
+The request spliter check bet splitting level in the following order: 
+    (Year month day ipc) to limit the amount of produced files.
+The request is set in variable 'Request', it must be a simple or short request (otherwise it may fail 
+due to the amount number of parts allowed in a request. 
+The programm will split in year (from 1900 to now), if the amount of patent in a year
+is greater than 2000, then program split in month, then day and inally the split is done for ipc.
 Requests.cql files are built in ..\RequestsAuto". 
-The request spliter check bet splitting level in the following order: (Year month day ipc) to limit the amount of produced files.
 
 Once done, runP2NSpecial must be adapted to use the directory in witch all requests are placed. Running it will use p2n adquire
 to gatter patent lists.
