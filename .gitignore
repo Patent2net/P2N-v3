@@ -7,7 +7,7 @@ __pycache__/
 Cles-epo.txt
 cles-epo.txt
 DATA/*
-
+DATA-OLD/*
 # C extensions
 *.so
 
