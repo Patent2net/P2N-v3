@@ -2,7 +2,7 @@
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: ((ic=A63 OR IC=A62) AND pd within "2014, 2016") AND pr=FR
+request: ((ic=A61) AND pd=2013) AND pr=FR
 
 ##############################
 # Directory to use
