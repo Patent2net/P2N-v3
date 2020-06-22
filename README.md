@@ -8,10 +8,9 @@
 
 What's new ?
 -----
-Patent2Net now integrate an user interface to enter request instead of creating cql file.
-When executing setup.py, P2N will install Flask by pip command. (needed for the user interface)
-To access it you need to launch app.py and go to 127.0.0.1:5000 
-It will let you enter the name of your request and the options you want to use.
+* Patent2Net now integrate an user interface to enter request instead of creating cql file.
+* When executing setup.py, P2N will install Flask by pip command. (needed for the user interface)
+* To access it you need to launch app.py and go to 127.0.0.1:5000 with your web browser
 
 About
 -----
