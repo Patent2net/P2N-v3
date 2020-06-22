@@ -1,23 +1,25 @@
 ﻿# Patent2Net configuration file
 ##############################
-# request
-# insert below your request in cql format as done in the example
-request: ic=A61 AND (pd within "2012, 2014") AND pr=FR
-
+# This example treat of around 10 patents containing the word "lentille"
+# very restrictive example, that has no sense, but just 10 patents... Quick test
 ##############################
-# Directory to use
-# insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: P7-LargeBis
+# the "patents universe" corresponding to the request
+# insert below your request in cql format as done in the example
+request: TA=lentille
 
 ###############################
-#Patent2Net options : Set to *True* or False
+# Name of files OR directories
+DataDirectory: Lentille
+
+###############################
+#Patent2Net options : Set to *False* or False
 ###############################
 # Collecting
 # patents list corresponding to the request. e.g the "Patent Universe" (PU)
-GatherPatent: False
+GatherPatent: True
 
 # patents bibliographic data corresponding to patent list
-GatherBiblio: False
+GatherBiblio: True
 
 # patent content (description, abstract, claims) completing patents bibliographic data
 GatherContent: False
@@ -32,72 +34,73 @@ GatherImages: False
 ###############################
 # Networks. Produce both online and for download and local use of Gephi
 # Inventors' network 
-InventorNetwork: True
+InventorNetwork: False
 
 # Applicants' network
-ApplicantNetwork: True
+ApplicantNetwork: False
 
 # IPCs' network
-CrossTechNetwork: True
+CrossTechNetwork: False
 
 # Applicants and Inventors network
-ApplicantInventorNetwork: True
+ApplicantInventorNetwork: False
 
 # Applicants and IPCs' network
-ApplicantCrossTechNetwork: True
+ApplicantCrossTechNetwork: False
 
 # Inventors and IPCs' network 
-InventorCrossTechNetwork: True
+InventorCrossTechNetwork: False
 
 # Countries and IPCs' network
-CountryCrossTechNetwork: True
+CountryCrossTechNetwork: False
 
 # Network of references for the PU (each reference cited by each patent within the PU, includes external bibliographic refs) 
-ReferencesNetwork: True
+ReferencesNetwork: False
 
 # Network of citation for the PU (each patent cited within the PU cited in the rest of the patents world) 
-CitationsTechNetwork: True
+CitationsTechNetwork: False
 
 # Network of equivalent patents for each patent within the PU
-EquivalentsTechNetwork: True
+EquivalentsTechNetwork: False
 
 # The total network
 CompleteNetwork: False
 
 # Complete families network
-FamiliesNetwork: True
-FamiliesHierarchicNetwork: True
+FamiliesNetwork: False
+FamiliesHierarchicNetwork: False
 
 ###############################
 #  Mindmaps of IPCs both online and for download and local use of freeplane
-P2N-FreePlane: True
+P2N-FreePlane: False
 
 ###############################
 # export patents as a bibligraphic file in bibTex format
-FormateExportBiblio: True
+FormateExportBiblio: False
 
 ###############################
 # Produce the world maps of inventors, applicants, deposit country
-FormateExportAttractivityCartography: True
-FormateExportCountryCartography: True
+FormateExportAttractivityCartography: False
+FormateExportCountryCartography: False
 
 ###############################
 # Patents as a table
-FormateExportDataTable: True
-FormateExportDataTableFamilies: True
+FormateExportDataTable: False
+FormateExportDataTableFamilies: False
 
 ###############################
 # Prepare interactive pivottable
-FormateExportPivotTable: True
+FormateExportPivotTable: False
 
 ###############################
 # prepare Abstracts, descriptions, claims for text analysis
 # for download and local use of Carrot2 and Iramuteq
-FusionCarrot2: True
-FusionIramuteq2: True
+FusionCarrot2: False
+FusionIramuteq2: False
 
 ###############################
 # NEW Feature (BETA)
 # Double clustering system based on non so trivial words
-P2N-Cluster: True
-
+# New online text analysis of titles, abstracts, description, claims of the PU
+# methodology described in David Reymond Hadilitationh ttps://hal.archives-ouvertes.fr/tel-01660717
+P2N-Cluster: False
