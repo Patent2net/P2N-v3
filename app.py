@@ -57,7 +57,7 @@ def CqlCreator():
     
     #Launch the P2N research
     command="p2n run --config=../RequestsSets/%s.cql"%(form_result['p2n_req'])
-   # os.system(command)
+    os.system(command)
     
     
     return render_template('Patent2Net/templates/Request_Form/confirmationP2N.html',variable= result )
