@@ -50,13 +50,16 @@ for brev in LstBrevet:
     # ici tu as accès au contenu d'un brevet.
     # le champ qui interesse c'est ['applicant']
     temp = brev['applicant']
+    tempoRes = []
     for appli in temp:
-        for index, ligne in df.iterrows():
-            if appli in ligne['Variation Name']:
-                tempo = ligne['univ'].index(appli)
-            else:
-                pass
-
+        try:
+            indx = df.index[df['Variation Name'] == appli]
+            joliNom = df['univ'].iloc[indx].to_list()[0]
+            tempoRes.append(joliNom)
+            print ('match : ', appli, '  --> ', joliNom)
+        except:
+            tempoRes.append(appli)
+    brev['applicant'] = tempoRes
     # sauvegarde dans un fichier tempo
     # with open(ResultBiblioPath + '//tempo' + ndf, 'ab') as ficRes:
     # pickle.dump(brev, ficRes)
