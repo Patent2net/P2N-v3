@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>P2N : Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss@^1.4.6/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        .container {
+            width: 612px;
+        }
+        @media screen and (max-width:800px) {
+          .container {
+            width: calc(100% - 128px);
+          }
+        }
+    </style>
+</head>
+<body class="bg-blue-100 flex items-center justify-center">
+<div class="flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow container">
+    <h1 class="text-lg mb-2 text-gray-900">Patent2Net toolkit</h1>
+    <hr>
+    <div class="mt-4">
+		<div class="mt-4">
+			<p class="text-gray-800 text-sm mb-4 text-justify">Patent2Net is a toolkit for patent information processing and statistical analysis for education and science.</br>
+			Patent2Net helps to collect, study and analyze patent data from the European Patent Office’s Open Patent Services API (OPS). </br>
+			Patent2Net is a free software dedicated to :
+			</p>	
+			
+			<ul class="list-disc text-gray-800 text-sm mb-3 text-justify">
+				<li>provide statistical analysis and representations of a set of patents.</li>
+				<li>promote the use of patent information in the academic field, nano and small firms,
+				developing countries and all those without pay mode access.</li>
+				<li>study and practice how to collect, treat and communicate “textual bibliographic information”
+				and learn the automation process.</li>
+			</ul>
+			
+			<p class="text-gray-800 text-sm mb-4 text-justify">Contributions are always welcome!
+			</p>
+		</div>
+        <form action="http://localhost:5000/confirmation" method="post">
+            <div>
+                <label class="font-semibold">Request Description * :</label>
+                <p class="pt-2 pb-2 text-sm italic text-gray-800">Enter in the textbox the subject of your patent research.</p>
+            </div>
+            <div class="mb-2">
+                <input class="text-sm border px-2 py-1 rounded w-full" type="text" required placeholder="lentille" name="p2n_req" />
+            </div>
+            <div class="mt-4">
+			<label class="font-semibold">Request Options :</label>
+				<p class="pt-2 pb-2 text-sm italic text-gray-800">Click on the checkbox to specify the elements you need in your research:</p>
+				<p>
+					<input type="checkbox" id="p2n_family" name="p2n_family" value="True"/>
+					<input type="hidden" name="p2n_family" value="False" /> 
+					<!-- The hidden let flask have a value for the checkbox if not checked. Else it will return an error.
+					The hidden is after the checkbox, because flask only take account of the first value sent by the html page -->
+					<label for="p2n_family" class="text-gray-800 text-sm mb-4 text-justify"><b>p2n family</b>: run family data acquisition </label>
+				</p>
+
+				<p>
+					<input type="checkbox" id="p2n_image" name="p2n_image" value="True">
+					<input type="hidden" name="p2n_image" value="False" /> 
+					<label for="p2n_images" class="text-gray-800 text-sm mb-4 text-justify"><b>p2n images</b>: Fetch images</label>
+				</p>
+
+				<p>
+					<input type="checkbox" id="p2n_network" name="p2n_network" value="True">
+					<input type="hidden" name="p2n_network" value="False" /> 
+					<label for="p2n_networks" class="text-gray-800 text-sm mb-4 text-justify"><b>p2n networks</b>: Build various artefacts for data exploration based on network graphs</label>
+				</p>
+
+				<p>
+					<input type="checkbox" id="p2n_freeplane" name="p2n_freeplane" value="True">
+					<input type="hidden" name="p2n_freeplane" value="False" /> 
+					<label for="p2n_freeplane" class="text-gray-800 text-sm mb-4 text-justify"><b>p2n freeplane</b>: Build mind map for Freeplane</label>
+				</p>
+
+				<p>
+					<input type="checkbox" id="p2n_bibfile" name="p2n_bibfile" value="True">
+					<input type="hidden" name="p2n_bibfile" value="False" /> 
+					<label for="p2n_bibfiles" class="text-gray-800 text-sm mb-4 text-justify"><b>p2n bibfile</b>: Export data in bibfile format</label>
+				</p>
+				
+				<p>
+					<input type="checkbox" id="p2n_map" name="p2n_map" value="True">
+					<input type="hidden" name="p2n_map" value="False" /> 
+					<label for="p2n_maps" class="text-gray-800 text-sm mb-4 text-justify"><b>p2n maps</b>: Build maps of country coverage of patents, as well as applicants and inventors </label>
+				</p>
+				
+				<p>
+					<input type="checkbox" id="p2n_tables" name="p2n_tables" value="True">
+					<input type="hidden" name="p2n_tables" value="False" /> 
+					<label for="p2n_tables" class="text-gray-800 text-sm mb-4 text-justify"><b>p2n tables</b>: Export various artefacts for tabular data exploration</label>
+				</p>
+
+				<p>
+					<input type="checkbox" id="p2n_carrot" name="p2n_carrot" value="True">
+					<input type="hidden" name="p2n_carrot" value="False" />
+					<label for="p2n_carrot" class="text-gray-800 text-sm mb-4 text-justify"><b>p2n carrot</b>: Export data to XML suitable for using in Carrot</label>
+				</p>				
+				
+				<p>
+					<input type="checkbox" id="p2n_iramuteq" name="p2n_iramuteq" value="True">
+					<input type="hidden" name="p2n_iramuteq" value="False" /> 
+					<label for="p2n_iramuteq" class="text-gray-800 text-sm mb-4 text-justify"><b>p2n iramuteq </b>: Fetch more data and export it to suitable format for using in Iramuteq</label>
+				</p>
+
+			<!-- <p>
+					<input type="checkbox" id="p2n_interface" name="p2n_interface" value="True">
+					<input type="hidden" name="p2n_interface" value="False" />
+					<label for="p2n_interface" class="text-gray-800 text-sm mb-4 text-justify"><b>p2n interface</b>: Build main Patent2Net html interface</label>
+				</p> 
+			-->
+			</div>
+            <input class="bg-blue-600 px-2 py-1 text-white rounded mt-4" type="submit" value="Submit" id="pacing"/>
+            <div class="mt-4 italic text-sm text-gray-800">
+                Fields marked with * are mandatory.
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

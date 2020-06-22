@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>P2N : Request Confirmation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .container {
+            width: 612px;
+        }
+        @media screen and (max-width:800px) {
+          .container {
+            width: calc(100% - 128px);
+          }
+        }
+    </style>
+</head>
+<body class="bg-blue-100 flex items-center justify-center">
+<div class="flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow container">
+    <h1 class="text-lg mb-2 text-gray-900">Patent2Net Request Confirmation Tool</h1>
+    <hr>
+    <div class="mt-4">
+        <p class="text-gray-800 text-sm mb-2 text-justify">Thanks for waiting, your request research for <b>{{ variable }}</b> content is now done.</p>
+        <a class="text-sm underline text-blue-700" href="http://localhost:5000/index">You can access to all your Patent Research by clicking here</a>
+    </div>
+	
+	<div class="mt-4">
+	<p class="text-gray-800 text-sm mb-2 text-justify">Else, you can do another research <a class="text-sm underline text-blue-700" href="http://localhost:5000/form">by clicking here</a></p>
+	
+    </div>
+</div>
+</body>
+</html>
