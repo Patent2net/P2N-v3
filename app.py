@@ -42,6 +42,7 @@ def CqlCreator():
                     .replace('RequestTable',form_result['p2n_tables']) \
                     .replace('RequestCarrot',form_result['p2n_carrot']) \
                     .replace('RequestIramuteq',form_result['p2n_iramuteq'])\
+					.replace('RequestCluster',form_result['p2n_cluster'])\
                     )
            
 
