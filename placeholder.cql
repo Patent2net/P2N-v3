@@ -7,7 +7,7 @@ request: TA=RequestName
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: RequestName
+DataDirectory: RequestDirectory
 
 ###############################
 #Patent2Net options : Set to *True* or False
@@ -99,5 +99,5 @@ FusionIramuteq2: RequestIramuteq
 ###############################
 # NEW Feature (BETA)
 # Double clustering system based on non so trivial words
-P2N-Cluster: False
+P2N-Cluster: RequestCluster
 

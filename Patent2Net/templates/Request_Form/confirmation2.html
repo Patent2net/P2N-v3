@@ -18,7 +18,7 @@
     </style>
 </head>
 
-<body class="bg-orange-100 flex items-center justify-between">
+<body class="bg-orange-100 flex items-center justify-center">
 
 	<!--Nav-->
 	<nav class="bg-orange-600 p-2 mt-0 fixed w-full z-10 top-0">
@@ -31,37 +31,42 @@
 			<div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
 				<ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
 					<li class="mr-3">
-						<a href="/"  class="inline-block text-orange-200 no-underline hover:text-white-200 hover:underline py-2 px-4">Home</a>
+						<a class="inline-block text-orange-200 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/">Home</a>
 					</li>
 					
 					<li class="mr-3">
-						<a href="/index"  class="inline-block text-orange-200 no-underline hover:text-white-200 hover:underline py-2 px-4">Index</a>
+						<a class="inline-block text-orange-200 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/index">Index</a>
 					</li>
 					<li class="mr-3">
-						<a href="/form"  class="inline-block text-orange-200 no-underline hover:text-white-200 hover:underline py-2 px-4">Requests</a>
+						<a class="inline-block py-2 px-4 text-white no-underline" href="/form">Requests</a>
 					</li>
 					<li class="mr-3">
-						<a  href="#" class="inline-block text-orange-200 no-underline hover:text-white-200 hover:underline py-2 px-4">link</a>
+						<a class="inline-block text-orange-200 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">link</a>
 					</li>
 					<li class="mr-3">
-						<a href="/download" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Download</a>
+						<a class="inline-block text-orange-200 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">link</a>
 					</li>
 				</ul>
 			</div>
         </div>
     </nav>
 
+<!--Grid Div : Format the appearance of the page: GONNA CHANGE IT CHECK Tailwind folder in web favorites -->
+<div class="grid grid-cols-3 gap-4 mt-10">
 
-
-<!-- List all Html pages created by request (in RequestSets)-->
-	<div class=" flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow ">
-		<div>
-		<iframe src="../../../indexFramed.html"></iframe>
-		</div>
+	<!--Workdir Container updated by Javascript (todo) -->
+	<!-- Goal : flask copy content of dex.js, clean it and integer in div with variable call -->
+	<div class=" w-3/6 flex flex-col mt-12 mb-12 bg-white p-5 rounded shadow ">
+		<ul>
+		<li><a href="DATA/Lentille.html" target="_blank">Lentille</a></li>
+		</ul>
+				<ul>
+		<li><a href="DATA/Lentille.html" target="_blank">Lentille</a></li>
+		</ul>
 	</div>
-
+	<!--End Workdir Container updated by Javascript (todo) -->
 	<!--Main Container-->
-	<div class="flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow ">
+	<div class="flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow container2">
     <h1 class="text-lg mb-2 text-gray-900">Patent2Net Request Confirmation Tool</h1>
     <hr>
     <div class="mt-4">
@@ -72,9 +77,10 @@
 	<div class="mt-4">
 	<p class="text-gray-800 text-sm mb-2 text-justify">Else, you can do another research <a class="text-sm underline text-blue-700" href="http://localhost:5000/form">by clicking here</a></p>
 	
+
+
 	</div>
 	<!--End Main Container-->
 	</div>
-		<div class="flex flex-col mt-12 mb-12  p-8 "></div>
 </body>
 </html>

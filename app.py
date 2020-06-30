@@ -5,22 +5,30 @@ Created on Mon Jun 15 13:58:37 2020
 @author: Admin
 """
 import os
-from flask import Flask, render_template, request
-
+from flask import Flask, render_template, request, send_file
+import zipfile
+import io
+import pathlib
 
 # static_folder call the emplacement of all the content who will work with the HTML. template_folder the emplacement of the HTML. In theory they don't have to be at Root.
 app = Flask(__name__, static_url_path='', static_folder='.', template_folder='.') 
+
+@app.route('/home' , methods=['GET','POST'])
 @app.route('/' , methods=['GET','POST'])
+def home():
+    return render_template("Patent2Net/templates/Request_Form/P2N.html")
+
+
+@app.route('/single_request' , methods=['GET','POST'])
 @app.route('/form' , methods=['GET','POST'])
 def form():
     #open the page P2N.html as default page
-    return render_template("Patent2Net/templates/Request_Form/P2N.html")
+    return render_template("Patent2Net/templates/Request_Form/Request.html")
 
 
 @app.route('/confirmation', methods=['GET','POST'])
 def CqlCreator():
     form_result = request.form
-    result = form_result['p2n_req']
 
     #Pleaceholder file who give the model of the file
     f_in = open("placeholder.cql", "rt")
@@ -33,6 +41,7 @@ def CqlCreator():
     #read the values given in the form and replace the corresponding string in the output
     for name in f_in:
     	f_out.write(name.replace('RequestName', form_result['p2n_req'] ) \
+                 .replace('RequestDirectory', form_result['p2n_dir']) \
                  .replace('RequestFamily', form_result['p2n_family']) \
                      .replace('RequestImage',form_result['p2n_image']) \
                     .replace('RequestNetwork',form_result['p2n_network']) \
@@ -42,7 +51,7 @@ def CqlCreator():
                     .replace('RequestTable',form_result['p2n_tables']) \
                     .replace('RequestCarrot',form_result['p2n_carrot']) \
                     .replace('RequestIramuteq',form_result['p2n_iramuteq'])\
-					.replace('RequestCluster',form_result['p2n_cluster'])\
+                    .replace('RequestCluster',form_result['p2n_cluster'])\
                     )
            
 
@@ -58,13 +67,14 @@ def CqlCreator():
     
     #Launch the P2N research
     command="p2n run --config=../RequestsSets/%s.cql"%(form_result['p2n_req'])
-    os.system(command)
+   # os.system(command)
     
     
-    return render_template('Patent2Net/templates/Request_Form/confirmationP2N.html',variable= result )
+    return render_template('Patent2Net/templates/Request_Form/confirmationP2N.html',variable= form_result['p2n_req'] )
 
 
 @app.route('/index' , methods=['GET','POST'])
+@app.route('/results' , methods=['GET','POST'])
 def index():
     return render_template("index.html")
 
@@ -74,5 +84,23 @@ def result():
     #open the result page newly created
     return render_template("DATA/Lentille.html")
 """
+
+
+@app.route('/download', methods=['GET','POST'])
+def request_zip():
+    base_path = pathlib.Path('./DATA/')
+    data = io.BytesIO()
+    with zipfile.ZipFile(data, mode='w') as z:
+        for f_name in base_path.iterdir():
+            z.write(f_name)
+    data.seek(0)
+    return send_file(
+        data,
+        mimetype='application/zip',
+        as_attachment=True,
+        attachment_filename='DATA.zip'
+    )
+
+
 #Permet d'accéder à l'app à partir d'un autre environnement (dans notre cas de figure le localhost)
 app.run(debug=True,use_reloader=False, host='0.0.0.0') 
