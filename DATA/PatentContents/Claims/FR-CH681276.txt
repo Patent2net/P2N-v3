@@ -1,0 +1,8 @@
+**** *Label_CH681276.txt *Country_C *CIB3_A61 *CIB1_A *CIB4_A61K *Date_1993 *Applicant_shamim-ahmad *Kind_A5 *InventCountry_empty *ApplCountry_empty 
+1. Procédé d'obtention d'une substance antidiarrhéique, caractérisé par le fait que l'on hydrolyse, en milieu aqueux, un mélange de grains de céréale en poudre et de grains de légumineuse en poudre, de façon à décomposer, au moins partiellement, les hydrates de carbone et les protéines contenus dans ce mélange, en oligosaccharides et en un mélange de polypeptides et acides aminés, respectivement, et que l'on récupère ensemble les oligosaccharides et le mélange de polypeptides et acides aminés à partir du milieu d'hydrolyse, sous forme d'une poudre sèche.
+2. Procédé selon la revendication 1, caractérisé par le fait que ladite céréale est le riz appartenant à l'espèce oriza sativa et ladite légumineuse est une lentille appartenant à l'espèce phaseolus mungo.
+3. Procédé selon la revendication 2, caractérisé par le fait que la proportion pondérale de riz et de lentille dans le mélange de départ est comprise entre 1,8 et 2,2.
+4. Procédé selon l'une des revendications 1 à 3, caractérisé par le fait que l'on effectue l'hydrolyse en présence d'alpha-amylase.
+5. Procédé selon l'une des revendications 1 à 4, caractérisé par le fait que l'on effectue la récupération du produit final, à partir du milieu d'hydrolyse, par séchage par pulvérisation.
+6. Substance antidiarrhéique obtenue par le procédé selon l'une des revendications 1 à 5.
+7. Composition pharmaceutique contenant la substance antidiarrhéique selon la revendication 6 en tant que principe actif.

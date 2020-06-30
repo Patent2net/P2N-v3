@@ -1,0 +1,52 @@
+**** *Label_CA989177.txt *Country_C *CIB3_B24-B29 *CIB1_B *CIB4_B24B-B29D *Date_1976 *Applicant_essilor-int *Kind_A *InventCountry_empty *ApplCountry_empty 
+989177
+La présente invention concerne d'une manière générale l'application d'une quelconque passe de travail telle que usinage, doucissage, polissage, au bord périphérique d'une lentille de contact souple.
+Ainsi qu'on le sait, les lentilles de contact souples sont de manière traditionnelle réalisées par moulage, un tel moulage étant le plus souvent exécuté à un diamètre supérieur au diamètre final d'utilisation, et suivi d'une opération de détourage permettant de ramener ce diamètre à la valeur finale désirée, puis 10 d'une opération d'usinage nécessaire pour conférer au bord périphérique de la lentille un profil adéquat.
+Cette opération d'usinage est particulièrement importante, car c^est de ses résultats que dépendent au moins en partie les possibilités de tolérance prolongée offertes par la lentille qui en a été l'objet à son utilisateur.
+Or, s'agissant de lentilles de contact en matière souple, et notamment de lentilles de contact en silicone, un tel usinage est relativement difficile à mettre en oeuvre, la nature souple de ces lentilles constituant en effet par elle-même un obstacle à 20 cet usinage.
+Divers artifices oni; été proposés pour surmonter cette difficulté ; ils visent pour 1'essentiel à assurer à une telle lentille en matière souple, par centrifugation par exemple, ou par réfrigération, une raideur momentanée suffisante en principe pour en permettre l'usinage.
+Ces artifices ne s'avèrent en pratique guère susceptibles de permettre une production en série, donc économique, de lentilles de contact souples, et c'est la raison pour laquelle la commercialisation de celles-ci n'a connu encore aucune réalisation pra-30 tique.
+1
+989177
+La présente invention a pour objet un procédé et un dispositif qui, tirant profit au contraire de la souplesse même d'une lentille de contact souple, permet d'en assurer aisément l'usina-ge du bord périphérique.
+Selon 1*invention, et pour 1 Application, d'une manière générale, d'une quelconque passe de travail, telle qu'usinage, dou-cissage ou polissage, au bord périphérique d'une lentille de contact souple, on pince cette lentille entre deux broches tournantes, on fait tourner ces broches, on approche de la tranche dudit bord 10 une surface de travail plane, jusqu*à contact de celle-ci avec ladite tranche, et on poursuit ce mouvement d'approche jusqu'à déformation élastique dudit bord.
+Il s'avère en effet, et cette découverte est à la base de la présente invention, que la déformation élastique ainsi imprimée au bord de la lentille de contact travaillée s'inverse d'elle-même périodiquement, de part et d'autre de la configuration normale de repos de la lentille, en sorte que les deux faces du bord de celle-ci sont alternativement et successivement au contact de la surface de travail.
+20 Au cours d'une première passe, cette surface de travail est un premier matériau abrasif approprié, permettant d'assurer un meulage de dégrossissage du bord périphérique de la lentille.
+Au cours de passes ultérieures, la surface de travail est un matériau de #pains plus fins permettant par exemple d'aboutir par polissage à un douci satiné très satisfaisant.
+L'expérience montre que les lentilles ainsi travaillées présentent une tolérance convenable.
+Les caractéristiques et avantages de l'invention ressortiront d'ailleurs de la description qui va suivre, à titre d'exemple, en 30 référence aux dessins schématiques annexés, sur lesquels :
+2
+989177
+la figure 1 est une vue en élévation avec arrachement, d'un dispositif selon l'invention, lors d'une première phase de mise en oeuvre du procédé selon l'invention ?
+la figure 2 est une vue en plan de ce dispositif ;
+les figures 3 et 4 sont des vues partielles respectivement analogues aux figures 1 et 2 et illustrent une deuxième phase de mise en oeuvre du procédé selon l'invention ;
+la figure 5 est un schéma illustrant le mode d'Intervention du dispositif selon l8invention ;
+la figure 6 est à échelle supérieure une vue partielle en coupe du bord périphérique d'une lentille travaillée conformément à l'invention.
+Sur la figure 1 on reconnaît une lentille de contact souple 10 pincée de manière connue en soi par deux broches tournantes 11, 12, dont une au moins est entraînée en rotation par un quelconque moyen de commande approprié non représenté. La lentille de contact 10 est géométriquement centrée sur l'axe de rotation des broches tournantes 11, 12.
+Il s'agit d'une lentille de contact obtenue par moulage à un diamètre supérieur au diamètre final désiré, puis détournée ; la tranche 13 de son bord périphérique 14 est donc relativement anguleuse.
+Il s'agit d'assurer 1•amincissement en doigt de gant de ce bord périphérique 14 par enlèvement de matière sur les deux faces de celui-ci.
+Le dispositif selon l'invention comporte à cet effet un support 15 porteur d'une surface de travail plane 16 et monté mobile par rapport aux broches tournantes 11 suivant une direction D oblique par rapport à l'axe de ces broches.
+Cette surface de travail 16 est en pratique orientée de
+989177
+manière à venir au contact de la tranche 13 du bord périphérique 14 de la lentille perpendiculairement à ce bord. C'est-à-dire, figure 1, que la normale N de la surface de travail 16 au contact de la tranche 13 du bord périphérique 14 de la lentille est située dans le plan moyen de ce bord.
+La surface de travail 16 est constituée par un quelconque matériau de travail.
+Pour une première passe de travail, qui est plus précisément une passe de dégrossissage ou d'usinage, ce matériau est par 10 exemple un matériau abrasif du type utilisé pour le travail des matières synthétiques souples.
+A titre d'exemple on précisera que le matériau commercialisé par la Société NORTON sous la référence "DURITE E 800" donne satisfaction.
+Par déplacement du support 15 qui porte la surface de travail 16, on amène celle-ci au contact de la tranche 13 du bord périphérique 14 de la lentille 10 à usiner, perpendiculairement à ce bord, figure 1, après mise en rotation de la lentille par les broches 11, 12.
+20 Puis on poursuit le mouvement d®avance du support 15, per pendiculairement au bord 14, de la lentille jusqu'à provoquer par écrasement une déformation élastique de ce bord, figure 3.
+Cet écrasement peut par exemple atteindre 0,2 à 0,3 mm pour une lentille d'un diamètre d'environ 9 mm.
+Lorsque les broches 11, 12 tournent, l'expérience montre que cette déformation élastique s'inverse alternativement et successivement de part et d'autre de la configuration normale de repos de la lentille. C'est-à-dire que cette déformation est alternativement en dessous de la configuration normale de repos de la len-30 .tille, tel que représenté en trait plein à la figure 3, et au-
+4
+989177
+dessus de cette configuration» tel que représenté en trait interrompu sur cette figure 3.
+Lorsque la déformation est en dessous de la configuration normale de repos de la lentille, c'est la face supérieure A de celle-ci qui est au contact de la surface de travail 16, et qui est donc usinée.
+Et lorsque la déformation passe au-dessus de la configuration normale de repos de la lentille, c'est la face inférieure B de celle-ci qui est au contact de la surface de travail 16, et qui est donc usinée à son tour.
+Cette alternance d'usinage des faces A et B de la lentille est symbolisée par le diagramme de la figure 5 sur lequel on a porté en abscisses le temps et en ordonnées la face A-B usinée.
+Au-dessus de l'axe des abscisses, c'est la surface A par exemple qui est usinée et au-dessous de l'axe des abscisses,
+c'est la face B qui est usinée.
+La figure 6 illustre le résultat obtenu qui se traduit par l'amincissement recherché du bord 14 de la lentille, par enlèvement de matière tant sur la face supérieure A de ce bord que sur la face inférieure B de celui-ci. A la figure 6, le profil obtenu pour ce bord 14 est représenté en trait plein, tandis que le profil initial de ce bord est représenté en trait interrompu.
+A une passe d'usinage du type de celle décrite ci-dessus,
+peut succéder une autre passe de travail consistant par exemple en un polissage du bord de la lentille.
+XJn tel polissage se fait en utilisant une surface de travail 16 appropriée, constituée par exemple par de la poix à laquelle on a incorporé une charge convenable de matière abrasive pulvérulente.
+Bien entendu, la présente invention ne se limite pas aux formes de mise en oeuvre décrites et représentées, mais englobe toute variante d'exécution.
+5

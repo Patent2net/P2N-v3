@@ -1,0 +1,53 @@
+F21V0003020000
+blasting
+weapons
+heating
+ 
+lighting
+structural combinations of lighting devices with other articles, not otherwise provided for
+functional features or details of lighting devices or systems thereof
+cover glasses
+bowls
+globes
+F21V0017140000
+blasting
+weapons
+heating
+ 
+lighting
+structural combinations of lighting devices with other articles, not otherwise provided for
+functional features or details of lighting devices or systems thereof
+fastening of component parts of lighting devices, e.g. shades, globes, refractors, reflectors, filters, screens, grids or protective cages
+characterised by specific fastening means or way of fastening
+F21W0131103000
+blasting
+weapons
+heating
+ 
+lighting
+indexing scheme associated with subclasses 
+uses or applications of lighting devices or systems not provided for in groups 
+outdoor lighting
+G02B0003080000
+ 
+optics
+optical elements, systems, or apparatus
+simple or compound lenses
+with non-spherical faces
+G02B0003120000
+ 
+optics
+optical elements, systems, or apparatus
+simple or compound lenses
+A61K0036000000
+medicinal preparations of undetermined constitution containing material from algae, lichens, fungi or plants, or derivatives thereof, e.g. traditional herbal medicines
+preparations for medical, dental, or toilet purposes
+medical or veterinary science
+hygiene
+section a 
+A61K0038000000
+medicinal preparations containing peptides
+preparations for medical, dental, or toilet purposes
+medical or veterinary science
+hygiene
+section a 
