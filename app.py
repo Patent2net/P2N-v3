@@ -13,11 +13,21 @@ import pathlib
 # static_folder call the emplacement of all the content who will work with the HTML. template_folder the emplacement of the HTML. In theory they don't have to be at Root.
 app = Flask(__name__, static_url_path='', static_folder='.', template_folder='.') 
 
+
+""" Definition of the differents app pages  """
+
+
+#Home page
+
 @app.route('/home' , methods=['GET','POST'])
 @app.route('/' , methods=['GET','POST'])
 def home():
     return render_template("Patent2Net/templates/Request_Form/P2N.html")
 
+
+
+
+#Single Request form
 
 @app.route('/single_request' , methods=['GET','POST'])
 @app.route('/form' , methods=['GET','POST'])
@@ -26,6 +36,8 @@ def form():
     return render_template("Patent2Net/templates/Request_Form/Request.html")
 
 
+
+#Single Request form confirmation route
 @app.route('/confirmation', methods=['GET','POST'])
 def CqlCreator():
     form_result = request.form
@@ -37,7 +49,7 @@ def CqlCreator():
     f_out = open("./RequestsSets/%s.cql" %form_result['p2n_req'] ,"wt")
     
 
-#for each line in the input file    
+    #for each line in the input file    
     #read the values given in the form and replace the corresponding string in the output
     for name in f_in:
     	f_out.write(name.replace('RequestName', form_result['p2n_req'] ) \
@@ -73,6 +85,7 @@ def CqlCreator():
     return render_template('Patent2Net/templates/Request_Form/confirmationP2N.html',variable= form_result['p2n_req'] )
 
 
+#Access to the already existing index.html
 @app.route('/index' , methods=['GET','POST'])
 @app.route('/results' , methods=['GET','POST'])
 def index():
@@ -86,6 +99,7 @@ def result():
 """
 
 
+# Download def for when clicking on "Download Data"
 @app.route('/download', methods=['GET','POST'])
 def request_zip():
     base_path = pathlib.Path('./DATA/')
@@ -102,5 +116,5 @@ def request_zip():
     )
 
 
-#Permet d'accéder à l'app à partir d'un autre environnement (dans notre cas de figure le localhost)
+#Authorize the app to be accessed in a different environment (localhost in our case)
 app.run(debug=True,use_reloader=False, host='0.0.0.0') 
