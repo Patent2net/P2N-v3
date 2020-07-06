@@ -82,7 +82,32 @@ def CqlCreator():
     os.system(command)
     
     
-    return render_template('Patent2Net/templates/Request_Form/confirmationP2N.html',variable= form_result['p2n_req'] )
+    return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html',variable= form_result['p2n_req'] )
+
+
+
+@app.route('/get_started', methods=['GET','POST'])
+def started():
+    return render_template("Patent2Net/templates/Request_Form/Get_Started.html")
+
+
+# Get started page form interaction
+@app.route('/get_started/stocked', methods=['GET','POST'])
+def EpoCreator():
+    epo_result= request.form
+    print(epo_result)
+    
+    W_epo = open("./Cles-epo.txt","wt")
+    
+    W_epo.write(epo_result['p2n_epo'])
+    W_epo.close()
+    
+    return render_template("Patent2Net/templates/Request_Form/Get_Started.html")
+
+
+
+
+
 
 
 #Access to the already existing index.html
@@ -91,12 +116,10 @@ def CqlCreator():
 def index():
     return render_template("index.html")
 
-"""
-@app.route('/lentille' , methods=['GET','POST'])
-def result():
-    #open the result page newly created
-    return render_template("DATA/Lentille.html")
-"""
+
+
+
+
 
 
 # Download def for when clicking on "Download Data"
