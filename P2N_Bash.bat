@@ -1,0 +1,1 @@
+docker exec -it p2na /bin/bash
