@@ -138,6 +138,12 @@ def request_zip():
         attachment_filename='DATA.zip'
     )
 
+@app.route('/updateP2N', methods=['GET','POST'])
+def gitupdater():
+    #Launch the P2N research
+    commandupdate="git -C ./usr/src push -b docker https://github.com/baltican/P2na"
+    os.system(commandupdate)
+    return render_template("Patent2Net/templates/Request_Form/P2N.html")
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
 app.run(debug=True,use_reloader=False, host='0.0.0.0') 
