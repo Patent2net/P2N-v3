@@ -142,7 +142,7 @@ def request_zip():
 def gitupdater():
     #Launch the P2N research
     commandupdate="git pull"
-    os.system(commandupdate)
+    os.popen('sh ./update.sh')
     return render_template("Patent2Net/templates/Request_Form/P2N.html")
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
