@@ -97,7 +97,7 @@ def EpoCreator():
     epo_result= request.form
     print(epo_result)
     
-    W_epo = open("./Cles-epo.txt","wt")
+    W_epo = open("./cles-epo.txt","wt")
     
     W_epo.write(epo_result['p2n_epo'])
     W_epo.close()
