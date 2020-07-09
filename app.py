@@ -82,7 +82,7 @@ def CqlCreator():
     os.system(command)
     
     
-    return render_template('Patent2Net/templates/Request_Form/confirmationP2N.html',variable= form_result['p2n_req'] )
+    return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html',variable= form_result['p2n_req'] )
 
 
 
