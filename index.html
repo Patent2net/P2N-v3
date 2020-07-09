@@ -1,29 +1,14 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <title>Patent2Net</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- <link href="https://unpkg.com/tailwindcss@^1.4.6/dist/tailwind.min.css" rel="stylesheet">
--->
-    <style>
-        .container2 {
-            width: 612px;
-        }
-        @media screen and (max-width:800px) {
-          .container {
-            width: calc(100% - 128px);
-          }
-        }
-    </style>
-				<link rel="stylesheet" type="text/css" href="Patent2Net/media/css/reset.css">
-				<link rel="stylesheet" type="text/css" href="Patent2Net/media/css/fancybox-thumbs.css">
-				<link rel="stylesheet" type="text/css" href="Patent2Net/media/css/fancybox-buttons.css">
-				<link rel="stylesheet" type="text/css" href="Patent2Net/media/css/fancybox.css">
-				<link rel="stylesheet" type="text/css" href="Patent2Net/media/css/animate.css">
-				<link rel="stylesheet" type="text/css" href="Patent2Net/media/css/main.css">
-				
+<!DOCTYPE html>
+<html class="" lang="fr">
+ <head>
+  <title>Patent2Net</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="Patent2Net/media/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="Patent2Net/media/css/fancybox-thumbs.css">
+  <link rel="stylesheet" type="text/css" href="Patent2Net/media/css/fancybox-buttons.css">
+  <link rel="stylesheet" type="text/css" href="Patent2Net/media/css/fancybox.css">
+  <link rel="stylesheet" type="text/css" href="Patent2Net/media/css/animate.css">
+  <link rel="stylesheet" type="text/css" href="Patent2Net/media/css/main.css">
 
     <script type="text/javascript" src="Patent2Net/media/js/jquery.js"></script>
     <script type="text/javascript" src="Patent2Net/media/js/fancybox.js"></script>
@@ -52,91 +37,51 @@
     <script type="text/javascript">
 
 </script>
+
+
+  </head>
+ <body>
+
+  <section class="billboard dark">
+    <header class="wrapper dark">
+      <a href="http://patent2netV2.vlab4u.info/index.html"><img class="logo" src="Patent2Net/media/img/logo_dark.png" alt=""/></a>
+
+    </header>
+    <div class="caption dark animated wow fadeInDown clearfix">
+    <h1><a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=page" title="Patent2Net documentation" target="_blank">A patent collector and analyser</a> to expand <br/> your horizon with various data processing tools<br/> for education and scientific purposes</h1>
+      <p>using EPO's database of over <a href="http://worldwide.espacenet.com/"> 90 000 000 patents </a></p>
+    </div>
+    <div class="shadow"></div>
+  </section><!--  End billboard  -->
+
+    Click on tags to open the analysis of the associated patent universe.
+<br/> Use <a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=page" target="_blank">P2N</a> to build your own cases!
 	
+    <div id="myCanvasContainer">
+      <canvas width="1200" height="400" id="myCanvas">
+        <p>The use of firefox is mandatory.</p>
+      </canvas>
+    </div>
+    <div id="tags">
+       <script src="dex.js"></script>
+        
+    </div>
 
-
-
-
-</head>
-<body style="https://unpkg.com/tailwindcss@^1.4.6/dist/tailwind.min.css" class="bg-orange-100 flex items-center justify-center">
-	<header>
-	<!--Nav-->
-	<nav class="bg-orange-600 p-2 mt-0 fixed w-full z-10 top-0 flex items-center justify-center">
-		<div class="container mx-auto flex flex-wrap items-center">
-			<div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
-				<a class="text-white no-underline hover:text-white hover:no-underline" href="#">
-					<span class="text-2xl pl-2"> Patent2Net</span>
-				</a>
-			</div>
-			<div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
-				<ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
-					<li class="mr-3">
-					<li class="mr-3">
-						<a class="inline-block py-2 px-4 text-white no-underline" href="/">Home</a>
-					</li>
-					<li class="mr-3">
-						<a class="inline-block text-orange-200 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/index">Index</a>
-					</li>
-					<li class="mr-3">
-						<a class="inline-block text-orange-200 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="/form">Requests</a>
-					</li>
-					<li class="mr-3">
-						<a class="inline-block text-orange-200 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">link</a>
-					</li>
-					<li class="mr-3">
-						<a class="inline-block text-orange-200 no-underline hover:text-gray-200 hover:text-underline py-2 px-4" href="#">link</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</nav>
-</header>
-
-	<!--Container-->
-	<div class="flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow container">
-		<main>
-			<style scoped>
-
-			</style>
-			<section class="billboard dark">
-
-			<div class="caption dark animated wow fadeInDown clearfix">
-			<h1><a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=page" title="Patent2Net documentation" target="_blank">A patent collector and analyser</a> to expand <br/> your horizon with various data processing tools<br/> for education and scientific purposes</h1>
-			  <p>using EPO's database of over <a href="http://worldwide.espacenet.com/"> 90 000 000 patents </a></p>
-			</div>
-			<div class="shadow"></div>
-			</section><!--  End billboard  -->
-
-			Click on tags to open the analysis of the associated patent universe.
-			<br/> Use <a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=page" target="_blank">P2N</a> to build your own cases!
-
-			<div id="myCanvasContainer">
-			  <canvas width="1200" height="400" id="myCanvas">
-				<p>The use of firefox is mandatory.</p>
-			  </canvas>
-			</div>
-			<div id="tags">
-			   <script src="dex.js"></script>
-				
-			</div>
-
-
-		</main>
-			<footer class='w-full text-center border-t border-grey p-4 pin-b'
-				<div class="wrapper">
-				  <div class="rights">
-					
-					<p><span style="-webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -o-transform: rotate(180deg); -khtml-transform: rotate(180deg); -ms-transform: rotate(180deg); transform: rotate(180deg); display: inline-block;" class="grand"><p>	
-					</span> Credits: <a href="https://github.com/patent2net" target="_blank">Patent2Net</a> 2013-<script language=javascript>
-				var ladate=new Date()
-				document.write(ladate.getFullYear())	
-
-				</script> . Open source licence "as is". See <a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer" target="_blank">disclaimer</a></p>
-					
-				  </div>
-
-				</div>    
-			</footer><!--  End footer  -->
-	</div>
+  <footer>
+    <div class="wrapper">
+      <div class="rights">
+        
+        <p><span style="-webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -o-transform: rotate(180deg); -khtml-transform: rotate(180deg); -ms-transform: rotate(180deg); transform: rotate(180deg); display: inline-block;" class="grand"><p>	
+		</span> Credits: <a href="https://github.com/patent2net" target="_blank">Patent2Net</a> 2013-<script language=javascript>
+    var ladate=new Date()
+    document.write(ladate.getFullYear())	
+	
+    </script> . Open source licence "as is". See <a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer" target="_blank">disclaimer</a></p>
+        
+      </div>
+   
+    </div>    
+  </footer><!--  End footer  -->
+   
 </body>
 </html>
