@@ -2,7 +2,7 @@
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: TA=RequestName
+request: RequestName
 
 ##############################
 # Directory to use
