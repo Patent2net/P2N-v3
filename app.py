@@ -14,15 +14,18 @@ import pathlib
 app = Flask(__name__, static_url_path='', static_folder='.', template_folder='.') 
 
 
+""" P2N Docker App Version: """
+
+version = "0.35"
+
+
 """ Definition of the differents app pages  """
-
-
 #Home page
 
 @app.route('/home' , methods=['GET','POST'])
 @app.route('/' , methods=['GET','POST'])
 def home():
-    return render_template("Patent2Net/templates/Request_Form/P2N.html")
+    return render_template("Patent2Net/templates/Request_Form/P2N.html" ,variable_vers= version)
 
 
 
@@ -97,7 +100,7 @@ def EpoCreator():
     epo_result= request.form
     print(epo_result)
     
-    W_epo = open("./Cles-epo.txt","wt")
+    W_epo = open("./cles-epo.txt","wt")
     
     W_epo.write(epo_result['p2n_epo'])
     W_epo.close()
@@ -138,6 +141,12 @@ def request_zip():
         attachment_filename='DATA.zip'
     )
 
+@app.route('/updateP2N', methods=['GET','POST'])
+def gitupdater():
+    #Launch the P2N research
+    commandupdate="git pull"
+    os.system(commandupdate)
+    return render_template("Patent2Net/templates/Request_Form/P2N.html" ,variable_vers= version)
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
 app.run(debug=True,use_reloader=False, host='0.0.0.0') 
