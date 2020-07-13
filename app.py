@@ -22,8 +22,7 @@ app = Flask(__name__, static_url_path='', static_folder='.', template_folder='.'
 @app.route('/home' , methods=['GET','POST'])
 @app.route('/' , methods=['GET','POST'])
 def home():
-    version = "0.35"
-    return render_template("Patent2Net/templates/Request_Form/P2N.html",variable= version)
+    return render_template("Patent2Net/templates/Request_Form/P2N.html")
 
 
 
@@ -98,7 +97,7 @@ def EpoCreator():
     epo_result= request.form
     print(epo_result)
     
-    W_epo = open("./cles-epo.txt","wt")
+    W_epo = open("./Cles-epo.txt","wt")
     
     W_epo.write(epo_result['p2n_epo'])
     W_epo.close()
@@ -139,12 +138,6 @@ def request_zip():
         attachment_filename='DATA.zip'
     )
 
-@app.route('/updateP2N', methods=['GET','POST'])
-def gitupdater():
-    #Launch the P2N research
-    commandupdate="git pull"
-    os.popen('sh ./update.sh')
-    return render_template("Patent2Net/templates/Request_Form/P2N.html")
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
 app.run(debug=True,use_reloader=False, host='0.0.0.0') 
