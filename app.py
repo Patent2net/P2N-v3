@@ -22,7 +22,8 @@ app = Flask(__name__, static_url_path='', static_folder='.', template_folder='.'
 @app.route('/home' , methods=['GET','POST'])
 @app.route('/' , methods=['GET','POST'])
 def home():
-    return render_template("Patent2Net/templates/Request_Form/P2N.html")
+    version = "0.35"
+    return render_template("Patent2Net/templates/Request_Form/P2N.html",variable= version)
 
 
 
