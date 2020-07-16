@@ -17,7 +17,7 @@ app = Flask(__name__, static_url_path='', static_folder='.', template_folder='.'
 
 """ P2N Docker App Version: """
 
-version = "0.371"
+version = "0.38"
 
 
 """ Definition of the differents app pages  """
@@ -127,8 +127,8 @@ def index():
 
 
 # Download def for when clicking on "Download Data"
-@app.route('/download', methods=['GET','POST'])
-def request_zip():
+@app.route('/downloadDat', methods=['GET','POST'])
+def requestData_zip():
     base_path = pathlib.Path('./DATA/')
     data = io.BytesIO()
     with zipfile.ZipFile(data, mode='w') as z:
@@ -140,6 +140,21 @@ def request_zip():
         mimetype='application/zip',
         as_attachment=True,
         attachment_filename='DATA.zip'
+    )
+
+@app.route('/downloadReq', methods=['GET','POST'])
+def requestReqSet_zip():
+    base_path = pathlib.Path('./RequestsSets/')
+    data = io.BytesIO()
+    with zipfile.ZipFile(data, mode='w') as z:
+        for f_name in base_path.iterdir():
+            z.write(f_name)
+    data.seek(0)
+    return send_file(
+        data,
+        mimetype='application/zip',
+        as_attachment=True,
+        attachment_filename='RequestsSets.zip'
     )
 
 @app.route('/updateP2N', methods=['GET','POST'])
