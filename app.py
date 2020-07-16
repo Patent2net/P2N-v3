@@ -5,6 +5,7 @@ Created on Mon Jun 15 13:58:37 2020
 @author: Admin
 """
 import os
+import glob
 from flask import Flask, render_template, request, send_file
 import zipfile
 import io
@@ -147,6 +148,15 @@ def gitupdater():
     commandupdate="git pull"
     os.system(commandupdate)
     return render_template("Patent2Net/templates/Request_Form/P2N.html" ,variable_vers= version)
+
+
+@app.route('/mass', methods=['GET','POST'])
+def mass():
+    for file in os.listdir("/RequestsSets"):
+        if file.endswith(".cql"):
+                command="p2n run --config=../RequestsSets/%s"%(file)
+                os.system(command)
+    return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
 app.run(debug=True,use_reloader=False, host='0.0.0.0') 
