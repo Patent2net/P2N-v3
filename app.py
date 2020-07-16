@@ -17,7 +17,7 @@ app = Flask(__name__, static_url_path='', static_folder='.', template_folder='.'
 
 """ P2N Docker App Version: """
 
-version = "0.37"
+version = "0.371"
 
 
 """ Definition of the differents app pages  """
@@ -152,7 +152,7 @@ def gitupdater():
 
 @app.route('/mass', methods=['GET','POST'])
 def mass():
-    for file in os.listdir("/RequestsSets"):
+    for file in os.listdir("./RequestsSets"):
         if file.endswith(".cql"):
                 command="p2n run --config=../RequestsSets/%s"%(file)
                 os.system(command)
