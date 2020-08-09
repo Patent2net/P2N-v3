@@ -3552,6 +3552,21 @@ def wo(CollectName, GlobalPath, WindowOpenFlag=True):
         return ""
     return window_open
 
+def direct(CollectName, GlobalPath, WindowOpenFlag=True):
+    def window_open(url):
+        url = url.replace('*CollectName*', CollectName)
+        has_path = os.path.exists(os.path.join(GlobalPath, CollectName, url))
+        # print 'URL', url, GlobalPath, has_path
+        if has_path:
+            full_url = '%s' % (CollectName, url)
+            if WindowOpenFlag:
+                return "window.open('%s', '_blank');" % full_url
+            else:
+                return full_url
+        # print('404 file, skipping url for ', url)
+        return ""
+    return window_open
+
 
 def u(CollectName, GlobalPath):
     return wo(CollectName, GlobalPath, WindowOpenFlag=False)
@@ -3563,6 +3578,7 @@ def RenderTemplate(name, dest, **context):
     if ('CollectName' in context):
         env.globals['wo'] = wo(context['CollectName'], context['GlobalPath'])
         env.globals['u'] = u(context['CollectName'], context['GlobalPath'])
+        env.globals['direct'] = direct(context['CollectName'], context['GlobalPath'])
     handler.write(env.get_template(name).render(**context))
     handler.close()
 

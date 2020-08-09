@@ -284,3 +284,70 @@ def PubMedCheckNameAndGetAffiliation(pubmedId, auteur):
         raise ValueError(reponse.status_code, reponse.reason)
     return None    
 
+def Check(ch, liste):
+    # return True when string ch is in liste (list of strings)
+    for truc in liste:
+        if len(truc) >0 and truc == ch:
+            return True
+    return False
+
+def UnCheck(ch, liste):
+    # return True when string ch is not in liste (list of strings)
+    return not Check(ch, liste)
+    
+
+
+
+def CheckListInclu(listeRef, liste):
+    """ Renvoi True si tous les éléments de ListeRef sont dans liste"""
+    if isinstance(listeRef, list):
+        if len(listeRef) >1:
+            temp = [Check(subch, liste) for subch in listeRef]
+            return sum(temp) == len(temp)
+        else:
+            return Check(listeRef, liste)
+    else:
+        return Check(listeRef, liste)
+
+
+def CheckListMix(listeRef, liste):
+    """ Renvoi True si un des éléments de ListeRef sont dans liste"""
+    if not CheckListExclu(listeRef, liste) and not CheckListInclu(listeRef, liste):
+        return True
+    else:
+        return False
+    
+def CheckListExclu(listeRef, liste):
+    """ CheckListExclu(listeRef, liste)
+    Renvoi True si Aucun des éléments de ListeRef sont dans liste
+    ATTENTION éléments de la liste TOUS en majuscules'
+    """
+    if isinstance(listeRef, list):
+        return sum([truc.upper() in liste for truc in listeRef]) == len(listeRef)
+        
+    else:
+        return UnCheck(listeRef, liste)
+
+
+def NoPunct(s):  # From Vinko's solution, with fix.
+    import re, string
+    regex = re.compile('[%s]' % re.escape(string.punctuation))
+    
+    temp = regex.sub(' ', s)
+    temp = temp.replace('  ', ' ')
+    temp = temp.replace('  ', ' ')
+    temp = temp.strip()
+    return temp
+
+def Nettoie(Liste):
+    indesirables = ['', u'', None, False, [], ' ', '\t', '\n',  "?", "Empty", "empty"]
+    if isinstance(Liste, list):
+    
+        Liste = [' '.join([truc for truc in nom.split(' ') if isinstance(truc, str) and truc is not None and truc.strip() not in indesirables]) for nom in Liste if nom is not None] 
+
+        return list(filter(lambda x: x not in indesirables, Liste))
+    
+    elif Liste in indesirables:
+        return []
+    else:
+        return [Liste]
