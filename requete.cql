@@ -1,22 +1,20 @@
 ﻿# Patent2Net configuration file
 ##############################
-# This example treat of around 10 patents containing the word "lentille"
-# very restrictive example, that has no sense, but just 10 patents... Quick test
-##############################
-# the "patents universe" corresponding to the request
+# request
 # insert below your request in cql format as done in the example
-request: TA=lentille
+request: "csv import"
+
+##############################
+# Directory to use
+# insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
+DataDirectory: Lattes
 
 ###############################
-# Name of files OR directories
-DataDirectory: Lentille
-
-###############################
-#Patent2Net options : Set to *False* or False
+#Patent2Net options : Set to *True* or False
 ###############################
 # Collecting
 # patents list corresponding to the request. e.g the "Patent Universe" (PU)
-GatherPatent: True
+GatherPatent: False
 
 # patents bibliographic data corresponding to patent list
 GatherBiblio: True
@@ -34,59 +32,59 @@ GatherImages: False
 ###############################
 # Networks. Produce both online and for download and local use of Gephi
 # Inventors' network 
-InventorNetwork: False
+InventorNetwork: True
 
 # Applicants' network
-ApplicantNetwork: False
+ApplicantNetwork: True
 
 # IPCs' network
-CrossTechNetwork: False
+CrossTechNetwork: True
 
 # Applicants and Inventors network
-ApplicantInventorNetwork: False
+ApplicantInventorNetwork: True
 
 # Applicants and IPCs' network
-ApplicantCrossTechNetwork: False
+ApplicantCrossTechNetwork: True
 
 # Inventors and IPCs' network 
-InventorCrossTechNetwork: False
+InventorCrossTechNetwork: True
 
 # Countries and IPCs' network
-CountryCrossTechNetwork: False
+CountryCrossTechNetwork: True
 
 # Network of references for the PU (each reference cited by each patent within the PU, includes external bibliographic refs) 
-ReferencesNetwork: False
+ReferencesNetwork: True
 
 # Network of citation for the PU (each patent cited within the PU cited in the rest of the patents world) 
-CitationsTechNetwork: False
+CitationsTechNetwork: True
 
 # Network of equivalent patents for each patent within the PU
-EquivalentsTechNetwork: False
+EquivalentsTechNetwork: True
 
 # The total network
 CompleteNetwork: False
 
 # Complete families network
-FamiliesNetwork: False
-FamiliesHierarchicNetwork: False
+FamiliesNetwork: True
+FamiliesHierarchicNetwork: True
 
 ###############################
 #  Mindmaps of IPCs both online and for download and local use of freeplane
-P2N-FreePlane: False
+P2N-FreePlane: True
 
 ###############################
 # export patents as a bibligraphic file in bibTex format
-FormateExportBiblio: False
+FormateExportBiblio: True
 
 ###############################
 # Produce the world maps of inventors, applicants, deposit country
-FormateExportAttractivityCartography: False
-FormateExportCountryCartography: False
+FormateExportAttractivityCartography: True
+FormateExportCountryCartography: True
 
 ###############################
 # Patents as a table
-FormateExportDataTable: False
-FormateExportDataTableFamilies: False
+FormateExportDataTable: True
+FormateExportDataTableFamilies: True
 
 ###############################
 # Prepare interactive pivottable
@@ -95,12 +93,11 @@ FormateExportPivotTable: False
 ###############################
 # prepare Abstracts, descriptions, claims for text analysis
 # for download and local use of Carrot2 and Iramuteq
-FusionCarrot2: False
-FusionIramuteq2: False
+FusionCarrot2: True
+FusionIramuteq2: True
 
 ###############################
 # NEW Feature (BETA)
 # Double clustering system based on non so trivial words
-# New online text analysis of titles, abstracts, description, claims of the PU
-# methodology described in David Reymond Hadilitationh ttps://hal.archives-ouvertes.fr/tel-01660717
-P2N-Cluster: False
+P2N-Cluster: True
+
