@@ -35,7 +35,7 @@ if IsEnableScript:# and GatherFamilly:
     rep = ndf.replace('Families', '')
     ndf = 'Families'+ndf
     # the list of keys for filtering for datatable
-    clesRef = ['label', 'title', 'year','priority-active-indicator',
+    clesRef = ['label', 'title', 'year','priority-active-indicator','applicant-old','inventor-old',
     'prior-Date', #'prior-dateDate', # dates of priority claims
     'IPCR11', 'kind', 'applicant', 'country', 'inventor', 'representative', 'IPCR4',
     'IPCR7', "Inventor-Country", "Applicant-Country", "equivalents", "CPC", 'references', 'CitedBy', 'prior', 'family lenght', 'CitO', 'CitP']

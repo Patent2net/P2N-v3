@@ -36,9 +36,9 @@ if IsEnableScript:
     # the list of keys for filtering for datatable
     print ('Processing', ndf)
     clesRef = ['label', 'title', 'year','priority-active-indicator',
-    'IPCR11', 'kind', 'applicant', 
-    'applicant-nice', # following the normalization process
-    'country', 'inventor', 
+    'IPCR11', 'kind', 'applicant', 'applicant-old',# following the normalization process
+    'applicant-nice', 
+    'country', 'inventor', 'inventor-old',
     'inventor-nice',
     'representative', 'IPCR4',
     'IPCR7', "Inventor-Country", "Applicant-Country", "equivalents", "CPC",
@@ -146,10 +146,10 @@ if IsEnableScript:
         tempo['applicant-url']= UrlApplicantBuild(brev['applicant'])
         for nb in [1, 3, 4, 7, 11]:
             tempo['IPCR'+str(nb)+'-url']= UrlIPCRBuild(brev['IPCR'+str(nb)])
-        LstExp.append(tempo)
+        
         tempo['equivalents-url'] =  [UrlPatent(lab) for lab in brev['equivalents']]
         tempo['label-url'] = UrlPatent(brev['label'])
-
+        LstExp.append(tempo)
     #    filtering against keys in clesRefs2 for pivottable
     #    tempo2=dict()
     #    clesRef2 = ['label', 'year',  'priority-active-indicator', 'kind', 'applicant', 'country', 'inventor',  'IPCR4', 'IPCR7', "Inventor-Country", "Applicant-Country", 'Citations', u'references', 'CitedBy', ] #'citations','representative',
