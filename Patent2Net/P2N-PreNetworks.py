@@ -4,7 +4,16 @@ Created on Tue Avr 1 13:41:21 2014
 This script will extract the data from biblio file and prepare them for each net.
 Parameter of the script specifies the targeted net. Ouputs a graph file.
 
-This file is broken in version 3 !!!
+
+USE THIS!!!
+# import networkx as nx
+
+# df_network = nx.from_pandas_dataframe(df,source='Src', target='Dst', edge_attr=["weight"], create_using=nx.DiGraph())
+# nx.write_graphml(df_network,'movement_net_charite.graphml') 
+
+
+
+
 21/02/2019
 @author: dreymond
 """
@@ -15,11 +24,8 @@ import networkx as nx
 import os
 import sys
 import datetime
-#import pydot
-#import ctypes # pydot needed for pyinstaller !!! seems that ctype also I should learn making hooks....
-#from urllib.parse import quote as quot
-#import numpy as np
-#import matplotlib.cm
+
+
 from collections import OrderedDict
 #from networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
 from lxml import etree
