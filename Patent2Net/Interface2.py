@@ -10,6 +10,7 @@ from Patent2Net.P2N_Config import LoadConfig
 import codecs
 import os
 import pickle
+import datetime
 nbFam = 0
 
 configFile = LoadConfig()
@@ -51,7 +52,7 @@ if GatherFamilly:  # pdate needed for families
 else:
     nbFam = 0
 
-import datetime
+
 today = datetime.datetime.today()
 date = today.strftime('%d, %b %Y')
 
