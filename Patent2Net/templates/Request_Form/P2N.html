@@ -13,7 +13,20 @@
   <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
   <meta http-equiv="pragma" content="no-cache" />
 
+<script>
+  function getProgress() {
+    var source = new EventSource("/progress");
+    source.onmessage = function(event) {
+      $('.progress-bar').css('width', event.data+'%').attr('aria-valuenow', event.data);
+      $('.progress-bar-label').text(event.data+'%');
 
+      // Event source closed after hitting 100%
+      if(event.data == 100){
+        source.close()
+      }
+    }
+  }
+  </script>
     <style>
         .container2 {
             width: 612px;
