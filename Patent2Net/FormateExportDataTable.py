@@ -29,10 +29,18 @@ ListBiblioPath = configFile.ResultBiblioPath
 temporPath = configFile.temporPath
 ResultPathContent = configFile.ResultPath
 
+GlobalPath = configFile.GlobalPath
+
+import copy
 if IsEnableScript:
     # the list of keys for filtering for datatable
+    print ('Processing', ndf)
     clesRef = ['label', 'title', 'year','priority-active-indicator',
-    'IPCR11', 'kind', 'applicant', 'country', 'inventor', 'representative', 'IPCR4',
+    'IPCR11', 'kind', 'applicant', 'applicant-old',# following the normalization process
+    'applicant-nice', 
+    'country', 'inventor', 'inventor-old',
+    'inventor-nice',
+    'representative', 'IPCR4',
     'IPCR7', "Inventor-Country", "Applicant-Country", "equivalents", "CPC",
     'prior-Date', #'prior-dateDate', # dates of priority claims
     'references',  # the number of refences into the document len(CitP) + len(CitO)
@@ -81,14 +89,18 @@ if IsEnableScript:
     #            brev[cle] = datetime.date.today()
     #        else:
     #            brev[cle] = u''
+    
+        memo= copy.copy(brev)
+        if brev['label'] == "FR2953836":
+            pass
         for cle in list(brev.keys()):
             if isinstance(brev[cle], list):
                 brev[cle] = [cont for cont in brev[cle] if cont is not None]
-                if cle not in ['prior-dateDate', 'dateDate']:
-                    brev[cle] = [cont for cont in brev[cle] if cont.lower() != 'emtpty' or cont != '' ]
+                if cle not in ['prior-dateDate', 'dateDate', 'auct', 'auctAppli', 'type', 'typeCollab', 'family lenght','Citations', 'references']:
+                    brev[cle] = [cont for cont in brev[cle] if cont.lower() != 'empty' or cont != '' ]
                 else:
                     brev[cle] = [cont for cont in brev[cle] if cont != '' ]
-            elif brev[cle]  is not None or brev[cle] .lower() != 'emtpty' or brev[cle]  != '':
+            elif brev[cle]  is not None or brev[cle] .lower() != 'empty' or brev[cle]  != '':
                 brev[cle] = brev[cle]
         for key in clesRef:
             if key =='inventor' or key =='applicant':
@@ -112,8 +124,11 @@ if IsEnableScript:
                     if isinstance(brev[key], list) and len(brev[key])>1:
                         try:
                             tempo[key] = ', '.join(brev[key])
+                            
                         except:
-                            print("pas youp ", key, brev[key])
+                            brev[key] = [str(truc) for truc in brev[key]]
+                            #☺tempo[key] = ', '.join(brev[key])
+                            
                     elif isinstance(brev[key], list) and len(brev[key]) == 1:
                         if brev[key][0] is not None:
                             tempo[key] = brev[key][0]
@@ -131,10 +146,10 @@ if IsEnableScript:
         tempo['applicant-url']= UrlApplicantBuild(brev['applicant'])
         for nb in [1, 3, 4, 7, 11]:
             tempo['IPCR'+str(nb)+'-url']= UrlIPCRBuild(brev['IPCR'+str(nb)])
-        LstExp.append(tempo)
+        
         tempo['equivalents-url'] =  [UrlPatent(lab) for lab in brev['equivalents']]
         tempo['label-url'] = UrlPatent(brev['label'])
-
+        LstExp.append(tempo)
     #    filtering against keys in clesRefs2 for pivottable
     #    tempo2=dict()
     #    clesRef2 = ['label', 'year',  'priority-active-indicator', 'kind', 'applicant', 'country', 'inventor',  'IPCR4', 'IPCR7', "Inventor-Country", "Applicant-Country", 'Citations', u'references', 'CitedBy', ] #'citations','representative',
@@ -151,20 +166,33 @@ if IsEnableScript:
     dicoRes = dict()
     dicoRes['data'] = LstExp
     contenu = json.dumps(dicoRes, indent = 3) #ensure_ascii=True,
-
+    import pandas as pd
+    df = pd.DataFrame(dicoRes["data"])
+    df.to_excel(ResultPathContent + '//' +ndf+'.xlsx', sheet_name=ndf)
     compt  = 0
     Dones = []
     Double = dict() #dictionnary to manage multiple bib entries (same authors and date)
 
     with open(ResultPathContent + '//' +ndf+'.json', 'w') as resFic:
         resFic.write(contenu)
-
+    #outfile =  ndf + '.xlsx'
+    
+    outfile = ResultPathContent + '//' + ndf + '.html'
     RenderTemplate(
         "Modele.html",
-        ResultPathContent + '//' + ndf+'.html',
+        outfile,
+        GlobalPath=GlobalPath,
         fichier=ndf+'.json',
         fichierPivot=ndf+'Pivot.html',
-        requete=requete.replace('"', '')
+        fichieXls = ndf+".xlsx",
+        requete=requete.replace('"', ''),
+        CollectName=ndf,
+        Request=requete,
+        #TotalPatents=totalPatents,
+       # TotalFamily=nbFam,
+       # HasFamily=GatherFamilly,
+       # TotalsPerType=totalsPerType,
+       # TotalsPerFamilyType=totalsPerFamilyType
     )
 
     with open("scriptSearch.js", 'r') as Source:

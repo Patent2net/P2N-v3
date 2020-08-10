@@ -1,0 +1,37 @@
+
+> Hi! This is Pre Process for normalizing applicant names: used on: P7-Large
+
+> Hi! This is Pre Process for normalizing applicant names: used on: FamiliesP7-Large
+Suspect traité :  JOEL TRIBOULT TRIBOULT JO L
+Suspect traité :  KUMICHIAN GEORGES GEORGES KUMUCHIAN
+Suspect traité :  KUMICHIAN GEORGES KUMUCHIAN GEORGES
+Suspect traité :  FLOHIC ARNAUD LE ARNAUD LE FLOHIC
+Suspect traité :  TISSOT PIERRE FRANOIS PIERRE FRANOIS TISSOT
+Suspect traité :  COUTURIER JEAN LUC JEAN LUC COUTURIER
+Suspect traité :  AUBERT GEOFFREY AUBERT GEOFFROY
+Suspect traité :  LOC GICQUEL GIQUEL LOIC
+Suspect traité :  LERAY VINCENT LERAT VINCENT
+Suspect traité :  MICHEL OLIVIER MICELI OLIVIER
+Suspect traité :  GREMY LUDOVIC PHILIPPE LUDOVIC PHILIPPE GREMY
+Suspect traité :  SAILLET REMI SAILLET REMY
+Suspect traité :  LE BOZEC YVAN LE BIZEC YVAN
+Suspect traité :  HEDE JEAN MARC JEAN MARC HEDE
+Suspect traité :  PICARD EDMOND PIERRE EDMOND PIERRE PICARD
+Suspect traité :  LONCHAMPT HERV LONCHAMPT HRVE
+Suspect traité :  HAAS ALEXANDER HASS ALEXANDER
+Suspect traité :  XAVIER IBARZ FORMATGER IBARZ FORMATGER XAVIER
+Suspect traité :  JOS FERNANDEZ SAMPEDRO FERNANDEZ SAMPEDRO JOS
+Suspect traité :  MEYER MARIE CLAUDE MARIE CLAUDE MEYER
+Suspect traité :  MAUPAS OUDINOT JEAN BAPTISTE JEAN BAPTISTE MAUPAS OUDINOT
+Nombre d'inventeurs 'normés' (corpus + families) : 289
+Good,  185  normalisations done among  975  applicant names
+
+> Hi! This is Pre Process for normalizing applicant names: used on: P7-Large
+Good,  683  normalisations done on  P7-Large  among  1709  applicant names
+
+> Hi! This is Pre Process for normalizing applicant names: used on: FamiliesP7-Large
+Good,  6060  normalisations done on  FamiliesP7-Large  among  14355  applicant names
+Number of Inventors differents in  P7-Large  :  1264  from  2781 inventors processed in total. Before there was:  2749
+Number of Applicants differents in  P7-Large  :  702  from  1709 applicants processed in total. Before there was:  1675
+Number of Inventors differents in  FamiliesP7-Large  :  1388  from  56010 inventors processed in total. Before there was:  19329
+Number of Applicants differents in  FamiliesP7-Large  :  983  from  14355 applicants processed in total. Before there was:  14277

@@ -24,17 +24,18 @@ GatherBiblio = configFile.GatherBiblio
 GatherPatent = configFile.GatherPatent
 GatherFamilly = configFile.GatherFamilly
 IsEnableScript = configFile.FormateExportDataTable
+GlobalPath = configFile.GlobalPath
 
  #should set a working dir one upon a time... done it is temporPath
 ListBiblioPath = configFile.ResultBiblioPath
 temporPath = configFile.temporPath
 ResultPathContent = configFile.ResultPath
 
-if IsEnableScript and GatherFamilly:
+if IsEnableScript:# and GatherFamilly:
     rep = ndf.replace('Families', '')
     ndf = 'Families'+ndf
     # the list of keys for filtering for datatable
-    clesRef = ['label', 'title', 'year','priority-active-indicator',
+    clesRef = ['label', 'title', 'year','priority-active-indicator','applicant-old','inventor-old',
     'prior-Date', #'prior-dateDate', # dates of priority claims
     'IPCR11', 'kind', 'applicant', 'country', 'inventor', 'representative', 'IPCR4',
     'IPCR7', "Inventor-Country", "Applicant-Country", "equivalents", "CPC", 'references', 'CitedBy', 'prior', 'family lenght', 'CitO', 'CitP']
@@ -169,7 +170,10 @@ if IsEnableScript and GatherFamilly:
     dicoRes = dict()
     dicoRes['data'] = LstExp
     contenu = json.dumps(dicoRes, indent = 3) #ensure_ascii=True,
-
+    import pandas as pd
+    df = pd.DataFrame(dicoRes["data"])
+    df.to_excel(ResultPathContent + '//' +ndf+'.xlsx', sheet_name=ndf)
+    
     compt  = 0
     Dones = []
     Double = dict() #dictionnary to manage multiple bib entries (same authors and date)
@@ -177,9 +181,12 @@ if IsEnableScript and GatherFamilly:
     with open(ResultPathContent + '//' +ndf+'.json', 'w') as resFic:
         resFic.write(contenu)
 
+        
     RenderTemplate(
         "ModeleFamille.html",
         ResultPathContent + '//' + ndf+'.html',
+        CollectName=ndf,
+        GlobalPath = GlobalPath,
         fichier=ndf+'.json',
         fichierPivot=ndf+'Pivot.html',
         requete=requete.replace('"', '')

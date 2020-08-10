@@ -2,12 +2,12 @@
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: ic=A61 AND (pd within "2012, 2014") AND pr=FR
+request: "csv import"
 
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: P7-LargeBis
+DataDirectory: Lattes
 
 ###############################
 #Patent2Net options : Set to *True* or False
@@ -17,7 +17,7 @@ DataDirectory: P7-LargeBis
 GatherPatent: False
 
 # patents bibliographic data corresponding to patent list
-GatherBiblio: False
+GatherBiblio: True
 
 # patent content (description, abstract, claims) completing patents bibliographic data
 GatherContent: False
@@ -88,7 +88,7 @@ FormateExportDataTableFamilies: True
 
 ###############################
 # Prepare interactive pivottable
-FormateExportPivotTable: True
+FormateExportPivotTable: False
 
 ###############################
 # prepare Abstracts, descriptions, claims for text analysis

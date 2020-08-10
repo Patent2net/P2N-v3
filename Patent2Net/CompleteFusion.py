@@ -65,7 +65,7 @@ BrevetRes["brevets"] = []
 BrevetRes["number"] =0
 BrevetRes["requete"] = ''
 
-lstReq =lstReq[0] #first level is enought
+lstReq =lstReq#[0] #first level is enought
 #fusion of Patent Lists
 with open(ResultFolder+'//PatentLists/'+res, 'wb') as ficRes:
     for ndf in lstReq:
