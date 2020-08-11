@@ -24,14 +24,15 @@ requires = [ #I had to comment here to use conda installation instead of pip
 #    'Pillow',
     'where',
 #    'docopt',
-    'numpy'
+    'numpy',
+    'Flask'
 ]
 
 test_requires = [
 ]
 
 setup(name='patent2net',
-  version='3.1.0-dev0',
+  version='4.0.0-dev0',
   description='Patent2Net is a testbed for working on patent information processing and statistical analysis for education and science.',
   long_description=README,
   license="CeCILL-2.1",
