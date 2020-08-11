@@ -54,7 +54,10 @@ RUN conda install -c anaconda -y python=3.6 &&\
 				pyparsing \
 				python-louvain \
 				requests \
-				setuptools
+				setuptools \
+				unidecode \
+				python-Levenshtein \
+				xlrd
 
 
 
@@ -63,6 +66,7 @@ RUN pip install dogpile.cache \
 		python-epo-ops-client \
 		sklearn \
 		where \
+		fuzzywuzzy \
 		Flask
 
 #Clone and install p2n from github
