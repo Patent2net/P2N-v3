@@ -77,15 +77,8 @@ ResultBiblioPath = configFile.ResultBiblioPath
 
 # using excel reader seem to avoid to BOM problem
 
-df = pd.read_excel('../Patent2Net/Resources/StanNORM2.xlsx', dtype=str, encoding='utf-8')
+df = pd.read_excel('../Patent2Net/Resources/StanNORM2.xlsx', dtype=str)#, encoding='utf-8')  08/2020 doesn't work in docker :-/...
 
-# import csv
-# line = []
-# with open("../Patent2Net/Resources/StanNORM.csv", encoding="utf8") as csvfile:
-    
-#     reader = csv.DictReader(csvfile, delimiter=';', quotechar='"')
-#     for row in reader:
-#         line.append([row['Norm'], row ["Variation Name"]])
 
 
 lstApplic = []
