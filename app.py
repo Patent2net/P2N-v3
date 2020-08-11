@@ -162,6 +162,9 @@ def gitupdater():
     #Launch the P2N research
     commandupdate="git pull"
     os.system(commandupdate)
+    os.system("python setup.py build")
+    os.system("python setup.py install")
+    
     return render_template("Patent2Net/templates/Request_Form/P2N.html" ,variable_vers= version)
 
 
