@@ -17,7 +17,7 @@ app = Flask(__name__, static_url_path='', static_folder='.', template_folder='.'
 
 """ P2N Docker App Version: """
 
-version = "0.391"
+version = "0.4"
 
 
 """ Definition of the differents app pages  """
