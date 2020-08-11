@@ -10,6 +10,7 @@ from p2n import __version__
 from p2n.api import Patent2Net
 from p2n.config import OPSCredentials
 from p2n.util import boot_logging, normalize_docopt_options, run_script, JsonObjectEncoder
+from pprint import pformat as pformat
 
 logger = logging.getLogger(__name__)
 
@@ -22,6 +23,7 @@ def run():
       p2n ops init --key=<ops-oauth-key> --secret=<ops-oauth-secret>
       p2n run [--config=requete.cql] [--with-family]
       p2n acquire [--config=requete.cql] [--with-family]
+      p2n normalisation [--config=requete.cql]
       p2n maps [--config=requete.cql]
       p2n networks [--config=requete.cql]
       p2n tables [--config=requete.cql]
@@ -48,6 +50,7 @@ def run():
       p2n run                               Run data acquisition and all formatters
       p2n acquire                           Run document acquisition
         --with-family                       Also run family data acquisition with "p2n acquire"
+      p2n normalisation                     Suppress multiples equivalents, operates cleaning process in names (applicants and inventors)
       p2n maps                              Build maps of country coverage of patents, as well as applicants and inventors
       p2n networks                          Build various artefacts for data exploration based on network graphs
       p2n tables                            Export various artefacts for tabular data exploration
@@ -139,8 +142,8 @@ def run():
 
 
     # Debugging
-    #print('Options:\n{}'.format(pformat(options)))
-
+    print('Options:\n{}'.format(pformat(options)))
+    
 
     # Patent2Net ad-hoc mode interface
     if options['adhoc']:
@@ -233,18 +236,31 @@ def classic_interface(options):
     if not configfile:
         logger.error('No configuration file given. Either use --config commandline argument or P2N_CONFIG environment variable.')
         sys.exit(1)
-
-
+        
+    print ('here I m, with :', options['config'], " and ", configfile)
+    if isinstance(configfile, list): #not sure
+        configfile = configfile [0]
+        
     # Patent2Net classic steps, aggregated
 
+    
+    print ('here I m again, with :', options['config'], " and ", configfile)    
     if options['acquire'] or options['run']:
+        print('go')
         run_script('OPSGatherPatentsv2.py', configfile)
+        run_script('PatentListFiltering.py', configfile)
         if options['with-family']:
             run_script('OPSGatherAugment-Families.py', configfile)
-            # Added here 13/09/2019 a known bug in this scropt that works only when launched twice
-            # help needed
-            # bad idea 13/09/2019 + 10 min
-            # run_script('OPSGatherAugment-Families.py', configfile)
+
+            
+        run_script('preProcessNormalisationNames.py', configfile)
+        
+    # normalisation features New 08/2020
+     
+    if options['normalisation'] or options['run']:
+        run_script('PatentListFiltering.py', configfile)
+        run_script('preProcessNormalisationNames.py', configfile)      
+        
     if options['maps'] or options['run']:
         run_script('FormateExportCountryCartography.py', configfile)
         run_script('FormateExportAttractivityCartography.py', configfile)

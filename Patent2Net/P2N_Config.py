@@ -104,7 +104,10 @@ class P2NConfig:
     def readInputFile(self):
         if len(sys.argv) > 1:
             for arg in sys.argv:
-                if ".cql" in arg.lower():
+                if ".cql" in arg.lower() and '--config=' not in arg:
+                    return open(arg, "r").readlines()
+                elif ".cql" in arg.lower() and '--config=' in arg:
+                    arg = arg.replace('--config=', "")
                     return open(arg, "r").readlines()
         return open("..//requete.cql", "r").readlines()
 

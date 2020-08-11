@@ -2,7 +2,7 @@
 """
 Created on Sat Jun 29 07:41:54 2019
 
-@author: dreymond
+@author: (c) 2020 The Patent2Net Developers
 """
 
 

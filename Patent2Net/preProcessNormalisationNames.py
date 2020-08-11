@@ -6,7 +6,7 @@ This script attemps normalizing names:
     Applicants: Using the EPO List of standardised applicant names (fro 03/02/2020) but with 1400 (approx) rows added 
                 using prévious method and manual check
     
-@author: dreymond
+@author: (c) 2020 The Patent2Net Developers
 """
 
 import datetime
@@ -95,7 +95,11 @@ Applicants = []
 nbAppliAvant = dict()
 nbInvAvant = dict()
 # traitement des fichiers + familles 
-for fic in [ndf, 'Families'+ndf]:
+if GatherFamilly:
+    PU = [ndf, 'Families'+ndf]
+else:
+    PU = [ndf]
+for fic in PU:
     cptInv, cptAppl = 0,0
 
             
