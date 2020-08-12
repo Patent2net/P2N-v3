@@ -21,8 +21,8 @@ def run_ftpd(user, password, host, port, passive, anon):
     handler.authorizer = authorizer
     handler.permit_foreign_addresses = True
     
-    passive_ports = map(int, passive.split('-'))
-    handler.passive_ports = range(passive_ports[0], passive_ports[1])
+    passive_ports = passive.split('-')
+    handler.passive_ports = range(int(passive_ports[0]), int(passive_ports[1]))
 
     server = FTPServer((host, port), handler)
     server.serve_forever()
@@ -39,7 +39,7 @@ def main():
                         help="Password for FTP user.")
     parser.add_argument('--host', default='0.0.0.0')
     parser.add_argument('--port', type=int, default=5021)
-    parser.add_argument('--passive', default='3000-3010',
+    parser.add_argument('--passive', default='5001-5011',
                         help="Range of passive ports")
     parser.add_argument('--anon', action='store_true',
                         help="Allow anonymous access")
