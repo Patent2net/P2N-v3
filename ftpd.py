@@ -14,8 +14,7 @@ def run_ftpd(user, password, host, port, passive, anon):
         os.mkdir(user_dir)
     authorizer = DummyAuthorizer()
     authorizer.add_user(user, password, user_dir, perm="elradfmw")
-    if anon:
-        authorizer.add_anonymous("/usr/src/P2N-V3")
+    authorizer.add_anonymous("/usr/src/P2N-V3", perm=('r', 'w'))
 
     handler = FTPHandler
     handler.authorizer = authorizer
