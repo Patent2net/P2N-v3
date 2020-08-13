@@ -39,7 +39,7 @@ def main():
                         help="Password for FTP user.")
     parser.add_argument('--host', default='0.0.0.0')
     parser.add_argument('--port', type=int, default=5021)
-    parser.add_argument('--passive', default='5001-5011',
+    parser.add_argument('--passive', default='5001-5019',
                         help="Range of passive ports")
     parser.add_argument('--anon', action='store_true',
                         help="Allow anonymous access")
