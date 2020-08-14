@@ -12,6 +12,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
 
 
+
+
 RUN apt-get install -y build-essential \
 		curl \
 		gcc \
@@ -74,7 +76,7 @@ RUN pip install dogpile.cache \
 RUN apt-get -y install git
 RUN git -C ./usr/src clone -b docker https://github.com/Patent2net/P2N-V3
 WORKDIR /usr/src/P2N-V3
+RUN python setup.py build
 RUN python setup.py install
-
 
 ENTRYPOINT python app.py && bash
