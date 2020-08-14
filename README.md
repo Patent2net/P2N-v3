@@ -1,4 +1,4 @@
-# P2N-v3
+# P2N-v3 - docker version
      _____      _             _     ___    _   _      _           _____   ___    _   _ 
     |  __ \    | |           | |   |__ \  | \ | |    | |      /  |  __ \ |__ \  | \ | | \
     | |__) |_ _| |_ ___ _ __ | |_     ) | |  \| | ___| |_    /   | |__) |   ) | |  \| |  \
@@ -11,7 +11,7 @@ What's new ?
 * Patent2Net now integrate an user interface to enter request instead of creating cql file.
 * When executing setup.py, P2N will install Flask by pip command. (needed for the user interface)
 * To access it you need to launch app.py and go to 127.0.0.1:5000 with your web browser
-* Patent2Net now working in Docker. To install it simply download "Docker_P2N.zip" and follow the "Readme.txt"
+* Patent2Net now works in Docker. To install it simply download "Docker_P2N.zip" and follow the "Readme.txt"
 
 About
 -----

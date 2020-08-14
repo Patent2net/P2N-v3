@@ -1,4 +1,6 @@
 -------------------- First installation of Docker P2N  ---------------------
+SECURITY ADVICE: As it opens a full access ftp server for anonymous in order to access file system, this docker installation aims to work locally on a connected machine but not on the cloud.
+CAUTION: DO NOT INSTALL AS IT ELSEWHERE THAN YOUR OWN REAL MACHINE
 
 * To install the Docker version of P2N:
 
