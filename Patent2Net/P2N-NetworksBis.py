@@ -605,15 +605,15 @@ for prefix in prefixes:
 #        nx.write_gpickle(G1, temporPath+'/'+network+prefix)
 #        
 #        
-        nx.write_gexf(G1, ResultGephiPath+'/temp.gexf', version='1.2draft')
+        nx.write_gexf(G1, ResultGephiPath+'/'+outputFileJS, version='1.2draft')
 
 #from there its a hack (sometimes ugly) as networkx2.2 doesn't deal correctly with dynamics nets
-        with open(ResultGephiPath+'/temp.gexf') as fic:
+        with open(ResultGephiPath+'/'+outputFileJS) as fic:
             data = fic.readlines()
         enco = data[0:2]
         temp=data[1:1]
         temp.append("""  <graph defaultedgetype="directed" mode="dynamic" name="" timeformat="date">\n""")
-        enco.append("""  <graph defaultedgetype="directed" mode="dynamic" name="" timeformat="date">\n""")
+#        enco.append("""  <graph defaultedgetype="directed" mode="dynamic" name="" timeformat="date">\n""")
 #        temp.append("""   <attributes class="edge" mode="static">\n""") 
 #        temp.append("""      <attribute id="5" title="name" type="string" />\n""")
 #        temp.append("""      </attributes>\n""")
@@ -632,152 +632,152 @@ for prefix in prefixes:
         temp.append("""      <creator>Patent2Net V3</creator>\n""")
         temp += data[16:]
         data= "".join(temp)
-        with open(ResultGephiPath+'/temp2.gexf', "w") as fic:
-            fic.write(enco[1] + data)
+        with open(ResultGephiPath+'/' + outputFileJS, "w") as fic:
+            fic.write("".join(enco) + data)
         
-        with open(ResultGephiPath+'/temp2.gexf') as fic:
-#            don = fic.readlines()
-#            data = ''.join(don[1:])
-            data=fic.read()
-        don = data.splitlines()
-        root = etree.fromstring(data.strip())
-        nodes = [truc for truc in root.iterdescendants()]
-        bords = [truc for truc in don if truc.count('edges')]
-        if ResultGephiPath+'/HackTest.gexf' in os.listdir(ResultGephiPath+'/'):
-            os.remove(ResultGephiPath+'/HackTest.gexf')
-        with open(ResultGephiPath+'/HackTest.gexf', 'w') as ficRes:
-            ficRes.write("".join(enco))
-#            ficRes.write(don[1])
-#            ficRes.write(don[2])
-            for el  in  nodes:
-                if el.tag in ["{http://www.gexf.net/1.2draft}attributes",
-                              "{http://www.gexf.net/1.2draft}meta",
-                              ]:
-                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
+#         with open(ResultGephiPath+'/temp2.gexf') as fic:
+# #            don = fic.readlines()
+# #            data = ''.join(don[1:])
+#             data=fic.read()
+#         don = data.splitlines()
+#         root = etree.fromstring(data.strip())
+#         nodes = [truc for truc in root.iterdescendants()]
+#         bords = [truc for truc in don if truc.count('edges')]
+#         if ResultGephiPath+'/HackTest.gexf' in os.listdir(ResultGephiPath+'/'):
+            # os.remove(ResultGephiPath+'/HackTest.gexf')
+#         with open(ResultGephiPath+'/HackTest.gexf', 'w') as ficRes:
+#             ficRes.write("".join(enco))
+# #            ficRes.write(don[1])
+# #            ficRes.write(don[2])
+#             for el  in  nodes:
+#                 if el.tag in ["{http://www.gexf.net/1.2draft}attributes",
+#                               "{http://www.gexf.net/1.2draft}meta",
+#                               ]:
+#                     ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
         
-                elif  el.tag in ["{http://www.gexf.net/1.2draft}nodes"]:
-                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
-                    ficRes.write(bords[0])
-                elif el.tag == "{http://www.gexf.net/1.2draft}edge":
-                    rac = copy.copy(el)
-                    rac.clear()
-                    rac.attrib['source']= el.attrib['source']
-                    rac.attrib['target'] = el.attrib['target']
-                    for attr in el.iterchildren():
-                        compt = 0
-                        NewAttr=etree.Element(attr.tag)
-                        for attrs in attr.iterchildren():
-                          #  NewAttrs =etree.Element( attrs.tag)
+#                 elif  el.tag in ["{http://www.gexf.net/1.2draft}nodes"]:
+#                     ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
+#                     ficRes.write(bords[0])
+#                 elif el.tag == "{http://www.gexf.net/1.2draft}edge":
+#                     rac = copy.copy(el)
+#                     rac.clear()
+#                     rac.attrib['source']= el.attrib['source']
+#                     rac.attrib['target'] = el.attrib['target']
+#                     for attr in el.iterchildren():
+#                         compt = 0
+#                         NewAttr=etree.Element(attr.tag)
+#                         for attrs in attr.iterchildren():
+#                           #  NewAttrs =etree.Element( attrs.tag)
                             
-                            if attrs.attrib['for'] == '5':
+#                             if attrs.attrib['for'] == '5':
                                 
-                                SRC = int(el.attrib['source'])
-                                TGT = int(el.attrib['target'])
-                                if (SRC, TGT) in WeightDyn.keys():
-                                    for poids in WeightDyn[(SRC, TGT)]:
+#                                 SRC = int(el.attrib['source'])
+#                                 TGT = int(el.attrib['target'])
+#                                 if (SRC, TGT) in WeightDyn.keys():
+#                                     for poids in WeightDyn[(SRC, TGT)]:
         
-                                        attrs.attrib['value'] = str(poids['value'])
-                                        attrs.attrib['start'] = poids['start']
-                                        attrs.attrib['end'] = poids['end']
-                                        #NewAttrs =etree.Element(attrs)
-                                        NewAttr.append(attrs)
-                            else:
-                                NewAttr.append(attrs)
-                        rac.append(NewAttr)
-                        ficRes.write(str(etree.tostring( rac, pretty_print=True, encoding='unicode', method='xml')))
+#                                         attrs.attrib['value'] = str(poids['value'])
+#                                         attrs.attrib['start'] = poids['start']
+#                                         attrs.attrib['end'] = poids['end']
+#                                         #NewAttrs =etree.Element(attrs)
+#                                         NewAttr.append(attrs)
+#                             else:
+#                                 NewAttr.append(attrs)
+#                         rac.append(NewAttr)
+#                         ficRes.write(str(etree.tostring( rac, pretty_print=True, encoding='unicode', method='xml')))
                         
-            ficRes.write(don[len(don)-3])
-            ficRes.write(don[len(don)-2].strip())
-            ficRes.write(don[len(don)-1])
-        if outputFile in os.listdir(ResultGephiPath+'/'):
-            os.remove(ResultGephiPath+'/'+outputFile)
-        #Doing same hacking system for networkJS exports
-        # this could be factorised!!!!
-        with open(ResultGephiPath+'/temp.gexf') as fic:
-            data = fic.readlines()
-        enco = data[0:1]
-        temp=data[1:2]
-        temp.append("""  <graph defaultedgetype="directed" mode="static" name="" >\n""")
-        enco.append("""  <graph defaultedgetype="directed" mode="static" name="">\n""")
-#        temp.append("""   <attributes class="edge" mode="static">\n""") 
-#        temp.append("""      <attribute id="5" title="name" type="string" />\n""")
-#        temp.append("""      </attributes>\n""")
-        temp.append("""   <attributes class="edge" mode="static">\n""" )
-        temp.append("""      <attribute id="5" title="weight" type="double" />\n""")
-        temp.append("""    </attributes>\n""")
-        temp.append("""    <attributes class="node" mode="static" timeformat="date">\n""")
-        temp.append("""      <attribute id="0" title="category" type="string" />\n""")
-        temp.append("""      <attribute id="1" title="degree_in" type="long" />\n""")
-        temp.append("""     <attribute id="2" title="degree_out" type="long" /> \n""")
-        temp.append("""     <attribute id="3" title="degree" type="long" />\n""")
-        temp.append("""     <attribute id="4" title="url" type="string" />\n""")
-        temp.append("""     </attributes>\n""")
+#             ficRes.write(don[len(don)-3])
+#             ficRes.write(don[len(don)-2].strip())
+#             ficRes.write(don[len(don)-1])
+#         if outputFile in os.listdir(ResultGephiPath+'/'):
+#             os.remove(ResultGephiPath+'/'+outputFile)
+#         #Doing same hacking system for networkJS exports
+#         # this could be factorised!!!!
+#         with open(ResultGephiPath+'/temp.gexf') as fic:
+#             data = fic.readlines()
+#         enco = data[0:1]
+#         temp=data[1:2]
+#         temp.append("""  <graph defaultedgetype="directed" mode="static" name="" >\n""")
+#         enco.append("""  <graph defaultedgetype="directed" mode="static" name="">\n""")
+# #        temp.append("""   <attributes class="edge" mode="static">\n""") 
+# #        temp.append("""      <attribute id="5" title="name" type="string" />\n""")
+# #        temp.append("""      </attributes>\n""")
+#         temp.append("""   <attributes class="edge" mode="static">\n""" )
+#         temp.append("""      <attribute id="5" title="weight" type="double" />\n""")
+#         temp.append("""    </attributes>\n""")
+#         temp.append("""    <attributes class="node" mode="static" timeformat="date">\n""")
+#         temp.append("""      <attribute id="0" title="category" type="string" />\n""")
+#         temp.append("""      <attribute id="1" title="degree_in" type="long" />\n""")
+#         temp.append("""     <attribute id="2" title="degree_out" type="long" /> \n""")
+#         temp.append("""     <attribute id="3" title="degree" type="long" />\n""")
+#         temp.append("""     <attribute id="4" title="url" type="string" />\n""")
+#         temp.append("""     </attributes>\n""")
         
-        temp.append("""    <meta>\n""")
-        temp.append("""      <creator>Patent2Net V3</creator>\n""")
-        temp += data[14:]
-        data= "".join(temp)
+#         temp.append("""    <meta>\n""")
+#         temp.append("""      <creator>Patent2Net V3</creator>\n""")
+#         temp += data[14:]
+#         data= "".join(temp)
         
-        with open(ResultGephiPath+'/temp2.gexf', "w") as fic:
-            fic.write( data)
+#         with open(ResultGephiPath+'/temp2.gexf', "w") as fic:
+#             fic.write( data)
         
-        with open(ResultGephiPath+'/temp2.gexf') as fic:
-#            don = fic.readlines()
-#            data = ''.join(don[1:])
-            data=fic.read()
-        don = data.splitlines()
-        root = etree.fromstring(data.strip())
-        nodes = [truc for truc in root.iterdescendants()]
-        bords = [truc for truc in don if truc.count('edges')]
-        if ResultGephiPath+'/HackTestJS.gexf' in os.listdir(ResultGephiPath+'/'):
-            os.remove(ResultGephiPath+'/HackTestJS.gexf')
-        with open(ResultGephiPath+'/HackTestJS.gexf', 'w') as ficRes:
-            ficRes.write("".join(enco))
-#            ficRes.write(don[1])
-#            ficRes.write(don[2])
-            for el  in  nodes:
-                if el.tag in ["{http://www.gexf.net/1.2draft}attributes",
-                              "{http://www.gexf.net/1.2draft}meta",
-                              ]:
-                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
+#         with open(ResultGephiPath+'/temp2.gexf') as fic:
+# #            don = fic.readlines()
+# #            data = ''.join(don[1:])
+#             data=fic.read()
+#         don = data.splitlines()
+#         root = etree.fromstring(data.strip())
+#         nodes = [truc for truc in root.iterdescendants()]
+#         bords = [truc for truc in don if truc.count('edges')]
+#         if ResultGephiPath+'/HackTestJS.gexf' in os.listdir(ResultGephiPath+'/'):
+#             os.remove(ResultGephiPath+'/HackTestJS.gexf')
+#         with open(ResultGephiPath+'/HackTestJS.gexf', 'w') as ficRes:
+#             ficRes.write("".join(enco))
+# #            ficRes.write(don[1])
+# #            ficRes.write(don[2])
+#             for el  in  nodes:
+#                 if el.tag in ["{http://www.gexf.net/1.2draft}attributes",
+#                               "{http://www.gexf.net/1.2draft}meta",
+#                               ]:
+#                     ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
         
-                elif  el.tag in ["{http://www.gexf.net/1.2draft}edges"]:
-                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
-                    ficRes.write(bords[0])
-                    #parsing this time node attributes to avoid dynamic attributes (LOL)
-                elif el.tag == "{http://www.gexf.net/1.2draft}node":
-                    rac = copy.copy(el)
-                    rac.clear()
-                    rac.attrib['id']= el.attrib['id']
-                    rac.attrib['label'] = el.attrib['label']
-                    for attr in el.iterchildren():
+#                 elif  el.tag in ["{http://www.gexf.net/1.2draft}edges"]:
+#                     ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
+#                     ficRes.write(bords[0])
+#                     #parsing this time node attributes to avoid dynamic attributes (LOL)
+#                 elif el.tag == "{http://www.gexf.net/1.2draft}node":
+#                     rac = copy.copy(el)
+#                     rac.clear()
+#                     rac.attrib['id']= el.attrib['id']
+#                     rac.attrib['label'] = el.attrib['label']
+#                     for attr in el.iterchildren():
                         
-                        rac.append(attr)
-                        compt = 0
-                        NewAttr=etree.Element(attr.tag)
-                        for attrs in attr.iterchildren():
-                             #NewAttrs =etree.Element( attrs.tag)
-                             NewAttr.append(attrs)
-#                            if attrs.attrib['for'] == '5':
-#                                
-#                                SRC = int(el.attrib['source'])
-#                                TGT = int(el.attrib['target'])
-#                                if (SRC, TGT) in WeightDyn.keys():
-#                                    for poids in WeightDyn[(SRC, TGT)]:
-#        
-#                                        attrs.attrib['value'] = str(poids['value'])
-#                                        attrs.attrib['start'] = poids['start']
-#                                        attrs.attrib['end'] = poids['end']
-#                                        #NewAttrs =etree.Element(attrs)
-#                                        NewAttr.append(attrs)
-#                            else:
-#                                
-                        rac.append(NewAttr)
-                    ficRes.write(str(etree.tostring( rac, pretty_print=True, encoding='unicode', method='xml')))
+#                         rac.append(attr)
+#                         compt = 0
+#                         NewAttr=etree.Element(attr.tag)
+#                         for attrs in attr.iterchildren():
+#                              #NewAttrs =etree.Element( attrs.tag)
+#                              NewAttr.append(attrs)
+# #                            if attrs.attrib['for'] == '5':
+# #                                
+# #                                SRC = int(el.attrib['source'])
+# #                                TGT = int(el.attrib['target'])
+# #                                if (SRC, TGT) in WeightDyn.keys():
+# #                                    for poids in WeightDyn[(SRC, TGT)]:
+# #        
+# #                                        attrs.attrib['value'] = str(poids['value'])
+# #                                        attrs.attrib['start'] = poids['start']
+# #                                        attrs.attrib['end'] = poids['end']
+# #                                        #NewAttrs =etree.Element(attrs)
+# #                                        NewAttr.append(attrs)
+# #                            else:
+# #                                
+#                         rac.append(NewAttr)
+#                     ficRes.write(str(etree.tostring( rac, pretty_print=True, encoding='unicode', method='xml')))
                         
-            ficRes.write(don[len(don)-3])
-            ficRes.write(don[len(don)-2].strip())
-            ficRes.write(don[len(don)-1])
+#             ficRes.write(don[len(don)-3])
+#             ficRes.write(don[len(don)-2].strip())
+#             ficRes.write(don[len(don)-1])
 
 
             #making the html from model
@@ -797,13 +797,13 @@ for prefix in prefixes:
                 ResultGephiPath + '/'+outputFile.replace('.gexf','') +'Conf.js',
                 FicRezo=outputFile,
             )
-        if outputFileJS in os.listdir(ResultGephiPath+'/'):
-            os.remove(ResultGephiPath+'/' +outputFileJS)
-        if outputFile in os.listdir(ResultGephiPath+'/'):
-            os.remove(ResultGephiPath+'/' +outputFile)
-        os.rename(ResultGephiPath+'/HackTestJS.gexf', ResultGephiPath+'/'+outputFileJS)
+        # if outputFileJS in os.listdir(ResultGephiPath+'/'):
+        #     os.remove(ResultGephiPath+'/' +outputFileJS)
+        # if outputFile in os.listdir(ResultGephiPath+'/'):
+        #     os.remove(ResultGephiPath+'/' +outputFile)
+        # os.rename(ResultGephiPath+'/HackTestJS.gexf', ResultGephiPath+'/'+outputFileJS)
         print("Network file writen in ",  ResultGephiPath+' directory.\n See file: '+outputFileJS)
-        os.rename(ResultGephiPath+'/HackTest.gexf', ResultGephiPath+'/'+outputFile)
-        print("Network file writen in ",  ResultGephiPath+' directory.\n See file: '+outputFile)
-        os.remove( ResultGephiPath+'/temp.gexf')
-        os.remove( ResultGephiPath+'/temp2.gexf')
+        # os.rename(ResultGephiPath+'/HackTest.gexf', ResultGephiPath+'/'+outputFile)
+        # print("Network file writen in ",  ResultGephiPath+' directory.\n See file: '+outputFile)
+        # os.remove( ResultGephiPath+'/temp.gexf')
+        # os.remove( ResultGephiPath+'/temp2.gexf')
