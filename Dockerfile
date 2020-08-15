@@ -94,11 +94,8 @@ RUN conda install -c anaconda -y python=3.6 &&\
 				setuptools \
 				unidecode \
 				python-Levenshtein \
-				xlrd
-
-
-
-
+				xlrd \
+				openpyxl
 
 RUN pip install dogpile.cache \
 		mpld3 \
@@ -118,6 +115,8 @@ RUN git -C ./usr/src clone -b docker https://github.com/Patent2net/P2N-V3
 
 RUN chown -R root:ftp /usr/src/P2N-V3
 RUN usermod -d /usr/src/P2N-V3 ftp
+chmod -R 777 /usr/src/P2N-V3/DATA
+
 RUN mkdir /var/run/vsftpd
 RUN mkdir /var/run/vsftpd/empty
 
