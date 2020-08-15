@@ -10,6 +10,7 @@ DATA/*
 DATA-OLD/*
 # C extensions
 *.so
+REQUESTS/*.cql
 
 # Distribution / packaging
 .Python
@@ -116,7 +117,6 @@ Acad/*
 
 LogInstall2.txt
 LogInstall1.txt
-REQUESTS/*
 dex.js
 LogInstallP2N.txt
 LogInstallP2N.txt
