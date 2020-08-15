@@ -294,7 +294,7 @@ def classic_interface(options):
 #            run_script('P2N-NetworksJS.py {network}'.format(network=network), configfile)
     #adding the complete net a very very slow process
     
-        run_script('P2N-NetworksFull.py', configfile)
+#        run_script('P2N-NetworksFull.py', configfile)
     if options['freeplane'] or options['run']:
         run_script('P2N-FreePlane.py', configfile)
 

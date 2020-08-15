@@ -21,7 +21,7 @@ import datetime
 #import numpy as np
 #import matplotlib.cm
 from collections import OrderedDict
-from networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
+#from networkx_functs import calculate_degree, calculate_betweenness, calculate_degree_centrality
 from lxml import etree
 import numpy
 import copy
