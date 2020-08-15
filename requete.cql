@@ -7,7 +7,7 @@ request: "csv import"
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: Lattes
+DataDirectory: lattes
 
 ###############################
 #Patent2Net options : Set to *True* or False
