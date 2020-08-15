@@ -50,7 +50,7 @@ def CqlCreator():
     f_in = open("placeholder.cql", "rt")
     
     #create an output file with the name requested in the form by the user
-    f_out = open("./RequestsSets/%s.cql" %form_result['p2n_req'] ,"wt")
+    f_out = open("./RequestsSets/%s.cql" %form_result['p2n_dir'] ,"wt")
     
 
     #for each line in the input file    
@@ -82,7 +82,7 @@ def CqlCreator():
     f_out.close()
     
     #Launch the P2N research
-    command="p2n run --config=../RequestsSets/%s.cql"%(form_result['p2n_req'])
+    command="p2n run --config=../RequestsSets/%s.cql"%(form_result['p2n_dir'])
     os.system(command)
     
     
