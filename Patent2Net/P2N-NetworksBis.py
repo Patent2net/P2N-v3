@@ -422,9 +422,9 @@ for prefix in prefixes:
                 
         #G, deg = calculate_degree(G1)
         for noeud in G1.nodes():
-            G1.node[noeud]['degree_in'] = G1.in_degree(noeud)
-            G1.node[noeud]['degree_out'] = G1.out_degree(noeud)
-            G1.node[noeud]['degree'] = G1.out_degree(noeud) + G1.in_degree(noeud) #adding two sides degrees
+            G1.nodes[noeud]['degree_in'] = G1.in_degree(noeud)
+            G1.nodes[noeud]['degree_out'] = G1.out_degree(noeud)
+            G1.nodes[noeud]['degree'] = G1.out_degree(noeud) + G1.in_degree(noeud) #adding two sides degrees
             
     #            G, bet = calculate_betweenness(G)
     #            #g, eigen = calculate_eigenvector_centrality(g)

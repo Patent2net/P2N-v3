@@ -1,33 +1,33 @@
-﻿# Patent2Net configuration file
+# Patent2Net V3 configuration file
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: "csv import"
+request: TA=lentille
 
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: lattes
+DataDirectory: lentille
 
 ###############################
 #Patent2Net options : Set to *True* or False
 ###############################
 # Collecting
 # patents list corresponding to the request. e.g the "Patent Universe" (PU)
-GatherPatent: False
+GatherPatent: True
 
 # patents bibliographic data corresponding to patent list
 GatherBiblio: True
 
 # patent content (description, abstract, claims) completing patents bibliographic data
-GatherContent: False
-OPSGatherContentsv2-Iramuteq: False
+GatherContent: True
+OPSGatherContentsv2-Iramuteq: True
 
 #patents families extending the PU to families
-GatherFamilly: False
+GatherFamilly: True
 
 #NEW 2018: images
-GatherImages: False
+GatherImages: True
 
 ###############################
 # Networks. Produce both online and for download and local use of Gephi
@@ -62,7 +62,7 @@ CitationsTechNetwork: True
 EquivalentsTechNetwork: True
 
 # The total network
-CompleteNetwork: False
+CompleteNetwork: True
 
 # Complete families network
 FamiliesNetwork: True
@@ -88,7 +88,7 @@ FormateExportDataTableFamilies: True
 
 ###############################
 # Prepare interactive pivottable
-FormateExportPivotTable: False
+FormateExportPivotTable: True
 
 ###############################
 # prepare Abstracts, descriptions, claims for text analysis
