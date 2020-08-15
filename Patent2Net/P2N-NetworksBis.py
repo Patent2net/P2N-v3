@@ -440,7 +440,7 @@ for prefix in prefixes:
         for noed in pos2.keys():
             pos[noed] = numpy.append(pos2[noed], pos3[noed])
         factx, facty = 1, 1 # neatto
-        tutu = [int(G1.node[tt]['degree']) for tt in G1.nodes()]
+        tutu = [int(G1.nodes[tt]['degree']) for tt in G1.nodes()]
         if len(tutu)>0:
             Maxdegs = max(tutu)
         else:
@@ -506,21 +506,21 @@ for prefix in prefixes:
             Visu['color'] = dict()
             Visu['position']= {'x':(int(pos[k][0])*factx+posx), 'y':(int(pos[k][1])*facty+posy), 'z':(int(pos[k][2])*factz+posz)}
 
-            if G1.node[k]['category'] == 'label':
-                G1.node[k]['url'] =UrlPatent(G1.node[k]['label'])[0]
+            if G1.nodes[k]['category'] == 'label':
+                G1.nodes[k]['url'] =UrlPatent(G1.nodes[k]['label'])[0]
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(254)
                 Visu['color']['g']= int(0)
                 Visu['color']['b']= int(0)
                 Visu['shape'] ="diamond"
-            elif G1.node[k]['category'] =='CitP':
+            elif G1.nodes[k]['category'] =='CitP':
                     Visu['color']['a'] = 1
                     Visu['color']['r']= int(0)
                     Visu['color']['g']= int(254)
                     Visu['color']['b']= int(0)
                     Visu['shape'] ="ellipse"
 
-            elif G1.node[k]['category'] == 'CitO':
+            elif G1.nodes[k]['category'] == 'CitO':
                 # a hack here, trying to find out content in scholar
                 #https://scholar.google.fr/scholar?hl=fr&q=pipo+test&btnG=&lr=
                 Visu['color']['r']= int(0)
@@ -530,39 +530,39 @@ for prefix in prefixes:
                 Visu['shape'] ="disc"
                 #UrlTemp = "https://scholar.google.com/scholar?q=" + quot(Nodes.keys()[k])
                 #G1.node[k]['url'] = UrlTemp
-            elif G1.node[k]['category'] == 'CitedBy':
+            elif G1.nodes[k]['category'] == 'CitedBy':
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(0)
                 Visu['color']['g']= int(127)
                 Visu['color']['b']= int(127)
                 Visu['shape'] ="square"
-                G1.node[k]['url'] =UrlPatent(G1.node[k]['label'])[0]
+                G1.nodes[k]['url'] =UrlPatent(G1.nodes[k]['label'])[0]
 
-            elif G1.node[k]['category'] == "equivalents":
+            elif G1.nodes[k]['category'] == "equivalents":
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(127)
                 Visu['color']['g']= int(127)
                 Visu['color']['b']= int(0)
                 Visu['shape'] ="ellipse"
-                G1.node[k]['url'] =UrlPatent(G1.node[k]['label'])[0]
-            elif G1.node[k]['category'] == 'applicant-nice':
-                G1.node[k]['category'] = 'applicant'# for readable facility
-                G1.node[k]['url'] = UrlApplicantBuild(G1.node[k]['label'])[0]
+                G1.nodes[k]['url'] =UrlPatent(G1.nodes[k]['label'])[0]
+            elif G1.nodes[k]['category'] == 'applicant-nice':
+                G1.nodes[k]['category'] = 'applicant'# for readable facility
+                G1.nodes[k]['url'] = UrlApplicantBuild(G1.nodes[k]['label'])[0]
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(127)
                 Visu['color']['g']= int(0)
                 Visu['color']['b']= int(127)
                 Visu['shape'] ="star"
-            elif G1.node[k]['category'] == 'IPCR1' or G1.node[k]['category'] == 'IPCR3' or G1.node[k]['category'] == 'IPCR4' or G1.node[k]['category'] == 'IPCR7' or G1.node[k]['category'] == 'IPCR7' or G1.node[k]['category'] == 'CPC':
-                G1.node[k]['url'] = UrlIPCRBuild(G1.node[k]['label'])[0]
+            elif G1.nodes[k]['category'] == 'IPCR1' or G1.nodes[k]['category'] == 'IPCR3' or G1.nodes[k]['category'] == 'IPCR4' or G1.nodes[k]['category'] == 'IPCR7' or G1.nodes[k]['category'] == 'IPCR7' or G1.nodes[k]['category'] == 'CPC':
+                G1.nodes[k]['url'] = UrlIPCRBuild(G1.nodes[k]['label'])[0]
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(127)
                 Visu['color']['g']= int(254)
                 Visu['color']['b']= int(127)
                 Visu['shape'] ="database"
-            elif G1.node[k]['category'] == 'inventor-nice':
-                G1.node[k]['category'] = 'inventor'# for readable facility
-                G1.node[k]['url'] = UrlInventorBuild(G1.node[k]['label'])[0]
+            elif G1.nodes[k]['category'] == 'inventor-nice':
+                G1.nodes[k]['category'] = 'inventor'# for readable facility
+                G1.nodes[k]['url'] = UrlInventorBuild(G1.nodes[k]['label'])[0]
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(127)
                 Visu['color']['g']= int(127)
@@ -577,10 +577,10 @@ for prefix in prefixes:
             if "label" not in mixNet:
                 mixNet.append('label')
             #factx, facty = 500, 400
-            Visu['size'] = G1.node[k]["degree"]*10.0/Maxdegs
-            G1.node[k]['viz'] =dict()
+            Visu['size'] = G1.nodes[k]["degree"]*10.0/Maxdegs
+            G1.nodes[k]['viz'] =dict()
             for cle in list(Visu.keys()):
-                G1.node[k]['viz'][cle] = Visu[cle]
+                G1.nodes[k]['viz'][cle] = Visu[cle]
 
         outputFile = ndf+network +'.gexf'
         outputFileJS = ndf+network +'JS.gexf'
