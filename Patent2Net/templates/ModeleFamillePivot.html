@@ -19,10 +19,10 @@
 	<script type="text/javascript" src="../../Patent2Net/media/Pivot/plotly_renderers.js"></script> 
     <script charset="utf-8" type="text/javascript" src="../../Patent2Net/media/Pivot/jquery.ui.touch-punch.min.js"></script>
     <script charset="utf-8" type="text/javascript" src="../../Patent2Net/media/Pivot/export_renderers.js"></script>
-    <script charset="utf-8" type="text/javascript" src="../../Patent2Net/media/Pivot/pivot.fr.js"    <script type="text/javascript" src="../../Patent2Net/media/Pivot/pivot.fr.js"></script>
-    <script type="text/javascript" src="../../Patent2Net/media/Pivot/pivot.pt.js"></script>
-    <script type="text/javascript" src="../../Patent2Net/media/Pivot/pivot.es.js"></script>
-    <script type="text/javascript" src="../../Patent2Net/media/Pivot/pivot.en.js"></script>
+    <script charset="utf-8" type="text/javascript" src="../../Patent2Net/media/Pivot/pivot.fr.js"></script>
+    <script charset="utf-8" type="text/javascript" src="../../Patent2Net/media/Pivot/pivot.pt.js"></script>
+    <script charset="utf-8" type="text/javascript" src="../../Patent2Net/media/Pivot/pivot.es.js"></script>
+    <script charset="utf-8" type="text/javascript" src="../../Patent2Net/media/Pivot/pivot.en.js"></script>
     <link rel="stylesheet" type="text/css" href="../../Patent2Net/media/css/reset.css">
     <link rel="stylesheet" type="text/css" href="../../Patent2Net/media/css/fancybox-thumbs.css">
     <link rel="stylesheet" type="text/css" href="../../Patent2Net/media/css/fancybox-buttons.css">
@@ -53,7 +53,7 @@ $(function(){
 			$.pivotUtilities.c3_renderers,
             $.pivotUtilities.d3_renderers,
 			$.pivotUtilities.plotly_renderers,
-			gchart_renderers,
+			$.gchart_renderers,
             $.pivotUtilities.export_renderers
              );
         if (lingua == "pt") {
@@ -73,7 +73,7 @@ $(function(){
                         aggregatorName = "Count Unique Values";
                         rendererName = "Bar	Chart"
                     }	 
-        $.getJSON("{{fichier}}.json", function(mps) {
+        $.getJSON("{{fichier}}", function(mps) {
             $("#output").pivotUI(mps, {
                 renderers: renderers,
                 "derivedAttributes": {},
