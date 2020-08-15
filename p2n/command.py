@@ -237,7 +237,6 @@ def classic_interface(options):
         logger.error('No configuration file given. Either use --config commandline argument or P2N_CONFIG environment variable.')
         sys.exit(1)
         
-    print ('here I m, with :', options['config'], " and ", configfile)
     if isinstance(configfile, list): #not sure
         configfile = configfile [0]
         
@@ -246,13 +245,13 @@ def classic_interface(options):
     
     print ('here I m again, with :', options['config'], " and ", configfile)    
     if options['acquire'] or options['run']:
-        print('go')
+        
         run_script('OPSGatherPatentsv2.py', configfile)
         run_script('PatentListFiltering.py', configfile)
         if options['with-family']:
             run_script('OPSGatherAugment-Families.py', configfile)
 
-            
+        run_script('PatentListFiltering.py', configfile)    
         run_script('preProcessNormalisationNames.py', configfile)
         
     # normalisation features New 08/2020
@@ -318,6 +317,7 @@ def classic_interface(options):
         run_script('IPC-WS-metrics.py', configfile)
         run_script('ClusterPreProcess.py', configfile)
         run_script('P2N-Cluster.py', configfile)
+        
     #Present data through HTML
     if options['interface'] or options['run']:
         run_script('Interface2.py', configfile)
