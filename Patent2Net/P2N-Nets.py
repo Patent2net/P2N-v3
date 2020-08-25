@@ -66,9 +66,7 @@ ResultAbstractPath = configFile.ResultAbstractPath
 Auteur = configFile.ResultPath + '//AcadCorpora'
 RepDir = configFile.ResultPath + '//AcadCorpora'
 project = RepDir
-if 'AcadCorpora' not in os.listdir(configFile.ResultPath):
-    print ("relancez le script de collecte (AcadPubMed.py 29/06/2019)")
-    sys.exit()
+
 if 'Description'+ndf in os.listdir(BiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
     print( "loading patent biblio data with ", " and ".join(NeededInfo), " fields.")
     DataBrevet = LoadBiblioFile(BiblioPath, ndf)
@@ -84,22 +82,9 @@ print("Nice, ", len(DataBrevet["brevets"]), " patents found. On calcule les aute
 #     Liste = [' '.join([truc.lower().title() for truc in nom.split(' ')]) for nom in Liste ] 
 #     return list(filter(lambda x: x not in indesirables, Liste))
 
-# test de consistance
-with open(Auteur+'//DejaTraites.csv', 'r',) as fic:
-    DejaVus = fic.readlines()
 
-if len (set(DejaVus)) == len(DataBrevet['brevets']):
-    print ('Youhou, tous les brevets ' + ndf + ' ont été traités.')
-    print ('Nb de brevets : ', len(DataBrevet['brevets']))
-    
-else:
-    reste = [bre['label'] for bre in DataBrevet['brevets'] if bre['label'] not in DejaVus ]
-    print ('il reste ', len(reste), ' brevets à traiter')
- 
 # Analyse stat des résultats
-print ("""Ceux qui ont changé d'affiliation la première trouvée puis la seconde... 
-       S'il en est plus de deux, ce sera la première puis la 2e....""")
-lstfic = os.listdir(configFile.ResultPath +'//AcadCorpora')
+
 # loading file from preProcessNormalisationNames
 # inventors names are normalised there
 if "InventeurNormes.pkl" in os.listdir(ResultBiblioPath + '//'):
@@ -107,41 +92,12 @@ if "InventeurNormes.pkl" in os.listdir(ResultBiblioPath + '//'):
         Inventeur_Norm = pickle.load(fic)
 else:
     Inventeur_Norm = dict()
+    
+    
 for cle in Inventeur_Norm.keys():
     Inventeur_Norm [cle] = [truc.title() for truc in Inventeur_Norm [cle]]
     
 InvNormes = [aut.title() for cle in Inventeur_Norm.keys() for aut in Inventeur_Norm [cle]]
-with codecs.open(configFile.ResultPath +'//AcadCorpora//AuteursAffil.csv', 'r', 'utf8') as fic:
-    data = fic.readlines()
-multiAut = 0  # inventeurs prolixes
-AffilDiff = 0   # les affiliations différentes
-Auteurs = dict()
-for lig in data:
-    col = lig   .strip()
-    col = col.split(';')
-    if col[0].title() in InvNormes:
-        if col[0].title() in Inventeur_Norm.keys():
-            Auteurs [ col[0].title()] = col[1]
-        elif NoPunct(col[0].title()) in Inventeur_Norm.keys():
-            Auteurs [NoPunct(col[0].title())] = col[1]
-            
-        else:
-            Auteurs [[cle.title() for cle in Inventeur_Norm.keys() if col[0].title() in Inventeur_Norm[cle]][0].title()] = col[1]
-    if col[0].title() not in Auteurs.keys():
-        Auteurs [col[0].title()] = col[1]
-    elif NoPunct(col[0].title()) not in Auteurs.keys():
-        Auteurs [NoPunct(col[0].title())] = col[1]
-    else:
-        if col[1] != Auteurs [col[0].title()] and '???' not in col[1]:
-            print (col[0], " --> ", Auteurs [col[0]])
-            print (col[0], " --> ", col[1])
-            
-            AffilDiff +=1
-            multiAut+=1  # non sens, le script peut recollecter plusieurs fois le même
-        else:
-            multiAut+=1
-            pass
-
 
 
 for fic in [ndf, 'Families'+ndf]:
@@ -168,8 +124,7 @@ for fic in [ndf, 'Families'+ndf]:
                 else:
                     tempoinv.append(inv.title())
             bre['inventor'] = tempoinv
-            Auctorial = [aut.title() in Auteurs.keys() for aut in bre['inventor']]
-            
+             
         elif bre['inventor'].strip().lower() == 'empty' or len(bre['inventor'].strip().lower()) ==0:
             bre['inventor'] = []
             bre['inventor-nice'] = []
@@ -182,7 +137,6 @@ for fic in [ndf, 'Families'+ndf]:
             if ''.join(bre['applicant']).strip().lower() == 'empty':
                 bre['applicant'] = []
                 bre['applicant-nice'] = []
-            Auctorial = [aut.title() in Auteurs.keys() for aut in bre['applicant']]
             if len(bre['applicant'])>0:
                 tempoAppl = []
                 for appl in bre['applicant']:
