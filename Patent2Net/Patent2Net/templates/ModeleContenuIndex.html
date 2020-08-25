@@ -1,0 +1,369 @@
+<html class="" lang="en">
+
+<head>
+    <title>{{ CollectName }}</title>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" type="text/css" href="../Patent2Net/media/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="../Patent2Net/media/css/fancybox-thumbs.css">
+    <link rel="stylesheet" type="text/css" href="../Patent2Net/media/css/fancybox-buttons.css">
+    <link rel="stylesheet" type="text/css" href="../Patent2Net/media/css/fancybox.css">
+    <link rel="stylesheet" type="text/css" href="../Patent2Net/media/css/animate.css">
+    <link rel="stylesheet" type="text/css" href="../Patent2Net/media/css/main.css">
+
+    <script charset="utf-8" type="text/javascript" src="../Patent2Net/media/js/jquery.js"></script>
+    <script charset="utf-8" type="text/javascript" src="../Patent2Net/media/js/fancybox.js"></script>
+    <script charset="utf-8" type="text/javascript" src="../Patent2Net/media/js/fancybox-buttons.js"></script>
+    <script charset="utf-8" type="text/javascript" src="../Patent2Net/media/js/fancybox-media.js"></script>
+    <script charset="utf-8" type="text/javascript" src="../Patent2Net/media/js/fancybox-thumbs.js"></script>
+    <script charset="utf-8" type="text/javascript" src="../Patent2Net/media/js/wow.js"></script>
+    <script charset="utf-8" type="text/javascript" src="../Patent2Net/media/js/main.js"></script>
+
+    <style>
+    .stroked {
+        text-decoration: line-through;
+        color: #888;
+        pointer-events: none
+    }
+    </style>
+
+    <!-- <script type="text/javascript"> -->
+        <!-- if (navigator.userAgent.indexOf("Chrome") != -1) { -->
+            <!-- alert('This website is not compliant with your browser, please come back with another browser like Internet Explorer, or Firefox. ' + -->
+                <!-- 'We gonna close this website, thanks you !'); -->
+            <!-- close(); May be chrome is ok now ?- -->
+        <!-- } -->
+    <!-- </script> -->
+
+
+</head>
+
+<body>
+
+    <section class="billboard dark">
+        <header class="wrapper dark">
+            <a href="http://patent2netV2.vlab4u.info/index.html"><img class="logo" src="../Patent2Net/media/img/logo_dark.png" alt="" /></a>
+            <nav>
+                <ul>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                    <li>
+                        <a href=""></a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="caption dark animated wow fadeInDown clearfix">
+        <h1><a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=page" title="Patent2Net documentation" target="_blank">A patent collector and analyser</a> to expand <br/> your horizon with various data processing tools<br/> for education and scientific purposes</h1>
+            <p>using EPO's database of over <a href="http://worldwide.espacenet.com/"> 110 000 000 patents </a></p>
+
+            <hr>
+        </div>
+        <div class="shadow"></div>
+    </section>
+    <!--  End billboard  -->
+    <h1>Informations:</h1>
+    <ul>
+        <li>Data directory: {{ CollectName }}</li>
+        <li>Request: {{ Request }} </li>
+        <li>Gathering date: {{ Date }} </li>
+
+        <li style="padding-top: 8px">Number of patents retrieved: {{ TotalPatents }}</li>
+        {% for obj in TotalsPerType %}
+        <li>{{obj.type}}:
+            {% for lang, total in obj.languages.items() %}
+                {{total}} ({{lang.upper()}})  &nbsp;
+            {% endfor %}
+        </li>
+        {% endfor %}
+
+        {% if TotalFamily %}
+        <li style="padding-top: 8px">Number of family patents retrieved: {{ TotalFamily }}</li>
+        {% for obj in TotalsPerFamilyType %}
+        <li>{{obj.type}}:
+            {% for lang, total in obj.languages.items() %}
+                {{total}} ({{lang.upper()}})  &nbsp;
+            {% endfor %}
+        </li>
+        {% endfor %}
+        {% endif %}
+    </ul>
+    <hr>
+    <h1>On-line analysis tools:</h1>
+    <h2>Patents</h2>
+    <ul>
+        {% if FormateExportDataTable or FormateExportPivotTable %}
+        <li>
+            <a href="#" onclick="{{wo('*CollectName*.html')}} {{wo('*CollectName*Pivot.html')}} return false;">Patents datatable, Pivot table</a>
+        </li>
+        {% endif %}
+        {% if FormateExportCountryCartography %}
+        <li>
+            <a href="#" onclick="{{wo('*CollectName*Carto.html')}} {{wo('*CollectName*CartoApplicant.html')}} {{wo('*CollectName*CartoInventor.html')}} return false;">Attractivity: Geolocalisation of patent covering (without EP, WO), Applicants, Inventors (when available) </a>
+        </li>
+        {% endif %}
+        {% if Images %}
+        <li>
+            <a href="#" onclick="{{wo('PatentImages/index.html')}} return false;">Images (when available) </a>
+        </li>
+        {% endif %}
+        {% if InventorNetwork or ApplicantNetwork or CrossTechNetwork %}
+        <li>
+            <a href="#" onclick="{{wo('GephiFiles/*CollectName*_InventorsJS.html')}} {{wo('GephiFiles/*CollectName*_ApplicantsJS.html')}} {{wo('GephiFiles/*CollectName*_CrossTechJS.html')}} return false;">Networks (Inventor, Applicant, Technology)</a>
+        </li>
+        {% endif %}
+        {% if InventorCrossTechNetwork or ApplicantCrossTechNetwork or CountryCrossTechNetwork %}
+        <li>
+            <a href="#" onclick="{{wo('GephiFiles/*CollectName*_CountryCrossTechJS.html')}} {{wo('GephiFiles/*CollectName*_InventorsCrossTechJS.html')}} {{wo('GephiFiles/*CollectName*_Applicants_CrossTechJS.html')}} {{wo('GephiFiles/*CollectName*_ApplicantInventorJS.html')}} return false;">Mixed Networks (Country-Technology, Inventor-Technology,  Applicant-Technology, Applicant-Inventor)</a>
+        </li>
+        {% endif %}
+        {% if References or Citations or Equivalents %}
+        <li>
+            <a href="#" onclick="{{wo('GephiFiles/*CollectName*_EquivalentsJS.html')}} {{wo('GephiFiles/*CollectName*_ReferencesJS.html')}} {{wo('GephiFiles/*CollectName*_CitationsJS.html')}} return false;">Equivalents, Reference (References to other patents or External references), Patents citations networks</a>
+        </li>
+        {% endif %}
+		{% if CompleteNetwork %}
+		<li>
+            <a href="#" onclick="{{wo('GephiFiles/*CollectName*_FullJS.html')}} 
+			 return false;">Full network</a>
+        </li>
+		{% endif %}
+		{% if Cluster %}
+        <li>
+            <a href="#" onclick="{{wo('*CollectName*-Clust.html')}} return false;"> P2N Clusterer</a>
+								   
+        </li>
+        {% endif %}
+    </ul>
+    {% if HasFamily %}
+    <h2>Families</h2>
+    <ul>
+        {% if FormateExportDataTable or FormateExportPivotTable %}
+        <li>
+            <a href="#" onclick="{{wo('Families*CollectName*.html')}} {{wo('Families*CollectName*Pivot.html')}} return false;">Patents datatable, Pivot table</a>
+        </li>
+        {% endif %}
+        {% if FormateExportCountryCartography %}
+        <li>
+            <a href="#" onclick="{{wo('Families*CollectName*Carto.html')}} {{wo('Families*CollectName*CartoApplicant.html')}} {{wo('Families*CollectName*CartoInventor.html')}} return false;">Attractivity: Geolocalisation of patent covering (without EP, WO), Applicants, Inventors (when available) </a>
+        </li>
+        {% endif %}
+        {% if Images %}
+        <li>
+            <a href="#" onclick="{{wo('PatentImages/indexFamilies.html')}} return false;">Images (when available) </a>
+        </li>
+        {% endif %}
+        {% if InventorNetwork or ApplicantNetwork or CrossTechNetwork %}
+        <li>
+            <a href="#" onclick="{{wo('GephiFiles/Families*CollectName*_InventorsJS.html')}} {{wo('GephiFiles/Families*CollectName*_ApplicantsJS.html')}} {{wo('GephiFiles/Families*CollectName*_CrossTechJS.html')}} return false;">Networks (Inventor, Applicant, Technology)</a>
+        </li>
+        {% endif %}
+        {% if InventorCrossTechNetwork or ApplicantCrossTechNetwork or CountryCrossTechNetwork %}
+        <li>
+            <a href="#" onclick="{{wo('GephiFiles/Families*CollectName*_CountryCrossTechJS.html')}} {{wo('GephiFiles/Families*CollectName*_InventorsCrossTechJS.html')}} {{wo('GephiFiles/Families*CollectName*_Applicants_CrossTechJS.html')}} {{wo('GephiFiles/Families*CollectName*_ApplicantInventorJS.html')}} return false;">Mixed Networks (Country-Technology, Inventor-Technology,  Applicant-Technology, Applicant-Inventor)</a>
+        </li>
+        {% endif %}
+        {% if References or Citations or Equivalents %}
+        <li>
+            <a href="#" onclick="{{wo('GephiFiles/Families*CollectName*_EquivalentsJS.html')}} {{wo('GephiFiles/Families*CollectName*_ReferencesJS.html')}} {{wo('GephiFiles/Families*CollectName*_CitationsJS.html')}}  return false;">Equivalents, Reference (References to other patents or External references), Patents citations networks</a>
+        </li>
+        {% endif %}
+		{% if CompleteNetwork %}
+		<li>
+            <a href="#" onclick="{{wo('GephiFiles/Families*CollectName*_FullJS.html')}} 
+			 return false;">Full network</a>
+        </li>
+        {% endif %}
+    </ul>
+    {% endif %}
+    <hr>
+    <h1>Download data</h1> TIP: use "right-click" and "save as" on links!
+    <h2>Patents</h2>
+    <section class="subsection">
+        <h3><a href="http://www.gephi.org" target="_blank">Gephi</a> compatible network files (gexf format):</h3>
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <a href="{{u('GephiFiles/*CollectName*_Applicants.gexf')}}" download>Applicants </a> </td>
+                <td>
+                    <a href="{{u('GephiFiles/*CollectName*_Inventors.gexf')}}" download>Inventors </a> </td>
+                <td>
+                    <a href="{{u('GephiFiles/*CollectName*_CrossTech.gexf')}}" download>Technologies (IPC7) </a> </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{{u('GephiFiles/*CollectName*_Citations.gexf')}}" download>Citations</a> </td>
+                <td>
+                    <a href="{{u('GephiFiles/*CollectName*_References.gexf')}}" download>References</a> </td>
+                <td>
+                    <a href="{{u('GephiFiles/*CollectName*_Equivalents.gexf')}}" download>Equivalents</a> </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{{u('GephiFiles/*CollectName*_CountryCrossTech.gexf')}}" download>Countries and technologies</a> </td>
+                <td>
+                    <a href="{{u('GephiFiles/*CollectName*_ApplicantInventor.gexf')}}" download>Inventors and applicants</a> </td>
+                <td>
+                    <a href="{{u('GephiFiles/*CollectName*_InventorsCrossTech.gexf')}}" download>Inventors and technologies</a>                    </td>
+                <td>
+                    <a href="{{u('GephiFiles/*CollectName*_Applicants_CrossTech.gexf')}}" download>Applicants and technologies</a>                    </td>
+			</tr>
+			<tr>
+                <td>
+                    <a href="{{u('GephiFiles/*CollectName*_Full.gexf')}}" download>Full Net</a>                    </td>
+            
+        </table>
+        <h3><a href="http://freeplane.sourceforge.net"  target="_blank">FreePlane compatible file</a> </h3>
+        <ul>
+            <li> <a href="{{u('*CollectName*.html_files/*CollectName*FP.mm')}}" download> IPC'c Mindmap </a> </li>
+        </ul>
+        <!-- <ul style="list-style-type:square"> Next are not working right now (11/2015)
+            <li> <a href="{{ CollectName }}/GephiFiles/{{ CollectName }}.gexf" onclick="window.open('{{ CollectName }}/GephiFiles/{{ CollectName }}.gexf', '_blank'); return false;">complete, </a> </li>
+             <li> <a href="{{ CollectName }}/GephiFiles/{{ CollectName }}Families.gexf" onclick="window.open('{{ CollectName }}/GephiFiles/{{ CollectName }}Families.gexf', '_blank');return false;">families, </a></li>
+             <li>  <a href="{{ CollectName }}/GephiFiles/{{ CollectName }}FamiliesHierarc.gexf" onclick="window.open('{{ CollectName }}/GephiFiles/{{ CollectName }}FamiliesHierarc.gexf', '_blank');return false;">families hierarchical; </a> </li>
+            </ul> -->
+        <h3><a href="http://www.iramuteq.org/"  target="_blank">Iramuteq</a> tagged abstracts (unicode UTF-8 encoding):</h3>
+        <table style="width:100%">
+            <tr>
+                <td> <a href="{{u('PatentContents/EN_Abstract_*CollectName*.txt')}}" download>Abstracts (EN) </a></td>
+                <td> <a href="{{u('PatentContents/EN_Claims_*CollectName*.txt')}}" download>Claims (EN)</a></td>
+                <td> <a href="{{u('PatentContents/EN_Description_*CollectName*.txt')}}" download>Descriptions (EN)</a></td>
+            </tr>
+            <tr>
+                <td> <a href="{{u('PatentContents/FR_Abstract_*CollectName*.txt')}}" download>Abstracts (FR)</a></td>
+                <td> <a href="{{u('PatentContents/FR_Claims_*CollectName*.txt')}}" download>Claims (FR)</a></td>
+                <td> <a href="{{u('PatentContents/FR_Description_*CollectName*.txt')}}" download>Descriptions (FR)</a></td>
+            </tr>
+
+        </table>
+
+        <h3><a href="http://project.carrot2.org/"  target="_blank">Carrot2</a> clustering engine XML compatible files:</h3>
+        <ul style="list-style-type:square">
+            <li> <a href="{{u('PatentContents/Carrot2/EN_Abstract_*CollectName*.xml')}}" download> Abstract XML (english only) </a></li>
+            <li> <a href="{{u('PatentContents/Carrot2/FR_Abstract_*CollectName*.xml')}}" download> Abstract XML (french only) </a></li>
+            <li> <a href="{{u('PatentContents/Carrot2/UNK_Abstract_*CollectName*.xml')}}" download> Abstract XML (all others language: unknown) </a></li>
+        </ul>
+        <h3>Download bibliographic format </h3>
+        <ul>
+            <li> <a href="{{u('*CollectName*.bib')}}" download>Biblatex format, Zotero compatible (only A,B, C statuses)</a></li>
+        </ul>
+    </section>
+    {% if HasFamily %}
+    <h2>Families</h2>
+    <section class="subsection">
+        <h3><a href="http://www.gephi.org" target="_blank">Gephi</a> compatible network files (gexf format):</h3>
+        <table style="width:100%">
+            <tr>
+                <td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_Applicants.gexf')}}" download>Applicants </a> </td>
+                <td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_Inventors.gexf')}}" download>Inventors </a> </td>
+                <td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_CrossTech.gexf')}}" download>Technologies (IPC7) </a> </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_Citations.gexf')}}" download>Citations</a> </td>
+                <td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_References.gexf')}}" download>References</a> </td>
+                <td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_Equivalents.gexf')}}" download>Equivalents</a> </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_CountryCrossTech.gexf')}}" download>Countries and technologies</a> </td>
+                <td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_ApplicantInventor.gexf')}}" download>Inventors and applicants</a> </td>
+                <td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_InventorsCrossTech.gexf')}}" download>Inventors and technologies</a>                    </td>
+		
+                <td>
+                    <a href="{{u('GephiFiles/Families*CollectName*_Applicants_CrossTech.gexf')}}" download>Applicants and technologies</a>                    </td>
+		</tr>
+		<tr>
+		 <td>
+            <a href="{{u('GephiFiles/Families*CollectName*_FullJS.html')}}">Full family network</a>
+        </td>
+		</tr>
+            
+
+        </table>
+        <h3><a href="http://freeplane.sourceforge.net"  target="_blank">FreePlane compatible file</a> </h3>
+        <ul>
+            <li> <a href="{{u('*CollectName*.html_files/Families*CollectName*FP.mm')}}" download> IPC'c Mindmap </a> </li>
+        </ul>
+        <!-- <ul style="list-style-type:square"> Next are not working right now (11/2015)
+            <li> <a href="{{ CollectName }}/GephiFiles/{{ CollectName }}.gexf" onclick="window.open('{{ CollectName }}/GephiFiles/{{ CollectName }}.gexf', '_blank'); return false;">complete, </a> </li>
+             <li> <a href="{{ CollectName }}/GephiFiles/{{ CollectName }}Families.gexf" onclick="window.open('{{ CollectName }}/GephiFiles/{{ CollectName }}Families.gexf', '_blank');return false;">families, </a></li>
+             <li>  <a href="{{ CollectName }}/GephiFiles/{{ CollectName }}FamiliesHierarc.gexf" onclick="window.open('{{ CollectName }}/GephiFiles/{{ CollectName }}FamiliesHierarc.gexf', '_blank');return false;">families hierarchical; </a> </li>
+            </ul> -->
+        <h3><a href="http://www.iramuteq.org/"  target="_blank">Iramuteq</a> tagged abstracts (unicode UTF-8 encoding):</h3>
+        <table style="width:100%">
+            <tr>
+                <td> <a href="{{u('PatentContents/EN_FamiliesAbstract_*CollectName*.txt')}}" download>Abstracts (EN) </a></td>
+                <td> <a href="{{u('PatentContents/EN_FamiliesClaims_*CollectName*.txt')}}" download>Claims (EN)</a></td>
+                <td> <a href="{{u('PatentContents/EN_FamiliesDescription_*CollectName*.txt')}}" download>Descriptions (EN)</a></td>
+            </tr>
+            <tr>
+                <td> <a href="{{u('PatentContents/FR_FamiliesAbstract_*CollectName*.txt')}}" download>Abstracts (FR)</a></td>
+                <td> <a href="{{u('PatentContents/FR_FamiliesClaims_*CollectName*.txt')}}" download>Claims (FR)</a></td>
+                <td> <a href="{{u('PatentContents/FR_FamiliesDescription_*CollectName*.txt')}}" download>Descriptions (FR)</a></td>
+            </tr>
+        </table>
+
+        <h3><a href="http://project.carrot2.org/"  target="_blank">Carrot2</a> clustering engine XML compatible files:</h3>
+        <ul style="list-style-type:square">
+            <li> <a href="{{u('PatentContents/Carrot2/EN_Abstract_Families*CollectName*.xml')}}" download> Abstract XML (english only) </a></li>
+            <li> <a href="{{u('PatentContents/Carrot2/FR_Abstract_Families*CollectName*.xml')}}" download> Abstract XML (french only) </a></li>
+            <li> <a href="{{u('PatentContents/Carrot2/UNK_Abstract_Families*CollectName*.xml')}}" download> Abstract XML (all others language: unknown) </a></li>
+        </ul>
+        <h3>Download bibliographic format </h3>
+        <ul>
+            <li> <a href="{{u('Families*CollectName*.bib')}}" download>Biblatex format, Zotero compatible (only A,B, C statuses)</a></li>
+        </ul>
+    </section>
+    {% endif %}
+    <br>
+    <br> Use <a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=page" target="_blank">P2N</a> to build your own cases!<br/>
+    <footer>
+        <div class="wrapper">
+            <div class="rights">
+
+                <p><span style="-webkit-transform: rotate(180deg); -moz-transform: rotate(180deg); -o-transform: rotate(180deg); -khtml-transform: rotate(180deg); -ms-transform: rotate(180deg); transform: rotate(180deg); display: inline-block;" class="grand"><p>
+		</span> Credits: <a href="https://github.com/patent2net" target="_blank">Patent2Net</a> 2013-
+                    <script language=javascript>
+                        var ladate = new Date()
+                        document.write(ladate.getFullYear())
+                    </script> . Open source licence "as is". See <a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer" target="_blank">disclaimer</a></p>
+
+            </div>
+
+        </div>
+    </footer>
+    <!--  End footer  -->
+
+    <script>
+    // scripts helpers for not showing empty elements
+    // first for empty htmls / onclicks
+    $('a[href=#]').each(function(i, a){
+        var k = $(a).attr('onclick');
+        k = k.trim().replace('return false;', '');
+        if (k.length === 0) {
+            $(a).addClass('stroked').attr('title', 'Not available')
+        }
+    });
+    $('a[href=""]').each(function(i, a){
+        $(a).addClass('stroked').attr('title', 'Not available')
+    })
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+beautifulsoup4=4.7.1
+gensim=3.4.0
+graphviz=2.41
+jinja2=2.10.1
+joblib=0.13.2
+lxml=4.3.3
+matplotlib=3.0.3
+networkx=2.3
+nltk=3.4.5
+mpld3=0.3
+numpy=1.16.4
+pandas=0.24.2
+pydot=1.4.1
+pygraphviz -c alubbock
+pyparsing=2.4.0
+pillow=6.0.0
+python-louvain=0.13
+requests=2.22.0
+scikit-learn
+
