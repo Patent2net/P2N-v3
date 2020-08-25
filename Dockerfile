@@ -115,7 +115,10 @@ RUN git -C ./usr/src clone -b master https://github.com/Patent2net/P2N-V3
 
 RUN chown -R root:ftp /usr/src/P2N-V3
 RUN usermod -d /usr/src/P2N-V3 ftp
-chmod -R 777 /usr/src/P2N-V3/DATA
+RUN mkdir /usr/src/P2N-V3/DATA
+
+RUN chmod -R 775 /usr/src/P2N-V3/DATA
+
 
 RUN mkdir /var/run/vsftpd
 RUN mkdir /var/run/vsftpd/empty
