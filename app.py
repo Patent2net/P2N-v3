@@ -177,4 +177,4 @@ def mass():
     return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
-app.run(debug=True, host='0.0.0.0') 
+app.run(debug=True, host='0.0.0.0', port=5000) 
