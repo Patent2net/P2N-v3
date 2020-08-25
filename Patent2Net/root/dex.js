@@ -1,4 +1,0 @@
-document.write('\
-<ul>\
-</ul>\
-');
