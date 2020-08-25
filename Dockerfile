@@ -43,7 +43,7 @@ RUN { \
         echo 'chroot_local_user=YES'; \
         echo 'connect_from_port_20=YES'; \
         echo 'dirmessage_enable=YES'; \
-        echo 'ftpd_banner=Welcome to VSFTPD service.'; \
+        echo 'ftpd_banner=Welcome to P2N VSFTPD service.'; \
         echo 'listen=YES'; \
         echo 'local_enable=YES'; \
         echo 'no_anon_password=YES'; \
@@ -109,7 +109,7 @@ RUN pip install dogpile.cache \
 
 RUN apt-get update
 RUN apt-get -y install git
-RUN git -C ./usr/src clone -b docker https://github.com/Patent2net/P2N-V3
+RUN git -C ./usr/src clone -b master https://github.com/Patent2net/P2N-V3
 
 # open vsftpd services for anonymous_enable
 
