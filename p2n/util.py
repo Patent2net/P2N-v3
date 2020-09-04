@@ -15,6 +15,20 @@ from six import StringIO, BytesIO
 from json.encoder import JSONEncoder
 from collections import OrderedDict
 
+#########
+# this is added because I don't know haow to import function from Patent2NNet Librairies (patent2Net\P2N_lib)
+import requests
+
+def AnnonceProgres(Appli, valActu, valMax):
+    valActu = "%.2f" % valActu 
+    pipo = requests.get('http://localhost:5000/announce?appli=%s&ValActu=%s&valMax=%s' %(Appli, valActu, valMax) )
+
+# so I copy it here  FIX It please
+#
+
+
+
+
 logger = logging.getLogger(__name__)
 
 

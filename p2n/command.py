@@ -9,7 +9,7 @@ import operator
 from p2n import __version__
 from p2n.api import Patent2Net
 from p2n.config import OPSCredentials
-from p2n.util import boot_logging, normalize_docopt_options, run_script, JsonObjectEncoder
+from p2n.util import boot_logging, normalize_docopt_options, run_script, JsonObjectEncoder, AnnonceProgres
 
 logger = logging.getLogger(__name__)
 
@@ -254,8 +254,11 @@ def classic_interface(options):
 
     if options['tables'] or options['run']:
         run_script('FormateExportDataTableFamilies.py', configfile)
+        AnnonceProgres (Appli = 'p2n_tables', valMax = 100, valActu = 50) # approx
         run_script('FormateExportDataTable.py', configfile)
+        AnnonceProgres (Appli = 'p2n_tables', valMax = 100, valActu = 75) # approx
         run_script('FormateExportPivotTable.py', configfile)
+        AnnonceProgres (Appli = 'p2n_tables', valMax = 100, valActu = 100) # approx
 
     if options['networks'] or options['run']:
 
@@ -271,25 +274,32 @@ def classic_interface(options):
             "Citations",
             "Equivalents",
         ]
-        
+        compt = 0
         for network in networks:
+            compt += 1
 #             run_script('P2N-PreNetworks.py {network}'.format(network=network), configfile)
-             run_script('P2N-NetworksBis.py {network}'.format(network=network), configfile)
+            run_script('P2N-NetworksBis.py {network}'.format(network=network), configfile)
+            AnnonceProgres (Appli = 'p2n_network', valMax = len(networks), valActu = compt*100/len(networks)) # valMax is unused in front end
 #            run_script('P2N-NetworksJS.py {network}'.format(network=network), configfile)
     #adding the complete net a very very slow process
     
         run_script('P2N-NetworksFull.py', configfile)
     if options['freeplane'] or options['run']:
         run_script('P2N-FreePlane.py', configfile)
+        AnnonceProgres (Appli = 'p2n_network', valMax = len(networks), valActu = compt*100/len(networks)) # valMax is unused in front end
 
     #Gather more textual data if it exsts (Claims, Descriptions) an format them
     #for Iramuteq
     if options['iramuteq'] or options['run']:
+        if options['with-family']:
+            run_script('OPSGatherAugment-Families.py', configfile)
         run_script('OPSGatherContentsV2-Iramuteq.py', configfile)
         run_script('FusionIramuteq2.py', configfile)
     
     #format xml files for Carrot2
     if options['carrot'] or options['run']:
+        if options['with-family']:
+            run_script('OPSGatherAugment-Families.py', configfile)
         run_script('FusionCarrot2.py', configfile)
         
     #Gather images
@@ -299,6 +309,8 @@ def classic_interface(options):
     
     #Cluster processing
     if options['cluster'] or options['run']:
+        if options['with-family']:
+            run_script('OPSGatherAugment-Families.py', configfile)
         run_script('IPC-WS-metrics.py', configfile)
         run_script('ClusterPreProcess.py', configfile)
         run_script('P2N-Cluster.py', configfile)
