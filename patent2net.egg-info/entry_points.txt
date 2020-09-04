@@ -1,3 +1,0 @@
-[console_scripts]
-p2n = p2n.command:run
-
