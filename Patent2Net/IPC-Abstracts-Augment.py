@@ -10,7 +10,7 @@ in the patent metadata
 """
 
 from lxml import etree
-from Patent2Net.P2N_Lib import LoadBiblioFile, symbole
+from Patent2Net.P2N_Lib import LoadBiblioFile, symbole, AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
 import sys, os, codecs
 configFile = LoadConfig()
@@ -301,6 +301,6 @@ with codecs.open(ResultContentsPath +'//ClassementCorpus.txt', 'w', 'utf8') as f
 print(str(cpt) + ' ' + ' abstract and CIB merged') 
 print("Done. use it with whatever you want :-) or IRAMUTEQ. See DATA/"+ResultContentsPath +'//Metrics//*.AumentCIB.txt')  
 print("See also ", ResultContentsPath +'//ClassementCorpus.txt', " for CIB description used")
-  
+AnnonceProgres (Appli = 'p2n_cluster', valMax = 100, valActu = 200/3)  
         
         

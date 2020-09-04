@@ -136,8 +136,11 @@ if IsEnableScript:
 
         patents = biblio_file['brevets']
         metadata = {}
-
+        Num = len(patents)
+        cpt = 0
         for patent in patents:
+            cpt += 1
+            AnnonceProgres (Appli = 'p2n_image', valMax = 100, valActu = cpt*100/Num)
             patent_label = get_patent_label(patent)
             pathes = []
             path_json = '{}//{}.json'.format(ResultPathImages, patent_label)

@@ -4,6 +4,7 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
     <script>
 
     console.log("Opening the SSE connection")
@@ -12,37 +13,70 @@
         sent_data = JSON.parse(event.data)
         console.log(sent_data)
         var done = true
+        var somme = 0
         for (i in sent_data) {
             console.log(i, sent_data[i])
-            
-            // data received is in the form : {'0':value, '1':value}
+            somme = somme + sent_data[i]
+
+            // data received is in the form : {'appli1':value}
             qi = "#prog_"+i
-            $(qi).css('width', sent_data[i]+'%').attr('aria-valuenow', sent_data[i]);
+            if (sent_data [i]>90)
+                $(qi).css({background:'green'});
+            if (sent_data [i]>99){
+                $(qi).css({background:'green'});
+                $(qi).css('width', '100%').attr('aria-valuenow', 100);
+                $(qi).finish().animate(
+                    {
+                      width:'100%'
+                    },
+                    {
+                    }
+                )}
+                   
+            else
+                {
+                $(qi).css('width', sent_data[i]+'%').attr('aria-valuenow', sent_data[i]);
+                }
             lqi = qi+"_label"
             $(lqi).text(sent_data[i]+'%');
-            if (sent_data[i] < 99)
+            if (somme < 999)
                 done = false
         }
         
         if(done){
+        
             console.log("Closing the SSE connection")
             source.close()
         }
         
     }
     </script>
+<style>
+
+    div.progress {
+  position: relative;
+  border: 1px solid black;
+  height: 40px;
+  width: 100px;
+  padding: 5px;
+  margin: 2px;
+  line-height: 1.2;
+}
+</style>    
 </head>
 <body>
-    <h3> A simple Flask application to show multiple progress bars</h3>
+    <h3> Gathering and processing steps as expected: </h3>
     Using <a href="https://getbootstrap.com/docs/4.4/components/progress/"> Bootstrap Progress Bars</a>
+    <div id="container">
 {% for bar in range(0,num_bars) %}
-    <div class="progress" style="width: 50%; margin: 50px;" >
-        {{label [bar]}} <div class="progress-bar progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id="prog_{{bar}}">
+    <div class="progress" style="width: 50%; margin: 5px;" >
+        {{label [bar]}} <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 100%" id="prog_{{bar}}">
             <span class="progress-bar-label" id="prog_{{bar}}_label">0%</span>
         </div>
     </div>
 {% endfor %}
 
 </div>
+
 </body>
 </html>

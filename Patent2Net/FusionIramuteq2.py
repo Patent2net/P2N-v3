@@ -8,7 +8,7 @@ Created on Fri Dec 19 07:53:30 2014
 
 import os, codecs
 from Patent2Net.P2N_Lib import ReturnBoolean, GenereListeFichiers
-from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
 
 configFile = LoadConfig()
@@ -64,9 +64,9 @@ if FusionIramuteq2:
     #        ficRes.write(complete2(temporar[ind], lang, det))
     #        ind+=1
     #        ficRes.close()
-            
+    num = 0
     for content in ['Abstract', 'Claims', 'Description', 'FamiliesAbstract', 'FamiliesClaims', 'FamiliesDescription' ]: 
-        
+        num +=1
         lstfic = os.listdir(ResultPathContent+'//'+content)
         print(len(lstfic), " not so empty", content, " gathered. See ", ResultPathContent + '//'+ content+'// directory for files')
         print('Over the ', len(lstfic),  ' patents...'+ content)
@@ -83,5 +83,8 @@ if FusionIramuteq2:
                         data = absFic.read().strip()
                         ficRes.write(data +'\n')
                         cpt+=1
+                        
+                
             print(str(cpt) + ' ' + ling + ' ' + content + ' merged') 
         print("Done. use it with whatever you want :-) or IRAMUTEQ. See DATA/"+ndf+"/PatentContents")  
+        AnnonceProgres (Appli = 'p2n_iramuteq', valMax = 100, valActu = 50+num*50/6)

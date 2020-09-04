@@ -31,7 +31,7 @@ import sys
 import epo_ops
 from epo_ops.models import Docdb
 from epo_ops.models import Epodoc
-from Patent2Net.P2N_Lib import MakeIram2, LoadBiblioFile
+from Patent2Net.P2N_Lib import MakeIram2, LoadBiblioFile, AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
 
 
@@ -97,7 +97,8 @@ if IsEnableScript:
     ops_client = epo_ops.Client(key, secret)
     #        data = ops_client.family('publication', , 'biblio')
     ops_client.accept_type = 'application/json'
-
+    NumTotal = 0
+    cpt = 0
     for ndf in [fic2 for fic2 in os.listdir(ResultBiblioPath) if fic2.count('Description')==0]:
         if ndf.startswith('Families'):
             typeSrc = 'Families'
@@ -115,6 +116,7 @@ if IsEnableScript:
     #        if data.has_key('requete'):
     #            DataBrevet['requete'] = data["requete"]
             print("Found ",typeSrc, ' file and', len(lstBrevet), " patents! Gathering contents")
+            NumTotal += len(lstBrevet)
         else:
             print('gather your data again')
             sys.exit()
@@ -140,7 +142,13 @@ if IsEnableScript:
 
         if GatherContent:
             Nombre = dict()
+            'p2n_content', 'p2n_carrot','p2n_iramuteq','p2n_cluster'
             for brevet in lstBrevet:
+                cpt += 1
+                AnnonceProgres (Appli = 'p2n_content', valMax = 100, valActu = cpt*100/NumTotal)
+                AnnonceProgres (Appli = 'p2n_carrot', valMax = 100, valActu = cpt*50/NumTotal)
+                AnnonceProgres (Appli = 'p2n_iramuteq', valMax = 100, valActu = cpt*50/NumTotal)
+                AnnonceProgres (Appli = 'p2n_cluster', valMax = 100, valActu = cpt*50/NumTotal)
                 brevet = dictCleaner(brevet)
                 ndb = brevet['label']#[u'document-id'][u'country']['$']+brevet[u'document-id'][u'doc-number']['$']brevet['publication-ref'][u'document-id'][0][u'kind']['$'])
                 print("Retrieving ", ndb)

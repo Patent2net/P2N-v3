@@ -42,6 +42,13 @@ import datetime
 import codecs
 import os
 from jinja2 import Environment, FileSystemLoader
+import requests
+
+def AnnonceProgres(Appli, valActu, valMax):
+    valActu = "%.2f" % valActu 
+    pipo = requests.get('http://localhost:5000/announce?appli=%s&ValActu=%s&valMax=%s' %(Appli, valActu, valMax) )
+#☻    print ('annnonce envoyée: ', pipo)
+
 
 def GenereListeFichiers(rep):
     """ prend un dossier en paramètre (chemin absolu) et génère la liste

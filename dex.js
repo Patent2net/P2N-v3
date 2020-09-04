@@ -1,5 +1,14 @@
 document.write('\
 <ul>\
+<li><a href="DATA/lentille671.html" target="_blank">lentille671</a></li>\
+<li><a href="DATA/lentille670.html" target="_blank">lentille670</a></li>\
+<li><a href="DATA/lentille67.html" target="_blank">lentille67</a></li>\
+<li><a href="DATA/lentille66.html" target="_blank">lentille66</a></li>\
+<li><a href="DATA/lentille6.html" target="_blank">lentille6</a></li>\
+<li><a href="DATA/lentille5.html" target="_blank">lentille5</a></li>\
+<li><a href="DATA/lentille4.html" target="_blank">lentille4</a></li>\
+<li><a href="DATA/lentille2.html" target="_blank">lentille2</a></li>\
+<li><a href="DATA/lentille.html" target="_blank">lentille</a></li>\
 <<<<<<< Updated upstream
 <li><a href="DATA/P7-LargebisPublic.html" target="_blank">P7-LargebisPublic</a></li>\
 <li><a href="DATA/P7-LargebisMix.html" target="_blank">P7-LargebisMix</a></li>\
@@ -19,7 +28,6 @@ document.write('\
 <li><a href="DATA/Lentille.html" target="_blank">Lentille</a></li>\
 <li><a href="DATA/Datte.html" target="_blank">Datte</a></li>\
 =======
-<li><a href="DATA/lentille.html" target="_blank">lentille</a></li>\
 >>>>>>> Stashed changes
 </ul>\
 ');

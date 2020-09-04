@@ -25,7 +25,7 @@ Amy be unconsistent with pivotable formating... (almost)
 import pickle
 #from Ops2 import ExtraitParties, Clean, ExtraitTitleEn, ExtraitKind, ExtraitCountry, ExtraitIPCR2, ExtractionDate
 from Patent2Net.P2N_Lib import Update, GetFamilly, flatten
-from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
 from p2n.config import OPSCredentials
 
@@ -109,6 +109,7 @@ if GatherFamilly:
         if isinstance(data, collections.Mapping):
             ListeBrevet = data['brevets']
             print("Found ", len(ListeBrevet), " patents gathered.")
+            AnnonceProgres (Appli = 'p2n_family', valMax = len(ListeBrevet), valActu = 0)
         else:
             print('data corrupted. Do something (destroying data directory is a nice idea)')
             sys.exit()
@@ -178,6 +179,7 @@ if GatherFamilly:
                 for bre in Done:
                     pickle.dump(dictCleaner(bre) , ndfLstBrev)
             #GatherFamilly = False
+            AnnonceProgres (Appli = 'p2n_family', valMax = 0, valActu = len(Done)/len(ListeBrevet))
     if ficOk and GatherFamilly:
         ops_client = epo_ops.Client(key, secret)
     #        data = ops_client.family('publication', , 'biblio')
@@ -247,6 +249,8 @@ if GatherFamilly:
                                 ListeBrevetAug.append(dictCleaner(pat))
                                 with open(ResultPath+'//Families'+ ndf, 'ab') as ndfLstBrev:
                                     pickle.dump(pat , ndfLstBrev)
+                                    
+                            
                         else:
                             # hum it is already in so, nothing to do
                              pass
@@ -306,6 +310,7 @@ if GatherFamilly:
     #            time.sleep(7)
 
             Done.append(Brev)
+            AnnonceProgres (Appli = 'p2n_family', valMax = 100, valActu = (len(Done))*100/len(ListeBrevet))
             Data = dict()
             with open(ResultPath+'//DescriptionFamilies'+ ndf, 'wb') as ndfLstBrev:
                 Data['ficBrevets'] = 'Families'+ ndf
@@ -316,7 +321,7 @@ if GatherFamilly:
                 pickle.dump(Done, DoneLstBrev)
 
 
-
+    AnnonceProgres (Appli = 'p2n_family', valMax = 100, valActu = 100)
     print("before", len(ListeBrevet))
     print("now", len(ListeBrevetAug))
     #####

@@ -10,7 +10,7 @@ import pickle
 import bs4
 from xml.sax.saxutils import escape
 
-from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
 
 configFile = LoadConfig()
@@ -204,11 +204,15 @@ if IsEnableScript:
             #directory exists
             pass
         temporar = GenereListeFichiers(Rep)
+        cpt =0
         for det in ['Abstract', 'Claims', 'Description']:
             ind = 0
+            cpt+=1
             for lang in ['FR', 'EN', 'UNK']:
                 NomResult = lang+'_'+det.replace('Abstracts', '') + '_' + ndf+'.xml' # det.replace('Abstracts', '') this command is for old old mispelling :-(.. I think)
                 ficRes = codecs.open(Rep+'//Carrot2//'+NomResult, "w", 'utf8')
                 ficRes.write(complete3(temporar[ind], lang, prefix+det, LstBrevet))
                 ind+=1
+                AnnonceProgres (Appli = 'p2n_carrot', valMax = 100, valActu = 60+5*ind*cpt) #; say almost 10 loops (3x3 ^_^), 50% of progress bar should be missing here so I put 60... grosso modo
+
                 ficRes.close()

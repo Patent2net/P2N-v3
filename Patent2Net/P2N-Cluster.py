@@ -17,7 +17,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import stopwords as nltkSW
 from Patent2Net.TAL_P2N_Lib import tokenize_only, tokenize_and_stem
-from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
 
 import collections
@@ -1047,3 +1047,5 @@ with open(os.path.normpath(ResultPath+"//"+ndf+"-Clust.html"), "w") as fic:
     fic.write(html2)
 from pandas.plotting import scatter_matrix
 ptl = scatter_matrix(df, alpha=0.2, figsize=(6, 6), diagonal='kde')
+
+AnnonceProgres (Appli = 'p2n_cluster', valMax = 100, valActu = 100/3)  
