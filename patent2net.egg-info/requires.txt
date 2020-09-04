@@ -1,0 +1,11 @@
+pyparsing
+dogpile.cache
+requests
+docopt
+jsonpointer
+attrs
+where
+numpy
+Flask
+
+[test]
