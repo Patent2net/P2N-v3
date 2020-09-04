@@ -1,0 +1,12 @@
+p2n_req:TA=lentille
+p2n_dir:lentille2
+p2n_family:True
+p2n_image:False
+p2n_network:False
+p2n_freeplane:False
+p2n_bibfile:False
+p2n_map:False
+p2n_tables:False
+p2n_carrot:False
+p2n_iramuteq:False
+p2n_cluster:True

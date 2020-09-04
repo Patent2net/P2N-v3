@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>P2N : Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss@^1.4.6/dist/tailwind.min.css" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script>
+        var source = new EventSource("/progressBar");
+        source.onmessage = function (event) {
+            $('.progress-bar').css('width', event.data + '%').attr('aria-valuenow',event.data);
+            $('.progress-bar-label').text(event.data + '%');
+            if (event.data == 100) {
+                source.close()
+            }
+    }
+</script>
+    <script>
+
+    console.log("Opening the SSE connection")
+    var source = new EventSource("progressBar");
+    source.onmessage = function(event) {
+        sent_data = JSON.parse(event.data)
+        console.log(sent_data)
+        var done = true
+        for (i in sent_data) {
+            console.log(i, sent_data[i])
+            
+            // data received is in the form : {'0':value, '1':value}
+            qi = "#prog_"+i
+            $(qi).css('width', sent_data[i]+'%').attr('aria-valuenow', sent_data[i]);
+            lqi = qi+"_label"
+            $(lqi).text(sent_data[i]+'%');
+            if (sent_data[i] < 99)
+                done = false
+        }
+        
+        if(done){
+            console.log("Closing the SSE connection")
+            source.close()
+        }
+        
+    }
+    </script>
+<!-- Force Html Page refresh -->
+
+
+	
+    <style>
+        .container2 {
+            width: 612px;
+        }
+        @media screen and (max-width:800px) {
+          .container {
+            width: calc(100% - 128px);
+          }
+        }
+    </style>
+</head>
+
+<body class="bg-orange-100 flex  justify-between">
+
+	<!--Nav-->
+	<nav class="bg-orange-600 p-2 mt-0 fixed w-full z-10 top-0">
+        <div class="container mx-auto flex flex-wrap items-center">
+		    <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
+				<a class="text-white no-underline hover:text-white hover:no-underline" href="#">
+					<span class="text-2xl pl-2"> Patent2Net</span>
+				</a>
+            </div>
+			<div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
+				<ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+					<li class="mr-3">
+						<a href="/"  class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4">Home</a>
+					</li>
+					
+					<li class="mr-3">
+						<a  href="/get_started" class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4">Get Started</a>
+					</li>
+					
+					<li class="mr-3">
+						<a href="/form"  class="inline-block py-2 px-4 text-white no-underline font-medium">Requests</a>
+					</li>
+					
+					<li class="mr-3">
+						<a href="/index"  class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4" target="_blank">Index</a>
+					</li>
+					
+					<li class="mr-3">
+						<a href="/downloadDat" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Download Data</a>
+					</li>
+				</ul>
+			</div>
+        </div>
+    </nav>
+
+
+
+<!-- List all Html pages created by request (in RequestSets)-->
+	<div class=" flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow ">
+					   <script src="../../../dex.js"></script>
+	</div>
+	
+	<!--Main Container-->
+	<div class="flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow ">
+		<h1 class="text-lg mb-2 text-gray-900">Patent2Net toolkit</h1>
+		<hr>
+		
+    <div class="progress" style="width: 50%; margin: 50px;" >
+        <div class="progress-bar progress-bar-striped " role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id=0>
+            <span class="progress-bar-label" id="0">0%</span>
+        </div>
+    </div>
+
+    <div class="progress" style="width: 50%; margin: 50px;" >
+        <div class="progress-bar progress-bar-striped " role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id=1>
+            <span class="progress-bar-label" id="0">0%</span>
+        </div>
+    </div>
+        <div class="progress" style="width: 50%; margin: 50px;" >
+        <div class="progress-bar progress-bar-striped " role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%" id=2>
+            <span class="progress-bar-label" id="0">0%</span>
+        </div>
+    </div>
+	<!--End Main Container-->
+	</div>
+		<div class="flex flex-col mt-12 mb-12  p-8 "></div>
+</body>
+</html>

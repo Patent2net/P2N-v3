@@ -1,0 +1,10 @@
+CountryCrossTech
+CrossTech
+InventorsCrossTech
+Applicants_CrossTech
+Inventors
+ApplicantInventor
+Applicants
+References
+Citations
+Equivalents
