@@ -132,60 +132,20 @@ print("Nice, ", len(DataBrevet["brevets"]), " patents found. Découpage selon le
 
 Inventeurs = []
 Applicants = []
-# for bre in DataBrevet['brevets']:
+for bre in DataBrevet['brevets']:
 #     temp =Nettoie(bre['inventor'])
-#     Inventeurs.extend(temp)
+     Inventeurs.extend(bre['inventor'])
 #     bre['inventor'] = temp
 #     temp = Nettoie(bre['applicant'])
-#     Applicants.extend(Nettoie(bre['applicant']))
+     Applicants.extend(bre['applicant'])
 #     bre['applicant'] = temp
     
-# for fic in [ndf, 'Families'+ndf]:
-#     print("\n> Hi! This is Pre Process for normalizing applicant names: used on:", fic)
-#     if 'Description' + fic in os.listdir(ListBiblioPath):
-#         with open(ListBiblioPath + '//' + fic, 'r') as data:
-#             dico = LoadBiblioFile(ListBiblioPath, fic)
-#     else:  # Retrocompatibility
-#         print("please use Comptatibilizer")
-#         sys.exit()
-#     LstBrevet = dico['brevets']
 
+Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
+Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
 
-#     for bre in LstBrevet:#[:alpha]:
-#         memo = copy.copy(bre['inventor'])
-#         bre['inventor'] = Nettoie(bre['inventor'])
-#         if isinstance(bre['inventor'], list):
-#             for inv in bre['inventor']:
-#                 temp = NoPunct(inv)
-#                 if len(temp) == 1: # in some cases words are splitted in list of caracters somewhere... ignoring them
-#                     if ''.join(memo).strip().lower() != 'empty':
-#                         print (bre['inventor'])
-#                         print (inv, ' --> ', temp)
-#                         Inventeurs.append(''.join(memo))
-#                         break
-#                 else:
-#                     Inventeurs.append(temp)
-#         else:
-#             Inventeurs.append(NoPunct(bre['inventor']))
-#         memo =copy.copy(bre['applicant'])
-#         #bre['applicant'] = Nettoie(bre['applicant'])
-#         if isinstance(bre['applicant'], list):
-#             for inv in bre['applicant']:
-#                 if isinstance(inv, str):
-#                     temp = NoPunct(inv)
-#                     if len(temp) == 1:
-#                            print (inv, ' --> ', temp)
-#                     else:
-#                         Applicants.append(temp)
-#         else:
-#             Applicants.append(NoPunct(bre['applicant']))
-# ###    
-    
-# Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
-# Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
-
-
-# test1 = ['CNRS', 'INSERM', 'Hôpital de Paris'] # tout dans CritFr
+# test of subfunctions
+# test1 = ['CNRS', 'INSERM', 'CHU Paris'] # tout dans CritFr
 # test2 = ['CNRS', 'INSERM', 'Meyrieux'] # Mix
 # test3 = ['Truc', 'machin', 'chose'] # rien dans CritFr
 
@@ -213,84 +173,14 @@ Applicants = set(Applicants)
 #Applicants = set([app.lower().title() for app in Applicants])
 InventeurSafe = copy.copy(Inventeurs)
 print ("Nombre d'inventeurs :", len(set(Inventeurs)))
-
-# for inv in Inventeurs:
-#     if inv not in InvDejaVus:
-#         reste = Inventeurs- set([inv]+InvDejaVus)
-        
-#         InvDejaVus.append(inv)
-#         for inv2 in reste:
-#             if fuzz.token_sort_ratio(inv, inv2)>89:
-#                 if len(inv) == len(inv2) and inv.split()[0] != inv2.split()[1] and '-' not in inv and '-' not in inv2:
-#                     print ("Suspect traité : ", inv, inv2)
-#                 InvDejaVus.append(inv2)
-#                 if inv in Inventeur_Norm.keys():
-#                     Inventeur_Norm [inv].append(inv2)                    
-#                 else:
-#                     Inventeur_Norm [inv] = [inv2]
-                    
+             
 print ("Nombre d'applicants :", len(set(Applicants)))
-
-
-#Estrangers = [inv for inv in Inventeurs2 if inv not in Auteurs.keys() and inv.split(' ')[1] + inv.split(' ')[0] not in Auteurs.keys()]
-#Estrangers += [inv for inv in Inventeurs1 if inv not in Auteurs.keys()]
-# print ("nombre d'inventeurs non affiliés FR", len(Estrangers))
-#distFonct = lambda x: { cle: max([fuzz.token_set_ratio( x, aut) for aut in Inventeurs]) for cle in Auteurs}
-print ("Nouvelles stats")
-# BadCasInv = dict()
-# for inv in Inventeur_Norm.keys():
-#     if isinstance(Inventeur_Norm [inv], list):
-#         for inv2 in Inventeur_Norm [inv]:
-#             BadCasInv [inv2] = inv
-#     else:
-#         BadCasInv [Inventeur_Norm [inv]] = inv
-        
-#print ("Nombre d'inventeurs rectifiants les erreurs de saisie :", len(set(Inventeurs))-len(BadCasInv.keys()))
-
-
-
-
-# AuteursFr = {cle for cle, val in Auteurs.items() if Check(val, Public)}
-# AuteursNotFr = {cle for cle, val in Auteurs.items() if not Check(val, Public)}
-# fic ='Families'+ ndf
-# if 'Description' + fic in os.listdir(ListBiblioPath):
-#     with open(ListBiblioPath + '//' + fic, 'r') as data:
-#         dico = LoadBiblioFile(ListBiblioPath, fic)
-# else:  # Retrocompatibility
-#     print("please use Comptatibilizer")
-#     sys.exit()
-# LstBrevet = dico['brevets']
-
-# BrevNorm = [bre for bre in LstBrevet if bre ['representative']+ bre ['priority-active-indicator']> 1 ]
-# equiv = []
-# for bre in BrevNorm: 
-#     if bre['label'] in set(BrevPrior):
-#         if isinstance(bre ['equivalents'], list):
-#             for eq in bre ['equivalents'] :
-#                 equiv.append(eq)
-#         elif len(bre ['equivalents'])>0:
-#             equiv.append(bre ['equivalents'] )
-#         else:
-#             pass
-
-
-# BrevPrior = []
-
-# for bre in LstBrevet2: 
-#     if 'prior' in bre.keys():
-#         if isinstance(bre ['prior'], list):
-#             for eq in bre ['prior'] :
-#                 BrevPrior.append(eq)
-#         elif len(bre ['prior'])>0:
-#             BrevPrior.append(bre ['prior'] )
-#         else:
-#            pass
 
 
 # no good: la sélection des brevets à partir des représentants qui certaines fois ne sont que dans les familles, doit se faire sur la liste 
 # des équivalents du corpus initial. Là ce 'nest pas le cas et on a un joyeux mix
 for fic in [ndf, 'Families'+ndf]:
-    print("\n> Hi! This is Pre Process for normalizing applicant names: used on:", fic)
+    print("\n> Hi! This is corpora splitter used on:", fic)
     if 'Description' + fic in os.listdir(ListBiblioPath):
         with open(ListBiblioPath + '//' + fic, 'r') as data:
             dico = LoadBiblioFile(ListBiblioPath, fic)
@@ -306,8 +196,8 @@ for fic in [ndf, 'Families'+ndf]:
 
     # normalisation du jeu de brevets sur les equivallents
 
-    GraphAuteurs = nx.Graph()
-    GraphApplicant = nx.Graph()
+    # GraphAuteurs = nx.Graph()
+    # GraphApplicant = nx.Graph()
     TypeBre = dict()
     for bre in LstBrevet:
 #%        for aut in bre['inventor']:
@@ -320,30 +210,41 @@ for fic in [ndf, 'Families'+ndf]:
         if isinstance(bre['applicant'], list) and len(bre['applicant'])==1:
             if bre['applicant'][0].upper() in Public:
                 bre ['type'] = "public"
-                bre['typeCollab'] ="NON"
+                bre['typeCollab'] ="NON" # one applicant, no collaboration
             else:
                 bre ['type'] = "indus"
-                bre['typeCollab'] = "NON"
+                bre['typeCollab'] = "NON" # one applicant, no collaboration
         elif isinstance(bre['applicant'], str):
             if bre['applicant'].upper() in Public:
                 bre ['type'] = "public"
-                bre['typeCollab'] ="NON"
+                bre['typeCollab'] ="NON" # one applicant, no collaboration
             else:
                 bre ['type'] = "indus"
+                bre['typeCollab'] = "NON" # one applicant, no collaboration
+        elif isinstance(bre['applicant'], list) and len(bre['applicant'])>1 and CheckListExclu(bre['applicant'], Inventeurs):
+            if CheckListInclu(bre['applicant'], Public):  # one public entity
+                bre ['type'] = "public"
+                bre['typeCollab'] = [ApplType[truc] for truc in bre['applicant']]
+            elif CheckListExclu(bre['applicant'], Public):  # no public entity
+                bre ['type'] = "indus"
+                bre['typeCollab'] = "indus"
+
+            else:
+                bre ['type'] = "collab"
+                bre['typeCollab'] = [ApplType[truc] if truc in ApplType.keys() else 'Indus' for truc in bre['applicant'] ]
+                
+        elif isinstance(bre['applicant'], list) and len(bre['applicant'])>1 and CheckListExclu(bre['applicant'], Inventeurs):
+                bre ['type'] = "Inconnu"
                 bre['typeCollab'] = "NON"
-        elif CheckListInclu(bre['applicant'], Public):
-            bre ['type'] = "public"
-            bre['typeCollab'] = [ApplType[truc] for truc in bre['applicant']]
-        elif CheckListExclu(bre['applicant'], Public):  
-            bre ['type'] = "indus"
-            bre['typeCollab'] = "indus"
-            
-        elif len(bre['applicant'])>0:
-            bre ['type'] = "collab"
-            bre['typeCollab'] = [ApplType[truc] if truc in ApplType.keys() else 'Indus' for truc in bre['applicant'] ]
-            if len(bre['applicant']) ==0 or sum([len(truc)==0 for truc in bre['applicant']]) >0:
-                print("aille")
-        else:
+               
+        # elif len(bre['applicant'])>0: 
+        #     bre ['type'] = "collab"
+        #     bre['typeCollab'] = [ApplType[truc] if truc in ApplType.keys() else 'Indus' for truc in bre['applicant'] ]
+        #     if len(bre['applicant']) ==0 or sum([len(truc)==0 for truc in bre['applicant']]) >0:
+        #         print("aille")
+        else: #len(bre['applicant']) == 0
+            if len(bre['applicant']) != 0:
+                print ('wtf ?')
             bre ['type'] = "Inconnu"
             bre['typeCollab'] = "NON"
         if isinstance(bre['applicant'], list) and len(bre['applicant'])>0:
@@ -358,7 +259,7 @@ for fic in [ndf, 'Families'+ndf]:
                         else:
                             TypeBre [bre ['type']]= [(aut, coAut)]
     
-    print ("saving normalized file")
+    print ("saving files")
     with open(ListBiblioPath + '//tempo' + fic, 'ab') as ndfLstBrev:
         for pat in LstBrevet:
             pickle.dump(pat , ndfLstBrev)
@@ -372,8 +273,8 @@ for fic in [ndf, 'Families'+ndf]:
     AutInvDeposant = [bre for bre in LstBrevet if bre['type'] == 'Inconnu']
     #check consistance
     total = len(Mix) + len(Univ) + len(Indus) + len(AutInvDeposant)
-    
-    print (total -len(LstBrevet))
+    if total == 0:
+        print (total -len(LstBrevet)), " patents left... GOOD"
 
     projectNameMix=projectName+'Mix'
     projectNameUniv=projectName+'Public'
@@ -393,7 +294,7 @@ for fic in [ndf, 'Families'+ndf]:
     with open(ResultBiblioPath+'//Description'+ ndf, 'wb') as ficRes:
         Data['ficBrevets'] = ndf 
         Data['number'] = len(Mix)
-        Data['requete'] = DataBrevet['requete'] 
+        Data['requete'] = DataBrevet['requete'] + " " + " brevets ayant plus de deux déposants, l'un public l'autre non"
         pickle.dump(Data, ficRes)
     
     with open(ResultBiblioPath+'/'+ ndf, 'ab') as ndfLstBrev:
@@ -421,7 +322,7 @@ for fic in [ndf, 'Families'+ndf]:
     with open(ResultBiblioPath+'/Description'+ ndf, 'wb') as ficRes:
         Data['ficBrevets'] = ndf
         Data['number'] = len(Univ)
-        Data['requete'] = DataBrevet['requete'] 
+        Data['requete'] = DataBrevet['requete']  + " demandes émanant d'entités publiques"
         pickle.dump(Data, ficRes)
     
     with open(ResultBiblioPath+'/'+ ndf, 'ab') as ndfLstBrev:
@@ -448,7 +349,7 @@ for fic in [ndf, 'Families'+ndf]:
     with open(ResultBiblioPath+'/Description'+ ndf, 'wb') as ficRes:
         Data['ficBrevets'] = ndf 
         Data['number'] = len(Indus)
-        Data['requete'] = DataBrevet['requete'] 
+        Data['requete'] = DataBrevet['requete'] + " déposants hors dictionnaire d'entités publiques"
         pickle.dump(Data, ficRes)
     
     with open(ResultBiblioPath+'/'+ ndf, 'ab') as ndfLstBrev:
@@ -474,7 +375,7 @@ for fic in [ndf, 'Families'+ndf]:
     with open(ResultBiblioPath+'/Description'+ ndf, 'wb') as ficRes:
         Data['ficBrevets'] = ndf 
         Data['number'] = len(AutInvDeposant)
-        Data['requete'] = DataBrevet['requete'] 
+        Data['requete'] = DataBrevet['requete'] + " sans déposants (brevets d'inventeurs ) "
         pickle.dump(Data, ficRes)
     
     with open(ResultBiblioPath+'/'+ ndf, 'ab') as ndfLstBrev:

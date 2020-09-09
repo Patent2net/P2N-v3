@@ -284,12 +284,18 @@ def PubMedCheckNameAndGetAffiliation(pubmedId, auteur):
         raise ValueError(reponse.status_code, reponse.reason)
     return None    
 
+# def Check(ch, liste):
+#     # return True when string ch is in liste (list of strings)
+#     for truc in liste:
+#         if len(truc) >0 and truc == ch:
+#             return True
+#     return False
+
 def Check(ch, liste):
-    # return True when string ch is in liste (list of strings)
-    for truc in liste:
-        if len(truc) >0 and truc == ch:
-            return True
-    return False
+    if len(ch) >0:
+        return ch in liste
+    else:
+        return False
 
 def UnCheck(ch, liste):
     # return True when string ch is not in liste (list of strings)
@@ -317,18 +323,26 @@ def CheckListMix(listeRef, liste):
     else:
         return False
     
-def CheckListExclu(listeRef, liste):
-    """ CheckListExclu(listeRef, liste)
-    Renvoi True si Aucun des éléments de ListeRef sont dans liste
+
+def CheckListExclu(listeRef, Referent):
+    """ CheckListExclu(listeRef, Referent)
+    Renvoi True si Aucun des éléments de ListeRef sont dans Referent
     ATTENTION éléments de la liste TOUS en majuscules'
     """
     if isinstance(listeRef, list):
-        return sum([truc.upper() in liste for truc in listeRef]) == len(listeRef)
+        result = True
+        for app in listeRef:
+            if Check(app, Referent):
+                return False
+            else:
+                pass
+
+        return result
+#        return sum([truc.upper() in Referent for truc in listeRef]) == len(listeRef)
         
     else:
-        return UnCheck(listeRef, liste)
-
-
+        return UnCheck(listeRef, Referent)
+    
 def NoPunct(s):  # From Vinko's solution, with fix.
     import re, string
     regex = re.compile('[%s]' % re.escape(string.punctuation))

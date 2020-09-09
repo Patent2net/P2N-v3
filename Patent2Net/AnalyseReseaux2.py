@@ -210,7 +210,7 @@ AuteursFr = {cle for cle, val in Auteurs.items() if "france" in val.lower()}
 AuteursNotFr = {cle for cle, val in Auteurs.items() if not Check(val, AuteursFr)}
 
 Applis = []
-Techno = dict()
+Techno = dict()  # this will contain for an applicant or an inventor the wwhole liste of IPCR11 with their occurences
 
 df ['family lenght'] = 0
 df ['AutorFr'] = 0
@@ -242,7 +242,7 @@ Inventeurs = set()
 for bre in DataBrevet  ['brevets']:
     for appl in  bre['applicant']:
         if len(appl) ==1:
-            print()
+            print("baddd  applicant", appl)
         appl=appl.upper()
         if appl in Techno.keys():
             for cib in bre ['IPCR11']:
@@ -253,7 +253,7 @@ for bre in DataBrevet  ['brevets']:
         bre ['inventor'] = [bre ['inventor']]
     for inv in bre ['inventor']:
         if len(inv) ==1:
-            print("ARFFFFF")
+            print("ARFFFFF, bad inventor ", inv)
         Inventeurs.add(inv.title())
         Techno[inv.title()] =  [cib for cib in bre ['IPCR11']] 
 GraphAuteurs = nx.DiGraph()
@@ -285,7 +285,7 @@ for bre in DataBrevet['brevets']:
              appl=appl.upper()
              Applis.append(appl)
              if isinstance( bre['applicant'], str):
-                 pass
+                 pass #no collaboration
              else:
                  for coAut in bre['applicant']:
                      if coAut.title() not in Inventeurs and NoPunct(coAut).title() not in Inventeurs: 
@@ -301,7 +301,7 @@ for bre in DataBrevet['brevets']:
                               if coAut in Public:
                                  typeAppl = 'Public'
                               else:
-                                 typeAppl = 'Privé'
+                                 typeAppl = 'Private'
                               
                               
                               if coAut in dicoAttrs.keys():
@@ -310,8 +310,8 @@ for bre in DataBrevet['brevets']:
                                          'IPC11-range': dicoAttrs [coAut]['IPC11-range']+ df['IPCR11-range'].loc[df.index[df['label'] == bre['label']]].values[0],
                                          'IPC7-range': dicoAttrs [coAut]['IPC7-range']+ df['IPCR7-range'].loc[df.index[df['label'] == bre['label']]].values[0],
                                          'IPC4-range': dicoAttrs [coAut]['IPC4-range']+ df['IPCR4-range'].loc[df.index[df['label'] == bre['label']]].values[0],
-                                         'IPCDiversity': len(set(Techno [coAut])),
-                                         'IPCForce' : len(Techno [coAut]) / (dicoAttrs [coAut]['NbBrevets'] + 1),
+                                         'IPCDiversity': len(set(Techno [coAut])), # the spectra of IPCR11
+                                         'IPCForce' : len(Techno [coAut]) / (dicoAttrs [coAut]['NbBrevets'] + 1), # the median diversity
                                          #'isPublic': appl in Public,
                                          #'isAuthor':    appl.title() in Auteurs.keys(),
                                          'Citations' : dicoAttrs [coAut]['Citations'] + bre['Citations'],
