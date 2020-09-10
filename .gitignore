@@ -6,8 +6,14 @@ __pycache__/
 #Special P2N
 Cles-epo.txt
 cles-epo.txt
-DATA/*
+DATA/
 DATA-OLD/*
+REQUESTS/*
+dex.js
+LogInstallP2N.txt
+LogInstallP2N.txt
+RequestsSets/*
+NotesTraitementNormP7
 # C extensions
 *.so
 
@@ -107,29 +113,4 @@ venv.bak/
 
 # mypy
 .mypy_cache/
-DATA/*
-DATA\*
-RequestsAuto/*
 
-cle-epo.txt
-Acad/*
-
-LogInstall2.txt
-LogInstall1.txt
-REQUESTS/*
-dex.js
-LogInstallP2N.txt
-LogInstallP2N.txt
-Lentille.cql
-dex.js
-LogInstallP2N.txt
-Patent2Net/P2N-Cluster-Old.py
-Patent2Net/AcadCorpora/*
-*.pkl
-*.json
-dex.js
-Fusionkidney.txt
-RequestsSets/*
-FusionFusion.txt
-P7_Large.cql
-NotesTraitementNormP7

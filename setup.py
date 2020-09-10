@@ -25,7 +25,8 @@ requires = [ #I had to comment here to use conda installation instead of pip
     'where',
 #    'docopt',
     'numpy',
-    'Flask'
+    'Flask',
+    'flask-cors'
 ]
 
 test_requires = [
