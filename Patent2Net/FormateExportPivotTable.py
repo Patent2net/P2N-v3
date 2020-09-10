@@ -50,7 +50,7 @@ if IsEnableScript:
     ] #"citations"
 
     #filterFile = [fi for fi in os.listdir(ListBiblioPath) if fi.count('Expanded')]
-    srcFile = [fi.replace('Description', '') for fi in os.listdir(ListBiblioPath)]
+    srcFile = [fi.replace('Description', '') for fi in os.listdir(ListBiblioPath) if '.pkl' not in fi]
 
     for ndf in set(srcFile):
         if 'Description'+ndf in os.listdir(ListBiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
