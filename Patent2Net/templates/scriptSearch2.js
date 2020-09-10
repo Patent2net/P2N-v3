@@ -70,7 +70,11 @@ $('#example tfoot th').each( function () {
                // inputText[i] = ($.trim($('tfoot').find('tr').find('th:eq('+i+')').find('input').val()) != "")? $.trim($('tfoot').find('tr').find('th:eq('+i+')').find('input').val().toLowerCase()):null;            
                 inputText[i] = ($.trim($('tfoot').find('tr').find('th:eq('+i+')').find('input').val()) != "")? $.trim($('tfoot').find('tr').find('th:eq('+i+')').find('input').val().toLowerCase()):null;            
             $.fn.dataTableExt.afnFiltering.pop();
-                   filter_table(inputText[0],inputText[1],inputText[2],inputText[3],inputText[4],inputText[5],inputText[6],inputText[7],inputText[8],inputText[9],inputText[10],inputText[11],inputText[12],inputText[13],inputText[14],inputText[15],inputText[16],inputText[17],inputText[18],inputText[20],inputText[21]);
+                   filter_table(inputText[0],inputText[1],inputText[2],inputText[3],
+                   inputText[4],inputText[5],inputText[6],inputText[7],inputText[8],
+                   inputText[9],inputText[10],inputText[11],inputText[12],inputText[13],
+                   inputText[14],inputText[15],inputText[16],inputText[17],inputText[18],
+                   inputText[20],inputText[21]);
                         table.draw();    
         });
     });
