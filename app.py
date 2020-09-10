@@ -20,7 +20,7 @@ from urllib import parse
 # static_folder call the emplacement of all the content who will work with the HTML. template_folder the emplacement of the HTML. \
 #    In theory they don't have to be at Root.
 
-app = Flask(__name__, static_url_path='', static_folder='.', template_folder='Patent2Net/templates/Request_Form/') 
+app = Flask(__name__, static_url_path='', static_folder='.', template_folder=['Patent2Net/templates/Request_Form/', '.']) 
 
 CORS(app)
 
