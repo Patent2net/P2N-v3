@@ -1,4 +1,4 @@
-﻿# Patent2Net configuration file
+# Patent2Net configuration file
 ##############################
 # request
 # insert below your request in cql format as done in the example
@@ -7,7 +7,7 @@ request: ((ic=A61) AND pd=2013) AND pr=FR
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: P7-LargeIndus
+DataDirectory: P7-LargeAutres
 
 ###############################
 #Patent2Net options : Set to *True* or False
@@ -20,8 +20,8 @@ GatherPatent: False
 GatherBiblio: False
 
 # patent content (description, abstract, claims) completing patents bibliographic data
-GatherContent: False
-OPSGatherContentsv2-Iramuteq: False
+GatherContent: True
+OPSGatherContentsv2-Iramuteq: True
 
 #patents families extending the PU to families
 GatherFamilly: True
@@ -88,7 +88,7 @@ FormateExportDataTableFamilies: True
 
 ###############################
 # Prepare interactive pivottable
-FormateExportPivotTable: False
+FormateExportPivotTable: True
 
 ###############################
 # prepare Abstracts, descriptions, claims for text analysis

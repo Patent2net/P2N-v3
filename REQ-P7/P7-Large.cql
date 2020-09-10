@@ -88,7 +88,7 @@ FormateExportDataTableFamilies: True
 
 ###############################
 # Prepare interactive pivottable
-FormateExportPivotTable: False
+FormateExportPivotTable: True
 
 ###############################
 # prepare Abstracts, descriptions, claims for text analysis
