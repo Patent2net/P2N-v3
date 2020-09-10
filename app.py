@@ -20,7 +20,7 @@ from urllib import parse
 # static_folder call the emplacement of all the content who will work with the HTML. template_folder the emplacement of the HTML. \
 #    In theory they don't have to be at Root.
 
-app = Flask(__name__, static_url_path='', static_folder='.', template_folder=['Patent2Net/templates/Request_Form/', '.']) 
+app = Flask(__name__, static_url_path='', static_folder='.', template_folder='.') 
 
 CORS(app)
 
@@ -109,7 +109,7 @@ lstAppl = ['p2n_req','p2n_gather_biblio', 'p2n_content', 'p2n_family','p2n_image
 @app.route('/home' , methods=['GET','POST'])
 @app.route('/' , methods=['GET','POST'])
 def home():
-    return render_template("P2N.html" , num_bars = 1)
+    return render_template("Patent2Net/templates/Request_Form/P2N.html" , num_bars = 1)
 
 
 
@@ -121,7 +121,7 @@ def progress():
         
         AppLab = [lab for lab in lstAppl if formul [lab] and lab not in ['p2n_dir']]
         app_cfg.num_bars = len(AppLab)
-        return render_template('progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
+        return render_template('Patent2Net/templates/Request_Form/progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
 #    return render_template("Patent2Net/templates/Request_Form/Progress.html" , num_bars = 1)
 
@@ -132,7 +132,7 @@ def progress():
 @app.route('/form' , methods=['GET','POST'])
 def form():
     #open the page P2N.html as default page
-    return render_template("Request.html", num_bars = 1, label =[''])
+    return render_template("Patent2Net/templates/Request_Form/Request.html", num_bars = 1, label =[''])
 
 
 #Single Request form confirmation route
@@ -146,7 +146,7 @@ def confirmation():
     AppLab = [lab for lab in lstAppl if form_result [lab] and lab not in ['p2n_dir']]
         
     app_cfg.num_bars = len(AppLab) - len([truc for truc in AppLab if not form_result [truc]] )
-    return render_template('Progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
+    return render_template('Patent2Net/templates/Request_Form/Progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
 @app.route('/confirmation', methods=['POST'])    
 def CqlCreator():
@@ -205,7 +205,7 @@ def CqlCreator():
     AppLab = [lab for lab in lstAppl if form_result [lab] and lab not in ['p2n_dir']]
         
     app_cfg.num_bars = len(AppLab) - len([truc for truc in AppLab if not form_result [truc]] )
-    return render_template('Request.html', num_bars = app_cfg.num_bars, label = AppLab)
+    return render_template('Patent2Net/templates/Request_Form/Request.html', num_bars = app_cfg.num_bars, label = AppLab)
 
 # @app.route('/progressBar' , methods=['GET','POST'])
 
@@ -255,7 +255,7 @@ def listen():
 
 @app.route('/get_started', methods=['GET','POST'])
 def started():
-    return render_template("Get_Started.html")
+    return render_template("Patent2Net/templates/Request_Form/Get_Started.html")
 
 
 # Get started page form interaction
@@ -269,7 +269,7 @@ def EpoCreator():
     W_epo.write(epo_result['p2n_epo'])
     W_epo.close()
     
-    return render_template("Get_Started.html")
+    return render_template("Patent2Net/templates/Request_Form/Get_Started.html")
 
 
 
@@ -328,7 +328,7 @@ def mass():
         if file.endswith(".cql"):
                 command="p2n run --config=../RequestsSets/%s"%(file)
                 os.system(command)
-    return render_template('ConfirmationP2N.html')
+    return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
 if __name__ == "__main__":
