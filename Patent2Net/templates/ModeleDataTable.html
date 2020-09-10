@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Patents associated with the request: "{{request}}"</title>
+<link rel="stylesheet" type="text/css" href="../../Patent2Net/media/DataTables/datatables.css"/>
+<link rel="stylesheet" href="../../Patent2Net/media/DataTables/DataTables-1.10.21/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="../../Patent2Net/media/DataTables/Buttons-1.6.3/css/buttons.dataTables.min.css"> 
+<link rel="stylesheet" href="../../Patent2Net/media/DataTables/ColReorder-1.5.2/css/ColReorder.dataTables.min.css"> 
+<link rel="stylesheet" href="../../Patent2Net/media/DataTables/SearchPanes-1.1.1/css/SearchPanes.dataTables.min.css"> 
+<link rel="stylesheet" href="../../Patent2Net/media/DataTables/Scroller-2.0.2/css/Scroller.dataTables.min.css"> 
+<link rel="stylesheet" type="text/css" href="../../Patent2Net/media/CSS/P2N.css">
+<link rel="stylesheet" type="text/css" href="../../Patent2Net/media/css/main.css">
+
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/datatables.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/jQuery-3.3.1/jquery-3.3.1.min.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/DataTables-1.10.21/js/jquery.dataTables.min.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/Buttons-1.6.3/js/dataTables.buttons.min.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/Buttons-1.6.3/js/buttons.html5.min.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/Buttons-1.6.3/js/buttons.print.min.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/Buttons-1.6.3/js/buttons.colVis.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/Select-1.3.1/js/dataTables.select.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/Select-1.3.1/js/select.dataTables.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/ColReorder-1.5.2/js/dataTables.colReorder.min.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/ColReorder-1.5.2/js/colReorder.dataTables.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/SearchPanes-1.1.1/js/dataTables.searchPanes.min.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/SearchPanes-1.1.1/js/searchPanes.dataTables.min.js"></script>
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/Scroller-2.0.2/js/dataTables.scroller.min.js"></script>
+
+<script charset="utf-8" type="text/javascript" language="javascript" src="../../Patent2Net/media/DataTables/Scroller-2.0.2/js/scroller.dataTables.js"></script>
+<script type="text/javascript" language="javascript" src="scriptSearch.js"></script>
+</head>
+<body class="dt-example">
+			<header class="wrapper dark">
+			<a href="../../index.html"><img class="logo" src="../../Patent2Net/media/img/logo_dark.png" alt=""/></a>
+		 <section><h1>Patents in OPS worldwide database</h1><h2> Request: "{{Request}}" </h2></section>
+		</header>
+    <div> {% if true %}
+    
+    Load as excel file :    <a href="{{ CollectName }}.xlsx">Excel File</a>
+    
+   
+    {% endif %}
+    </div>
+	<div class="container">
+			<table id="example" class="display table" cellspacing="0" width="100%">
+				<thead>
+					<tr>
+						<th style="width: 2%;">Country</th>
+						<th style="width: 20%;">Title</th>
+						<th style="width: 8%;">Inventor</th>
+						<th style="width: 8%;">Inventor-old</th>
+						<th style="width: 2%;">From</th>
+						<th style="width: 8%;">Applicant</th>
+						<th style="width: 8%;">Applicant-old</th>
+						<th style="width: 2%;">From</th>
+						<th style="width: 7%;">IPCR11</th>
+						<th style="width: 7%;">IPCR7</th>
+						<th style="width: 10%;">CPC</th>
+						<th style="width: 5%;">Prior-Date</th>
+						<th style="width: 3%;">Pub year</th>
+						<th style="width: 6%;">Label</th>
+						<th style="width: 2%;">Kind</th>
+						<th style="width: 2%;">Ref</th>
+						<th style="width: 6%;">CitP</th>
+						<th style="width: 8%;">CitO</th>
+						<th style="width: 6%;">Cited</th>
+						<th style="width: 2%;">Citations</th>
+						<th style="width: 12%;">Equiv.</th>
+						<th style="width: 2%;">Priority</th>
+					</tr>
+					<tr>
+						<td style="width: 2%;">Country</td>
+						<td style="width: 20%;">Title</td>
+						<td style="width: 8%;">Inventor</td>
+						<td style="width: 8%;">Inventor-old</th>
+						<td style="width: 4%;">From country</td>
+						<td style="width: 8%;">Applicant</td>
+						<td style="width: 8%;">Applicant-old</th>
+						<td style="width: 4%;">From country</td>
+						<td style="width: 8%;">IPCR11</td>
+						<td style="width: 8%;">IPCR7</td>
+						<td style="width: 10%;">CPC</td>
+						<td style="width: 5%;">Prior-Date</td>
+						<td style="width: 3%;">pub year</td>
+						<td style="width: 5%;">Label</td>
+						<td style="width: 3%;">Kind</td>
+						<td style="width: 2%;">Ref</td>
+						<td style="width: 6%;">CitP</td>
+						<td style="width: 8%;">CitO</td>
+						<td style="width: 6%;">Cited</td>
+						<td style="width: 2%;">Citation</td>
+						<td style="width: 12%;">Equiv.</td>
+						<td style="width: 2%;">Priority</td>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<th style="width: 2%;">Country</th>
+						<th style="width: 20%;">Title</th>
+						<th style="width: 8%;">Inventor</th>
+						<th style="width: 8%;">Inventor-old</th>
+						<th style="width: 2%;">From</th>
+						<th style="width: 8%;">Applicant</th>
+						<th style="width: 8%;">Applicant-old</th>
+						<th style="width: 2%;">From</th>
+						<th style="width: 7%;">IPCR11</th>
+						<th style="width: 7%;">IPCR7</th>
+						<th style="width: 10%;">CPC</th>
+						<th style="width: 5%;">Prior-Date</th>
+						<th style="width: 3%;">Pub year</th>
+						<th style="width: 6%;">Label</th>
+						<th style="width: 2%;">Kind</th>
+						<th style="width: 2%;">Ref</th>
+						<th style="width: 6%;">CitP</th>
+						<th style="width: 8%;">CitO</th>
+						<th style="width: 6%;">Cited</th>
+						<th style="width: 2%;">Citations</th>
+						<th style="width: 12%;">Equiv.</th>
+						<th style="width: 2%;">Priority</th>
+					</tr>
+				</tfoot>
+			</table>
+	</div>
+	<footer>
+		<a href="http://www.datatables.net/">Thanks!!! </a></br>
+		<a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=page">Patent2net documentation</a>
+</footer>
+
+
+</body>
+</html>

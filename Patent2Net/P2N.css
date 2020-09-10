@@ -8,6 +8,10 @@ table.display {
 	font-size: .75em;  
 }
 
+div.dt-buttons {
+        clear: both;
+    }
+
 input[type="text"] {
     width: 100%;
     display: block;

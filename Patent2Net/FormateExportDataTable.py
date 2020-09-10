@@ -91,8 +91,7 @@ if IsEnableScript:
     #            brev[cle] = u''
     
         memo= copy.copy(brev)
-        if brev['label'] == "FR2953836":
-            pass
+
         for cle in list(brev.keys()):
             if isinstance(brev[cle], list):
                 brev[cle] = [cont for cont in brev[cle] if cont is not None]
@@ -119,6 +118,9 @@ if IsEnableScript:
                     tempo[key] = str(brev[key]).capitalize().strip()
                 else:
                     tempo[key] = brev[key].capitalize().strip()
+            elif  "IPCR"  in key:
+                tempo [key] = [truc for truc in brev[key] if len(truc)>0]
+                
             else:
                 try:
                     if isinstance(brev[key], list) and len(brev[key])>1:
@@ -179,15 +181,13 @@ if IsEnableScript:
     
     outfile = ResultPathContent + '//' + ndf + '.html'
     RenderTemplate(
-        "Modele.html",
+        "ModeleDataTable.html",
         outfile,
         GlobalPath=GlobalPath,
         fichier=ndf+'.json',
-        fichierPivot=ndf+'Pivot.html',
-        fichieXls = ndf+".xlsx",
-        requete=requete.replace('"', ''),
+        requete=configFile.requete,
         CollectName=ndf,
-        Request=requete,
+        Request=configFile.requete,
         #TotalPatents=totalPatents,
        # TotalFamily=nbFam,
        # HasFamily=GatherFamilly,
@@ -195,7 +195,7 @@ if IsEnableScript:
        # TotalsPerFamilyType=totalsPerFamilyType
     )
 
-    with open("scriptSearch.js", 'r') as Source:
+    with open("templates/scriptSearch2.js", 'r') as Source:
         js = Source.read()
         js = js.replace('***fichierJson***', ndf+'.json')
         js = js.replace('{ "data": "application-ref"},', '')
