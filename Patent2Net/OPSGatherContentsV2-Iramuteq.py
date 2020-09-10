@@ -99,7 +99,7 @@ if IsEnableScript:
     ops_client.accept_type = 'application/json'
     NumTotal = 0
     cpt = 0
-    for ndf in [fic2 for fic2 in os.listdir(ResultBiblioPath) if fic2.count('Description')==0]:
+    for ndf in [fic2 for fic2 in os.listdir(ResultBiblioPath) if fic2.count('Description')==0 and fic2.count('Old')==0]:
         if ndf.startswith('Families'):
             typeSrc = 'Families'
         else:
