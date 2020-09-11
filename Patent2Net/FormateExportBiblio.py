@@ -79,7 +79,7 @@ if IsEnableScript:
         #                 Gogo = Gogo * (u'None' not in bre[cle])
         #                 Gogo = Gogo * ( bre[cle] != u'')
         #==============================================================================
-                    if Gogo>0:
+                    if Gogo:
                         if "A" in ' '.join(bre['kind']) or "B" in ' '.join(bre['kind']) or "C" in ' '.join(bre['kind']): #filter patent list again their status... only published
                             if bre['dateDate'] is not None or bre['dateDate'] != 'None' or bre['dateDate'] != '' or 'None' not in bre['dateDate'] or None in bre['dateDate']:
                                 if len(bre['year'])>0 and not isinstance(bre['date'], list):

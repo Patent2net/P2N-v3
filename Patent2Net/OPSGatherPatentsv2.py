@@ -196,7 +196,7 @@ if not ficOk and GatherPatent:
         DataBrevets['requete'] = requete
         pickle.dump(DataBrevets, ficRes1)
 listeLabel = []
-AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu =len(lstBrevets)*100/nbTrouves)
+
 
 #listeLabel = []
 # Entering PatentBiblio feeding

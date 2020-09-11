@@ -146,7 +146,7 @@ if IsEnableScript:
             for brevet in lstBrevet:
                 cpt += 1
                 AnnonceProgres (Appli = 'p2n_content', valMax = 100, valActu = cpt*100/NumTotal)
-                AnnonceProgres (Appli = 'p2n_carrot', valMax = 100, valActu = cpt*50/NumTotal)
+                AnnonceProgres (Appli = 'p2n_carrot', valMax = 100, valActu = cpt*50/NumTotal) # 50% for fusion
                 AnnonceProgres (Appli = 'p2n_iramuteq', valMax = 100, valActu = cpt*50/NumTotal)
                 AnnonceProgres (Appli = 'p2n_cluster', valMax = 100, valActu = cpt*50/NumTotal)
                 brevet = dictCleaner(brevet)
