@@ -6,7 +6,7 @@ Patent list filtering process. As set list of patents in response to a request c
 extract from the list the first equivalents in time of apparition.
 Other possible methods: 
     1. extract from families the representative set of patents (using EPO indicator) and complete it with  non present patent from initial patent list
-    2. use th "prior" patent label in family set ?
+    2. use the "prior" patent information in family set ?
     
 @author: david
 """
@@ -85,10 +85,10 @@ nbAppliAvant = dict()
 nbInvAvant = dict()
 
 # traitement des fichiers + familles 
-for fic in [ndf, 'Families'+ndf]:
+for fic in [ndf]: # Families shouln't be processed like that!!!
     cptInv, cptAppl = 0,0
-
-            
+    
+         
     
     print("\n> Hi! This is Pre Process for filtering equivalents patents from dataset gathered by P2N-OPSGather: used on:", fic)
     if 'Description' + fic in os.listdir(ListBiblioPath):
@@ -102,7 +102,9 @@ for fic in [ndf, 'Families'+ndf]:
     Filtres = []
     dejaVus = []
     LabBrevets = [brev ['label'] for brev in LstBrevet]
+    cpt = 0
     for bre in LstBrevet: # parcours de la listee des brevets
+        AnnonceProgres (Appli = 'p2n_filtering', valMax = 100, valActu = cpt*50/len(LstBrevet))   
         if bre['label'] not in dejaVus:                 # si pas vu
             dejaVus.append(bre['label'])                #rajout aux vus
             
@@ -200,14 +202,20 @@ for fic in [ndf, 'Families'+ndf]:
     
     # joining lost patents
     LabFiltered = []
+    cpt = 0
     for bre in Filtres:
+        AnnonceProgres (Appli = 'p2n_filtering', valMax = 100, valActu = 50+ cpt*10/len(Filtres))  
+        cpt+=1
         if isinstance(bre["label"], str):
             LabFiltered.append(bre['label'])
         else:
             LabFiltered.append(bre['label'][0])
             
     EquivFiltered = []
+    cpt = 0
     for bre in Filtres:
+        AnnonceProgres (Appli = 'p2n_filtering', valMax = 100, valActu = 60+ cpt*10/len(Filtres))   
+        cpt+=1
         for pat in bre ['equivalents']:
             EquivFiltered.append(pat)                
     
@@ -218,7 +226,10 @@ for fic in [ndf, 'Families'+ndf]:
     
     NewFilt = [] 
     DejaVus = []
+    cpt = 0
     for bre in Filtres:
+        AnnonceProgres (Appli = 'p2n_filtering', valMax = 100, valActu = 70+ cpt*10/len(Filtres))   
+        cpt+=1
         if isinstance(bre['label'], list):
             bre['label'] = bre['label'][0]
         if bre['label'] not in DejaVus:
@@ -296,7 +307,10 @@ for fic in [ndf, 'Families'+ndf]:
         
     EquivFiltered = []
     cpFilt = copy.copy(Filtres)
+    cpt = 0
     for bre in Filtres:
+        AnnonceProgres (Appli = 'p2n_filtering', valMax = 100, valActu = 80+ cpt*10/len(Filtres))   
+        cpt+=1
         if not isinstance(bre['label'], str):
             if len(bre ['label'])>0:
                 bre ['label'] = bre['label'][0]
@@ -305,7 +319,10 @@ for fic in [ndf, 'Families'+ndf]:
         else:
             pass
     toRemove = []
+    cpt = 0
     for bre in Filtres:
+        AnnonceProgres (Appli = 'p2n_filtering', valMax = 100, valActu = 90+ cpt*10/len(Filtres))   
+        cpt+=1
         if not isinstance(bre ['equivalents'], list):
             if len(bre ['equivalents']) and bre ['equivalents'] != 'empty':
                 bre ['equivalents'] = [bre ['equivalents']]
@@ -328,14 +345,16 @@ for fic in [ndf, 'Families'+ndf]:
     for bre in Resultat:
         for pat in bre ['equivalents']:
             EquivFiltered2.append(pat)     
-    
+    AnnonceProgres (Appli = 'p2n_filtering', valMax = 100, valActu = 100)
     print("net set of equivalent covered: ",len(EquivFiltered2))
     print(len(LstBrevet), '  --> ', len (Filtres), ' --> ', len(Resultat)) 
     print  ("Good, ", len(Resultat + complement), " patents filterd from equivalent unicity exrtracted from ", fic)
     #Saving file
+    
     for brev in Resultat:
         with open(ResultBiblioPath + '//tempo' + fic,  'ab') as ficRes:
             pickle.dump(brev, ficRes)
+    
     os.rename(ResultBiblioPath + '//' + fic, ResultBiblioPath + '//Old' + fic)
     os.rename(ResultBiblioPath + '//tempo' + fic, ResultBiblioPath + '//' + fic)
     
