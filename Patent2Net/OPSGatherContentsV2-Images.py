@@ -140,7 +140,7 @@ if IsEnableScript:
         cpt = 0
         for patent in patents:
             cpt += 1
-            AnnonceProgres (Appli = 'p2n_image', valMax = 100, valActu = cpt*100/Num)
+            AnnonceProgres (Appli = 'p2n_image', valMax = 100, valActu = cpt*90/Num) # 10% are expected in fusion image
             patent_label = get_patent_label(patent)
             pathes = []
             path_json = '{}//{}.json'.format(ResultPathImages, patent_label)
