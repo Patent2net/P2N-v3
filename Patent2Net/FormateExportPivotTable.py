@@ -50,9 +50,9 @@ if IsEnableScript:
     ] #"citations"
 
     #filterFile = [fi for fi in os.listdir(ListBiblioPath) if fi.count('Expanded')]
-    srcFile = [fi.replace('Description', '') for fi in os.listdir(ListBiblioPath) if '.pkl' not in fi]
+    srcFile = [fi for fi in os.listdir(ListBiblioPath) if '.pkl' not in fi and 'tempoInconnus' not in fi and "Description" not in fi]
 
-    for ndf in set(srcFile):
+    for ndf in srcFile:
         if 'Description'+ndf in os.listdir(ListBiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
             DataBrevet = LoadBiblioFile(ListBiblioPath, ndf)
             print("\n> Hi! This is FormateExportPivotTable")
