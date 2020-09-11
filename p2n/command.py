@@ -248,7 +248,10 @@ def classic_interface(options):
         run_script('preProcessNormalisationNames.py', configfile)
     
     # normalisation features New 08/2020
-     
+    if options['with-family'] or options['run']:
+        run_script('PatentListFiltering.py', configfile)
+        run_script('OPSGatherAugment-Families.py', configfile)   
+        
     if options['normalisation'] or options['run']:
         run_script('PatentListFiltering.py', configfile)
         run_script('preProcessNormalisationNames.py', configfile)      
