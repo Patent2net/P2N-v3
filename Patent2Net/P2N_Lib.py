@@ -45,9 +45,17 @@ from jinja2 import Environment, FileSystemLoader
 import requests
 
 def AnnonceProgres(Appli, valActu, valMax):
-    valActu = "%.2f" % valActu 
-    pipo = requests.get('http://localhost:5000/announce?appli=%s&ValActu=%s&valMax=%s' %(Appli, valActu, valMax) )
+    if valActu and valMax:
+        valActu = "%.2f" % valActu 
+        announce = requests.get('http://localhost:5000/announce?appli=%s&ValActu=%s&valMax=%s' %(Appli, valActu, valMax) )
+    else:
+        pass # must be a error
 #☻    print ('annnonce envoyée: ', pipo)
+
+def AnnonceLog(Appli, texte):
+    valActu = None
+    valMax = None
+    announce = requests.get('http://localhost:5000/announce?appli=%s&log=%s' %(Appli+'Log', texte) )
 
 
 def GenereListeFichiers(rep):

@@ -31,7 +31,7 @@ import sys
 import epo_ops
 from epo_ops.models import Docdb
 from epo_ops.models import Epodoc
-from Patent2Net.P2N_Lib import MakeIram2, LoadBiblioFile, AnnonceProgres
+from Patent2Net.P2N_Lib import MakeIram2, LoadBiblioFile, AnnonceProgres, AnnonceLog
 from Patent2Net.P2N_Config import LoadConfig
 
 
@@ -48,7 +48,7 @@ key, secret = fic.read().split(',')
 key, secret = key.strip(), secret.strip()
 fic.close()
 
-
+appli = 'p2n_content'
 DureeBrevet = 20
 SchemeVersion = '20140101' #for the url to the classification scheme
 
@@ -109,6 +109,8 @@ if IsEnableScript:
 
         else: #Retrocompatibility
             print('gather your data again. sorry')
+            AnnonceProgres('Gather content', "gather your data again. sorry")
+            
             sys.exit()
 
         if 'brevets' in ficBrevet:
@@ -116,9 +118,12 @@ if IsEnableScript:
     #        if data.has_key('requete'):
     #            DataBrevet['requete'] = data["requete"]
             print("Found ",typeSrc, ' file and', len(lstBrevet), " patents! Gathering contents")
+            AnnonceLog(Appli=appli, texte= "Found " +str(typeSrc) + ' file and' +str(len(lstBrevet)) + " patents! Gathering contents")
             NumTotal += len(lstBrevet)
         else:
             print('gather your data again')
+            AnnonceProgres('Gather content', "gather your data again. sorry")
+            
             sys.exit()
 
         ops_client = epo_ops.Client(key, secret)
@@ -152,6 +157,8 @@ if IsEnableScript:
                 brevet = dictCleaner(brevet)
                 ndb = brevet['label']#[u'document-id'][u'country']['$']+brevet[u'document-id'][u'doc-number']['$']brevet['publication-ref'][u'document-id'][0][u'kind']['$'])
                 print("Retrieving ", ndb)
+                AnnonceLog(Appli=appli, texte= "Retrieving: "+ ndb)
+            
         #check for already gathered patents
                 pays = brevet['country']
                 if isinstance(ndb, list):
@@ -232,6 +239,6 @@ if IsEnableScript:
         else:
             print("no gather parameter set. Finishing.")
 
-
+        AnnonceLog(Appli=appli, texte= "Done, "+ str(cpt) +" things (abstracts, claims or descriptions) gathered")
 
         #print ft, " fulltext gathered. See ", ndf.replace('.dump', '')+'/fulltext/ directory for files'

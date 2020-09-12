@@ -32,7 +32,7 @@ BiblioProperties = ['applicant', 'application-ref', 'citations', 'classification
 import pickle
 import codecs
 # from P2N_Lib import ExtractAbstract, ExtractClassificationSimple2, UniClean, SeparateCountryField, CleanPatent, ExtractPatent, ExtractPubliRefs,
-from Patent2Net.P2N_Lib import Initialize, PatentSearch,  GatherPatentsData, LoadBiblioFile, byteify, AnnonceProgres
+from Patent2Net.P2N_Lib import Initialize, PatentSearch,  GatherPatentsData, LoadBiblioFile, byteify, AnnonceProgres, AnnonceLog
 #from P2N_Lib import ProcessBiblio, MakeIram,  UnNest3, SearchEquiv, PatentCitersSearch
 #from P2N_Lib import Update
 #from P2N_Lib import EcritContenu, coupeEnMots
@@ -102,22 +102,28 @@ if ndf in os.listdir(ResultListPath):
         if 'Fusion' in DataBrevets:
             ficOk = True
             print(nbActus, " patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
+            AnnonceLog(Appli = 'p2n_req', texte='Gather patent (fusion)' + str(nbActus) +" patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
             GatherBibli = False
             requete = DataBrevets['brevets']
         if 'FusionPat' in DataBrevets:
             ficOk = True
             print(nbActus, " patents gathered yet. Steping to bibliographic data.")
+            AnnonceLog(Appli = 'p2n_req', texte= 'Gather patent (fusion patentlist ?)' + str(nbActus) +" patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
+
             GatherPatent = False
             Gatherbibli = True
             requete = DataBrevets['brevets']
         if GatherPatent:
             if DataBrevets['requete'] != requete:
+                AnnonceLog(Appli = 'p2n_req', texte=  'Gather patent' +" Datadirectory exists. Deleting it.")
+
                 print("care of using on file for one request, deleting this one.")
                 input('sure? Unlee use ^C ( CTRL+C)')
             lstBrevets2, nbTrouves = PatentSearch(ops_client, requete)
             if len(lstBrevets) == nbTrouves and nbActus != nbTrouves:
                 ficOk = True
                 print(nbTrouves, " patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
+                AnnonceLog(Appli = 'p2n_req', texte= 'Gather patent' + str(nbTrouves) + " patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
                 Gatherbibli = True
                 GatherPatent = False
             elif len(lstBrevets) == nbTrouves and nbActus == nbTrouves:
@@ -131,12 +137,12 @@ if ndf in os.listdir(ResultListPath):
                         
                         pickle.dump(DataB, ficRes)
                 print('Checking bibliographic data')
-                
+                AnnonceLog(Appli = 'p2n_req', texte='Gather patent' + str(nbTrouves) + " patents gathered yet. No more patents to retreive. Checking bibliographic data.")
                 #we should exit now
             else:
                 ficOk = False
                 print(nbTrouves, " patents corresponding to the request.")
-
+                AnnonceLog(Appli = 'p2n_req', texte='Gather patent' + str(nbTrouves) + "  patents corresponding to the request.  Retreiving associated bibliographic data")
                 print(len(lstBrevets), ' in file corresponding to the request. Retreiving associated bibliographic data')
         else:
             print("You prefer not to gather data. I hope you know what you do. At your own risk. P2N may crash")
@@ -188,6 +194,8 @@ if not ficOk and GatherPatent:
         print(nbTrouves, " patents corresponding to the request.")
         print(len(lstBrevets), ' patents added', end=' ')
         AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu = len(lstBrevets)*100/nbTrouves)
+        AnnonceLog(Appli = 'p2n_req', texte=   str(lstBrevets) + "  patents retreived. Saving")
+                
     with open(ResultListPath + '//' + ndf, 'wb') as ficRes1:
         DataBrevets = dict()  # this is the list of patents, same variable name as description and patent data in the following
         # this may cause problem sometime
@@ -200,12 +208,16 @@ listeLabel = []
 
 #listeLabel = []
 # Entering PatentBiblio feeding
+AnnonceLog(Appli = 'p2n_gather_biblio', texte= "Checking and/or gathering bibliographic data")
 print("Checking and/or gathering bibliographic data")
 if GatherBibli and GatherBiblio:
     for brevet in lstBrevets:
         # nameOfPatent for file system save (abstract, claims...)
         ndb = brevet['document-id']['country']['$'] + brevet['document-id']['doc-number']['$']
         listeLabel.append(ndb)
+    
+    AnnonceLog(Appli = 'p2n_gather_biblio', texte= "Found almost" + str(len(lstBrevets)) + " patents. Saving list")
+    AnnonceLog(Appli = 'p2n_gather_biblio', texte="Within " + str(len(set(listeLabel))) + " unique patents")
     print("Found almost", len(lstBrevets), " patents. Saving list")
     print("Within ", len(set(listeLabel)), " unique patents")
     DataBrevets = dict()
@@ -226,9 +238,9 @@ if GatherBibli and GatherBiblio:
                 AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100)
         else:
             print(len(listeLabel)-len(DataBrevets['brevets']), " patent misssing... processing")
-            len(lstBrevets)
+ 
             GatherBibli = True
-            AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = abs(len(lstBrevets) - len(DataBrevets['brevets']))/len(lstBrevets))
+            AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = abs(len(listeLabel) - len(DataBrevets['brevets']))/len(lstBrevets))
 #                for brevet in lstBrevets:
 #                    # nameOfPatent for file system save (abstract, claims...)
 #                    ndb = brevet['document-id']['country']['$'] + \
@@ -238,7 +250,7 @@ if GatherBibli and GatherBiblio:
         ficOk = False
         print(str(abs(len(lstBrevets) - len(DataBrevets['brevets']))), " patents data missing. Gathering.")
         GatherBibli = True
-        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = abs(len(lstBrevets) - len(DataBrevets['brevets']))/len(lstBrevets))
+        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = abs(len(lstBrevets) - len(DataBrevets['brevets'])))
 #    except:    #new data model
 #        DataBrevets = dict()
 #        DataBrevets['brevets'] = []
@@ -278,6 +290,7 @@ if GatherBibli and GatherBiblio:
     if "brevets" in list(DataBrevets.keys()):
         YetGathered = list(set([bre['label'] for bre in DataBrevets["brevets"]]))
         print(len(YetGathered), " patent bibliographic data gathered.")
+        AnnonceLog(Appli = 'p2n_gather_biblio', texte= str(len(YetGathered)) + " patent bibliographic data gathered.")
         DataBrevets["YetGathered"] = YetGathered
 #    elif "YetGathered" in list(DataBrevets.keys()):
 #        YetGathered = DataBrevets["YetGathered"]
@@ -294,7 +307,7 @@ if GatherBibli and GatherBiblio:
 #            with open(ResultBiblioPath +'//'+ndf, 'w') as ficRes:
 #                for bre in DataBreTemp:
 #                    cPickle.dump(bre, ficRes)
-        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = len(YetGathered)*100/len(lstBrevets))
+        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = len(YetGathered)*100)
     else:
         YetGathered = []
 
@@ -398,6 +411,11 @@ if GatherBibli and GatherBiblio:
         pickle.dump(DataBrevets, ficRes)
 
     NotGathered = [pat for pat in listeLabel if pat not in YetGathered]
+    AnnonceLog(Appli = 'p2n_gather_biblio', texte="""Ignored  patents from patent list: """ +str(PatIgnored))  
+    
+    AnnonceLog(Appli = 'p2n_gather_biblio', texte=""" unconsistent patents: """ +str(len(NotGathered))) 
+                        
+                        
     print("Ignored  patents from patent list", PatIgnored)
     print("unconsistent patents: ", len(NotGathered))
     print("here is the list: ", " DATA\PatentContentHTML\\" + ndf)
@@ -406,5 +424,7 @@ if GatherBibli and GatherBiblio:
 else:
     print("Nothing to do, fine!")
     AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100)
+    AnnonceLog(Appli = 'p2n_gather_biblio', texte="""INothing to do, fine!""") 
+
 #os.system("FormateExport.exe "+ndf)
 #os.system("CartographyCountry.exe "+ndf)

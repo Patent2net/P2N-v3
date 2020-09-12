@@ -96,6 +96,10 @@ version = "0.5"
 #list of application controled actually (approximativelly)
 
 lstAppl = ['p2n_req','p2n_gather_biblio', 'p2n_content', 'p2n_family','p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster']
+lstAppl2 = [truc + 'Log' for truc in lstAppl]
+
+
+
 # unused: "p2n_filtering", "
 """ Definition of the differents app pages  """
 #Home page
@@ -227,14 +231,23 @@ def annonce():
     # valMax the max value to reach
     # this will be pass to the AnnonceProgres function
     
-    Appli = lstAppl.index(request.args.get("appli"))
-    ValActu = request.args.get("ValActu")
-    valMax = request.args.get("valMax")
+    # FIX needed. After providing announce feature for log, the code below is silly....
+    appli = request.args.get("appli")
+    if appli in lstAppl:
+        Appli = lstAppl.index(appli)
+        ValActu = request.args.get("ValActu")
+        valMax = request.args.get("valMax")
     
-   #msg = format_sse(data=json.dumps({"0":ValActu, "1":valMax}), event =Appli )
-    dico = dict()
-    dico[Appli] = ValActu
-    msg="data:" + json.dumps(dico) + "\n\n"
+    #msg = format_sse(data=json.dumps({"0":ValActu, "1":valMax}), event =Appli )
+        dico = dict()
+        dico[Appli] = ValActu
+        msg="data:" + json.dumps(dico) + "\n\n"
+    else:
+        Appli =  lstAppl.index(appli.replace('Log', ''))#.replace('Log', '')
+        txt = request.args.get("log")
+        dico = dict()
+        dico[Appli] = 'LOG'+txt
+        msg="data:" + json.dumps(dico) + "\n\n"
     announcer.announce(msg=msg)
     return {}, 200
 
