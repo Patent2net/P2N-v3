@@ -23,7 +23,7 @@ from tqdm import tqdm
 from Patent2Net.P2N_Config import LoadConfig
 from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct
 # import bs4
-from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres, AnnonceLog 
 import re
 import unidecode
 import copy
