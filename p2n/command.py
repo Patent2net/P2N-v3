@@ -240,6 +240,7 @@ def classic_interface(options):
     # Patent2Net classic steps, aggregated
 
     if options['acquire'] or options['run']:
+        print(configfile)
         run_script('OPSGatherPatentsv2.py', configfile)
         run_script('PatentListFiltering.py', configfile)
         if options['with-family']:

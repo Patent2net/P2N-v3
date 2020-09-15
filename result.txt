@@ -1,5 +1,5 @@
 p2n_req:TA=lentille
-p2n_dir:lentille672
+p2n_dir:lentille550
 p2n_family:True
 p2n_content:True
 p2n_gather_biblio:True
