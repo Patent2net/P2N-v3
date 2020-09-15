@@ -103,8 +103,8 @@ RUN pip install dogpile.cache \
 		sklearn \
 		where \
 		fuzzywuzzy \
-		Flask
-
+		Flask \
+		flask_cors
 #Clone and install p2n from github
 
 RUN apt-get update
@@ -117,7 +117,7 @@ RUN chown -R root:ftp /usr/src/P2N-V3
 RUN usermod -d /usr/src/P2N-V3 ftp
 RUN mkdir /usr/src/P2N-V3/DATA
 
-RUN chmod -R 775 /usr/src/P2N-V3/DATA
+RUN chmod -R 777 /usr/src/P2N-V3/DATA
 
 
 RUN mkdir /var/run/vsftpd
