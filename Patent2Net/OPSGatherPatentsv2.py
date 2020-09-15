@@ -123,7 +123,8 @@ if ndf in os.listdir(ResultListPath):
             if len(lstBrevets) == nbTrouves and nbActus != nbTrouves:
                 ficOk = True
                 print(nbTrouves, " patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
-                AnnonceLog(Appli = 'p2n_req', texte= 'Gather patent' + str(nbTrouves) + " patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
+                AnnonceLog(Appli = 'p2n_req', texte=  str(nbTrouves) + " patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
+                AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu = 100)
                 Gatherbibli = True
                 GatherPatent = False
             elif len(lstBrevets) == nbTrouves and nbActus == nbTrouves:
@@ -137,12 +138,14 @@ if ndf in os.listdir(ResultListPath):
                         
                         pickle.dump(DataB, ficRes)
                 print('Checking bibliographic data')
-                AnnonceLog(Appli = 'p2n_req', texte='Gather patent' + str(nbTrouves) + " patents gathered yet. No more patents to retreive. Checking bibliographic data.")
+                AnnonceLog(Appli = 'p2n_req', texte= " Checking bibliographic data.")
+                AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu = 100)
                 #we should exit now
             else:
                 ficOk = False
                 print(nbTrouves, " patents corresponding to the request.")
-                AnnonceLog(Appli = 'p2n_req', texte='Gather patent' + str(nbTrouves) + "  patents corresponding to the request.  Retreiving associated bibliographic data")
+                AnnonceLog(Appli = 'p2n_req', texte=  str(nbTrouves) + "  patents corresponding to the request.  Retreiving associated bibliographic data")
+                AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu = 100)
                 print(len(lstBrevets), ' in file corresponding to the request. Retreiving associated bibliographic data')
         else:
             print("You prefer not to gather data. I hope you know what you do. At your own risk. P2N may crash")
@@ -193,7 +196,7 @@ if not ficOk and GatherPatent:
         # cos.system('cls')
         print(nbTrouves, " patents corresponding to the request.")
         print(len(lstBrevets), ' patents added', end=' ')
-        AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu = len(lstBrevets)*100/nbTrouves)
+        AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu =100)
         AnnonceLog(Appli = 'p2n_req', texte=   str(len(lstBrevets)) + "  patents retreived. Saving")
                 
     with open(ResultListPath + '//' + ndf, 'wb') as ficRes1:
