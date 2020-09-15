@@ -21,9 +21,53 @@ from fuzzywuzzy import fuzz
 import networkx as nx
 import matplotlib.pyplot as plt
 from networkx.readwrite import json_graph
-import pandas
+import pandas as pd
+import string
+import re
+import unidecode
+
+#table = string.maketrans("","")
+regex = re.compile('[%s]' % re.escape(string.punctuation))
 
 
+def NoPunct(s):  # From Vinko's solution, with fix.
+    return regex.sub(' ', s)
+
+
+xlsx = pd.ExcelFile('./Resources/EntitésPubliquesNORM.xlsx')
+Public = []
+TypeAppl = dict()
+#df = pd.read_csv('../Patent2Net/Resources/STANNorm.csv', dtype=str, sep=';', encoding='utf-8')
+df = pd.read_excel('../Patent2Net/Resources/StanNORM2.xlsx', dtype=str, encoding='utf-8')
+
+
+for sheet in xlsx.sheet_names:
+   dicotemp = xlsx.parse(sheet).to_dict(orient='list')
+   
+   for cle, val in dicotemp.items():
+        tempoRes = []
+        for appli in val:
+            sav = appli
+            appli = unidecode.unidecode(appli)
+            appli= appli.upper()
+            appli = NoPunct(appli)
+            
+            appli = appli.replace('  ', ' ')
+            appli = appli.replace('  ', ' ')
+           
+            #try
+            indx = df.index[df['Variation Name'].str.upper() == appli]
+            if len(indx)>0:
+                joliNom = df['Norm'].iloc[indx].to_list()[0]
+                tempoRes.append(joliNom)
+                
+            else:
+                print (appli)
+                tempoRes.append(sav)
+        TypeAppl [cle] = tempoRes
+        Public.extend(tempoRes)
+       
+   
 
 configFile = LoadConfig()
 # Les champs nécessaires par brevet.
@@ -99,7 +143,7 @@ Inventeurs = []
 Applicants = []
 for bre in DataBrevet['brevets']:
     Inventeurs.extend(Nettoie(bre['inventor']))
-    Applicants.extend(Nettoie(bre['applicant']))
+    Applicants.extend(bre['applicant'])
 
 Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
 Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
@@ -116,10 +160,7 @@ def UnCheck(ch, liste):
     return not Check(ch, liste)
     
 
-CritFr = ['INSERM', "Faculté de", "Inserm", "Ecole Normale Supérieure", "INRA", "INRIA", "UFR",
-          "Centre Hospitalier", 'CHU', 'Inst Nat', 'Centre National de la Recherche Scientifique', 
-          "Groupe Hospitalier", 'CNRS','INST NAT', 'Institut National', 'Hôpital', 'Université', 'University', 
-          "ETAT FRANCAIS",  "UNIV ROUEN", "UNIV REIMS"]
+ 
 
 def CheckListInclu(listeRef, liste):
     """ Renvoi True si tous les éléments de ListeRef sont dans liste"""
@@ -232,8 +273,8 @@ print ("Nombre d'inventeurs rectifiants les erreurs de saisie :", len(set(Invent
 # Traitement des dossiers et des abstracts collectés
 
 
-AuteursFr = {cle for cle, val in Auteurs.items() if Check(val, CritFr)}
-AuteursNotFr = {cle for cle, val in Auteurs.items() if not Check(val, CritFr)}
+AuteursFr = {cle for cle, val in Auteurs.items() if Check(val, Public)}
+AuteursNotFr = {cle for cle, val in Auteurs.items() if not Check(val, Public)}
 
 
 # normalisation du jeu de brevets sur les noms d'inventeurs
@@ -241,19 +282,20 @@ BrevNorm = []
 for bre in DataBrevet  ['brevets']:
     tempoAut = []
     for aut in bre['inventor']:
-        normAut = aut.lower()
-        normAut = normAut.title()
+        normAut = aut.upper()
+       # normAut = normAut.title()
         if normAut in BadCasInv.keys():
             tempoAut.append(BadCasInv [normAut])
         else:
             tempoAut.append(normAut)
-        if aut in bre ['applicants']:
+            
+        if aut in bre ['applicant']:
             bre ['applicant'].remove (aut)
     bre['inventor'] = tempoAut
     tempoApp = []
     for app in bre['applicant']:
-        normApp = app.lower()
-        normApp = normApp.title()
+        normApp = app.upper()
+        #normApp = normApp.title()
         if normApp in BadCasApp.keys():
             tempoApp.append(BadCasApp [normApp])
         else:
@@ -268,9 +310,9 @@ for bre in DataBrevet  ['brevets']:
             if coAut!= aut:
                 GraphAuteurs.add_edge(aut, coAut)        
     
-    if CheckListInclu(bre['applicant'], CritFr):
+    if CheckListInclu(bre['applicant'], Public):
         bre ['type'] = "univ"
-    elif CheckListExclu(bre['applicant'], CritFr):  
+    elif CheckListExclu(bre['applicant'], Public):  
         bre ['type'] = "indus"
     else:
         bre ['type'] = "collab"
