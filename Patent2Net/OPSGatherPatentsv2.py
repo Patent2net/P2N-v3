@@ -194,7 +194,7 @@ if not ficOk and GatherPatent:
         print(nbTrouves, " patents corresponding to the request.")
         print(len(lstBrevets), ' patents added', end=' ')
         AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu = len(lstBrevets)*100/nbTrouves)
-        AnnonceLog(Appli = 'p2n_req', texte=   str(lstBrevets) + "  patents retreived. Saving")
+        AnnonceLog(Appli = 'p2n_req', texte=   str(len(lstBrevets)) + "  patents retreived. Saving")
                 
     with open(ResultListPath + '//' + ndf, 'wb') as ficRes1:
         DataBrevets = dict()  # this is the list of patents, same variable name as description and patent data in the following
@@ -424,7 +424,7 @@ if GatherBibli and GatherBiblio:
 else:
     print("Nothing to do, fine!")
     AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100)
-    AnnonceLog(Appli = 'p2n_gather_biblio', texte="""INothing to do, fine!""") 
+    AnnonceLog(Appli = 'p2n_gather_biblio', texte="""Nothing else to do, fine!""") 
 
 #os.system("FormateExport.exe "+ndf)
 #os.system("CartographyCountry.exe "+ndf)
