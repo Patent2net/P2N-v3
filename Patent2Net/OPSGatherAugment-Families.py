@@ -148,7 +148,8 @@ if GatherFamilly:
 #                ListeBrevetAug = data['brevets']
 #            else:
 #                ListeBrevetAug = data
-            flatten(DoneLab)
+            DoneLab= flatten(DoneLab)
+            DoneLab=flatten(DoneLab)
             print(len(ListeBrevetAug), " patents loaded, already in families list")
             if len(ListeBrevetAug) ==0:
                 Done =[]
@@ -331,6 +332,33 @@ if GatherFamilly:
         Data['number'] = len(ListeBrevetAug)
         Data['requete'] = "Families of: " + requete
         pickle.dump(Data, ficRes)
+        
+    if 'DescriptionFamilies'+ndf in os.listdir(ResultPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
+            data = LoadBiblioFile(ResultPath,"Families"+ ndf)
 
+    
+    if isinstance(data, collections.Mapping):
+        ListeBrevet = data['brevets']
+        print("Found ", len(ListeBrevet), " patents gathered.")
+        listLab = [bre['label'] for bre in ListeBrevet]    
+        listLab = flatten(listLab) # some patents have multiple labels !!!!
+        listLab = set(listLab)
+        print("but ", len(listLab), " are unique. Saving")
+        DejaVus = []
+        with open(ResultPath+'//Families'+ ndf, 'wb') as ndfLstBrev:
+            for bre in ListeBrevet:
+                if isinstance(bre['label'], str):
+                    if bre['label'] not in DejaVus:
+                        pickle.dump(bre , ndfLstBrev)
+                        DejaVus.append(bre['label'])
+                    else:
+                        pass
+                else:
+                    for lab in set(bre['label']):
+                        if lab not in DejaVus:
+                            pickle.dump(bre , ndfLstBrev)
+                            DejaVus.append(lab)  #this may result in multiplicity...
+                        
+        
     print(len(ListeBrevetAug), ' patents found and saved in file: '+ ResultPath+'//Families'+ ndf)
     #    os.system("FormateExportFamilies.exe Families"+ndf)
