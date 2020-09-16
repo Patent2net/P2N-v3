@@ -218,7 +218,9 @@ def classic_interface(options):
     """
     Patent2Net classic interface
     """
-
+    # running flask server
+    run_script('app.py', configfile, directory='.')
+    
     # Convenience: Write OPS API credentials to file "cles-epo.txt"
     if options['ops'] and options['init']:
         if options['key'] and options['secret']:
@@ -226,7 +228,7 @@ def classic_interface(options):
             credentials.write(options['key'], options['secret'])
         sys.exit()
 
-
+    
     # All tasks from here require a configuration file.
     configfile = options['config']
     if not configfile:
@@ -240,7 +242,7 @@ def classic_interface(options):
     # Patent2Net classic steps, aggregated
 
     if options['acquire'] or options['run']:
-        print(configfile)
+        #print(configfile)
         run_script('OPSGatherPatentsv2.py', configfile)
         run_script('PatentListFiltering.py', configfile)
         if options['with-family']:
