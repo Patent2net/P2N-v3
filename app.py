@@ -95,7 +95,7 @@ def format_sse(data: str, event=None) -> str:
 version = "0.5"
 #list of application controled actually (approximativelly)
 
-lstAppl = ['p2n_req','p2n_gather_biblio', 'p2n_content', 'p2n_family','p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster']
+lstAppl = ['p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content','p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster', ]
 lstAppl2 = [truc + 'Log' for truc in lstAppl]
 
 
