@@ -55,7 +55,7 @@ key, secret = c.read()
 
 DureeBrevet = 20
 SchemeVersion = '20140101'  # for the url to the classification scheme
-import os
+
 
 ListeBrevet = []  # LA iste de brevets
 # ouverture fichier de travail
@@ -120,7 +120,7 @@ if ndf in os.listdir(ResultListPath):
                 print("care of using on file for one request, deleting this one.")
                 input('sure? Unlee use ^C ( CTRL+C)')
             lstBrevets2, nbTrouves = PatentSearch(ops_client, requete)
-            if len(lstBrevets) == nbTrouves and nbActus != nbTrouves:
+            if len(lstBrevets2) == nbTrouves and nbActus != nbTrouves:
                 ficOk = True
                 print(nbTrouves, " patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
                 AnnonceLog(Appli = 'p2n_req', texte=  str(nbTrouves) + " patents gathered yet. No more patents to retreive. Steping to bibliographic data.")

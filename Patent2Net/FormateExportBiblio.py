@@ -104,7 +104,7 @@ if IsEnableScript:
         #                            temp = temp.split('-')
         #                            Date = datetime.date(int(temp[0]), int(temp[1]), int(temp[2]))
 
-                            if isinstance(bre['inventor'], list):
+                            if isinstance(bre['inventor'], list) and len(bre['inventor'])>0:
                                 try:
                                     entryName=bre['inventor'][0].split(' ')[0]+'etAl'+str(Date.year)
                                 except:
@@ -116,9 +116,12 @@ if IsEnableScript:
                                     Authors = str(' and '.join(tempolist))
                                 except UnicodeDecodeError:
                                     Authors = ''
-                            else:
+                            elif len(bre['inventor'])>0:
                                 entryName=bre['inventor'].split(' ')[0]+' etAl '+str(Date.year)
                                 Authors = bre['inventor'].replace(' ', ', ', 1).title()
+                            else:
+                                entryName= "unknown-" +str(Date.day) + "-" +str(Date.month) +"-" +str(Date.year)
+                                Authors = ''
                             entryName = entryName.replace("'", "")
                             if entryName in Dones:
                                 if entryName in Double:
@@ -158,4 +161,4 @@ if IsEnableScript:
                     compt +=1
 
         print(compt, ' bibliographic data added in ', ndf +'.bib file')
-        print("Other bibliographic entry aren't consistent nor A, B, C statuses")
+        print("Other bibliographic entry aren't consistent nor A, B, C kind code")

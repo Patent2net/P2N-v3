@@ -76,6 +76,10 @@ ResultBiblioPath = configFile.ResultBiblioPath
     # Lecture du fichier de référence
     
 
+if 'Old' + ndf in os.listdir(ListBiblioPath):
+    print("already processed. Nothing to do.")
+    sys.exit()
+    
 
 lstApplic = []
 
