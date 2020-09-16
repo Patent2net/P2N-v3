@@ -128,8 +128,9 @@ for fic in [ndf, 'Families'+ndf]:
     
     for bre in LstBrevet:#[:alpha]:
         memo = copy.copy(bre['inventor'])
-        
-        bre['inventor'] = Nettoie(bre['inventor'])
+        if bre['label'] == 'FR3007658':
+            print ('lets go')
+        bre['inventor'] = Nettoie(list(set(bre['inventor'])))
         if isinstance(bre['inventor'], list) and len(bre['inventor'])>1 and ''.join(memo).lower() != 'empty':
             for inv in bre['inventor']:
                 cptInv +=1
@@ -156,8 +157,8 @@ for fic in [ndf, 'Families'+ndf]:
                 bre['inventor'] = []
         else:
             bre['inventor'] = []        
-        memo =copy.copy(bre['applicant'])
-        bre['applicant'] = Nettoie(bre['applicant'])
+        memo =copy.copy(list(set(bre['applicant'])))
+        bre['applicant'] = Nettoie(list(set(bre['applicant'])))
         if isinstance(bre['applicant'], list) and ''.join(memo).lower() != 'empty':
             for inv in bre['applicant']:
                 cptAppl +=1
@@ -304,6 +305,8 @@ for fic in [ndf, 'Families'+ndf]:
     Inventors [fic] = [[],0]
     Applicants [fic] = [[],0]
     for brev in LstBrevet:
+       if bre['label'] == 'FR3007658':
+            print ('lets go')
        memo = copy.copy(brev['applicant']) 
        temp = brev['applicant']
        tempoRes = []
