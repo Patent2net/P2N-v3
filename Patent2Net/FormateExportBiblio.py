@@ -109,7 +109,6 @@ if IsEnableScript:
                                     entryName=bre['inventor'][0].split(' ')[0]+'etAl'+str(Date.year)
                                 except:
                                     entryName=bre['inventor'][0].split(' ')+'etAl'+str(Date.year)
-                                    print()
                                 tempolist = [nom.replace(' ', ', ', 1).title() for nom in bre['inventor']]
     # Issue #7 - by cvanderlei in 4-jan-2016
                                 try:
