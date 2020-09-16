@@ -333,7 +333,7 @@ def gitupdater():
     os.system("python setup.py build")
     os.system("python setup.py install")
     
-    return render_template("P2N.html" ,variable_vers= version)
+    return render_template("Patent2Net/templates/Request_Form/P2N.html" ,variable_vers= version)
 
 
 @app.route('/mass', methods=['GET','POST'])
