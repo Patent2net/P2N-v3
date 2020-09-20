@@ -23,7 +23,7 @@ from tqdm import tqdm
 from Patent2Net.P2N_Config import LoadConfig
 from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct
 # import bs4
-from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres, AnnonceLog 
+from Patent2Net.P2N_Lib import  flatten, LoadBiblioFile, AnnonceProgres, AnnonceLog 
 import re
 import unidecode
 import copy
@@ -356,10 +356,46 @@ for fic in [ndf]: # Families shouln't be processed like that!!!
     #Saving file
     
     for brev in Resultat:
+        if brev['label'] == 'FR3007658':
+            print (brev)
         with open(ResultBiblioPath + '//tempo' + fic,  'ab') as ficRes:
             pickle.dump(brev, ficRes)
     
     os.rename(ResultBiblioPath + '//' + fic, ResultBiblioPath + '//Old' + fic)
     os.rename(ResultBiblioPath + '//tempo' + fic, ResultBiblioPath + '//' + fic)
-    
-    
+
+fic = 'Families' + ndf
+with open(ListBiblioPath + '//' + fic, 'r', encoding ="utf8") as data:
+    dico = LoadBiblioFile(ListBiblioPath, fic)    
+os.rename(ResultBiblioPath + '//' + fic, ResultBiblioPath + '//Old' + fic)
+
+#the following should be done by GatherFamilies process. 
+# just in case...
+dat = dico['brevets']
+labs = [bre ['label'] for bre in dat]
+labs = flatten(labs)  # some patents have multiples labels
+cpt1, cpt2 = 0,0
+if len(labs) != len(set(labs)):
+    DejaVus = []
+    with open(ResultBiblioPath+'//Families'+ ndf, 'wb') as ndfLstBrev:
+        for bre in dat:
+            for cle in bre.keys():
+                if isinstance(bre[cle], list): #cleaning
+                    bre[cle] = list(set(bre[cle]))
+            if isinstance(bre['label'], str):
+                if bre['label'] not in DejaVus:
+                    pickle.dump(bre , ndfLstBrev)
+                    DejaVus.append(bre['label'])
+                    cpt1 +=1
+                else:
+                    pass
+            else:
+                for lab in set(bre['label']):
+                    if lab not in DejaVus:
+                        pickle.dump(bre , ndfLstBrev)
+                        DejaVus.append(lab)
+                        cpt2 +=1
+                    else:
+                        pass
+print(cpt1, cpt2)
+print (len(set(labs)))

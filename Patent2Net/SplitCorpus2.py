@@ -200,6 +200,9 @@ for fic in [ndf, 'Families'+ndf]:
     # GraphApplicant = nx.Graph()
     TypeBre = dict()
     for bre in LstBrevet:
+        if bre['label'] == 'FR3007658':
+            print ('lets go')
+            print (bre)
 #%        for aut in bre['inventor']:
             
             # for coAut in bre['inventor']:

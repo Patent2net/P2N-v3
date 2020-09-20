@@ -95,7 +95,7 @@ Applicants = []
 nbAppliAvant = dict()
 nbInvAvant = dict()
 # traitement des fichiers + familles 
-for fic in [ndf, 'Families'+ndf]:
+for fic in [ndf, 'Families'+ndf]:# Modif here for debug   [ndf, 'Families'+ndf]:
     cptInv, cptAppl = 0,0
 
             
@@ -113,6 +113,14 @@ for fic in [ndf, 'Families'+ndf]:
     Filtres = []
     dejaVus = []
     for bre in LstBrevet:
+        if not isinstance(bre['applicant'], list):
+           bre['applicant'] = [bre['applicant']]
+        if not isinstance(bre["inventor"], list):
+           bre["inventor"] = [bre["inventor"]]
+    
+        for cle in bre.keys():
+           if isinstance(bre[cle], list):
+               bre [cle] = list(set(bre[cle])) 
         if bre['label'] not in dejaVus:
             dejaVus.append(bre['label'])
             Filtres.append(bre)
@@ -129,7 +137,7 @@ for fic in [ndf, 'Families'+ndf]:
     for bre in LstBrevet:#[:alpha]:
         memo = copy.copy(bre['inventor'])
         if bre['label'] == 'FR3007658':
-            print ('lets go')
+            print (bre)
         bre['inventor'] = Nettoie(list(set(bre['inventor'])))
         if isinstance(bre['inventor'], list) and len(bre['inventor'])>1 and ''.join(memo).lower() != 'empty':
             for inv in bre['inventor']:
@@ -182,7 +190,9 @@ for fic in [ndf, 'Families'+ndf]:
     nbAppliAvant [fic]= cptAppl
     nbInvAvant [fic] = cptInv
 ###    
-    
+for brev in LstBrevet:
+    if brev['label'] == 'FR3007658':
+        print (brev)
 Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
 Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
 
@@ -282,6 +292,7 @@ with tqdm(total=len(Applicants), desc="computing", bar_format="{l_bar}{bar} [ ti
                    if appli in Norm_Inventeurs.keys():
                        lstApp [appli] = Norm_Inventeurs [appli]
                    inconnus.append((sav, appli))
+            
     #            print ('match : ', appli, '  --> ', joliNom)
 
 print ('Good, ', cpt, ' normalisations done among ', appliCpt, " applicant names")
@@ -305,20 +316,28 @@ for fic in [ndf, 'Families'+ndf]:
     Inventors [fic] = [[],0]
     Applicants [fic] = [[],0]
     for brev in LstBrevet:
-       if bre['label'] == 'FR3007658':
-            print ('lets go')
+
+       if brev['label'] == 'FR3007658':
+            print ('brev')
        memo = copy.copy(brev['applicant']) 
+       if not isinstance(brev['applicant'], list):
+           brev['applicant'] = [brev['applicant']]
+       if not isinstance(brev["inventor"], list):
+           brev["inventor"] = [brev["inventor"]]
+    
+       for cle in brev.keys():
+           if isinstance(brev[cle], list):
+               brev [cle] = list(set(brev[cle])) 
        temp = brev['applicant']
        tempoRes = []
-       if not isinstance(temp, list):
-           temp = [temp]
-        
+
        for appli in temp:
            Applicants [fic][1] += 1
            Applicants [fic][0].append(appli)
            appliCpt +=1
            for inv in  brev['inventor']:
                inv = inv.title()
+               app = True
                if len(inv.split())>1:
                     
                     if fuzz.token_sort_ratio(inv, appli)>89:
@@ -330,10 +349,10 @@ for fic in [ndf, 'Families'+ndf]:
                                 Inventeur_Norm [inv] = [appli.title()]
                             Norm_Inventeurs [appli.title()] = inv
                             InvDejaVus.append(appli)
-                            appli=None
+                            app=None
                         else:
-                            print ('suspects : ', inv, " --> ", inv2)
-           if appli and appli.lower() !='empty' and appli.title() not in Inventeurs and NoPunct(appli).title() not in Inventeurs and appli.title() not in Norm_Inventeurs.keys(): 
+                            print ('suspects : ', inv, " --> ", appli)
+           if app and appli.lower() !='empty' and appli.title() not in Inventeurs and NoPunct(appli).title() not in Inventeurs and appli.title() not in Norm_Inventeurs.keys(): 
                if appli in lstApp.keys():
                    tempoRes.append(lstApp[appli])
                    cpt += 1
@@ -361,8 +380,7 @@ for fic in [ndf, 'Families'+ndf]:
        brev['applicant-old'] = memo
        tempoInv = []
        memo = copy.copy(brev['inventor'])
-       if not isinstance(brev["inventor"], list):
-           brev["inventor"] = [brev["inventor"]]
+
        for inv in brev["inventor"]:
            
            invCpt +=1
@@ -401,7 +419,8 @@ for fic in [ndf, 'Families'+ndf]:
 inconnus = set(inconnus)
 with open(ResultBiblioPath + '//InventeurNormes.pkl', 'wb' ) as fic:
     pickle.dump(Inventeur_Norm, fic)
-    
+
+
 with open(ResultBiblioPath + '//NormInventeurs.pkl', 'wb' ) as fic:
     pickle.dump(Norm_Inventeurs, fic)
             

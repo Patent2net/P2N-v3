@@ -333,6 +333,7 @@ def CheckListExclu(listeRef, Referent):
         result = True
         for app in listeRef:
             if Check(app, Referent):
+                result = False
                 return False
             else:
                 pass
