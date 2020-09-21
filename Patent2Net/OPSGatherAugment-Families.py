@@ -25,7 +25,7 @@ Amy be unconsistent with pivotable formating... (almost)
 import pickle
 #from Ops2 import ExtraitParties, Clean, ExtraitTitleEn, ExtraitKind, ExtraitCountry, ExtraitIPCR2, ExtractionDate
 from Patent2Net.P2N_Lib import Update, GetFamilly, flatten
-from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
 from p2n.config import OPSCredentials
 
@@ -109,6 +109,7 @@ if GatherFamilly:
         if isinstance(data, collections.Mapping):
             ListeBrevet = data['brevets']
             print("Found ", len(ListeBrevet), " patents gathered.")
+            AnnonceProgres (Appli = 'p2n_family', valMax = len(ListeBrevet), valActu = 0)
         else:
             print('data corrupted. Do something (destroying data directory is a nice idea)')
             sys.exit()
@@ -147,7 +148,8 @@ if GatherFamilly:
 #                ListeBrevetAug = data['brevets']
 #            else:
 #                ListeBrevetAug = data
-            flatten(DoneLab)
+            DoneLab= flatten(DoneLab)
+            DoneLab=flatten(DoneLab)
             print(len(ListeBrevetAug), " patents loaded, already in families list")
             if len(ListeBrevetAug) ==0:
                 Done =[]
@@ -178,6 +180,7 @@ if GatherFamilly:
                 for bre in Done:
                     pickle.dump(dictCleaner(bre) , ndfLstBrev)
             #GatherFamilly = False
+            AnnonceProgres (Appli = 'p2n_family', valMax = 0, valActu = len(Done)/len(ListeBrevet))
     if ficOk and GatherFamilly:
         ops_client = epo_ops.Client(key, secret)
     #        data = ops_client.family('publication', , 'biblio')
@@ -247,6 +250,8 @@ if GatherFamilly:
                                 ListeBrevetAug.append(dictCleaner(pat))
                                 with open(ResultPath+'//Families'+ ndf, 'ab') as ndfLstBrev:
                                     pickle.dump(pat , ndfLstBrev)
+                                    
+                            
                         else:
                             # hum it is already in so, nothing to do
                              pass
@@ -306,6 +311,7 @@ if GatherFamilly:
     #            time.sleep(7)
 
             Done.append(Brev)
+            AnnonceProgres (Appli = 'p2n_family', valMax = 100, valActu = (len(Done))*100/len(ListeBrevet))
             Data = dict()
             with open(ResultPath+'//DescriptionFamilies'+ ndf, 'wb') as ndfLstBrev:
                 Data['ficBrevets'] = 'Families'+ ndf
@@ -316,7 +322,7 @@ if GatherFamilly:
                 pickle.dump(Done, DoneLstBrev)
 
 
-
+    AnnonceProgres (Appli = 'p2n_family', valMax = 100, valActu = 100)
     print("before", len(ListeBrevet))
     print("now", len(ListeBrevetAug))
     #####
@@ -326,6 +332,33 @@ if GatherFamilly:
         Data['number'] = len(ListeBrevetAug)
         Data['requete'] = "Families of: " + requete
         pickle.dump(Data, ficRes)
+        
+    if 'DescriptionFamilies'+ndf in os.listdir(ResultPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
+            data = LoadBiblioFile(ResultPath,"Families"+ ndf)
 
+    
+    if isinstance(data, collections.Mapping):
+        ListeBrevet = data['brevets']
+        print("Found ", len(ListeBrevet), " patents gathered.")
+        listLab = [bre['label'] for bre in ListeBrevet]    
+        listLab = flatten(listLab) # some patents have multiple labels !!!!
+        listLab = set(listLab)
+        print("but ", len(listLab), " are unique. Saving")
+        DejaVus = []
+        with open(ResultPath+'//Families'+ ndf, 'wb') as ndfLstBrev:
+            for bre in ListeBrevet:
+                if isinstance(bre['label'], str):
+                    if bre['label'] not in DejaVus:
+                        pickle.dump(bre , ndfLstBrev)
+                        DejaVus.append(bre['label'])
+                    else:
+                        pass
+                else:
+                    for lab in set(bre['label']):
+                        if lab not in DejaVus:
+                            pickle.dump(bre , ndfLstBrev)
+                            DejaVus.append(lab)  #this may result in multiplicity...
+                        
+        
     print(len(ListeBrevetAug), ' patents found and saved in file: '+ ResultPath+'//Families'+ ndf)
     #    os.system("FormateExportFamilies.exe Families"+ndf)

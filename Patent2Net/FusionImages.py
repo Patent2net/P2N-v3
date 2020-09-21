@@ -4,7 +4,7 @@ import os
 import json
 import logging
 
-from Patent2Net.P2N_Lib import LoadBiblioFile, RenderTemplate
+from Patent2Net.P2N_Lib import LoadBiblioFile, RenderTemplate, AnnonceProgres, AnnonceLog 
 from Patent2Net.P2N_Config import LoadConfig
 from p2n.config import label_from_prefix
 from p2n.util import boot_logging, to_png
@@ -102,6 +102,7 @@ def run():
         gallery = []
         patents = biblio_file['brevets']
         for patent in patents:
+            AnnonceProgres (Appli = 'p2n_image', valMax = 100, valActu = 90 + cpt*10/len(patents))
             patent_label = get_patent_label(patent)
             i = 1
             logger.info('Processing patent {}'.format(patent_label))

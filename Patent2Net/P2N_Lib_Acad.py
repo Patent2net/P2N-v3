@@ -149,7 +149,7 @@ def PubMedCheckNameAndGetAffiliation(pubmedId, auteur):
     if reponse.status_code == 200:
         data = xmltodict.parse(reponse.text)
         Affiliaton = ''
-        if 'PubmedArticleSet' in data.keys():
+        if 'PubmedArticleSet' in data.keys() and data ['PubmedArticleSet'] is not None:
             if 'PubmedArticle' in  data ['PubmedArticleSet'].keys():
                 if 'MedlineCitation' in data ['PubmedArticleSet']['PubmedArticle'].keys():
                     if 'Article' in data ['PubmedArticleSet']['PubmedArticle']['MedlineCitation'].keys():
@@ -230,7 +230,24 @@ def PubMedCheckNameAndGetAffiliation(pubmedId, auteur):
                                                 tempo = [aff['Affiliation'] for aff in Aut['AffiliationInfo'] ]
                                                 Affiliaton = '\n'.join(tempo)
                                     #checking it s Firstname and lastname (should work with initials)
-                                    if (strip_accents(auteur.split(' ')[0]) in Nom and strip_accents(auteur.split(' ')[1]) in Nom) or (UnicName and (strip_accents(auteur.split(' ')[0]) in Nom or strip_accents(auteur.split(' ')[1]) in Nom)) :
+                                    if ' ' not in auteur:
+                                        #just a name :-( 
+                                        # Modif 01/10 
+                                        if strip_accents(auteur) in Nom:
+                                            if 'AffiliationInfo' in Aut.keys():
+                                                if isinstance(Aut['AffiliationInfo'], dict) or  isinstance(Aut['AffiliationInfo'], OrderedDict):
+                                                    if 'Affiliation' in Aut['AffiliationInfo'].keys():  
+                                                        return Aut['AffiliationInfo']['Affiliation']
+                                                    else:
+                                                        print ('inconsistent')
+                                                elif isinstance(Aut['AffiliationInfo'], list):
+                                                    tempo = [aff['Affiliation'] for aff in Aut['AffiliationInfo'] ]
+                                                    return ('\n'.join(tempo))
+                                                else:
+                                                    print ('Type Affiliation etrange ', type(Aut['AffiliationInfo']), ' --> ', Aut['AffiliationInfo'])
+                                            else:
+                                                return Affiliaton
+                                    elif (strip_accents(auteur.split(' ')[0]) in Nom and strip_accents(auteur.split(' ')[1]) in Nom) or (UnicName and (strip_accents(auteur.split(' ')[0]) in Nom or strip_accents(auteur.split(' ')[1]) in Nom)) :
                                         if 'AffiliationInfo' in Aut.keys():
                                             if isinstance(Aut['AffiliationInfo'], dict) or  isinstance(Aut['AffiliationInfo'], OrderedDict):
                                                 if 'Affiliation' in Aut['AffiliationInfo'].keys():  
@@ -267,3 +284,85 @@ def PubMedCheckNameAndGetAffiliation(pubmedId, auteur):
         raise ValueError(reponse.status_code, reponse.reason)
     return None    
 
+# def Check(ch, liste):
+#     # return True when string ch is in liste (list of strings)
+#     for truc in liste:
+#         if len(truc) >0 and truc == ch:
+#             return True
+#     return False
+
+def Check(ch, liste):
+    if len(ch) >0:
+        return ch in liste
+    else:
+        return False
+
+def UnCheck(ch, liste):
+    # return True when string ch is not in liste (list of strings)
+    return not Check(ch, liste)
+    
+
+
+
+def CheckListInclu(listeRef, liste):
+    """ Renvoi True si tous les éléments de ListeRef sont dans liste"""
+    if isinstance(listeRef, list):
+        if len(listeRef) >1:
+            temp = [Check(subch, liste) for subch in listeRef]
+            return sum(temp) == len(temp)
+        else:
+            return Check(listeRef, liste)
+    else:
+        return Check(listeRef, liste)
+
+
+def CheckListMix(listeRef, liste):
+    """ Renvoi True si un des éléments de ListeRef sont dans liste"""
+    if not CheckListExclu(listeRef, liste) and not CheckListInclu(listeRef, liste):
+        return True
+    else:
+        return False
+    
+
+def CheckListExclu(listeRef, Referent):
+    """ CheckListExclu(listeRef, Referent)
+    Renvoi True si Aucun des éléments de ListeRef sont dans Referent
+    ATTENTION éléments de la liste TOUS en majuscules'
+    """
+    if isinstance(listeRef, list):
+        result = True
+        for app in listeRef:
+            if Check(app, Referent):
+                result = False
+                return False
+            else:
+                pass
+
+        return result
+#        return sum([truc.upper() in Referent for truc in listeRef]) == len(listeRef)
+        
+    else:
+        return UnCheck(listeRef, Referent)
+    
+def NoPunct(s):  # From Vinko's solution, with fix.
+    import re, string
+    regex = re.compile('[%s]' % re.escape(string.punctuation))
+    
+    temp = regex.sub(' ', s)
+    temp = temp.replace('  ', ' ')
+    temp = temp.replace('  ', ' ')
+    temp = temp.strip()
+    return temp
+
+def Nettoie(Liste):
+    indesirables = ['', u'', None, False, [], ' ', '\t', '\n',  "?", "Empty", "empty"]
+    if isinstance(Liste, list):
+    
+        Liste = [' '.join([truc for truc in nom.split(' ') if isinstance(truc, str) and truc is not None and truc.strip() not in indesirables]) for nom in Liste if nom is not None] 
+
+        return list(filter(lambda x: x not in indesirables, Liste))
+    
+    elif Liste in indesirables:
+        return []
+    else:
+        return [Liste]

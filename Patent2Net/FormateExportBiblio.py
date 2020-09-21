@@ -79,7 +79,7 @@ if IsEnableScript:
         #                 Gogo = Gogo * (u'None' not in bre[cle])
         #                 Gogo = Gogo * ( bre[cle] != u'')
         #==============================================================================
-                    if Gogo>0:
+                    if Gogo:
                         if "A" in ' '.join(bre['kind']) or "B" in ' '.join(bre['kind']) or "C" in ' '.join(bre['kind']): #filter patent list again their status... only published
                             if bre['dateDate'] is not None or bre['dateDate'] != 'None' or bre['dateDate'] != '' or 'None' not in bre['dateDate'] or None in bre['dateDate']:
                                 if len(bre['year'])>0 and not isinstance(bre['date'], list):
@@ -104,20 +104,23 @@ if IsEnableScript:
         #                            temp = temp.split('-')
         #                            Date = datetime.date(int(temp[0]), int(temp[1]), int(temp[2]))
 
-                            if isinstance(bre['inventor'], list):
+                            if isinstance(bre['inventor'], list) and len(bre['inventor'])>0:
                                 try:
                                     entryName=bre['inventor'][0].split(' ')[0]+'etAl'+str(Date.year)
                                 except:
-                                    print()
+                                    entryName=bre['inventor'][0].split(' ')+'etAl'+str(Date.year)
                                 tempolist = [nom.replace(' ', ', ', 1).title() for nom in bre['inventor']]
     # Issue #7 - by cvanderlei in 4-jan-2016
                                 try:
                                     Authors = str(' and '.join(tempolist))
                                 except UnicodeDecodeError:
                                     Authors = ''
-                            else:
-                                entryName=bre['inventor'].split(' ')[0]+'etAl'+str(Date.year)
+                            elif len(bre['inventor'])>0:
+                                entryName=bre['inventor'].split(' ')[0]+' etAl '+str(Date.year)
                                 Authors = bre['inventor'].replace(' ', ', ', 1).title()
+                            else:
+                                entryName= "unknown-" +str(Date.day) + "-" +str(Date.month) +"-" +str(Date.year)
+                                Authors = ''
                             entryName = entryName.replace("'", "")
                             if entryName in Dones:
                                 if entryName in Double:
@@ -157,4 +160,4 @@ if IsEnableScript:
                     compt +=1
 
         print(compt, ' bibliographic data added in ', ndf +'.bib file')
-        print("Other bibliographic entry aren't consistent nor A, B, C statuses")
+        print("Other bibliographic entry aren't consistent nor A, B, C kind code")

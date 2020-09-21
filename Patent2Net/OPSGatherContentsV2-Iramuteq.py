@@ -31,7 +31,7 @@ import sys
 import epo_ops
 from epo_ops.models import Docdb
 from epo_ops.models import Epodoc
-from Patent2Net.P2N_Lib import MakeIram2, LoadBiblioFile
+from Patent2Net.P2N_Lib import MakeIram2, LoadBiblioFile, AnnonceProgres, AnnonceLog
 from Patent2Net.P2N_Config import LoadConfig
 
 
@@ -48,7 +48,7 @@ key, secret = fic.read().split(',')
 key, secret = key.strip(), secret.strip()
 fic.close()
 
-
+appli = 'p2n_content'
 DureeBrevet = 20
 SchemeVersion = '20140101' #for the url to the classification scheme
 
@@ -97,8 +97,9 @@ if IsEnableScript:
     ops_client = epo_ops.Client(key, secret)
     #        data = ops_client.family('publication', , 'biblio')
     ops_client.accept_type = 'application/json'
-
-    for ndf in [fic2 for fic2 in os.listdir(ResultBiblioPath) if fic2.count('Description')==0]:
+    NumTotal = 0
+    cpt = 0
+    for ndf in [fic2 for fic2 in os.listdir(ResultBiblioPath) if fic2.count('Description')==0 and fic2.count('Old')==0]:
         if ndf.startswith('Families'):
             typeSrc = 'Families'
         else:
@@ -108,6 +109,8 @@ if IsEnableScript:
 
         else: #Retrocompatibility
             print('gather your data again. sorry')
+            AnnonceProgres('Gather content', "gather your data again. sorry")
+            
             sys.exit()
 
         if 'brevets' in ficBrevet:
@@ -115,8 +118,12 @@ if IsEnableScript:
     #        if data.has_key('requete'):
     #            DataBrevet['requete'] = data["requete"]
             print("Found ",typeSrc, ' file and', len(lstBrevet), " patents! Gathering contents")
+            AnnonceLog(Appli=appli, texte= "Found " +str(typeSrc) + ' file and' +str(len(lstBrevet)) + " patents! Gathering contents")
+            NumTotal += len(lstBrevet)
         else:
             print('gather your data again')
+            AnnonceProgres('Gather content', "gather your data again. sorry")
+            
             sys.exit()
 
         ops_client = epo_ops.Client(key, secret)
@@ -140,10 +147,18 @@ if IsEnableScript:
 
         if GatherContent:
             Nombre = dict()
+            'p2n_content', 'p2n_carrot','p2n_iramuteq','p2n_cluster'
             for brevet in lstBrevet:
+                cpt += 1
+                AnnonceProgres (Appli = 'p2n_content', valMax = 100, valActu = cpt*100/NumTotal)
+                AnnonceProgres (Appli = 'p2n_carrot', valMax = 100, valActu = cpt*50/NumTotal) # 50% for fusion
+                AnnonceProgres (Appli = 'p2n_iramuteq', valMax = 100, valActu = cpt*50/NumTotal)
+                AnnonceProgres (Appli = 'p2n_cluster', valMax = 100, valActu = cpt*50/NumTotal)
                 brevet = dictCleaner(brevet)
                 ndb = brevet['label']#[u'document-id'][u'country']['$']+brevet[u'document-id'][u'doc-number']['$']brevet['publication-ref'][u'document-id'][0][u'kind']['$'])
                 print("Retrieving ", ndb)
+                AnnonceLog(Appli=appli, texte= "Retrieving: "+ ndb)
+            
         #check for already gathered patents
                 pays = brevet['country']
                 if isinstance(ndb, list):
@@ -224,6 +239,6 @@ if IsEnableScript:
         else:
             print("no gather parameter set. Finishing.")
 
-
+        AnnonceLog(Appli=appli, texte= "Done, "+ str(cpt) +" things (abstracts, claims or descriptions) gathered")
 
         #print ft, " fulltext gathered. See ", ndf.replace('.dump', '')+'/fulltext/ directory for files'

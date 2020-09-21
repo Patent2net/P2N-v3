@@ -608,7 +608,7 @@ for prefix in prefixes:
         nx.write_gexf(G1, ResultGephiPath+'/temp.gexf', version='1.2draft')
 
 #from there its a hack (sometimes ugly) as networkx2.2 doesn't deal correctly with dynamics nets
-        with open(ResultGephiPath+'/temp.gexf') as fic:
+        with open(ResultGephiPath+'/temp.gexf', 'r', encoding='utf8') as fic:
             data = fic.readlines()
         enco = data[0:2]
         temp=data[1:1]
@@ -632,10 +632,10 @@ for prefix in prefixes:
         temp.append("""      <creator>Patent2Net V3</creator>\n""")
         temp += data[16:]
         data= "".join(temp)
-        with open(ResultGephiPath+'/temp2.gexf', "w") as fic:
+        with open(ResultGephiPath+'/temp2.gexf', "w", encoding='utf8') as fic:
             fic.write(enco[1] + data)
         
-        with open(ResultGephiPath+'/temp2.gexf') as fic:
+        with open(ResultGephiPath+'/temp2.gexf', encoding='utf8') as fic:
 #            don = fic.readlines()
 #            data = ''.join(don[1:])
             data=fic.read()
@@ -645,7 +645,7 @@ for prefix in prefixes:
         bords = [truc for truc in don if truc.count('edges')]
         if ResultGephiPath+'/HackTest.gexf' in os.listdir(ResultGephiPath+'/'):
             os.remove(ResultGephiPath+'/HackTest.gexf')
-        with open(ResultGephiPath+'/HackTest.gexf', 'w') as ficRes:
+        with open(ResultGephiPath+'/HackTest.gexf', 'w', encoding='utf8') as ficRes:
             ficRes.write("".join(enco))
 #            ficRes.write(don[1])
 #            ficRes.write(don[2])
@@ -653,10 +653,10 @@ for prefix in prefixes:
                 if el.tag in ["{http://www.gexf.net/1.2draft}attributes",
                               "{http://www.gexf.net/1.2draft}meta",
                               ]:
-                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
+                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='utf8', method='xml')))
         
                 elif  el.tag in ["{http://www.gexf.net/1.2draft}nodes"]:
-                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
+                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='utf8', method='xml')))
                     ficRes.write(bords[0])
                 elif el.tag == "{http://www.gexf.net/1.2draft}edge":
                     rac = copy.copy(el)
@@ -684,7 +684,7 @@ for prefix in prefixes:
                             else:
                                 NewAttr.append(attrs)
                         rac.append(NewAttr)
-                        ficRes.write(str(etree.tostring( rac, pretty_print=True, encoding='unicode', method='xml')))
+                        ficRes.write(str(etree.tostring( rac, pretty_print=True, encoding='utf8', method='xml')))
                         
             ficRes.write(don[len(don)-3])
             ficRes.write(don[len(don)-2].strip())
@@ -693,7 +693,7 @@ for prefix in prefixes:
             os.remove(ResultGephiPath+'/'+outputFile)
         #Doing same hacking system for networkJS exports
         # this could be factorised!!!!
-        with open(ResultGephiPath+'/temp.gexf') as fic:
+        with open(ResultGephiPath+'/temp.gexf', encoding='utf8') as fic:
             data = fic.readlines()
         enco = data[0:1]
         temp=data[1:2]
@@ -718,10 +718,10 @@ for prefix in prefixes:
         temp += data[14:]
         data= "".join(temp)
         
-        with open(ResultGephiPath+'/temp2.gexf', "w") as fic:
+        with open(ResultGephiPath+'/temp2.gexf', "w", encoding='utf8') as fic:
             fic.write( data)
         
-        with open(ResultGephiPath+'/temp2.gexf') as fic:
+        with open(ResultGephiPath+'/temp2.gexf', encoding='utf8') as fic:
 #            don = fic.readlines()
 #            data = ''.join(don[1:])
             data=fic.read()
@@ -739,10 +739,10 @@ for prefix in prefixes:
                 if el.tag in ["{http://www.gexf.net/1.2draft}attributes",
                               "{http://www.gexf.net/1.2draft}meta",
                               ]:
-                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
+                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='utf8', method='xml')))
         
                 elif  el.tag in ["{http://www.gexf.net/1.2draft}edges"]:
-                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='unicode', method='xml')))
+                    ficRes.write(str(etree.tostring(el, pretty_print=True, encoding='utf8', method='xml')))
                     ficRes.write(bords[0])
                     #parsing this time node attributes to avoid dynamic attributes (LOL)
                 elif el.tag == "{http://www.gexf.net/1.2draft}node":
@@ -773,7 +773,7 @@ for prefix in prefixes:
 #                            else:
 #                                
                         rac.append(NewAttr)
-                    ficRes.write(str(etree.tostring( rac, pretty_print=True, encoding='unicode', method='xml')))
+                    ficRes.write(str(etree.tostring( rac, pretty_print=True, encoding='utf8', method='xml')))
                         
             ficRes.write(don[len(don)-3])
             ficRes.write(don[len(don)-2].strip())
