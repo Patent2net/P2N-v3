@@ -317,8 +317,6 @@ for fic in [ndf, 'Families'+ndf]:
     Applicants [fic] = [[],0]
     for brev in LstBrevet:
 
-       if brev['label'] == 'FR3007658':
-            print ('brev')
        memo = copy.copy(brev['applicant']) 
        if not isinstance(brev['applicant'], list):
            brev['applicant'] = [brev['applicant']]

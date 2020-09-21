@@ -134,7 +134,7 @@ Inventeurs = []
 Applicants = []
 for bre in DataBrevet['brevets']:
 #     temp =Nettoie(bre['inventor'])
-     Inventeurs.extend(bre['inventor'])
+     Inventeurs.extend([inv for inv in bre['inventor'] if len(inv.split((' ')))>1])
 #     bre['inventor'] = temp
 #     temp = Nettoie(bre['applicant'])
      Applicants.extend(bre['applicant'])
@@ -200,7 +200,7 @@ for fic in [ndf, 'Families'+ndf]:
     # GraphApplicant = nx.Graph()
     TypeBre = dict()
     for bre in LstBrevet:
-        if bre['label'] == 'FR3007658':
+        if bre['label'] == 'FR3007658' or bre['label'] == 'FR3012018':
             print ('lets go')
             print (bre)
 #%        for aut in bre['inventor']:
@@ -209,7 +209,7 @@ for fic in [ndf, 'Families'+ndf]:
             #     if coAut!= aut:
             #         GraphAuteurs.add_edge(aut, coAut)  
         bre['applicant'] = [appli for appli in bre['applicant'] if isinstance(appli, str) and len(appli.strip())>0 and appli.replace(' ', '') != 'empty']
-        bre['applicant'] = [appli for appli in bre['applicant'] if appli.title() not in Inventeurs and NoPunct(appli.title()) not in Inventeurs]
+        bre['applicant'] = [appli for appli in bre['applicant'] if appli.title() not in Inventeurs2 and NoPunct(appli.title()) not in Inventeurs2]
         if isinstance(bre['applicant'], list) and len(bre['applicant'])==1:
             if bre['applicant'][0].upper() in Public:
                 bre ['type'] = "public"
