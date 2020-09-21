@@ -256,10 +256,10 @@ for bre in DataBrevet  ['brevets']:
             print("ARFFFFF, bad inventor ", inv)
         Inventeurs.add(inv.title())
         Techno[inv.title()] =  [cib for cib in bre ['IPCR11']] 
-GraphAuteurs = nx.DiGraph()
-GraphApplicant = nx.DiGraph()
-GraphBrevets = nx.DiGraph()
-GraphAuteursAppli = nx.DiGraph()
+GraphAuteurs = nx.Graph()
+GraphApplicant = DiGraph()
+GraphBrevets = nx.Graph()
+GraphAuteursAppli = nx.Graph()
 # TypeBre = dict()
 dicoAttrs = dict()
 dicoAttrsAut = dict()
@@ -333,7 +333,7 @@ for bre in DataBrevet['brevets']:
              if appl in Public:
                  typeAppl = 'Public'
              else:
-                 typeAppl = 'Privé'
+                 typeAppl = 'Private'
              if appl in dicoAttrs.keys():
                  dicoAttrs [appl] = {"type" : typeAppl,
                                      'famille': dicoAttrs [appl]['famille']+ df['family lenght'].loc[df.index[df['label'] == bre['label']]].values[0],

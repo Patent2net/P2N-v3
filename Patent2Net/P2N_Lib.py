@@ -2372,7 +2372,7 @@ def byteify(input):
 def LoadBiblioFile(rep, name):
     # new       12/12/05
     import pickle
-    name=name.title()
+    name=name #.title()
     DataBrevets = dict()
     DataBrevets['brevets'] = []
     if "Description" + name in os.listdir(rep):
@@ -2383,7 +2383,7 @@ def LoadBiblioFile(rep, name):
     else:
         DataBrevets['ficBrevets']  =""
         DataBrevets['requete'] = ""  # may be a pass is enought
-    with open(rep + '//' + name, 'rb') as fic:
+    with open(rep + '//' + ndf, 'rb') as fic:
         while 1:
             try:
                 DataBrevets['brevets'].append(pickle.load(fic))
