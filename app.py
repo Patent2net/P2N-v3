@@ -206,7 +206,7 @@ def CqlCreator():
     
     print ('starting')
     
-
+    form_result['p2n_filtering'] = True #
     AppLab = [lab for lab in lstAppl if form_result [lab] and lab not in ['p2n_dir']]
         
     app_cfg.num_bars = len(AppLab) - len([truc for truc in AppLab if not form_result [truc]] )
