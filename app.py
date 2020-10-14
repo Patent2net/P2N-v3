@@ -144,7 +144,7 @@ def form():
 @app.route('/confirmation', methods=['GET'])
 def confirmation():
     print (request.url)
-    form_result =  request.argsdict(parse.parse_qsl(parse.urlsplit(request).query))
+    form_result =  request.args#dict(parse.parse_qsl(parse.urlsplit(request).query))
     
     
     
