@@ -191,8 +191,11 @@ for fic in [ndf, 'Families'+ndf]:# Modif here for debug   [ndf, 'Families'+ndf]:
     nbInvAvant [fic] = cptInv
 ###    
 for brev in LstBrevet:
-    if brev['label'] == 'FR3007658':
+    if brev['label'] == 'FR3034554':
         print (brev)
+Inventeurs = set(Inventeurs)
+Applicants = set(Applicants)
+
 Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
 Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
 
@@ -201,8 +204,7 @@ BadCasApp = dict()
 InvDejaVus = []
 AppDejaVus = []
 
-Inventeurs = set(Inventeurs)
-Applicants = set(Applicants)
+
 #Applicants = set([app.lower().title() for app in Applicants])
 InventeurSafe = copy.copy(Inventeurs)
 AppliAvant =  len(set(Applicants))
@@ -316,7 +318,8 @@ for fic in [ndf, 'Families'+ndf]:
     Inventors [fic] = [[],0]
     Applicants [fic] = [[],0]
     for brev in LstBrevet:
-
+       if brev['label'] == 'FR3034554':
+           print (brev)
        memo = copy.copy(brev['applicant']) 
        if not isinstance(brev['applicant'], list):
            brev['applicant'] = [brev['applicant']]
@@ -335,7 +338,7 @@ for fic in [ndf, 'Families'+ndf]:
            appliCpt +=1
            for inv in  brev['inventor']:
                inv = inv.title()
-               app = True
+               
                if len(inv.split())>1:
                     
                     if fuzz.token_sort_ratio(inv, appli)>89:
@@ -347,10 +350,9 @@ for fic in [ndf, 'Families'+ndf]:
                                 Inventeur_Norm [inv] = [appli.title()]
                             Norm_Inventeurs [appli.title()] = inv
                             InvDejaVus.append(appli)
-                            app=None
                         else:
                             print ('suspects : ', inv, " --> ", appli)
-           if app and appli.lower() !='empty' and appli.title() not in Inventeurs and NoPunct(appli).title() not in Inventeurs and appli.title() not in Norm_Inventeurs.keys(): 
+           if appli not in InvDejaVus and appli.lower() !='empty' and appli.title() not in Inventeurs2 and NoPunct(appli).title() not in Inventeurs2 and appli.title() not in Norm_Inventeurs.keys(): 
                if appli in lstApp.keys():
                    tempoRes.append(lstApp[appli])
                    cpt += 1
@@ -360,7 +362,6 @@ for fic in [ndf, 'Families'+ndf]:
                else:
                    sav = copy.copy(appli)
                    appli = unidecode.unidecode(appli)
-                   appli = NoPunct(appli)
                    appli= appli.upper()
                    appli = NoPunct(appli)
                    if appli in lstApp.keys():
@@ -404,11 +405,13 @@ for fic in [ndf, 'Families'+ndf]:
      # saving file
        with open(ResultBiblioPath + '//tempo' + fic,  'ab') as ficRes:
            pickle.dump(brev, ficRes)
-        
+       if brev['label'] == 'FR3034554':
+           print ("----------------")
+           print (brev)
     print ('Good, ', cpt, ' normalisations done on ', fic, ' among ', appliCpt, " applicant names")
     
                 # sauvegarde dans un fichier tempo
-
+    
     
     # remplacement de la source par le résultat
     # à n'activer que quand çà marche ^_^
