@@ -124,7 +124,7 @@ def progress():
         #Launch the P2N research
         #os.system(cmd)
         
-        AppLab = [lab for lab in lstAppl if formul [lab] and lab not in ['p2n_dir','p2n_filtering']]
+        AppLab = [lab for lab in lstAppl if formul [lab] and lab not in ['p2n_dir']]
         app_cfg.num_bars = len(AppLab)
         return render_template('Patent2Net/templates/Request_Form/progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
@@ -144,11 +144,11 @@ def form():
 @app.route('/confirmation', methods=['GET'])
 def confirmation():
     print (request.url)
-    form_result =  request.args#dict(parse.parse_qsl(parse.urlsplit(request).query))
+    form_result =  request.argsdict(parse.parse_qsl(parse.urlsplit(request).query))
     
     
     
-    AppLab = [lab for lab in lstAppl if form_result [lab] and lab not in ['p2n_dir','p2n_filtering']]
+    AppLab = [lab for lab in lstAppl if form_result [lab] and lab not in ['p2n_dir']]
         
     app_cfg.num_bars = len(AppLab) - len([truc for truc in AppLab if not form_result [truc]] )
     return render_template('Patent2Net/templates/Request_Form/Progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
