@@ -206,8 +206,8 @@ def CqlCreator():
     
     print ('starting')
     
-    form_result['p2n_filtering'] = True #
-    AppLab = [lab for lab in lstAppl if form_result [lab] and lab not in ['p2n_dir']]
+    #form_result['p2n_filtering'] = True #
+    AppLab = [lab for lab in lstAppl if lab not in ['p2n_dir', 'p2n_filtering'] and form_result [lab]]
         
     app_cfg.num_bars = len(AppLab) - len([truc for truc in AppLab if not form_result [truc]] )
     return render_template('Patent2Net/templates/Request_Form/Request.html', num_bars = app_cfg.num_bars, label = AppLab)
