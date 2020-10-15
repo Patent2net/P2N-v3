@@ -219,7 +219,7 @@ def classic_interface(options):
     Patent2Net classic interface
     """
     # running flask server
-    run_script('app.py', directory='.')
+    run_script('app.py', configfile=None, directory='.')
     
     # Convenience: Write OPS API credentials to file "cles-epo.txt"
     if options['ops'] and options['init']:
