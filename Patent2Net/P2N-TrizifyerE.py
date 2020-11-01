@@ -166,6 +166,18 @@ objects = listprod['Colonne2'].tolist()
 resultType = listcara['Colonne3'].tolist()
 #print(len(resultType))
 
+from nltk.corpus import wordnet
+
+expansionTriz = {}
+for mot in resultType:
+    synonyms = []
+    for syn in wordnet.synsets(mot):
+        for l in syn.lemmas():
+            synonyms.append(l.name())
+    expansionTriz [mot] = synonyms
+
+
+
 mylist = list(dict.fromkeys(resultType))
 
 #print(len(mylist))
@@ -215,7 +227,10 @@ mylist = list(dict.fromkeys(resultType))
 #print(listprod)
 #print(listcara)
 
-
+import spacy
+from itertools import product
+#import en_core_web_sm
+tal = spacy.load('en_core_web_sm')
 
 #lecture des fichiers txt en boucle et placement element dans dataF
 for fic in En:
@@ -231,20 +246,24 @@ for fic in En:
         
         # tokenization  
         
-#        abstract = re.sub("[^a-zA-Z#]", " ",str(abstract))
-        Blob = TextBlob(abstract)
-        wordlist=Blob.words #should give best results@ DR
-
-        # remove stop-words  and words less 3 caracters
-     
-        filtered_sentence = [] 
-              
-        for w in wordlist: 
-            if w not in stop_words and len(w) > 3: 
-                filtered_sentence.append(w) 
-              
+# =============================================================================
+# #        abstract = re.sub("[^a-zA-Z#]", " ",str(abstract))
+#         Blob = TextBlob(abstract)
+#         wordlist=Blob.words #should give best results@ DR
+# 
+#         # remove stop-words  and words less 3 caracters
+#      
+#         filtered_sentence = [] 
+#               
+#         for w in wordlist: 
+#             if w not in stop_words and len(w) > 3: 
+#                 filtered_sentence.append(w) 
+#               
+# =============================================================================
         
-        
+        brevet = tal(abstract)
+        filtered_sentence = [mot.lemma_ for mot in brevet if mot.pos_ == "NOUN" or mot.pos_ == "VERB"]
+        # SHOULD filter here trivial terms (disclose, invention, application,....problem etc.)
         
             #Document-Term Matrix
         #print(filtered_sentence)   
@@ -258,36 +277,48 @@ for fic in En:
         matricelistePaireObject = []
 
        
-        
+        allsyns2 = set(ss for word in filtered_sentence for ss in wordnet.synsets(mot))
         for classe in resultType :  
            tokens = classe 
-           for word in filtered_sentence :
-                abstractNumber='abs'.format(str((i)))
-                listaction = word
-                #listaction = re.sub(r'\([^)]*\)', '', listaction)
+           allsyns1 = set(ss for word in expansionTriz [classe] for ss in wordnet.synsets(word))
+           semComp = [(wordnet.wup_similarity(s1, s2) or 0, s1, s2) for s1, s2 in product(allsyns1, allsyns2)]
+           if len(semComp)>1:
+               best = max(semComp)
+               valeurs=[i,NumberBrevet,classe,best[2].definition(),best[0],abstract,urlEspacenet]
+               ligne=",".join(str(v) for v in valeurs) + "\n"
+               f.write(ligne)    
+           else:
+               pass
            
-               #comparaison betwen tags and classe Triz
-               
-                indiceSimAction = wns.word_similarity(classe,str(listaction))
+           # for word in filtered_sentence :
+           #      abstractNumber='abs'.format(str((i)))
+           #      listaction = word
                 
-                print(classe)
-                print(listcara)
-                print(indiceSimAction)
+                
+           #      #listaction = re.sub(r'\([^)]*\)', '', listaction)
+           
+           #     #comparaison betwen tags and classe Triz
+               
+           #      indiceSimAction = wns.word_similarity(classe,str(listaction))
+                
+           #      print(classe)
+           #      print(listcara)
+           #      print(indiceSimAction)
 
                    
-                if indiceSimAction == 0 or word.isdigit() == True:
-                        #print("rien a faire ")
-                       continue 
+           #      if indiceSimAction == 0 or word.isdigit() == True:
+           #              #print("rien a faire ")
+           #             continue 
         
-                else:
-                    valeurs=[]
+           #      else:
+           #          valeurs=[]
                         
-                    valeurs=[i,NumberBrevet,classe,listaction,indiceSimAction,abstract,urlEspacenet]
-                    #print(valeurs)
+           #          valeurs=[i,NumberBrevet,classe,listaction,indiceSimAction,abstract,urlEspacenet]
+           #          #print(valeurs)
                         
-                    ligne=",".join(str(v) for v in valeurs) + "\n"
+           #          ligne=",".join(str(v) for v in valeurs) + "\n"
                       
-                    f.write(ligne)    
+           #          f.write(ligne)    
 
 
         
