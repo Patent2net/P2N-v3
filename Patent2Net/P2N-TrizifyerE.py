@@ -15,39 +15,39 @@ from textblob import TextBlob # importation de textblob outil liguistique
 from nltk.corpus import stopwords
 import nltk
 from sematch.semantic.similarity import WordNetSimilarity
-from nltk.corpus import wordnet as wn
+#from nltk.corpus import wordnet as wn
 import pandas as pd
 import re
 import shutil  
 import sys
-from nltk.corpus import stopwords
-import numpy as np
-import pandas as pd
-import re 
-import umap
-import matplotlib.pyplot as plt
-import seaborn as sns
-from nltk.corpus import stopwords
-from sklearn.feature_extraction.text import TfidfVectorizer
-from nltk.tokenize import word_tokenize 
-from nltk.stem.wordnet import WordNetLemmatizer
-import string
-import gensim
-from gensim import corpora
-from gensim.corpora import Dictionary
-from sklearn.decomposition import TruncatedSVD
-import os
-import re
+#from nltk.corpus import stopwords
+# import numpy as np
+#import pandas as pd
+#import re 
+#import umap
+#import matplotlib.pyplot as plt
+#import seaborn as sns
+#from nltk.corpus import stopwords
+# from sklearn.feature_extraction.text import TfidfVectorizer
+# from nltk.tokenize import word_tokenize 
+# from nltk.stem.wordnet import WordNetLemmatizer
+# import string
+# import gensim
+# from gensim import corpora
+# from gensim.corpora import Dictionary
+# from sklearn.decomposition import TruncatedSVD
+# import os
+# import re
 import codecs 
-import logging
-import time
-from operator import add
-from textblob import TextBlob # importation de textblob outil liguistique 
-from nltk.corpus import stopwords
+# import logging
+# import time
+# from operator import add
+# from textblob import TextBlob # importation de textblob outil liguistique 
+# from nltk.corpus import stopwords
 from P2N_Lib import LoadBiblioFile
-from P2N_Lib import GenereListeFichiers
-from P2N_Config import LoadConfig
-from nltk.corpus import wordnet 
+# from P2N_Lib import GenereListeFichiers
+# from P2N_Config import LoadConfig
+# from nltk.corpus import wordnet 
 
 ListeBrevet = [] # The patent List
 stop_words = set(stopwords.words('english'))
@@ -126,7 +126,7 @@ PSW = [] # liste de mots vide à compléter au fur et à mesure des recherches
 
 
 dataF = """""" # va contenir tous les abstracts du dossier de la requete
-import codecs
+#import codecs
 
 #DejaVus = dict()
 
@@ -146,7 +146,7 @@ ligneEntete=",".join(entetes)+"\n"
 f.write(ligneEntete)
     
 
-d= pd.read_csv("trizOxfordData.csv",delimiter=";") 
+d= pd.read_csv("Resources/trizOxfordData.csv",delimiter=";") 
 
 listact = pd.DataFrame(d,columns=['Colonne1'])
 listprod = pd.DataFrame(d,columns=['Colonne2'])
@@ -231,7 +231,7 @@ for fic in En:
         
         # tokenization  
         
-        abstract = re.sub("[^a-zA-Z#]", " ",str(abstract))
+#        abstract = re.sub("[^a-zA-Z#]", " ",str(abstract))
         Blob = TextBlob(abstract)
         wordlist=Blob.words #should give best results@ DR
 
