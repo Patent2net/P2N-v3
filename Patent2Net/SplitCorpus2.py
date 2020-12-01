@@ -82,16 +82,13 @@ project = RepDir
 if 'AcadCorpora' not in os.listdir(configFile.ResultPath):
     print ("relancez le script de collecte (AcadPubMed.py 29/06/2019)")
     sys.exit()
-if 'Description'+ndf in os.listdir(BiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
-    print( "loading patent biblio data with all fields.")
-    DataBrevet = LoadBiblioFile(BiblioPath, ndf)
-    print("Hi this is AcadStatsAcad Corpora splitter processor. Bibliographic data of ", ndf, " patent universe found.")
-else:
-    print ("relancez P2n pour collecter les données brevet")
-    sys.exit()
-
-print("Nice, ", len(DataBrevet["brevets"]), " patents found. Découpage selon le données du tablea EntitésPubliquesNorm.xlsx")
-
+# if 'Description'+ndf in os.listdir(BiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
+#     print( "loading patent biblio data with all fields.")
+#     DataBrevet = LoadBiblioFile(BiblioPath, ndf)
+#     print("Hi this is AcadStatsAcad Corpora splitter processor. Bibliographic data of ", ndf, " patent universe found.")
+# else:
+#     print ("relancez P2n pour collecter les données brevet")
+#     sys.exit()
 
 # test de consistance
 # with open(Auteur+'//DejaTraites.csv', 'r',) as fic:
@@ -130,19 +127,7 @@ print("Nice, ", len(DataBrevet["brevets"]), " patents found. Découpage selon le
 #             multiAut+=1
 #             pass
 
-Inventeurs = []
-Applicants = []
-for bre in DataBrevet['brevets']:
-#     temp =Nettoie(bre['inventor'])
-     Inventeurs.extend([inv for inv in bre['inventor'] if len(inv.split((' ')))>1])
-#     bre['inventor'] = temp
-#     temp = Nettoie(bre['applicant'])
-     Applicants.extend(bre['applicant'])
-#     bre['applicant'] = temp
-    
 
-Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
-Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
 
 # test of subfunctions
 # test1 = ['CNRS', 'INSERM', 'CHU Paris'] # tout dans CritFr
@@ -162,52 +147,54 @@ Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
 # CheckListInclu(test3, CritFr)
 # CheckListMix(test3, CritFr)
 
-Inventeur_Norm = dict()
-Applicant_Norm = dict()
-BadCasApp = dict()
-InvDejaVus = []
-AppDejaVus = []
-import copy
-Inventeurs = set(Inventeurs)
-Applicants = set(Applicants)
-#Applicants = set([app.lower().title() for app in Applicants])
-InventeurSafe = copy.copy(Inventeurs)
-print ("Nombre d'inventeurs :", len(set(Inventeurs)))
-             
-print ("Nombre d'applicants :", len(set(Applicants)))
 
+import copy
 
 # no good: la sélection des brevets à partir des représentants qui certaines fois ne sont que dans les familles, doit se faire sur la liste 
 # des équivalents du corpus initial. Là ce 'nest pas le cas et on a un joyeux mix
-for fic in [ndf, 'Families'+ndf]:
+for fic in ['Families'+ndf]:
     print("\n> Hi! This is corpora splitter used on:", fic)
     if 'Description' + fic in os.listdir(ListBiblioPath):
         with open(ListBiblioPath + '//' + fic, 'r') as data:
-            dico = LoadBiblioFile(ListBiblioPath, fic)
+            DataBrevet = LoadBiblioFile(ListBiblioPath, fic)
     else:  # Retrocompatibility
         print("please use Comptatibilizer")
         sys.exit()
-    LstBrevet = dico['brevets']
-    # BrevNorm2 = copy.copy(BrevNorm)
+    LstBrevet = DataBrevet['brevets']
 
-    # BrevNorm2.extend([truc for truc in LstBrevet if truc['label'] not in equiv2])
-    
-    # print (len(BrevNorm2))
+    print("Nice, ", len(DataBrevet["brevets"]), " patents found. Découpage selon le données du tablea EntitésPubliquesNorm.xlsx")
 
-    # normalisation du jeu de brevets sur les equivallents
 
-    # GraphAuteurs = nx.Graph()
-    # GraphApplicant = nx.Graph()
+    Inventeurs = []
+    Applicants = []
+    for bre in DataBrevet['brevets']:
+#     temp =Nettoie(bre['inventor'])
+         Inventeurs.extend([inv for inv in bre['inventor'] if len(inv.split((' ')))>1])
+#     bre['inventor'] = temp
+#     temp = Nettoie(bre['applicant'])
+         Applicants.extend(bre['applicant'])
+#     bre['applicant'] = temp
+        
+    Inventeurs = set(Inventeurs)
+    Applicants = set(Applicants)
+
+    Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
+    Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
+    Inventeur_Norm = dict()
+    Applicant_Norm = dict()
+    BadCasApp = dict()
+    InvDejaVus = []
+    AppDejaVus = []
+
+    #Applicants = set([app.lower().title() for app in Applicants])
+    InventeurSafe = copy.copy(Inventeurs)
+    print ("Nombre d'inventeurs :", len(set(Inventeurs)))
+                 
+    print ("Nombre d'applicants :", len(set(Applicants)))
     TypeBre = dict()
     for bre in LstBrevet:
-        if bre['label'] == 'FR3007658' or bre['label'] == 'FR3012018':
-            print ('lets go')
-            print (bre)
-#%        for aut in bre['inventor']:
-            
-            # for coAut in bre['inventor']:
-            #     if coAut!= aut:
-            #         GraphAuteurs.add_edge(aut, coAut)  
+        # if bre['label'] == 'FR3034554':
+        #     print (bre)
         bre['applicant'] = [appli for appli in bre['applicant'] if isinstance(appli, str) and len(appli.strip())>0 and appli.replace(' ', '') != 'empty']
         bre['applicant'] = [appli for appli in bre['applicant'] if appli.title() not in Inventeurs2 and NoPunct(appli.title()) not in Inventeurs2]
         if isinstance(bre['applicant'], list) and len(bre['applicant'])==1:

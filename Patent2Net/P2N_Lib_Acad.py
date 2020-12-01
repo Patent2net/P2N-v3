@@ -140,10 +140,10 @@ def strip_accents(text):
     text = text.decode("utf-8")
     return str(text)
 
-def PubMedCheckNameAndGetAffiliation(pubmedId, auteur):
+def PubMedCheckNameAndGetAffiliation(pubmedId, auteur, apikey):
     import requests, xmltodict
     from collections import OrderedDict
-    Base = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=%s&rettype=fasta&retmode=xml" %(pubmedId)
+    Base = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=%s&rettype=fasta&retmode=xml&api_key=%s" %(pubmedId, apikey)
     reponse = requests.get(Base)
     data = None
     if reponse.status_code == 200:
@@ -366,3 +366,29 @@ def Nettoie(Liste):
         return []
     else:
         return [Liste]
+
+def IsInFrance(address):
+    # si l'affiliation est mal écrite (ou composite) çà marche pas bien
+    # devrait être perfectible avec test sur chaine de caractères 'france' in address.lower()
+    import requests, json
+    import urllib.parse
+    api_url = "https://api-adresse.data.gouv.fr/search/?q="
+    req = requests.get(api_url + urllib.parse.quote(address))
+    try:
+        rep =  json.loads(req.text)
+        if "features" in rep.keys():
+            if len(rep ["features"]) >0:
+                score = max ([truc['properties']['score'] for truc in rep['features']])
+                if score >0.2: #arbitrary !!!!
+                    return True#, rep
+                else:
+                    pass
+        return False#, rep
+    except:
+        return False#, rep
+        
+# def Nettoie(Liste):
+#     indesirables = ['', u'', None, False, [], ' ', "?", "Empty", "empty"]
+#     Liste = [' '.join([truc.lower().title() for truc in nom.split(' ')]) for nom in Liste ] 
+#     return list(filter(lambda x: x not in indesirables, Liste))
+

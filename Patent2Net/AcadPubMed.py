@@ -94,215 +94,216 @@ try:
     DejaVus = [lab.strip() for lab in DejaVus]
 except:
     pass
+auteurDejaVu = []
 for brevet in DataBrevet["brevets"]:
     
     AffilAuteur = dict()
 
-
     if brevet['label'] not in DejaVus:
         
         for Auteur in brevet['inventor'] :
-            SavBrevet = False # Commutateur pour éviter de requêter 15 fois pour un brevet
-            LigneCsv = """""" # the csv file for mathching articles and patent at CIB level
-            NbAut +=1
-            Auteur = Auteur.title()
-            NumAut +=1 
-            query = "%s[Author - Full]" %(Auteur)
-            DocsAuteur = pubmed.query(query, max_results=500)
-            IramFull = """"""# le contenu du fichier IRAMUTEQ complet
-            Num = 0 #le numéro de doc pour sauvegarde
-            auteurDejaVu = False
-            NbArt = 0 # Articles retrouvés
-            
-            for article in DocsAuteur:
-                NbArt +=1 
-                SAV = False  # switch pour savegarder dans le csv
-            #    print(type(article))
-            #    print(article.toJSON())
-                Num +=1
-                Affi = PubMedCheckNameAndGetAffiliation(article.pubmed_id.split('\n')[0], Auteur) # the first pubmed_id is the article. Others are citations
-                if Affi is not None:
-                    if Auteur not in AffilAuteur.keys():
-                        AffilAuteur[Auteur] = set()
-                        AffilAuteur[Auteur].add(Affi)
-                    else:
-                        AffilAuteur[Auteur].add(Affi)
-                    if " france" in Affi.lower():
-                        NbFr +=1
-                        RepStockage = RepDir + "//" +str(NumAut) +'-'+ Auteur.title().replace(' ', '').replace('"', '') 
-                        if "AcadCorpora" not in os.listdir(configFile.ResultPath):
-                            os.makedirs(RepDir)
+            if Auteur not in auteurDejaVu:
+                SavBrevet = False # Commutateur pour éviter de requêter 15 fois pour un brevet
+                LigneCsv = """""" # the csv file for mathching articles and patent at CIB level
+                NbAut +=1
+                Auteur = Auteur.title()
+                NumAut +=1 
+                query = "%s[Author - Full]" %(Auteur)
+                DocsAuteur = pubmed.query(query, max_results=500)
+                IramFull = """"""# le contenu du fichier IRAMUTEQ complet
+                Num = 0 #le numéro de doc pour sauvegarde
+                auteurDejaVu.append(Auteur)
+                NbArt = 0 # Articles retrouvés
+                
+                for article in DocsAuteur:
+                    NbArt +=1 
+                    SAV = False  # switch pour savegarder dans le csv
+                #    print(type(article))
+                #    print(article.toJSON())
+                    Num +=1
+                    Affi = PubMedCheckNameAndGetAffiliation(article.pubmed_id.split('\n')[0], Auteur) # the first pubmed_id is the article. Others are citations
+                    if Affi is not None:
+                        if Auteur not in AffilAuteur.keys():
+                            AffilAuteur[Auteur] = set()
+                            AffilAuteur[Auteur].add(Affi)
                         else:
-                            pass
-                        if Auteur.title().replace(' ', '').replace('"','') +str(NumAut) not in os.listdir(RepDir):
-                                try:
-                                    os.makedirs(RepStockage+"//publis")
-                                    os.makedirs(RepStockage+"//abstracts")
-                                except:
-                                    pass
-                        else:
-                            pass
-                        if  Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv' not in os.listdir(RepStockage):
-                            with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv', 'w', 'utf8') as fic:
-                                fic.write('Label Brevet;Résume brevet;CIBs associées;année;Article Pubmed_id;Article DOI;Article résumé;CIBs associées;CIB Match;score Max IPCCat;Année;Affiliation\n')
-                        
-                        if not SavBrevet: #sauvegarde de l'abstract brevet
-                            AbsBrevet = OPSChercheAbstractBrevet(brevet, RepStockage+'//')
-                            SavBrevet = True
-                            EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(brevet['year']) + ' *brevet_'+brevet['label'] + ' *article_brevet \n'
-                            ContPat  = brevet['title'] + '\n'
-                            if 'fr' in AbsBrevet.keys():
-                                ContPat  += '\n'.join(AbsBrevet ['fr'])
-                                IPCBrevet = IPCCategorizer(ContPat , 'fr')
-                                IPCBrevet= IPCExtractPredictionBrevet(IPCBrevet, SeuilScorePrediction)
-                                
-                                ResumeBrevet = '\n'.join (AbsBrevet ['fr'])
+                            AffilAuteur[Auteur].add(Affi)
+                        if True: # france" in Affi.lower():  # very bad. Should check adress with geonames here. 
+                            NbFr +=1
+                            RepStockage = RepDir + "//" +str(NumAut) +'-'+ Auteur.title().replace(' ', '').replace('"', '') 
+                            if "AcadCorpora" not in os.listdir(configFile.ResultPath):
+                                os.makedirs(RepDir)
                             else:
-                                ResumeBrevet =''
-                                for lang in AbsBrevet.keys():
-                                    score = 0
-                                    if lang in ['en', 'fr', 'es', 'de', 'ru']:
-                                        ContPat  += '\n'.join(AbsBrevet [lang]) 
-                                        IPCBrevetTemp = IPCCategorizer(ContPat, lang)
-                                        IPCBrevet= IPCExtractPredictionBrevet(IPCBrevetTemp, SeuilScorePrediction)
-                                        
-                                        ResumeBrevet += '\n'.join (AbsBrevet [lang])
-
-                                                                  
-                                    #Contenu += '\n'.join (AbsBrevet [lang])
-                            IramFull += EnTete + ResumeBrevet  +'\n'
-                            if isinstance(brevet['year'], list):
-                                date = brevet['year'][0]
+                                pass
+                            if Auteur.title().replace(' ', '').replace('"','') +str(NumAut) not in os.listdir(RepDir):
+                                    try:
+                                        os.makedirs(RepStockage+"//publis")
+                                        os.makedirs(RepStockage+"//abstracts")
+                                    except:
+                                        pass
                             else:
-                                date = str(brevet['year'])
-                            ndf = date + '-'+brevet['label']+'.txt'
-                            with codecs.open(RepStockage+ '//abstracts//' + ndf, 'w', 'utf8') as fic:
-                                fic.write(EnTete + ContPat+'\n')
-                            #On rajoute l'article
-                            if article.abstract and article.title:
-                                if not article.publication_date:
-                                    date = 1900
+                                pass
+                            if  Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv' not in os.listdir(RepStockage):
+                                with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv', 'w', 'utf8') as fic:
+                                    fic.write('Label Brevet;Résume brevet;CIBs associées;année;Article Pubmed_id;Article DOI;Article résumé;CIBs associées;CIB Match;score Max IPCCat;Année;Affiliation\n')
+                            
+                            if not SavBrevet: #sauvegarde de l'abstract brevet
+                                AbsBrevet = OPSChercheAbstractBrevet(brevet, RepStockage+'//')
+                                SavBrevet = True
+                                EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(brevet['year']) + ' *brevet_'+brevet['label'] + ' *article_brevet \n'
+                                ContPat  = brevet['title'] + '\n'
+                                if 'fr' in AbsBrevet.keys():
+                                    ContPat  += '\n'.join(AbsBrevet ['fr'])
+                                    IPCBrevet = IPCCategorizer(ContPat , 'fr')
+                                    IPCBrevet= IPCExtractPredictionBrevet(IPCBrevet, SeuilScorePrediction)
+                                    
+                                    ResumeBrevet = '\n'.join (AbsBrevet ['fr'])
                                 else:
-                                    date = article.publication_date.year
-                                EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(date) + ' *brevet_article' + ' *article_'+article.pubmed_id.split('\n')[0]+ ' \n'
-
-                                Contenu = article.title + '\n' + article.abstract + '\n'
-                                IramFull += EnTete + Contenu
-                                ndf = str(date) + '-' + str(Num) + '.txt'
-        #                               # On stocke chaque résumé dans un fichier dans le rep abstract
-                                with codecs.open(RepStockage+ '//publis//' + ndf, 'w', 'utf8') as fic:
-                                    fic.write(EnTete + Contenu+'\n')
-                                
-                                IPC = IPCCategorizer(Contenu, 'en') # on suppose tous les aarticles en anglais
-                                IPCArt = IPCExtractPredictionBrevet(IPC, SeuilScorePrediction)
-                                if IPCArt:
-                                    score = max([int(cat['score']) for cat in IPCArt])
-                                
-        #                        for cat in IPCArt:
-        #                            for cat2 in IPCBrevet:
-        #                                if cat['category'] == cat2 ["category"]:
-        #                                    print ("Match found")
-        #                                    SAV = True
-                                    CatIPCArt = set([cat['category'][0:7] for cat in IPCArt])
-                                    try:#on essaye le classement par IPCCat (pour ne pas avoir à éventuellement traiter les diff de schéma)
-                                        CatIPCBrevet = set([cat['category'][0:7] for cat in IPCBrevet])
-                                        
-                                    except: #le classement s'est mal passé on prend celui du brevet
-                                        IPCBrevet = [{'category' : cib} for cib in brevet['IPCR7']]
-                                        CatIPCBrevet = set([cat['category'][0:7] for cat in IPCBrevet])
-                                    MatchCat = [cat for cat in CatIPCArt if cat in CatIPCBrevet]
+                                    ResumeBrevet =''
+                                    for lang in AbsBrevet.keys():
+                                        score = 0
+                                        if lang in ['en', 'fr', 'es', 'de', 'ru']:
+                                            ContPat  += '\n'.join(AbsBrevet [lang]) 
+                                            IPCBrevetTemp = IPCCategorizer(ContPat, lang)
+                                            IPCBrevet= IPCExtractPredictionBrevet(IPCBrevetTemp, SeuilScorePrediction)
+                                            
+                                            ResumeBrevet += '\n'.join (AbsBrevet [lang])
+    
+                                                                      
+                                        #Contenu += '\n'.join (AbsBrevet [lang])
+                                IramFull += EnTete + ResumeBrevet  +'\n'
+                                if isinstance(brevet['year'], list):
+                                    date = brevet['year'][0]
                                 else:
-                                    MatchCat =''
-                                if len(MatchCat) >0:
-                                    print ("Match found")
-                                    SAV = True
-                            else:
-                                pass #titre ou contenu manquant
-                        else: # Le brevet a déjà été retrouvé
-                            if article.abstract and article.title:
-                                if not article.publication_date:
-                                    date = 1900
-                                else:
-                                    date = article.publication_date.year
-
-                                EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(date)  + ' *brevet_article' +'\n'
-                                
-                                Contenu = article.title + '\n' + article.abstract + '\n'
-                                IramFull += EnTete + Contenu+'\n'
-                                ndf = str(date) + '-' + str(Num) + '.txt'
-        #                               # On stocke chaque résumé dans un fichier dans le rep abstract
-                                with codecs.open(RepStockage+ '//publis//' + ndf, 'w', 'utf8') as fic:
-                                    fic.write(EnTete + Contenu+'\n')
-                                IPC = IPCCategorizer(Contenu, 'en')# on suppose tous les aarticles en anglais
-                                IPCArt = IPCExtractPredictionBrevet(IPC, SeuilScorePrediction)
-                                if IPCArt:
-                                    CatIPCArt = set([cat['category'][0:7] for cat in IPCArt])
-                                    if IPCBrevet:
-                                        CatIPCBrevet  = set([cat['category'][0:7] for cat in IPCBrevet])
-                                    elif brevet ['IPCR7']:
-                                        CatIPCBrevet = set(brevet ['IPCR7'])
+                                    date = str(brevet['year'])
+                                ndf = date + '-'+brevet['label']+'.txt'
+                                with codecs.open(RepStockage+ '//abstracts//' + ndf, 'w', 'utf8') as fic:
+                                    fic.write(EnTete + ContPat+'\n')
+                                #On rajoute l'article
+                                if article.abstract and article.title:
+                                    if not article.publication_date:
+                                        date = 1900
                                     else:
-                                        break
-                                    MatchCat = [cat for cat in CatIPCArt if cat in CatIPCBrevet]
-                                    score = max([int(cat['score']) for cat in IPCArt])
+                                        date = article.publication_date.year
+                                    EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(date) + ' *brevet_article' + ' *article_'+article.pubmed_id.split('\n')[0]+ ' \n'
+    
+                                    Contenu = article.title + '\n' + article.abstract + '\n'
+                                    IramFull += EnTete + Contenu
+                                    ndf = str(date) + '-' + str(Num) + '.txt'
+            #                               # On stocke chaque résumé dans un fichier dans le rep abstract
+                                    with codecs.open(RepStockage+ '//publis//' + ndf, 'w', 'utf8') as fic:
+                                        fic.write(EnTete + Contenu+'\n')
+                                    
+                                    IPC = IPCCategorizer(Contenu, 'en') # on suppose tous les aarticles en anglais
+                                    IPCArt = IPCExtractPredictionBrevet(IPC, SeuilScorePrediction)
+                                    if IPCArt:
+                                        score = max([int(cat['score']) for cat in IPCArt])
+                                    
+            #                        for cat in IPCArt:
+            #                            for cat2 in IPCBrevet:
+            #                                if cat['category'] == cat2 ["category"]:
+            #                                    print ("Match found")
+            #                                    SAV = True
+                                        CatIPCArt = set([cat['category'][0:7] for cat in IPCArt])
+                                        try:#on essaye le classement par IPCCat (pour ne pas avoir à éventuellement traiter les diff de schéma)
+                                            CatIPCBrevet = set([cat['category'][0:7] for cat in IPCBrevet])
+                                            
+                                        except: #le classement s'est mal passé on prend celui du brevet
+                                            IPCBrevet = [{'category' : cib} for cib in brevet['IPCR7']]
+                                            CatIPCBrevet = set([cat['category'][0:7] for cat in IPCBrevet])
+                                        MatchCat = [cat for cat in CatIPCArt if cat in CatIPCBrevet]
+                                    else:
+                                        MatchCat =''
                                     if len(MatchCat) >0:
                                         print ("Match found")
                                         SAV = True
                                 else:
-                                    print( IPCArt )
+                                    pass #titre ou contenu manquant
+                            else: # Le brevet a déjà été retrouvé
+                                if article.abstract and article.title:
+                                    if not article.publication_date:
+                                        date = 1900
+                                    else:
+                                        date = article.publication_date.year
+    
+                                    EnTete = "**** *inventeur_" + Auteur.title().replace(' ', '') + " *date_"+ str(date)  + ' *brevet_article' +'\n'
+                                    
+                                    Contenu = article.title + '\n' + article.abstract + '\n'
+                                    IramFull += EnTete + Contenu+'\n'
+                                    ndf = str(date) + '-' + str(Num) + '.txt'
+            #                               # On stocke chaque résumé dans un fichier dans le rep abstract
+                                    with codecs.open(RepStockage+ '//publis//' + ndf, 'w', 'utf8') as fic:
+                                        fic.write(EnTete + Contenu+'\n')
+                                    IPC = IPCCategorizer(Contenu, 'en')# on suppose tous les aarticles en anglais
+                                    IPCArt = IPCExtractPredictionBrevet(IPC, SeuilScorePrediction)
+                                    if IPCArt:
+                                        CatIPCArt = set([cat['category'][0:7] for cat in IPCArt])
+                                        if IPCBrevet:
+                                            CatIPCBrevet  = set([cat['category'][0:7] for cat in IPCBrevet])
+                                        elif brevet ['IPCR7']:
+                                            CatIPCBrevet = set(brevet ['IPCR7'])
+                                        else:
+                                            break
+                                        MatchCat = [cat for cat in CatIPCArt if cat in CatIPCBrevet]
+                                        score = max([int(cat['score']) for cat in IPCArt])
+                                        if len(MatchCat) >0:
+                                            print ("Match found")
+                                            SAV = True
+                                    else:
+                                        print( IPCArt )
+                                        pass
+                                else:
                                     pass
-                            else:
-                                pass
-                                        
-                        if SAV:
-                            match +=1
-                            if not article.publication_date:
-                                    dateArticle = str(1900)
-                            else:
-                                    dateArticle = str(article.publication_date.year)
-                            
-                            if not article.doi:
-                                article.doi = ''
-                            
-                            temp =  brevet['label'] +';'+ ResumeBrevet.replace(';', '*%*').replace('\n', '') + ';' +\
-                                          ','.join([cat["category"] for cat in IPCBrevet]) +';' +\
-                                         str(','.join(brevet['year']))+';' +article.pubmed_id.split('\n')[0] +';'+\
-                                         article.doi +';' + Contenu.replace(';', '*%*').replace('\n', '') + ';' +\
-                                         ','.join([cat["category"] for cat in IPCArt]) +";" +\
-                                          ','.join([truc for truc in MatchCat]) + ";" + str(score) +';' + dateArticle +';' + Affi.replace('\n', '') + '\n'
-                            with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv', 'a', 'utf8') as fic:
-                                  fic.write(temp)  
-                            
-                          
+                                            
+                            if SAV:
+                                match +=1
+                                if not article.publication_date:
+                                        dateArticle = str(1900)
+                                else:
+                                        dateArticle = str(article.publication_date.year)
+                                
+                                if not article.doi:
+                                    article.doi = ''
+                                
+                                temp =  brevet['label'] +';'+ ResumeBrevet.replace(';', '*%*').replace('\n', '') + ';' +\
+                                              ','.join([cat["category"] for cat in IPCBrevet]) +';' +\
+                                             str(','.join(brevet['year']))+';' +article.pubmed_id.split('\n')[0] +';'+\
+                                             article.doi +';' + Contenu.replace(';', '*%*').replace('\n', '') + ';' +\
+                                             ','.join([cat["category"] for cat in IPCArt]) +";" +\
+                                              ','.join([truc for truc in MatchCat]) + ";" + str(score) +';' + dateArticle +';' + Affi.replace('\n', '') + '\n'
+                                with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'Match.csv', 'a', 'utf8') as fic:
+                                      fic.write(temp)  
+                                
+                              
+                        else:
+        #                    if not auteurDejaVu:
+        #                        auteurDejaVu = True
+        #                        with open(RepDir + "//" "AffiliationsPasOk.csv", "a") as  SavAffil:
+        #                            SavAffil.write(Auteur +';' + Affi.replace(';', '***') + '\n')
+        #                            
+                            pass #Not a frenchy
+        #                    print ("pas glop", Affi)
                     else:
-    #                    if not auteurDejaVu:
-    #                        auteurDejaVu = True
-    #                        with open(RepDir + "//" "AffiliationsPasOk.csv", "a") as  SavAffil:
-    #                            SavAffil.write(Auteur +';' + Affi.replace(';', '***') + '\n')
-    #                            
-                        pass #Not a frenchy
-    #                    print ("pas glop", Affi)
-                else:
-    # =============================================================================
-    #                 if not auteurDejaVu:
-    #                     auteurDejaVu = True
-    #                     with open(RepDir + "//" "AuteursTestes.csv", "a") as  SavAut:
-    #                         SavAut.write(Auteur +';' + Affi.replace(';', '***') + '\n')
-    # 
-    # =============================================================================
-                    #probablement un nom et prénom de correspondent pas
-                    #ou l'affiliation n'a pas été reconnue
-                    
-                    pass
-            if Auteur in AffilAuteur.keys():
-                with open(RepDir + "//" "AuteursAffil.csv", "a", encoding='utf8') as  SavAutAffil:
-                    temp = Auteur + ';' +";".join(AffilAuteur[Auteur]) + '\n'
-                    if not Affi:
-                        Affi='???'
-                    SavAutAffil.write(Auteur +';' + Affi.replace(';', '***').replace('\n', '') + '\n')   
-            if len(IramFull) >0:
-                with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'IRAM.txt', 'w', 'utf8') as fic:
-                    fic.write(IramFull)
+        # =============================================================================
+        #                 if not auteurDejaVu:
+        #                     auteurDejaVu = True
+        #                     with open(RepDir + "//" "AuteursTestes.csv", "a") as  SavAut:
+        #                         SavAut.write(Auteur +';' + Affi.replace(';', '***') + '\n')
+        # 
+        # =============================================================================
+                        #probablement un nom et prénom de correspondent pas
+                        #ou l'affiliation n'a pas été reconnue
+                        
+                        pass
+                if Auteur in AffilAuteur.keys():
+                    with open(RepDir + "//" "AuteursAffil.csv", "a", encoding='utf8') as  SavAutAffil:
+                        temp = Auteur + ';' +";".join(AffilAuteur[Auteur]) + '\n'
+                        if not Affi:
+                            Affi='???'
+                        SavAutAffil.write(Auteur +';' + Affi.replace(';', '***').replace('\n', '') + '\n')   
+                if len(IramFull) >0:
+                    with codecs.open(RepStockage+ '//' + Auteur.title().replace(' ', '').replace('"', '') + 'IRAM.txt', 'w', 'utf8') as fic:
+                        fic.write(IramFull)
         try:
             if brevet['label'] not in DejaVus:
                 with open(RepDir+"//DejaTraites.csv", "a", encoding='utf8') as ficVus:

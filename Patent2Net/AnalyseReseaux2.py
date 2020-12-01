@@ -12,24 +12,23 @@ import sys
 import shutil
 import pickle
 
-from pymed import PubMed
 
 from Patent2Net.P2N_Lib import LoadBiblioFile
 from Patent2Net.P2N_Config import LoadConfig
 #from Patent2Net.P2N_Lib_Acad import IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
-from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct, CheckListInclu, CheckListMix, CheckListExclu, UnCheck, Check
-from fuzzywuzzy import fuzz
+#from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct, CheckListInclu, CheckListMix, CheckListExclu, UnCheck, Check
+#from fuzzywuzzy import fuzz
 
 
 import networkx as nx
-import matplotlib.pyplot as plt
-from networkx.readwrite import json_graph
+#import matplotlib.pyplot as plt
+#from networkx.readwrite import json_graph
 import pandas as pd
-import string
-import re
-import unidecode
-import pandas as pd
-from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct
+# import string
+# import re
+# import unidecode
+
+# from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct
 
 
 xlsx = pd.ExcelFile('./Resources/EntitésPubliquesNORM4.xlsx')

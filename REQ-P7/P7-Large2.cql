@@ -2,12 +2,12 @@
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: "csv import"
+request: ((ic=A63 OR IC=A62) AND pd within "2014, 2016") AND pr=FR
 
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: cancer
+DataDirectory: P7-Large2
 
 ###############################
 #Patent2Net options : Set to *True* or False
@@ -17,14 +17,14 @@ DataDirectory: cancer
 GatherPatent: False
 
 # patents bibliographic data corresponding to patent list
-GatherBiblio: True
+GatherBiblio: False
 
 # patent content (description, abstract, claims) completing patents bibliographic data
 GatherContent: False
 OPSGatherContentsv2-Iramuteq: False
 
 #patents families extending the PU to families
-GatherFamilly: False
+GatherFamilly: True
 
 #NEW 2018: images
 GatherImages: False
@@ -88,7 +88,7 @@ FormateExportDataTableFamilies: True
 
 ###############################
 # Prepare interactive pivottable
-FormateExportPivotTable: False
+FormateExportPivotTable: True
 
 ###############################
 # prepare Abstracts, descriptions, claims for text analysis
