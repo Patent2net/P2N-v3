@@ -13,7 +13,7 @@ import sys
 #import pickle
 
 
-from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres, AnnonceLog
 from Patent2Net.P2N_Config import LoadConfig
 #from Patent2Net.P2N_Lib_Acad import IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
 from Patent2Net.P2N_Lib_Acad import  NoPunct #, CheckListInclu, CheckListMix, CheckListExclu, UnCheck, Check
@@ -28,26 +28,8 @@ import pandas as pd
 #import re
 #import unidecode
 
-
-
-
-                                                              
-           
-                 
-# df = pd.read_csv('../Patent2Net/Resources/STANNorm.csv', dtype=str, sep=';', encoding='utf-8')
-
-
-                              
-                                                      
-   
-                                    
-                     
-                         
-                       
-                                  
-                                 
                                
-       
+AnnonceProgres (Appli = 'p2n_network', valMax = 100, valActu = 0)       
 configFile = LoadConfig()
 # Les champs nécessaires par brevet.
 NeededInfo = ['label', 'date', 'inventor', 'title', 'abstract']
@@ -84,9 +66,7 @@ def cycle (liste):
 Inventeurs= set()
 Applicants = set()                                                       
               
-
-#print("Nice, ", len(DataBrevet["brevets"]), " patents found. On calcule les auteurs identifiés...")
-
+AnnonceLog (Appli = 'p2n_network', texte='Net processing is starting ')
 if configFile.GatherFamilly:
     PU = [ndf, 'Families'+ndf]
 else:
@@ -155,6 +135,10 @@ for fic in PU:
     else:
         df = pd.DataFrame(LstBrevet)
 
+total = len(df) + len(df_Fam)                
+AnnonceLog (Appli = 'p2n_network', texte='Good, processing '+ str(total) +' patents ')
+
+AnnonceProgres (Appli = 'p2n_network', valMax = 100, valActu = 20)  
 
 for ndf in PU:
     
@@ -222,7 +206,7 @@ for ndf in PU:
         else:
             dataf.at [bre.Index, 'CitO' ] = list (set([ipc for ipc in bre.CitO if ipc.lower() not in ['empty', '', 'none']]))     
 
-            
+AnnonceProgres (Appli = 'p2n_network', valMax = 100, valActu = 40)            
 dicoAttrsAut = dict() # attributes for author nodes
 for aut in Inventeurs:
     # node attributes for an author
@@ -276,7 +260,9 @@ dicoAttrsCitedBy = dict()
 dicoAttrsEquiv  = dict()
 dicoAttrsOut = dict()
 dicoAttrsTechno = dict()
+AnnonceProgres (Appli = 'p2n_network', valMax = 100, valActu = 50)
 
+compt = 0
 for ndf in PU:
     
     if 'Families' not in ndf:
@@ -285,6 +271,8 @@ for ndf in PU:
     else:
         dataf = df_Fam 
     for bre in dataf.itertuples():
+        compt+=1
+        AnnonceProgres (Appli = 'p2n_network', valMax = 100, valActu = 50+(50*compt/total))
         dicoAttrs [bre.label] = {'Famille': sum( [bre.label in truc for truc in df_Fam ['equivalents']]),
                                     'IPC11-range': len(set(bre.IPCR11)),
                                     'IPC7-range': len(set(bre.IPCR7)),
@@ -578,4 +566,5 @@ secondes = time.time() - start_time
 
 heures, secondes = divmod(secondes, 3600)
 minutes, secondes = divmod(secondes, 60)
-print ('Duree : ', heures, " h ", minutes, " m et ", secondes, " secondes")
+print ('Duree : ', heures, " h ", minutes, " m et ", secondes, " sec")
+AnnonceLog (Appli = 'p2n_network', texte='All patents processed ' + str(total) +" in " + str(heures) + " h" +  str(minutes) + " min and " +str(secondes) + " sec")
