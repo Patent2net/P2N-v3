@@ -91,7 +91,8 @@ for fic in PU:
         if isinstance(bre['label'], list):
             # if len(bre['label']) >1:
                 if len(bre['label']) != len( set(bre['label'])):
-                    print ("two labels for same patent fixing to first one" , bre ["label"] )
+                    AnnonceLog (Appli = 'p2n_network', texte='Good, two labels for same patent fixing to first one ' + str(bre ["label"]) )
+                    #print ("two labels for same patent fixing to first one" , bre ["label"] )
                     bre ["label"] = bre ["label"] [0]
                 else:
                     bre ["label"] = bre ["label"] [0]
@@ -127,13 +128,16 @@ for fic in PU:
             else:
                 tempoappl = []
                 for inv in bre['applicant']:
-                    if inv.lower() != 'empty' and len(inv) >0:
+                    if len(inv) == 1 :
+                        print (inv)
+                    if inv.lower() != 'empty' and len(inv.strip()) >0:
                         tempoappl.append(inv.upper())
                         Applicants.add(inv.upper())
                 bre['applicant'] = tempoappl
         else:
-            bre['applicant'] =  bre['applicant'] .upper ()
-            Applicants.add(bre['applicant'])
+            if len(bre['applicant'].strip()) >0:
+                bre['applicant'] =  bre['applicant'] .upper ()
+                Applicants.add(bre['applicant'])
 
     if 'Families' in fic:
         df_Fam = pd.DataFrame(LstBrevet)
@@ -166,33 +170,53 @@ for ndf in PU:
         else:
            pass   
         if not isinstance(bre.applicant, list):
-           dataf.at [bre.Index, 'applicant' ] = list(set([inf for inf in bre.applicant if inf.lower() not in ['empty', '', 'none']]))
-        else:
-           dataf.at [bre.Index, 'applicant' ] = list(set(bre.applicant))
+            if len(bre .applicant.strip())>0 :
+                dataf.at [bre.Index, 'applicant' ] = [bre .applicant]
+        elif isinstance(bre.applicant, list):
+           if sum([len( truc) for truc in bre .applicant]) == len(bre.applicant):
+                 tempoappl = [''.join (bre .applicant)]
+           else:
+               tempoappl = list(set([inf for inf in bre.applicant if inf.lower() not in ['empty', '', 'none', ' ']]))
+           dataf.at [bre.Index, 'applicant' ] = tempoappl
         if not isinstance(bre.inventor, list):
            dataf.at [bre.Index, 'inventor' ] = [bre.inventor]
         else:
-           dataf.at [bre.Index, 'inventor' ] = list(set([inf for inf in bre.inventor if inf.lower() not in ['empty', '', 'none']]))
+           dataf.at [bre.Index, 'inventor' ] = list(set([inf for inf in bre.inventor if inf.lower() not in ['empty', '', 'none', ' ']]))
         if not isinstance(bre.IPCR1, list):
-            dataf.at [bre.Index, 'IPCR1' ] = [bre.IPCR1]
+            if bre.IPCR1 not in ['empty', '', 'none', ' ']:
+                dataf.at [bre.Index, 'IPCR1' ] = [bre.IPCR1]
+            else:
+                dataf.at [bre.Index, 'IPCR1' ] = []
         else:
-            dataf.at [bre.Index, 'IPCR1' ] = list(set([ipc for ipc in bre.IPCR1 if ipc.lower() not in ['empty', '', 'none']]))
+            dataf.at [bre.Index, 'IPCR1' ] = list(set([ipc for ipc in bre.IPCR1 if ipc.lower() not in ['empty', '', 'none', ' ']]))
         if not isinstance(bre.IPCR3, list):
-            dataf.at [bre.Index, 'IPCR3' ] = [bre.IPCR3]
+            if bre.IPCR3 not in ['empty', '', 'none', ' ']:
+                dataf.at [bre.Index, 'IPCR3' ] = [bre.IPCR3]
+            else:
+                dataf.at [bre.Index, 'IPCR3' ] = []
         else:
-            dataf.at [bre.Index, 'IPCR3' ] = list (set([ipc for ipc in bre.IPCR3 if ipc.lower() not in ['empty', '', 'none']]))
+            dataf.at [bre.Index, 'IPCR3' ] = list (set([ipc for ipc in bre.IPCR3 if ipc.lower() not in ['empty', '', 'none', ' ']]))
         if not isinstance(bre.IPCR4, list):
-            dataf.at [bre.Index, 'IPCR4' ] = [bre.IPCR4]
+            if bre.IPCR4 not in ['empty', '', 'none', ' ']:
+                dataf.at [bre.Index, 'IPCR4' ] = [bre.IPCR4]
+            else:
+                dataf.at [bre.Index, 'IPCR4' ] = []
         else:
-            dataf.at [bre.Index, 'IPCR4' ] = list (set([ipc for ipc in bre.IPCR4 if ipc.lower() not in ['empty', '', 'none']]))
+            dataf.at [bre.Index, 'IPCR4' ] = list (set([ipc for ipc in bre.IPCR4 if ipc.lower() not in ['empty', '', 'none', ' ']]))
         if not isinstance(bre.IPCR7, list):
-            dataf.at [bre.Index, 'IPCR7' ] = [bre.IPCR7]
+            if bre.IPCR7 not in ['empty', '', 'none', ' ']:
+                dataf.at [bre.Index, 'IPCR7' ] = [bre.IPCR7]
+            else:
+                dataf.at [bre.Index, 'IPCR7' ] = []
         else:
-            dataf.at [bre.Index, 'IPCR7' ] = list (set([ipc for ipc in bre.IPCR7 if ipc.lower() not in ['empty', '', 'none']]))
+            dataf.at [bre.Index, 'IPCR7' ] = list (set([ipc for ipc in bre.IPCR7 if ipc.lower() not in ['empty', '', 'none', ' ']]))
         if not isinstance(bre.IPCR11, list):
-            dataf.at [bre.Index, 'IPCR11' ] = [bre.IPCR11]
+            if bre.IPCR11 not in ['empty', '', 'none', ' ']:
+                dataf.at [bre.Index, 'IPCR11' ] = [bre.IPCR11]
+            else:
+                dataf.at [bre.Index, 'IPCR11' ] = []
         else:
-            dataf.at [bre.Index, 'IPCR11' ] = list (set([ipc for ipc in bre.IPCR11 if ipc.lower() not in ['empty', '', 'none']]))
+            dataf.at [bre.Index, 'IPCR11' ] = list (set([ipc for ipc in bre.IPCR11 if ipc.lower() not in ['empty', '', 'none', ' ']]))
         
         if not isinstance(bre.equivalents, list):
             dataf.at [bre.Index, 'equivalents' ] = [bre.equivalents]
@@ -363,94 +387,110 @@ for ndf in PU:
         GraphBrevetsEquivalents.add_node(bre .label)
         GraphTechnos .add_node(bre .label)
         for lab in bre.CitedBy:
-            if len(lab)>0:
+            if len(lab)>0 and bool(lab.strip()):
                 GraphBrevetsCitations.add_node(lab)
                 GraphBrevetsCitations.add_edge(lab, bre.label)
         
                 
         for lab in bre.CitP:
-            if len(lab)>0:
+            if len(lab)>0 and bool(lab.strip()):
             
                 GraphBrevetsReferences.add_node(lab)
                 GraphBrevetsReferences.add_edge(bre.label, lab)
         for lab in bre.CitO:
-            if len(lab)>0:
+            if len(lab)>0 and bool(lab.strip()):
             
                 GraphBrevetsReferences.add_node(lab)
                 GraphBrevetsReferences.add_edge(bre.label, lab)
-        for lab in bre.equivalents:
-            if len(lab)>0:
+        for lab in bre.equivalents :
+            if len(lab)>0 and bool(lab.strip()):
             
                 GraphBrevetsEquivalents.add_node(lab)
                 GraphBrevetsEquivalents.add_edge(bre.label, lab)
-        joliTecno = list(set([ipc.replace('/', '-') for ipc in bre.IPCR11 if len(ipc)>0]))
+        joliTecno = list(set([ipc.replace('/', '-') for ipc in bre.IPCR11]))
         for ipc in bre.IPCR1 + bre.IPCR4 + bre.IPCR7 + joliTecno:
-            if ipc in dicoAttrsTechno:
-                if 'size' in dicoAttrsTechno [ipc].keys():
-                    dicoAttrsTechno [ipc] ['size'] +=1
-                else:
-                    dicoAttrsTechno [ipc] ['size'] = 1
-            GraphTechnos .add_node(ipc)
-            GraphTechnosAppli.add_node(ipc)
-            GraphTechnosAuthor.add_node(ipc)
+            if bool(ipc.strip()):
+                if ipc in dicoAttrsTechno:
+                    if 'size' in dicoAttrsTechno [ipc].keys():
+                        dicoAttrsTechno [ipc] ['size'] +=1
+                    else:
+                        dicoAttrsTechno [ipc] ['size'] = 1
+                GraphTechnos .add_node(ipc)
+                GraphTechnosAppli.add_node(ipc)
+                GraphTechnosAuthor.add_node(ipc)
         for ipc in joliTecno:
-            for ipcUp in bre.IPCR7:
-                if ipc.startswith (ipcUp):
-                    GraphTechnos .add_edge(ipcUp, ipc)
+            if bool(ipc.strip()):
+                for ipcUp in bre.IPCR7:
+                    
+                    if ipc.startswith (ipcUp) and  bool(ipcUp.strip()):
+                        GraphTechnos .add_edge(ipcUp, ipc)
             
         for ipc in bre.IPCR7:
-            for ipcUp in bre.IPCR4:
-                if ipc.startswith (ipcUp):
-                    GraphTechnos .add_edge(ipcUp, ipc)
+            if bool(ipc.strip()):
+                for ipcUp in bre.IPCR4:
+                    if ipc.startswith (ipcUp) and  bool(ipcUp.strip()):
+                        GraphTechnos .add_edge(ipcUp, ipc)
         for ipc in bre.IPCR4:
-            for ipcUp in bre.IPCR1:
-                if ipc.startswith (ipcUp):
-                    GraphTechnos .add_edge(ipcUp, ipc)
+            if bool(ipc.strip()):
+                for ipcUp in bre.IPCR1:
+                    if ipc.startswith (ipcUp) and  bool(ipcUp.strip()):
+                        GraphTechnos .add_edge(ipcUp, ipc)
         
         # for ipcUp in bre.IPCR1:    
         #     GraphTechnos .add_edge(bre .label,ipcUp)
         # chainning technlogy from most precise if existing
         if len(joliTecno)>0:
             for ipc in joliTecno:
-                GraphTechnos .add_edge(bre .label,ipc)
+                if bool(ipc.strip()):
+                    GraphTechnos .add_edge(bre .label,ipc)
         elif len(bre.IPCR7) >0:
             for ipc in bre.IPCR7:
-                GraphTechnos .add_edge(bre .label,ipc)
+                if bool(ipc.strip()):
+                    GraphTechnos .add_edge(bre .label,ipc)
         elif len(bre.IPCR4) >0:
             for ipc in bre.IPCR4:
-                GraphTechnos .add_edge(bre .label,ipc)
+                if bool(ipc.strip()):
+                    GraphTechnos .add_edge(bre .label,ipc)
         else:
             for ipc in bre.IPCR1:
-                GraphTechnos .add_edge(bre .label,ipc)         
+                if bool(ipc.strip()):
+                    GraphTechnos .add_edge(bre .label,ipc)         
         
         if not isinstance( bre .applicant, str) and len( bre.applicant)>1:
+             if sum([len( truc) for truc in bre .applicant]) == len(bre.applicant):
+                 dataf.at [bre.Index, 'applicant' ] = [''.join (bre .applicant)]
              for appl in bre .applicant:
-                 if len(joliTecno)>0:
-                     for ipc in joliTecno:
-                         GraphTechnosAppli .add_edge(appl,ipc)
-                 elif len(bre.IPCR7) >0:
-                     for ipc in bre.IPCR7:
-                         GraphTechnosAppli .add_edge(appl,ipc)
-                 elif len(bre.IPCR4) >0:
-                     for ipc in bre.IPCR4:
-                         GraphTechnosAppli .add_edge(appl,ipc) 
-                 else:
-                     for ipc in bre.IPCR1:
-                         GraphTechnosAppli .add_edge(appl,ipc) 
-             for appl, coAut in cycle(bre.applicant):
-                 if len(appl)>0 and appl.title() not in Inventeurs and NoPunct(appl).title() not in Inventeurs and appl.lower() != 'empty':
-                     GraphBrevets.add_node(appl)
-                     GraphBrevets.add_edge(appl, bre .label)
-                     GraphApplicant.add_node(appl)
-                     GraphTechnosAppli.add_node(appl)
-                 if len(coAut)>0 and coAut.title() not in Inventeurs and NoPunct(coAut).title() not in Inventeurs and coAut.lower() != 'empty':
-                     GraphBrevets.add_node(coAut)
-                     GraphBrevets.add_edge(coAut, bre .label)
-                     GraphBrevets.add_edge( appl, coAut)
-                     GraphApplicant.add_node(coAut)
-                     GraphTechnosAppli.add_node(coAut)
+                 appl=appl.strip()
+                 if len(appl) >0:
+                     if len(joliTecno)>0:
+                         for ipc in joliTecno:
+                             GraphTechnosAppli .add_edge(appl,ipc)
+                     elif len(bre.IPCR7) >0:
+                         for ipc in bre.IPCR7:
+                             GraphTechnosAppli .add_edge(appl,ipc)
+                     elif len(bre.IPCR4) >0:
+                         for ipc in bre.IPCR4:
+                             GraphTechnosAppli .add_edge(appl,ipc) 
+                     else:
+                         for ipc in bre.IPCR1:
+                             GraphTechnosAppli .add_edge(appl,ipc) 
+             if len(bre.applicant) >1:
+                 for appl, coAut in cycle(bre.applicant):
+                     appl=appl.strip()
+                     coAut=coAut.strip()
+                     if len(appl)>0 and appl.title() not in Inventeurs and NoPunct(appl).title() not in Inventeurs and appl.lower() != 'empty':
+                         GraphBrevets.add_node(appl)
+                         GraphBrevets.add_edge(appl, bre .label)
+                         GraphApplicant.add_node(appl)
+                         GraphTechnosAppli.add_node(appl)
+                     if len(coAut)>0 and coAut.title() not in Inventeurs and NoPunct(coAut).title() not in Inventeurs and coAut.lower() != 'empty':
+                         GraphBrevets.add_node(coAut)
+                         GraphBrevets.add_edge(coAut, bre .label)
+                         GraphBrevets.add_edge( appl, coAut)
+                         GraphApplicant.add_node(coAut)
+                         GraphTechnosAppli.add_node(coAut)
         elif len( bre.applicant)>0:
-            appl= bre.applicant [0]
+            appl= bre.applicant [0].strip()
             if len(appl)>0 and appl.title() not in Inventeurs and NoPunct(appl).title() not in Inventeurs and appl.lower() != 'empty':
                 GraphBrevets.add_node(appl)
                 GraphBrevets.add_edge(appl, bre .label)
@@ -501,10 +541,15 @@ for ndf in PU:
                 GraphAuteursAppli.add_edge(aut, coAut, label = 'AuthorCollaboration') 
                     
         if isinstance(bre.applicant, list) and len( bre.applicant)>1: # many applicants
+            
             #cycling collaborations
             for aut, coAut in cycle(bre .applicant):
                 aut = aut.strip()
                 coAut = coAut.strip()
+                if len(aut) ==1:
+                    print (aut)
+                if len(coAut) == 1:
+                    print(coAut)
                 regles = [len(aut)>0, 
                           len(coAut) >0,
                           aut.title() not in Inventeurs,
@@ -520,17 +565,17 @@ for ndf in PU:
                     GraphApplicant.add_edge(aut, coAut)
             #chaining authors
             for appl in bre.applicant:
-                            
-                appl= appl.upper()
-                regles= [len(appl)>0,
-                          appl.title() not in Inventeurs,
-                          NoPunct(appl).title() not in Inventeurs, 
-                          ]
-                if all(regles):
-                    for aut in bre .inventor:
-                        aut= aut.title()
-                        GraphAuteursAppli.add_edge( aut, appl, label = 'workfor')
-        elif len( bre.applicant)>1: # only one applicant
+                if bool(appl.strip()):            
+                    appl= appl.upper()
+                    regles= [len(appl)>0,
+                              appl.title() not in Inventeurs,
+                              NoPunct(appl).title() not in Inventeurs, 
+                              ]
+                    if all(regles):
+                        for aut in bre .inventor:
+                            aut= aut.title()
+                            GraphAuteursAppli.add_edge( aut, appl, label = 'workfor')
+        elif len( bre.applicant)>1 and bool(bre.applicant.strip()): # only one applicant
             appl= bre.applicant.upper()
             regles= [len(appl)>0,
                           appl.title() not in Inventeurs,
@@ -771,11 +816,11 @@ for ndf in PU:
                 pass
     #
         nx.write_gexf(G, ResultGephiPath+'/'+outputFile, version='1.2draft')
-        fic = open(ResultGephiPath+'/'+outputFile, 'r')
+        fic = open(ResultGephiPath+'/'+outputFile, 'r', encoding = 'utf8')
 
         # Next is a hack to correct the bad writing of the header of the gexf file
         # with dynamics properties
-        fictemp=open(ResultGephiPath+'/'+"Good"+outputFile, 'w')
+        fictemp=open(ResultGephiPath+'/'+"Good"+outputFile, 'w', encoding = 'utf8')
 
 
         ecrit = True
@@ -798,9 +843,7 @@ for ndf in PU:
             pass
 
         os.rename(ResultGephiPath+'/'+"Good"+outputFile, ResultGephiPath+'/'+outputFile)
-        print("Network file writen in ",  ResultGephiPath+' directory.\n See file: '+outputFile)
-        print()
-        print()
+        AnnonceLog (Appli = 'p2n_network', texte="Network file writen in " + ResultGephiPath+' directory.\n See file: '+outputFile)
         #making the html from model
         RenderTemplate(
             "Graphe.html",
