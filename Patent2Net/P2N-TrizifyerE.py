@@ -15,39 +15,42 @@ from textblob import TextBlob # importation de textblob outil liguistique
 from nltk.corpus import stopwords
 import nltk
 from sematch.semantic.similarity import WordNetSimilarity
-#from nltk.corpus import wordnet as wn
+from nltk.corpus import wordnet as wn
 import pandas as pd
 import re
 import shutil  
 import sys
-#from nltk.corpus import stopwords
-# import numpy as np
-#import pandas as pd
+from nltk.corpus import stopwords
+import numpy as np
+import pandas as pd
 #import re 
 #import umap
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 #import seaborn as sns
 #from nltk.corpus import stopwords
-# from sklearn.feature_extraction.text import TfidfVectorizer
-# from nltk.tokenize import word_tokenize 
-# from nltk.stem.wordnet import WordNetLemmatizer
-# import string
-# import gensim
-# from gensim import corpora
-# from gensim.corpora import Dictionary
-# from sklearn.decomposition import TruncatedSVD
-# import os
-# import re
+#from sklearn.feature_extraction.text import TfidfVectorizer
+from nltk.tokenize import word_tokenize 
+from nltk.stem.wordnet import WordNetLemmatizer
+import string
+import gensim
+from gensim import corpora
+from gensim.corpora import Dictionary
+from sklearn.decomposition import TruncatedSVD
+import os
+import re
 import codecs 
-# import logging
-# import time
-# from operator import add
-# from textblob import TextBlob # importation de textblob outil liguistique 
-# from nltk.corpus import stopwords
+import logging
+import time
+from operator import add
+from textblob import TextBlob # importation de textblob outil liguistique 
+from nltk.corpus import stopwords
 from P2N_Lib import LoadBiblioFile
-# from P2N_Lib import GenereListeFichiers
-# from P2N_Config import LoadConfig
-# from nltk.corpus import wordnet 
+from P2N_Lib import GenereListeFichiers
+from P2N_Config import LoadConfig
+from nltk.corpus import wordnet 
+import spacy
+import en_core_web_sm
+from itertools import product
 
 ListeBrevet = [] # The patent List
 stop_words = set(stopwords.words('english'))
@@ -126,7 +129,7 @@ PSW = [] # liste de mots vide à compléter au fur et à mesure des recherches
 
 
 dataF = """""" # va contenir tous les abstracts du dossier de la requete
-#import codecs
+import codecs
 
 #DejaVus = dict()
 
@@ -136,7 +139,7 @@ f=open(ResultTemplateFlask + '/DataFormat/FileDataAnalysisTrizWikiE.csv','w')
 entetes = [
                  u'i',
                  u'label',
-                 u'Term',
+                 u'classe',
                  u'Action',
                  u'indiceSimAction',
                  u'abstract',
@@ -148,89 +151,21 @@ f.write(ligneEntete)
 
 d= pd.read_csv("Resources/trizOxfordData.csv",delimiter=";") 
 
-listact = pd.DataFrame(d,columns=['Colonne1'])
-listprod = pd.DataFrame(d,columns=['Colonne2'])
-listcaras = pd.DataFrame(d,columns=['Colonne3'])
-
-listact = listact.drop_duplicates(['Colonne1'],keep='first')
-listprod = listprod.drop_duplicates(['Colonne2'],keep='first')
-listcara = listcaras.drop_duplicates(['Colonne3'],keep='first')
-
-
-actions = listact['Colonne1'].tolist()
-#print(actions)
-
-objects = listprod['Colonne2'].tolist()
-#print(objects)
-
-resultType = listcara['Colonne3'].tolist()
-#print(len(resultType))
-
-from nltk.corpus import wordnet
-
-expansionTriz = {}
-for mot in resultType:
-    synonyms = []
-    for syn in wordnet.synsets(mot):
-        for l in syn.lemmas():
-            synonyms.append(l.name())
-    expansionTriz [mot] = synonyms
-
-
-
-mylist = list(dict.fromkeys(resultType))
-
-#print(len(mylist))
-
-
-# create dico with extantion of synonyms and hyponym of list triz data...
-
-
-#synonyms = [] 
-#hyponyms = [] 
-
-#for data in mylist :
-   # print("data :", data)
-   # for syn in wordnet.synsets(data): 
-        
-      #  for l in syn.lemmas(): 
-            
-        #    synonyms.append(l.name()) 
-
-           # if l.antonyms(): 
-               # hyponyms.append(l.antonyms()[0].name()) 
-      
-   # print(set(synonyms)) 
-   # print(set(hyponyms)) 
-
-   
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#print(listprod)
-#print(listcara)
-
-import spacy
-from itertools import product
-#import en_core_web_sm
+dnew= pd.read_csv("FileTrizNewList.csv",delimiter=",") 
+classes = pd.DataFrame(dnew,columns=['Ref_classe'])
+classes_syn = pd.DataFrame(dnew,columns=['syn_classe'])
+classesUnique = classes.drop_duplicates(keep = False)
+expansionTriz = classes_syn.drop_duplicates(keep = False)
 tal = spacy.load('en_core_web_sm')
+
+
+
+
 
 #lecture des fichiers txt en boucle et placement element dans dataF
 for fic in En:
@@ -246,24 +181,26 @@ for fic in En:
         
         # tokenization  
         
-# =============================================================================
-# #        abstract = re.sub("[^a-zA-Z#]", " ",str(abstract))
-#         Blob = TextBlob(abstract)
-#         wordlist=Blob.words #should give best results@ DR
-# 
-#         # remove stop-words  and words less 3 caracters
-#      
-#         filtered_sentence = [] 
-#               
-#         for w in wordlist: 
-#             if w not in stop_words and len(w) > 3: 
-#                 filtered_sentence.append(w) 
-#               
-# =============================================================================
-        
+        abstract = re.sub("[^a-zA-Z#]", " ",str(abstract))
+
         brevet = tal(abstract)
+
+
+
+        #Blob = TextBlob(abstract)
+        #wordlist=Blob.words #should give best results@ DR
+
+        # remove stop-words  and words less 3 caracters
+     
         filtered_sentence = [mot.lemma_ for mot in brevet if mot.pos_ == "NOUN" or mot.pos_ == "VERB"]
-        # SHOULD filter here trivial terms (disclose, invention, application,....problem etc.)
+
+              
+        #for w in wordlist: 
+            #if w not in stop_words and len(w) > 3: 
+                #filtered_sentence.append(w) 
+              
+        
+        
         
             #Document-Term Matrix
         #print(filtered_sentence)   
@@ -277,61 +214,31 @@ for fic in En:
         matricelistePaireObject = []
 
        
-        allsyns2 = set(ss for word in filtered_sentence for ss in wordnet.synsets(mot))
-        for classe in resultType :  
-           tokens = classe 
-           allsyns1 = set(ss for word in expansionTriz [classe] for ss in wordnet.synsets(word))
-           semComp = [(wordnet.wup_similarity(s1, s2) or 0, s1, s2) for s1, s2 in product(allsyns1, allsyns2)]
-           if len(semComp)>1:
-               best = max(semComp)
-               valeurs=[i,NumberBrevet,classe,best[2].definition(),best[0],abstract,urlEspacenet]
-               ligne=",".join(str(v) for v in valeurs) + "\n"
-               f.write(ligne)    
-           else:
-               pass
-           
-           # for word in filtered_sentence :
-           #      abstractNumber='abs'.format(str((i)))
-           #      listaction = word
-                
-                
-           #      #listaction = re.sub(r'\([^)]*\)', '', listaction)
-           
-           #     #comparaison betwen tags and classe Triz
-               
-           #      indiceSimAction = wns.word_similarity(classe,str(listaction))
-                
-           #      print(classe)
-           #      print(listcara)
-           #      print(indiceSimAction)
-
-                   
-           #      if indiceSimAction == 0 or word.isdigit() == True:
-           #              #print("rien a faire ")
-           #             continue 
         
-           #      else:
-           #          valeurs=[]
-                        
-           #          valeurs=[i,NumberBrevet,classe,listaction,indiceSimAction,abstract,urlEspacenet]
-           #          #print(valeurs)
-                        
-           #          ligne=",".join(str(v) for v in valeurs) + "\n"
-                      
-           #          f.write(ligne)    
-
-
+        for classe in expansionTriz.keys() :  
+            ExpansionClasse  = expansionTriz[classe]
         
+        allsyns1 = set(ss for word in ExpansionClasse for ss in wordnet.synsets(word))
+        allsyns2 = set(ss for word in  filtered_sentence for ss in wordnet.synsets(word))
+        best = max((wordnet.wup_similarity(s1, s2) or 0, s1, s2) for s1, s2 in product(allsyns1, allsyns2) if all([lem1 not in s2._lemma_names for lem1 in s1._lemma_names]) )
+        #print("allsyns1 ========",allsyns1)
+        #print("\n")
+        #print("allsyns2========",allsyns2)
+        
+        print("best: ", best)
+        print("\n")
 
-     
-    print((NumberBrevet), " abstracts processed" )         
+
+
+sys.exit()          
+      
 
 
             
        
 f.close()
 
-
+sys.exit()
 
 #open file data semantic classification 
 
