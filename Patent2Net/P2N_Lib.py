@@ -3037,12 +3037,13 @@ def NiceName(content):
     return ContentNice
 
 
-def UrlIPCRBuild(IPCR):
-    if not isinstance(IPCR, list):
-        IPCR = [IPCR]
+def UrlIPCRBuild(ipc):
+    # if not isinstance(ipc, list):
+    #     IPCR = [IPCR]
     try:
-        url = ['http://web2.wipo.int/ipcpub#lang=enfr&menulang=FR&refresh=page&notion=scheme&version=' +
-               SchemeVersion + '&symbol=' + symbole(ipc) for ipc in IPCR]
+        url = ['https://www.wipo.int/classifications/ipc/ipcpub/?notion=scheme&version='+
+               SchemeVersion + '&symbol=' + symbole(ipc) + 
+        '&menulang=en&lang=en&viewmode=f&fipcpc=no&showdeleted=yes&indexes=no&headings=yes&notes=yes&direction=o2n&initial='+ ipc[0]+'&cwid=none&tree=no&searchmode=smart']
     except:
         url = ['empty']
     return url
