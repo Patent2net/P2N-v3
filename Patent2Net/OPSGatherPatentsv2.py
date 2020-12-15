@@ -83,7 +83,7 @@ ResultContentsPath = configFile.ResultContentsPath
 temporPath = configFile.temporPath
 ResultAbstractPath = configFile.ResultAbstractPath
 
-
+Fusion = False # switch for fusion
 # by default, data are not gathered yet
 # building patentList
 nbTrouves = 0
@@ -99,13 +99,14 @@ if ndf in os.listdir(ResultListPath):
         DataBrevets = pickle.load(fic)
         lstBrevets = DataBrevets['brevets']
         nbActus = DataBrevets['number']
-        if 'Fusion' in DataBrevets:
+        if 'fusion' in DataBrevets.keys():
             ficOk = True
             print(nbActus, " patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
             AnnonceLog(Appli = 'p2n_req', texte='Gather patent (fusion)' + str(nbActus) +" patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
             GatherBibli = False
             requete = DataBrevets['brevets']
-        if 'FusionPat' in DataBrevets:
+            Fusion = True
+        if 'FusionPat' in DataBrevets.keys():
             ficOk = True
             print(nbActus, " patents gathered yet. Steping to bibliographic data.")
             AnnonceLog(Appli = 'p2n_req', texte= 'Gather patent (fusion patentlist ?)' + str(nbActus) +" patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
@@ -113,6 +114,7 @@ if ndf in os.listdir(ResultListPath):
             GatherPatent = False
             Gatherbibli = True
             requete = DataBrevets['brevets']
+            Fusion = True
         if GatherPatent:
             if DataBrevets['requete'] != requete:
                 AnnonceLog(Appli = 'p2n_req', texte=  'Gather patent' +" Datadirectory exists. Deleting it.")
@@ -286,30 +288,20 @@ if GatherBibli and GatherBiblio:
 PatIgnored = 0
 
 
-if GatherBibli and GatherBiblio:
+if Fusion or (GatherBibli and GatherBiblio):
     ops_client = epo_ops.Client(key, secret)
-    #        data = ops_client.family('publication', , 'biblio')
+    # This step is unclear at this time. 
+    # p2n should firt gather the patent list, then gather all bibliographic data for each patent in list
+    # add a consistency step would be nice also....
+    
     ops_client.accept_type = 'application/json'
+    
     if "brevets" in list(DataBrevets.keys()):
-        YetGathered = list(set([bre['label'] for bre in DataBrevets["brevets"]]))
+        YetGathered = list(set([bre['label'] for bre in BiblioPatents]))
         print(len(YetGathered), " patent bibliographic data gathered.")
         AnnonceLog(Appli = 'p2n_gather_biblio', texte= str(len(YetGathered)) + " patent bibliographic data gathered.")
         DataBrevets["YetGathered"] = YetGathered
-#    elif "YetGathered" in list(DataBrevets.keys()):
-#        YetGathered = DataBrevets["YetGathered"]
 
-#        if len(YetGathered) < len(DataBrevets["brevets"]): # used for cleaning after first attempts :-) # removed for huge collects
-#            DataBreTemp = [] # special cleaning process
-#            for bre in DataBrevets["brevets"]:
-#                if bre not in DataBreTemp:
-#                    DataBreTemp.append(bre)
-#            try:
-#                os.remove(ResultBiblioPath +'//'+ndf)
-#            except:
-#                pass #should never be here
-#            with open(ResultBiblioPath +'//'+ndf, 'w') as ficRes:
-#                for bre in DataBreTemp:
-#                    cPickle.dump(bre, ficRes)
         AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = len(YetGathered)*100)
     else:
         YetGathered = []
@@ -386,7 +378,7 @@ if GatherBibli and GatherBiblio:
                         pickle.dump(BiblioPatents[0], ficRes)
                         YetGathered.append(BiblioPatents[0]["label"])
                         print(len(YetGathered), " patent bibliographic data already gathered.")
-                        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = len(YetGathered)*100/len(lstBrevets))
+                        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = len(lstBrevets), valActu = len(YetGathered))
                 else:
                     # may should put current ndb in YetGathered...
                     # print
@@ -403,7 +395,7 @@ if GatherBibli and GatherBiblio:
                         pickle.dump(brevet, ficRes)
                         YetGathered.append(brevet["label"])
                         print(len(YetGathered), " patent bibliographic data gathered.")
-                        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = len(YetGathered)*100/len(lstBrevets))
+                        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = len(lstBrevets), valActu = len(YetGathered))
                 else:
                     pass  # bad OPS entry
     with open(ResultBiblioPath + '//Description' + ndf, 'wb') as ficRes:

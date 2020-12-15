@@ -199,8 +199,8 @@ def GenereListeFichiers(rep):
 
 
 Csv, IRams = GenereListeFichiers(Auteur)
-matches, CountBadNomMatches, CountBadNomPubMed = 0, 0,0, 0
-pasMatches =0
+pasMatches, matches, CountBadNomMatches, CountBadNomPubMed = 0, 0,0, 0
+
 Scores = []     # la liste des scores de chaque IPCat
 Matches = dict()
 PasMatches=dict()
@@ -208,10 +208,20 @@ cptPubli = 0
 for ficCsv in Csv:
     with open(ficCsv, "r", encoding='utf8') as ficcsv:
         Datacsv=ficcsv.readlines()
-    
+    # filtering with unique pubmed Id
     if len(Datacsv) >1:
         enTete = [Datacsv[0]]
-        enTete.extend(list(set(Datacsv[1:])))
+        tempo = []
+        DejaVus = []
+        for lig in set(Datacsv[1:]):
+            pubmedId = lig.split(';')[4]
+            if pubmedId not in DejaVus:
+                tempo.append(lig)
+                DejaVus.append(pubmedId)
+            else:
+                pass
+            
+        enTete.extend(tempo)
         Datacsv = enTete
         
         with open(ficCsv, "w", encoding='utf8') as ficcsvNet:

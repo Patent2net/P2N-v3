@@ -43,21 +43,28 @@ if len(sys.argv)>3:
     res = sys.argv[len(sys.argv)-1]
 
 else:
-    lstReq = [subFolders for root, subFolders, files in os.walk('..//DATA//')]
+    basepath = '../DATA/'
+    lstReq = []
+    for entry in os.scandir(basepath):
+        if entry.is_dir() and 'Autom' in entry.name:
+            lstReq.append(entry.name)
+        
+    #lstReq = [subFolders for root, subFolders, files in os.walk('..//DATA//')]
     res = "Fusion"
 ResultFolder = '..//DATA//'+res
 ResultFolderWin = '..\\DATA\\'+res
 try:
     os.makedirs(ResultFolder+'//PatentLists')
 except:
-    if res.title() in lstReq:
-        lstReq[0].remove(res.title())
+    if res.title() in lstReq: # it seems that already a fusion name is here... BAD
+        lstReq.remove(res.title())
     pass
 lig= ""
 BrevetRes = dict()
 BrevetRes["brevets"] = []
 BrevetRes["number"] =0
 BrevetRes["requete"] = ''
+BrevetRes["fusion"] = True
 with open(ResultFolder+'//PatentLists/'+res, 'wb') as ficRes:
     for ndf in lstReq:
         lstBrevets2, nbTrouves = [], 0
@@ -76,7 +83,8 @@ with open(ResultFolder+'//PatentLists/'+res, 'wb') as ficRes:
     pickle.dump(BrevetRes, ficRes)
 
     print("Fusion done. Total in list: ", BrevetRes["number"])
-    
+
+
 
 with open('..//Fusion'+res +'.txt', 'w', encoding='utf8') as ficSav:
     ficSav.write(BrevetRes["requete"])
