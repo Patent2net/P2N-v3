@@ -2249,14 +2249,15 @@ def GatherPatentsData(brevet, client, ContentsPath, AbstractsPath, PatIgnored, B
             else:
                 patentBib = patentBibtemp2
         except:
-            print('noDocDb')
+            #print('noDocDb')
             patentBib = data.json()
     except:
         try:
             data = client.published_data(*temp, endpoint='biblio')
             patentBib = data.json()
         except:
-            print('patent ignored ', ndb)
+            #print('patent ignored ', ndb)
+            AnnonceLog(Appli = 'p2n_gather_biblio', texte= "Patent label ignored " +ndb)
             PatIgnored += 1
             return None
     # the next line generates an error when debugging line by line (Celso)
@@ -2286,7 +2287,7 @@ def GatherPatentsData(brevet, client, ContentsPath, AbstractsPath, PatIgnored, B
                         tempoPat['equivalents'] = SearchEquiv(dataEquiv)
                     except:
                         tempoPat['equivalents'] = 'empty'
-                        print("no equivalents")
+                        #print("no equivalents")
                 tempoPat, YetGathered, BP = ExtractPatent(tempoPat, ContentsPath, BP)
                 request = 'ct=' + brevet['document-id']['country']['$'] + \
                     brevet['document-id']['doc-number']['$']
@@ -2318,7 +2319,8 @@ def GatherPatentsData(brevet, client, ContentsPath, AbstractsPath, PatIgnored, B
 
                                 dataEquiv = client.published_data(*tempo3, endpoint='equivalents')
                             except:
-                                print("no equivalents...")
+                                pass
+                                #print("no equivalents...")
                         if datEquiv:
                             patentEquiv = dataEquiv.json()
                             dataEquiv = patentEquiv['ops:world-patent-data']['ops:equivalents-inquiry']['ops:inquiry-result']
@@ -2354,7 +2356,8 @@ def GatherPatentsData(brevet, client, ContentsPath, AbstractsPath, PatIgnored, B
                                 tempoPat['label'][2:]), tempoPat['country'][0], tempoPat['kind'])
                             dataEquiv = client.published_data(*tempo3, endpoint='equivalents')
                         except:
-                            print("no equivalents...")
+                            pass
+                            #print("no equivalents...")
                     if datEquiv:
                         patentEquiv = dataEquiv.json()
                         dataEquiv = patentEquiv['ops:world-patent-data']['ops:equivalents-inquiry']['ops:inquiry-result']

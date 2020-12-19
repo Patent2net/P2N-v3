@@ -103,6 +103,7 @@ if ndf in os.listdir(ResultListPath):
             ficOk = True
             print(nbActus, " patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
             AnnonceLog(Appli = 'p2n_req', texte='Gather patent (fusion)' + str(nbActus) +" patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
+            AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu =100)
             GatherBibli = False
             requete = DataBrevets['brevets']
             Fusion = True
@@ -110,7 +111,7 @@ if ndf in os.listdir(ResultListPath):
             ficOk = True
             print(nbActus, " patents list gathered yet. Steping to bibliographic data.")
             AnnonceLog(Appli = 'p2n_req', texte= 'Gather patent (fusion patentlist ?)' + str(nbActus) +" patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
-
+            AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu =100)
             GatherPatent = False
             Gatherbibli = False
             requete = DataBrevets['brevets']
@@ -150,6 +151,7 @@ if ndf in os.listdir(ResultListPath):
                 AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu = 100)
                 print(len(lstBrevets), ' in file corresponding to the request. Retreiving associated bibliographic data')
         else:
+            AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu =100)
             print("Stepping to bibliographic data gathering")
 else:
     lstBrevets = []  # gathering all again, I don t know if of serves the same ordered list of patents
@@ -304,7 +306,7 @@ if Fusion or (GatherBibli and GatherBiblio):
         AnnonceLog(Appli = 'p2n_gather_biblio', texte= str(len(YetGathered)) + " patent bibliographic data gathered.")
         BibliDataBrevets["YetGathered"] = YetGathered
 
-        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = len(YetGathered)*100)
+        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = len(YetGathered)*100/len(listeLabel))
     else:
         YetGathered = []
 
@@ -380,7 +382,7 @@ if Fusion or (GatherBibli and GatherBiblio):
                         pickle.dump(BiblioPatents[0], ficRes)
                         YetGathered.append(BiblioPatents[0]["label"])
                         print(len(YetGathered), " patent bibliographic data already gathered.")
-                        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = len(lstBrevets), valActu = len(YetGathered))
+                        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100*len(YetGathered)/len(listeLabel))
                 else:
                     # may should put current ndb in YetGathered...
                     # print
@@ -397,7 +399,7 @@ if Fusion or (GatherBibli and GatherBiblio):
                         pickle.dump(brevet, ficRes)
                         YetGathered.append(brevet["label"])
                         print(len(YetGathered), " patent bibliographic data gathered.")
-                        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = len(lstBrevets), valActu = len(YetGathered))
+                        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100*len(YetGathered)/len(listeLabel))
                 else:
                     pass  # bad OPS entry
     with open(ResultBiblioPath + '//Description' + ndf, 'wb') as ficRes:
