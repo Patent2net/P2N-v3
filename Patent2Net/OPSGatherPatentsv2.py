@@ -108,14 +108,14 @@ if ndf in os.listdir(ResultListPath):
             Fusion = True
         if 'FusionPat' in DataBrevets.keys():
             ficOk = True
-            print(nbActus, " patents gathered yet. Steping to bibliographic data.")
+            print(nbActus, " patents list gathered yet. Steping to bibliographic data.")
             AnnonceLog(Appli = 'p2n_req', texte= 'Gather patent (fusion patentlist ?)' + str(nbActus) +" patents gathered yet. No more patents to retreive. Steping to bibliographic data.")
 
             GatherPatent = False
-            Gatherbibli = True
+            Gatherbibli = False
             requete = DataBrevets['brevets']
             Fusion = True
-        if GatherPatent:
+        if GatherPatent:  # Patent List to build from request. 
             if DataBrevets['requete'] != requete:
                 AnnonceLog(Appli = 'p2n_req', texte=  'Gather patent' +" Datadirectory exists. Deleting it.")
 
@@ -150,7 +150,7 @@ if ndf in os.listdir(ResultListPath):
                 AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu = 100)
                 print(len(lstBrevets), ' in file corresponding to the request. Retreiving associated bibliographic data')
         else:
-            print("You prefer not to gather data. I hope you know what you do. At your own risk. P2N may crash")
+            print("Stepping to bibliographic data gathering")
 else:
     lstBrevets = []  # gathering all again, I don t know if of serves the same ordered list of patents
     ficOk = False        
@@ -215,20 +215,22 @@ listeLabel = []
 # Entering PatentBiblio feeding
 AnnonceLog(Appli = 'p2n_gather_biblio', texte= "Checking and/or gathering bibliographic data")
 print("Checking and/or gathering bibliographic data")
-if GatherBibli and GatherBiblio:
+if GatherBiblio:
     for brevet in lstBrevets:
         # nameOfPatent for file system save (abstract, claims...)
         ndb = brevet['document-id']['country']['$'] + brevet['document-id']['doc-number']['$']
         listeLabel.append(ndb)
+
+AnnonceLog(Appli = 'p2n_gather_biblio', texte= "Found almost" + str(len(lstBrevets)) + " patents. Saving list")
+AnnonceLog(Appli = 'p2n_gather_biblio', texte="Within " + str(len(set(listeLabel))) + " unique patents")
+print("Found almost", len(lstBrevets), " patents. Saving list")
+print("Within ", len(set(listeLabel)), " unique patents")
+BibliDataBrevets = dict()
+BibliDataBrevets['brevets'] = []
     
-    AnnonceLog(Appli = 'p2n_gather_biblio', texte= "Found almost" + str(len(lstBrevets)) + " patents. Saving list")
-    AnnonceLog(Appli = 'p2n_gather_biblio', texte="Within " + str(len(set(listeLabel))) + " unique patents")
-    print("Found almost", len(lstBrevets), " patents. Saving list")
-    print("Within ", len(set(listeLabel)), " unique patents")
-    DataBrevets = dict()
-    DataBrevets['brevets'] = []
-    if ndf in os.listdir(ResultBiblioPath):
-        DataBrevets = LoadBiblioFile(ResultBiblioPath, ndf)
+# loading already gathered bibliographic daata
+if ndf in os.listdir(ResultBiblioPath):
+    BibliDataBrevets = LoadBiblioFile(ResultBiblioPath, ndf)
 #        with codecs.open(ResultBiblioPath + '//' + ndf, 'rb', "utf-8") as fic:
 #            while 1:
 #                try:
@@ -236,26 +238,26 @@ if GatherBibli and GatherBiblio:
 #                except EOFError:
 #                    break
 
-        if len(DataBrevets['brevets']) == len(listeLabel):
-                print(len(DataBrevets['brevets']), " bibliographic patent data gathered yet? ")
-                GatherBibli = False
-                sys.exit('Nothing else to do :-). Good bye')
-                AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100)
-        else:
-            print(len(listeLabel)-len(DataBrevets['brevets']), " patent misssing... processing")
+    if len(BibliDataBrevets['brevets']) == len(listeLabel):
+            print(len(BibliDataBrevets['brevets']), " bibliographic patent data gathered yet? ")
+            GatherBibli = False
+            sys.exit('Nothing else to do :-). Good bye')
+            AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100)
+    else:
+        print(len(listeLabel)-len(BibliDataBrevets['brevets']), " patent misssing... processing")
  
-            GatherBibli = True
-            AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = abs(len(listeLabel) - len(DataBrevets['brevets']))/len(lstBrevets))
+        GatherBibli = True
+        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100 * len(BibliDataBrevets['brevets'])/len(listeLabel))
 #                for brevet in lstBrevets:
 #                    # nameOfPatent for file system save (abstract, claims...)
 #                    ndb = brevet['document-id']['country']['$'] + \
 #                        brevet['document-id']['doc-number']['$']
 #                    listeLabel.append(ndb)
-    else:
-        ficOk = False
-        print(str(abs(len(lstBrevets) - len(DataBrevets['brevets']))), " patents data missing. Gathering.")
-        GatherBibli = True
-        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = abs(len(lstBrevets) - len(DataBrevets['brevets'])))
+else:
+    ficOk = False
+    print(str(abs(len(lstBrevets) - len(BibliDataBrevets['brevets']))), " patents data missing. Gathering.")
+    GatherBibli = True
+    AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100 * len(BibliDataBrevets['brevets'])/len(listeLabel))
 #    except:    #new data model
 #        DataBrevets = dict()
 #        DataBrevets['brevets'] = []
@@ -296,11 +298,11 @@ if Fusion or (GatherBibli and GatherBiblio):
     
     ops_client.accept_type = 'application/json'
     
-    if "brevets" in list(DataBrevets.keys()):
-        YetGathered = list(set([bre['label'] for bre in BiblioPatents]))
+    if "brevets" in list(BibliDataBrevets.keys()):
+        YetGathered = list(set([bre['label'] for bre in BibliDataBrevets ['brevets']]))
         print(len(YetGathered), " patent bibliographic data gathered.")
         AnnonceLog(Appli = 'p2n_gather_biblio', texte= str(len(YetGathered)) + " patent bibliographic data gathered.")
-        DataBrevets["YetGathered"] = YetGathered
+        BibliDataBrevets["YetGathered"] = YetGathered
 
         AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = len(YetGathered)*100)
     else:
