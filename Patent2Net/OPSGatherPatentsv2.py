@@ -257,7 +257,7 @@ if ndf in os.listdir(ResultBiblioPath):
 #                    listeLabel.append(ndb)
 else:
     ficOk = False
-    print(str(abs(len(lstBrevets) - len(BibliDataBrevets['brevets']))), " patents data missing. Gathering.")
+    print(str(abs(len(listeLabel) - len(BibliDataBrevets['brevets']))), " patents data missing. Gathering.")
     GatherBibli = True
     AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100 * len(BibliDataBrevets['brevets'])/len(listeLabel))
 #    except:    #new data model

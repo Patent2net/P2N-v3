@@ -7,7 +7,7 @@ extract from the list the first equivalents in time of apparition.
 Other possible methods: 
     1. extract from families the representative set of patents (using EPO indicator) and complete it with  non present patent from initial patent list
     2. use the "prior" patent information in family set ?
-    
+I beleive they are more quickest methods....    
 @author: david
 """
 
@@ -109,6 +109,7 @@ for fic in [ndf]: # Families shouln't be processed like that!!!
     cpt = 0
     for bre in LstBrevet: # parcours de la listee des brevets
         AnnonceProgres (Appli = 'p2n_filtering', valMax = 100, valActu = cpt*50/len(LstBrevet))   
+        cpt +=1
         if bre['label'] not in dejaVus:                 # si pas vu
             dejaVus.append(bre['label'])                #rajout aux vus
             
@@ -356,14 +357,17 @@ for fic in [ndf]: # Families shouln't be processed like that!!!
     #Saving file
     
     for brev in Resultat:
-        if brev['label'] == 'FR3007658':
-            print (brev)
+
         with open(ResultBiblioPath + '//tempo' + fic,  'ab') as ficRes:
             pickle.dump(brev, ficRes)
     
     os.rename(ResultBiblioPath + '//' + fic, ResultBiblioPath + '//Old' + fic)
     os.rename(ResultBiblioPath + '//tempo' + fic, ResultBiblioPath + '//' + fic)
 
+
+    toto = [bre for bre in LstBrevet if bre['label'] not in exclude]
+    print (len(toto))    
+    
 fic = 'Families' + ndf
 with open(ListBiblioPath + '//' + fic, 'r', encoding ="utf8") as data:
     dico = LoadBiblioFile(ListBiblioPath, fic)    
