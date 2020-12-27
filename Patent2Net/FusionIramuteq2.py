@@ -65,6 +65,7 @@ if FusionIramuteq2:
     #        ind+=1
     #        ficRes.close()
     num = 0
+    consistent = dict()
     for content in ['Abstract', 'Claims', 'Description', 'FamiliesAbstract', 'FamiliesClaims', 'FamiliesDescription' ]: 
         num +=1
         lstfic = os.listdir(ResultPathContent+'//'+content)
@@ -79,12 +80,62 @@ if FusionIramuteq2:
             with codecs.open(ResultPathContent+'//'+ling.upper()+ '_'+content +'_' +ndf+'.txt', "w", 'utf8') as ficRes:
                 for fi in [fic2 for fic2 in lstfic if fic2.startswith(ling)]:
                     contenuFic = ResultPathContent+ '//'+ content+'//'+fi
+
                     with codecs.open(contenuFic, 'r', 'utf8') as absFic:
-                        data = absFic.read().strip()
-                        ficRes.write(data +'\n')
+                        data = absFic.readlines()
+                        ficRes.write(''.join (data) +'\n')
+                        if ling in ['EN', 'FR'] and content in  ['Description', 'Claims']: # memo for all decription and claim (I haven't see a missing pair)
+                            tempo = '**** *type_'+ content +' *'
+                            if ling in consistent.keys():
+                                if fi not in consistent [ling].keys():
+                                    consistent [ling][fi] = dict()
+                                
+                                consistent [ling][fi][content] =  data [0].replace ( '**** *', tempo) + ''.join(data[1:]) + '\n'
+                            else:
+                                consistent [ling] =  dict ()
+                                consistent [ling][fi] = dict()
+                                consistent [ling][fi][content] =  data [0].replace ( '**** *', tempo) + ''.join(data[1:]) + '\n'
                         cpt+=1
                         
                 
             print(str(cpt) + ' ' + ling + ' ' + content + ' merged') 
         print("Done. use it with whatever you want :-) or IRAMUTEQ. See DATA/"+ndf+"/PatentContents")  
         AnnonceProgres (Appli = 'p2n_iramuteq', valMax = 100, valActu = 50+num*50/6)
+    
+    lstfic = os.listdir(ResultPathContent+'//Abstract')
+    for ling in ['EN', 'FR']:
+        if ling in consistent.keys():
+            lstToRetreive = [fic2.upper().replace('.TXT', '.txt') for fic2 in lstfic if fic2.upper().replace('.TXT', '.txt') in consistent [ling].keys()]    
+        else:
+            lstToRetreive = []
+        for fi in lstToRetreive:
+            contenuFic = ResultPathContent+ '//Abstract//'+fi
+            with codecs.open(contenuFic, 'r', 'utf8') as absFic:
+                data = absFic.readlines()
+                tempo = '**** *Type_Abstract'+ ' *'
+                consistent [fi[0:2]][fi]["Abstract"] =  data [0].replace ( '**** *', tempo) + ''.join(data[1:]) + '\n'
+        
+    
+    if 'Consistent' not in os.listdir(ResultPathContent):
+        for ling in ['EN', 'FR'] :
+
+            if ling in consistent.keys():
+                os.makedirs(ResultPathContent + '//Consistent//' + ling)
+    for ling in consistent.keys() :
+        toSave =  [truc for truc in consistent [ling].keys() if len(consistent [ling][truc].keys()) >2] 
+        for ndf in toSave:
+            data = consistent [ling] [ndf]['Abstract']  + consistent [ling] [ndf]['Description'] + consistent [ling] [ndf]['Claims'] 
+            
+            with codecs.open (ResultPathContent + '//Consistent//' + ling + '//' +ndf, "w", 'utf8') as ficRes:
+                ficRes.write (data)
+                         
+        
+            
+        #                         # for fi in consistent.keys():
+    #     lstfic = os.listdir(ResultPathContent+'//Abstract')
+    #     for fi in [fic2 for fic2 in lstfic if fic2.startswith(ling)]:
+    #                 contenuFic = ResultPathContent+ '//'+ content+'//'+fi
+
+    #                 with codecs.open(contenuFic, 'r', 'utf8') as absFic:
+    #                     data = absFic.read().strip()
+print ()
