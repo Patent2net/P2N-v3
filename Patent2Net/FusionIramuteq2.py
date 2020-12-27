@@ -105,7 +105,7 @@ if FusionIramuteq2:
     lstfic = os.listdir(ResultPathContent+'//Abstract')
     for ling in ['EN', 'FR']:
         if ling in consistent.keys():
-            lstToRetreive = [fic2.upper().replace('.TXT', '.txt') for fic2 in lstfic if fic2.upper().replace('.TXT', '.txt') in consistent [ling].keys()]    
+            lstToRetreive = [fic2.upper().replace('.TXT', '.txt').replace(ling, ling.lower()) for fic2 in lstfic if fic2.upper().replace('.TXT', '.txt') in consistent [ling].keys()]    
         else:
             lstToRetreive = []
         for fi in lstToRetreive:
