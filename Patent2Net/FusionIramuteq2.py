@@ -113,7 +113,7 @@ if FusionIramuteq2:
             with codecs.open(contenuFic, 'r', 'utf8') as absFic:
                 data = absFic.readlines()
                 tempo = '**** *Type_Abstract'+ ' *'
-                consistent [fi[0:2]][fi]["Abstract"] =  data [0].replace ( '**** *', tempo) + ''.join(data[1:]) + '\n'
+                consistent [ling][fi]["Abstract"] =  data [0].replace ( '**** *', tempo) + ''.join(data[1:]) + '\n'
         
     
     if 'Consistent' not in os.listdir(ResultPathContent):
