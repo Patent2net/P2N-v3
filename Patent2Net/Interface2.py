@@ -45,7 +45,7 @@ if GatherFamilly:  # pdate needed for families
         data2 = LoadBiblioFile(ResultBiblioPath, 'Families' + ndf)
         nbFam = len(data2['brevets'])
     else:  # Retrocompatibility
-        print("please use Comptatibilizer")
+        print("No Families. please use gather them")
     # if 'Fusion' in data.keys()with open( ResultBiblioPath+'//Families'+ndf, 'r') as ficBib:
  #        data2 = cPickle.load(ficBib)
 
