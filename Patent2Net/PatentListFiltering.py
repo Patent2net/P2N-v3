@@ -8,6 +8,8 @@ Other possible methods:
     1. extract from families the representative set of patents (using EPO indicator) and complete it with  non present patent from initial patent list
     2. use the "prior" patent information in family set ?
 I beleive they are more quickest methods....    
+
+BUT: patent lists aren't modified yet!!!!
 @author: david
 """
 
@@ -75,9 +77,20 @@ ResultListPath = configFile.ResultListPath
 ResultBiblioPath = configFile.ResultBiblioPath
     # Lecture du fichier de référence
     
-
+DataBrevets = dict()
 if 'Old' + ndf in os.listdir(ListBiblioPath):
     print("already processed. Nothing to do.")
+    if 'Description' + ndf in os.listdir(ListBiblioPath):
+        with open(ListBiblioPath + '//' + ndf, 'r', encoding ="utf8") as data:
+            dico = LoadBiblioFile(ListBiblioPath, ndf)
+        DataBrevets ['brevets'] = dico ['brevets']
+        with open(ResultBiblioPath + '//Description' + ndf, 'wb') as ficRes:
+            DataBrevets['ficBrevets'] = ndf
+            DataBrevets['requete'] = requete
+            DataBrevets["YetGathered"] = [bre ["label"] for bre in DataBrevets ['brevets']]
+            DataBrevets["number"] = len(DataBrevets ['brevets'])
+            pickle.dump(DataBrevets, ficRes)      
+    
     sys.exit()
     
 
@@ -365,41 +378,62 @@ for fic in [ndf]: # Families shouln't be processed like that!!!
     os.rename(ResultBiblioPath + '//tempo' + fic, ResultBiblioPath + '//' + fic)
 
 
-    toto = [bre for bre in LstBrevet if bre['label'] not in exclude]
-    print (len(toto))    
+    # cleaning  abstracts files
+    cpt = 0
+    Exclusions = [pat ['label'] for pat in LstBrevet if pat not in Resultat]
+    for fichier in os.listdir(ResultPathContent+'/PatentContents/Abstract'):
+        if fichier.split('.')[0] in Exclusions or fichier.split('.')[0].split('-') [1] in Exclusions:
+            os.remove(ResultPathContent+'/PatentContents/Abstract/'+fichier)
+            cpt+=1
+    DataBrevets = dict()
+    with open(ResultBiblioPath + '//Description' + ndf, 'wb') as ficRes:
+        DataBrevets['ficBrevets'] = fic
+        DataBrevets['requete'] = requete
+        DataBrevets["YetGathered"] = [bre ["label"] for bre in Resultat]
+        DataBrevets["number"] = len(Resultat)
+        pickle.dump(DataBrevets, ficRes)            
     
-fic = 'Families' + ndf
-with open(ListBiblioPath + '//' + fic, 'r', encoding ="utf8") as data:
-    dico = LoadBiblioFile(ListBiblioPath, fic)    
-os.rename(ResultBiblioPath + '//' + fic, ResultBiblioPath + '//Old' + fic)
+    
 
-#the following should be done by GatherFamilies process. 
-# just in case...
-dat = dico['brevets']
-labs = [bre ['label'] for bre in dat]
-labs = flatten(labs)  # some patents have multiples labels
-cpt1, cpt2 = 0,0
-if len(labs) != len(set(labs)):
-    DejaVus = []
-    with open(ResultBiblioPath+'//Families'+ ndf, 'wb') as ndfLstBrev:
-        for bre in dat:
-            for cle in bre.keys():
-                if isinstance(bre[cle], list): #cleaning
-                    bre[cle] = list(set(bre[cle]))
-            if isinstance(bre['label'], str):
-                if bre['label'] not in DejaVus:
-                    pickle.dump(bre , ndfLstBrev)
-                    DejaVus.append(bre['label'])
-                    cpt1 +=1
-                else:
-                    pass
-            else:
-                for lab in set(bre['label']):
-                    if lab not in DejaVus:
+    print ('deleted ', cpt, ' abstracts')
+fic = 'Families' + ndf
+if 'Description' + fic in os.listdir(ResultBiblioPath):
+    with open(ListBiblioPath + '//' + fic, 'r', encoding ="utf8") as data:
+        dico = LoadBiblioFile(ListBiblioPath, fic)    
+    os.rename(ResultBiblioPath + '//' + fic, ResultBiblioPath + '//Old' + fic)
+    
+    #the following should be done by GatherFamilies process. 
+    # just in case...
+    dat = dico['brevets']
+    labs = [bre ['label'] for bre in dat]
+    labs = flatten(labs)  # some patents have multiples labels
+    cpt1, cpt2 = 0,0
+    if len(labs) != len(set(labs)):
+        DejaVus = []
+        with open(ResultBiblioPath+'//Families'+ ndf, 'wb') as ndfLstBrev:
+            for bre in dat:
+                for cle in bre.keys():
+                    if isinstance(bre[cle], list): #cleaning
+                        bre[cle] = list(set(bre[cle]))
+                if isinstance(bre['label'], str):
+                    if bre['label'] not in DejaVus:
                         pickle.dump(bre , ndfLstBrev)
-                        DejaVus.append(lab)
-                        cpt2 +=1
+                        DejaVus.append(bre['label'])
+                        cpt1 +=1
                     else:
                         pass
-print(cpt1, cpt2)
-print (len(set(labs)))
+                else:
+                    for lab in set(bre['label']):
+                        if lab not in DejaVus:
+                            pickle.dump(bre , ndfLstBrev)
+                            DejaVus.append(lab)
+                            cpt2 +=1
+                        else:
+                            pass
+    print(cpt1, cpt2)
+    print (len(set(labs)))
+    with open(ResultBiblioPath + '//' + 'Description' + fic, 'wb') as ficRes:
+        DataBrevets['ficBrevets'] = 'Families'+ ndf
+        DataBrevets['requete'] = "Families of: " + requete
+        DataBrevets["number"] = len(set(labs))
+        pickle.dump(DataBrevets, ficRes)           
