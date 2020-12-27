@@ -10,6 +10,7 @@ Other possible methods:
 I beleive they are more quickest methods....    
 
 BUT: patent lists aren't modified yet!!!!
+If patent list are modified (cumulative gathering in time this process may lead to unconsistency !) :oldFile should be delete or thsi processing reviewed to memo patent excluded by this process
 @author: david
 """
 
@@ -36,26 +37,6 @@ from fuzzywuzzy import fuzz
 regex = re.compile('[%s]' % re.escape(string.punctuation))
 pd.options.display.max_colwidth = 150
 
-# def NoPunct(s):  # From Vinko's solution, with fix.
-#     temp = regex.sub(' ', s)
-#     temp = temp.replace('  ', ' ')
-#     temp = temp.replace('  ', ' ')
-#     temp = temp.strip()
-#     return temp
-
-# def Nettoie(Liste):
-#     indesirables = ['', u'', None, False, [], ' ', '\t', '\n',  "?", "Empty", "empty"]
-#     if isinstance(Liste, list):
-    
-#         Liste = [' '.join([truc for truc in nom.split(' ') if truc is not None and truc.strip() not in indesirables]) for nom in Liste if nom is not None] 
-#         return list(filter(lambda x: x not in indesirables, Liste))
-    
-#     elif Liste in indesirables:
-#         return []
-#     else:
-#         return [Liste]
-
-
 
 aujourd = datetime.date.today()
 
@@ -78,18 +59,20 @@ ResultBiblioPath = configFile.ResultBiblioPath
     # Lecture du fichier de référence
     
 DataBrevets = dict()
-if 'Old' + ndf in os.listdir(ListBiblioPath):
+if 'Old' + ndf in os.listdir(ListBiblioPath): # filtering process is bad coded and resource consumming. Hence old fie are renamed and I avoid here to do it too many times
+# but if patent list have changed THIS may caus biaises with new patents in patent list
     print("already processed. Nothing to do.")
     if 'Description' + ndf in os.listdir(ListBiblioPath):
-        with open(ListBiblioPath + '//' + ndf, 'r', encoding ="utf8") as data:
-            dico = LoadBiblioFile(ListBiblioPath, ndf)
-        DataBrevets ['brevets'] = dico ['brevets']
-        with open(ResultBiblioPath + '//Description' + ndf, 'wb') as ficRes:
-            DataBrevets['ficBrevets'] = ndf
-            DataBrevets['requete'] = requete
-            DataBrevets["YetGathered"] = [bre ["label"] for bre in DataBrevets ['brevets']]
-            DataBrevets["number"] = len(DataBrevets ['brevets'])
-            pickle.dump(DataBrevets, ficRes)      
+        # with open(ListBiblioPath + '//' + ndf, 'r', encoding ="utf8") as data:
+        #     dico = LoadBiblioFile(ListBiblioPath, ndf)
+        
+        # with open(ResultBiblioPath + '//Description' + ndf, 'wb') as ficRes:
+        #     DataBrevets['ficBrevets'] = ndf
+        #     DataBrevets['requete'] = requete
+        #     DataBrevets["YetGathered"] = [bre ["label"] for bre in dico ['brevets']]
+        #     DataBrevets["number"] = len(dico ['brevets'])
+
+        #     pickle.dump(DataBrevets, ficRes)      
     
     sys.exit()
     
