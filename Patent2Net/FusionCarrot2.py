@@ -181,7 +181,7 @@ def complete3(listeFic, lang, det, Brevets):
         else:
             Ignore+=1
     if len(document)>0:
-        dico.append (document)
+        dico ['document'].append (document)
     print(len(set(resum)), "fichiers "+det+ " à traiter en langage : ", lang)
     print(cmpt, " fichiers "+det+ " traités", end=' ')
     if Ignore >0:
