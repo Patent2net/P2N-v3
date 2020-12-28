@@ -74,7 +74,7 @@ if 'Old' + ndf in os.listdir(ListBiblioPath): # filtering process is bad coded a
 
         #     pickle.dump(DataBrevets, ficRes)      
     
-    sys.exit()
+        sys.exit()
     
 
 lstApplic = []
