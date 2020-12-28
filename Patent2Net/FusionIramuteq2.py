@@ -10,7 +10,7 @@ import os, codecs
 from Patent2Net.P2N_Lib import ReturnBoolean, GenereListeFichiers
 from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
-from zipfile import ZipFile 
+from zipfile import ZipFile , ZIP_DEFLATED
 
 configFile = LoadConfig()
 requete = configFile.requete
@@ -134,7 +134,7 @@ if FusionIramuteq2:
         with codecs.open (ResultPathContent + '//Consistent//Iram_' + ling + '_' +rep +'.txt', "w", 'utf8') as ficRes:
             ficRes.write (complete)
         with ZipFile(ResultPathContent + '//Consistent//Iram_' + ling + '_' +rep +'.zip','w') as zip:
-           zip.write(ResultPathContent + '//Consistent//Iram_' + ling + '_' +rep +'.txt')
+           zip.write(ResultPathContent + '//Consistent//Iram_' + ling + '_' +rep +'.txt', compress_type = ZIP_DEFLATED)
         #                         # for fi in consistent.keys():
     #     lstfic = os.listdir(ResultPathContent+'//Abstract')
     #     for fi in [fic2 for fic2 in lstfic if fic2.startswith(ling)]:
