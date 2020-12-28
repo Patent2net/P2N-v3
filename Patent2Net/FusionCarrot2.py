@@ -233,7 +233,8 @@ if IsEnableScript:
                 # lazy attempt for consistent vues
                 #NomResult2 = lang+'_'+det.replace('Abstracts', '') + '_' + ndf+'.xml' # det.replace('Abstracts', '') this command is for old old mispelling :-(.. I think)
                 ficRes2 = codecs.open(Rep+'//Consistent//Carrot2_'+NomResult, "w", 'utf8')
-                ficRes2.write(complete3(temporar[ind], lang, prefix+det, [bre for bre in LstBrevet if 'EN-'+ bre ['label']+'.txt' in lstConsistents] ))
+                carrot2, json2 = complete3(temporar[ind], lang, prefix+det, [bre for bre in LstBrevet if 'EN-'+ bre ['label']+'.txt' in lstConsistents] )
+                ficRes2.write(carrot2)
                 
                 ind+=1
                 AnnonceProgres (Appli = 'p2n_carrot', valMax = 100, valActu = 60+5*ind*cpt) #; say almost 10 loops (3x3 ^_^), 50% of progress bar should be missing here so I put 60... grosso modo
