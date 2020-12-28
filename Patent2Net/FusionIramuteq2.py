@@ -10,6 +10,7 @@ import os, codecs
 from Patent2Net.P2N_Lib import ReturnBoolean, GenereListeFichiers
 from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
+from zipfile import ZipFile 
 
 configFile = LoadConfig()
 requete = configFile.requete
