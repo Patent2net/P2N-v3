@@ -132,7 +132,8 @@ if FusionIramuteq2:
                          
         with codecs.open (ResultPathContent + '//Consistent//Iram_' + ling + '_' +rep +'.txt', "w", 'utf8') as ficRes:
             ficRes.write (complete)
-            
+        with ZipFile(ResultPathContent + '//Consistent//Iram_' + ling + '_' +rep +'.zip','w') as zip:
+           zip.write(ResultPathContent + '//Consistent//Iram_' + ling + '_' +rep +'.txt')
         #                         # for fi in consistent.keys():
     #     lstfic = os.listdir(ResultPathContent+'//Abstract')
     #     for fi in [fic2 for fic2 in lstfic if fic2.startswith(ling)]:
