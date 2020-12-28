@@ -230,6 +230,7 @@ if IsEnableScript:
                 ficRes = codecs.open(Rep+'//Carrot2//'+NomResult, "w", 'utf8')
                 carrot2, json = complete3(temporar[ind], lang, prefix+det, LstBrevet)
                 ficRes.write(carrot2)
+                
                 # lazy attempt for consistent vues
                 #NomResult2 = lang+'_'+det.replace('Abstracts', '') + '_' + ndf+'.xml' # det.replace('Abstracts', '') this command is for old old mispelling :-(.. I think)
                 ficRes2 = codecs.open(Rep+'//Consistent//Carrot2_'+NomResult, "w", 'utf8')
