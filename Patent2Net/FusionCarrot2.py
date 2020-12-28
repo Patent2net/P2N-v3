@@ -6,7 +6,6 @@ Created on Fri Dec 19 07:53:30 2014
 """
 import os
 import codecs
-import pickle
 import bs4
 from xml.sax.saxutils import escape
 import json
@@ -21,7 +20,6 @@ GatherFamilly = configFile.GatherFamilly
 def GenereListeFichiers(rep):
     """ prend un dossier en paramètre (chemin absolu) et génère la liste
     complète des fichiers TXT de l'arborescence"""
-    import os
     listeFicFR = []
     listeFicEN = []
     listeFicUNK = []
@@ -228,18 +226,21 @@ if IsEnableScript:
             for lang in ['FR', 'EN', 'UNK']:
                 NomResult = lang+'_'+det.replace('Abstracts', '') + '_' + ndf+'.xml' # det.replace('Abstracts', '') this command is for old old mispelling :-(.. I think)
                 ficRes = codecs.open(Rep+'//Carrot2//'+NomResult, "w", 'utf8')
-                carrot2, json = complete3(temporar[ind], lang, prefix+det, LstBrevet)
+                carrot2, jsondat = complete3(temporar[ind], lang, prefix+det, LstBrevet)
                 ficRes.write(carrot2)
-                with open(Rep+'//Carrot2//'+NomResult.replace('.xml', '.json'), "w", 'utf8') as ficRes:
-                    json.dump(ficRes, json, indent = 4)
+                ficRes.close()
+                with codecs.open(Rep+'//Carrot2//'+NomResult.replace('.xml', '.json'), "w", 'utf8') as ficRes:
+                    json.dump(ficRes, jsondat, indent = 4)
                     
                 # lazy attempt for consistent vues
                 #NomResult2 = lang+'_'+det.replace('Abstracts', '') + '_' + ndf+'.xml' # det.replace('Abstracts', '') this command is for old old mispelling :-(.. I think)
                 ficRes2 = codecs.open(Rep+'//Consistent//Carrot2_'+NomResult, "w", 'utf8')
-                carrot2, json2 = complete3(temporar[ind], lang, prefix+det, [bre for bre in LstBrevet if 'EN-'+ bre ['label']+'.txt' in lstConsistents] )
-                with open(Rep+'//Consistent//Carrot2_'+NomResult.replace('.xml', '.json'), "w", 'utf8') as ficRes:
-                    json.dump(ficRes, json2, indent = 4)
                 ficRes2.write(carrot2)
+                ficRes2.close()
+                carrot2, json2 = complete3(temporar[ind], lang, prefix+det, [bre for bre in LstBrevet if 'EN-'+ bre ['label']+'.txt' in lstConsistents] )
+                with codecs.open(Rep+'//Consistent//Carrot2_'+NomResult.replace('.xml', '.json'), "w", 'utf8') as ficRes:
+                    json.dump(ficRes, json2, indent = 4)
+                
                 
                 ind+=1
                 AnnonceProgres (Appli = 'p2n_carrot', valMax = 100, valActu = 60+5*ind*cpt) #; say almost 10 loops (3x3 ^_^), 50% of progress bar should be missing here so I put 60... grosso modo
