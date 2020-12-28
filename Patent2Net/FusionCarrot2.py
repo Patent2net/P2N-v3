@@ -9,7 +9,7 @@ import codecs
 import pickle
 import bs4
 from xml.sax.saxutils import escape
-
+import json
 from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
 
@@ -230,11 +230,15 @@ if IsEnableScript:
                 ficRes = codecs.open(Rep+'//Carrot2//'+NomResult, "w", 'utf8')
                 carrot2, json = complete3(temporar[ind], lang, prefix+det, LstBrevet)
                 ficRes.write(carrot2)
-                
+                with open(Rep+'//Carrot2//'+NomResult.replace('.xml', '.json'), "w", 'utf8') as ficRes:
+                    json.dump(ficRes, json, indent = 4)
+                    
                 # lazy attempt for consistent vues
                 #NomResult2 = lang+'_'+det.replace('Abstracts', '') + '_' + ndf+'.xml' # det.replace('Abstracts', '') this command is for old old mispelling :-(.. I think)
                 ficRes2 = codecs.open(Rep+'//Consistent//Carrot2_'+NomResult, "w", 'utf8')
                 carrot2, json2 = complete3(temporar[ind], lang, prefix+det, [bre for bre in LstBrevet if 'EN-'+ bre ['label']+'.txt' in lstConsistents] )
+                with open(Rep+'//Consistent//Carrot2_'+NomResult.replace('.xml', '.json'), "w", 'utf8') as ficRes:
+                    json.dump(ficRes, json2, indent = 4)
                 ficRes2.write(carrot2)
                 
                 ind+=1
