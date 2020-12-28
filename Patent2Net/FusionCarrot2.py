@@ -33,9 +33,9 @@ def GenereListeFichiers(rep):
                 listeFicUNK.extend(temporar[2])
         else:
             for fichier in files:
-                if fichier.endswith('.txt') and fichier.startswith('fr'):
+                if fichier.endswith('.txt') and fichier.lower().startswith('fr'):
                     listeFicFR.append(root+'//'+fichier)
-                elif fichier.endswith('.txt') and fichier.startswith('en'):
+                elif fichier.endswith('.txt') and fichier.lower().startswith('en'):
                     listeFicEN.append(root+'//'+fichier)
                 else:
                     if fichier.endswith('.txt'):
@@ -247,29 +247,3 @@ if IsEnableScript:
 
                 ficRes.close()
         
-        
-        # for det in ['Abstract', 'Claims', 'Description']:
-        #     ind = 0
-        #     cpt+=1
-        #     for lang in ['FR', 'EN', 'UNK']:
-        #         NomResult = lang+'_'+det.replace('Abstracts', '') + '_' + ndf+'.xml' # det.replace('Abstracts', '') this command is for old old mispelling :-(.. I think)
-        #         ficRes = codecs.open(Rep+'//Consistent//Carrot2_'+NomResult, "w", 'utf8')
-        #         ficRes.write(complete3(temporar[ind], lang, prefix+det, [bre for bre in LstBrevet if bre ['label'] in lstConsistents] ))
-        #         ind+=1
-        #         AnnonceProgres (Appli = 'p2n_carrot', valMax = 100, valActu = 60+5*ind*cpt) #; say almost 10 loops (3x3 ^_^), 50% of progress bar should be missing here so I put 60... grosso modo
-
-        #         ficRes.close()
-        
-            
-                # if lang in ['EN', 'FR'] and content in  ['Description', 'Claims']: # memo for all decription and claim (I haven't see a missing pair)
-                #     tempo = '**** *type_'+ content +' *'
-                #     if lang in consistent.keys():
-                #         if fi not in consistent [lang].keys():
-                #             consistent [lang][fi] = dict()
-                        
-                #         consistent [ling][fi][content] =  data [0].replace ( '**** *', tempo) + ''.join(data[1:]) + '\n'
-                #     else:
-                #         consistent [ling] =  dict ()
-                #         consistent [ling][fi] = dict()
-                #         consistent [ling][fi][content] =  data [0].replace ( '**** *', tempo) + ''.join(data[1:]) + '\n'
-                # cpt+=1
