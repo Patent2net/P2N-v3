@@ -75,40 +75,42 @@ def coupeEnMots(texte):
 def LectureFichier2(fic):
     """read the file, and return purged from coupeEnMots content if lenght is greater thar arbitrary value, here 5"""
     """cleans also Iramuteq Variables"""
-    with codecs.open(fic, "r", 'utf8') as fichier:
-#            import bs4 as bs
-#            bs.UnicodeDammit.contains_replacement_characters = True
-
-            fi = fichier.readlines()
-            #cpt = 0
-#            try:
-#                fi
-#                #tempo = bs.UnicodeDammit.detwingle(fi)
-#            except:
-#                fi = ""
-#                cpt +=1
-#                print "loupés ", cpt
-#
-            meta = ''.join([lig for lig in fi if lig.startswith('****')])
-            try:
-                for ligne in fi:
-                    if not ligne.startswith('****'):
-                        try:
-                            pipo = ligne.encode('utf8')
-                            pipo = pipo.decode('utf8')
-                            lect = ''.join(ligne+'\n')
-                        except:
-                            lect=''
-                            pass
-
-            except:
-                lect=''
-            if len(' '.join(coupeEnMots(lect)))> 5: #arbitrary
-                contenu =lect
-                return contenu, meta
-            else:
-                return None, None
-
+    try:
+        with codecs.open(fic, "r", 'utf8') as fichier:
+    #            BAD 
+    
+                fi = fichier.readlines()
+                #cpt = 0
+    #            try:
+    #                fi
+    #                #tempo = bs.UnicodeDammit.detwingle(fi)
+    #            except:
+    #                fi = ""
+    #                cpt +=1
+    #                print "loupés ", cpt
+    #
+                meta = ''.join([lig for lig in fi if lig.startswith('****')])
+                try:
+                    for ligne in fi:
+                        if not ligne.startswith('****'):
+                            try:
+                                pipo = ligne.encode('utf8')
+                                pipo = pipo.decode('utf8')
+                                lect = ''.join(ligne+'\n')
+                            except:
+                                lect=''
+                                pass
+    
+                except:
+                    lect=''
+                if len(' '.join(coupeEnMots(lect)))> 5: #arbitrary
+                    contenu =lect
+                    return contenu, meta
+                else:
+                    return None, None
+    except:
+    # strange case as the file exists
+        return None, None
 
 
 def complete3(listeFic, lang, det, Brevets):
@@ -123,13 +125,16 @@ def complete3(listeFic, lang, det, Brevets):
     Contenu += "<searchresult>\n"
     Contenu += "<query>"+requete+"</query>\n"
     cmpt = 0
-
+    dico = dict ()
+    dico ["document"]= []
     for fichier in set(resum):
         dejaVu.append(fichier)
+        
         tempo, meta =LectureFichier2(fichier)
+        document = dict()
         if tempo is not None and meta is not None:
             try:
-                Label = meta.split('Label_')[1].split(' ')[0]
+                Label = meta.split('Label_')[1].split(' ')[0].replace('.txt', '')
                 Brev = [ele for ele in Brevets if ele['label'] == Label]
                 if len(Brev) ==1:
                     if isinstance(Brev[0], dict):
@@ -138,7 +143,7 @@ def complete3(listeFic, lang, det, Brevets):
                             titre = bs4.BeautifulSoup(Brev[0]['title'], "lxml").text
                         except:
                             titre = Label
-
+                        
 
                         url = "http://worldwide.espacenet.com/searchResults?compact=false&amp;ST=singleline&amp;query="+Label+"&amp;locale=en_EP&amp;DB=EPODOC"
                         cmpt += 1
@@ -156,6 +161,9 @@ def complete3(listeFic, lang, det, Brevets):
 
                                 Contenu+='<snippet>%s</snippet>\n' %escape(str(tempo))
                                 Contenu+="</document>\n"
+                                document ['content'] = escape(titre)  + '\n' + escape(str(tempo))
+                            else:
+                                Ignore+=1
                         except:
                             #print #bad encoding should be here
                             Ignore+=1
@@ -172,13 +180,15 @@ def complete3(listeFic, lang, det, Brevets):
 
         else:
             Ignore+=1
+    if len(document)>0:
+        dico.append (document)
     print(len(set(resum)), "fichiers "+det+ " à traiter en langage : ", lang)
     print(cmpt, " fichiers "+det+ " traités", end=' ')
     if Ignore >0:
         print(" et ", Ignore, " fichier(s) ignores (non dédoublés)")
     Contenu += "</searchresult>"
 
-    return Contenu.lower()
+    return Contenu.lower(), dico
 
 
 if IsEnableScript:
@@ -218,7 +228,8 @@ if IsEnableScript:
             for lang in ['FR', 'EN', 'UNK']:
                 NomResult = lang+'_'+det.replace('Abstracts', '') + '_' + ndf+'.xml' # det.replace('Abstracts', '') this command is for old old mispelling :-(.. I think)
                 ficRes = codecs.open(Rep+'//Carrot2//'+NomResult, "w", 'utf8')
-                ficRes.write(complete3(temporar[ind], lang, prefix+det, LstBrevet))
+                carrot2, json = complete3(temporar[ind], lang, prefix+det, LstBrevet)
+                ficRes.write(carrot2)
                 # lazy attempt for consistent vues
                 #NomResult2 = lang+'_'+det.replace('Abstracts', '') + '_' + ndf+'.xml' # det.replace('Abstracts', '') this command is for old old mispelling :-(.. I think)
                 ficRes2 = codecs.open(Rep+'//Consistent//Carrot2_'+NomResult, "w", 'utf8')
