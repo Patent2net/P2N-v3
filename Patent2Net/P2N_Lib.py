@@ -2400,7 +2400,7 @@ def LoadBiblioFile(rep, name):
     DataBrevets['brevets'] = []
     if "Description" + name in os.listdir(rep):
         with open(rep + '//Description' + name, 'rb') as fic:
-            Descript = pickle.load(fic)
+            Descript = pickle.load(fic, encoding='utf-8')
             DataBrevets['ficBrevets'] = Descript['ficBrevets']
             DataBrevets['requete'] = Descript['requete']
     else:
