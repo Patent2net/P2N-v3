@@ -137,7 +137,7 @@ def complete3(listeFic, lang, det, Brevets):
                 if len(Brev) ==1:
                     if isinstance(Brev[0], dict):
                         try:
-                            Brev[0]['title'].decode('utf8')
+                            #titre = Brev[0]['title']
                             titre = bs4.BeautifulSoup(Brev[0]['title'], "lxml").text
                         except:
                             titre = Label
@@ -230,7 +230,7 @@ if IsEnableScript:
                 ficRes.write(carrot2)
                 ficRes.close()
                 with codecs.open(Rep+'//Carrot2//'+NomResult.replace('.xml', '.json'), "w", 'utf8') as ficRes:
-                    json.dump(ficRes, jsondat, indent = 4)
+                    json.dump(jsondat, ficRes, indent = 4)
                     
                 # lazy attempt for consistent vues
                 #NomResult2 = lang+'_'+det.replace('Abstracts', '') + '_' + ndf+'.xml' # det.replace('Abstracts', '') this command is for old old mispelling :-(.. I think)
@@ -239,7 +239,7 @@ if IsEnableScript:
                 ficRes2.close()
                 carrot2, json2 = complete3(temporar[ind], lang, prefix+det, [bre for bre in LstBrevet if 'EN-'+ bre ['label']+'.txt' in lstConsistents] )
                 with codecs.open(Rep+'//Consistent//Carrot2_'+NomResult.replace('.xml', '.json'), "w", 'utf8') as ficRes:
-                    json.dump(ficRes, json2, indent = 4)
+                    json.dump( json2, ficRes, indent = 4)
                 
                 
                 ind+=1
