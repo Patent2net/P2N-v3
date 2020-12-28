@@ -123,13 +123,15 @@ if FusionIramuteq2:
                 os.makedirs(ResultPathContent + '//Consistent//' + ling)
     for ling in consistent.keys() :
         toSave =  [truc for truc in consistent [ling].keys() if len(consistent [ling][truc].keys()) >2] 
+        complete =""""""
         for ndf in toSave:
             data = consistent [ling] [ndf]['Abstract']  + consistent [ling] [ndf]['Description'] + consistent [ling] [ndf]['Claims'] 
-            
+            complete += data
             with codecs.open (ResultPathContent + '//Consistent//' + ling + '//' +ndf, "w", 'utf8') as ficRes:
                 ficRes.write (data)
                          
-        
+        with codecs.open (ResultPathContent + '//Consistent//Iram_' + ling + '_' +rep +'.txt', "w", 'utf8') as ficRes:
+            ficRes.write (complete)
             
         #                         # for fi in consistent.keys():
     #     lstfic = os.listdir(ResultPathContent+'//Abstract')
@@ -138,4 +140,4 @@ if FusionIramuteq2:
 
     #                 with codecs.open(contenuFic, 'r', 'utf8') as absFic:
     #                     data = absFic.read().strip()
-print ()
+AnnonceProgres (Appli = 'p2n_iramuteq', valMax = 100, valActu = 100)

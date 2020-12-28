@@ -235,21 +235,66 @@
                 <td> <a href="{{u('PatentContents/EN_Abstract_*CollectName*.txt')}}" download>Abstracts (EN) </a></td>
                 <td> <a href="{{u('PatentContents/EN_Claims_*CollectName*.txt')}}" download>Claims (EN)</a></td>
                 <td> <a href="{{u('PatentContents/EN_Description_*CollectName*.txt')}}" download>Descriptions (EN)</a></td>
+                <td> <a href="{{u('PatentContents/Consistent/Iram_EN_*CollectName*.txt')}}" download>Consistent subset (Abstracts+ Description+Claims) (EN)</a></td>
             </tr>
             <tr>
                 <td> <a href="{{u('PatentContents/FR_Abstract_*CollectName*.txt')}}" download>Abstracts (FR)</a></td>
                 <td> <a href="{{u('PatentContents/FR_Claims_*CollectName*.txt')}}" download>Claims (FR)</a></td>
                 <td> <a href="{{u('PatentContents/FR_Description_*CollectName*.txt')}}" download>Descriptions (FR)</a></td>
+                <td> <a href="{{u('PatentContents/Consistent/Iram_FR_*CollectName*.txt')}}" download>Consistent subset (Abstracts+ Description+Claims) (FR)</a></td>
             </tr>
 
         </table>
 
         <h3><a href="http://project.carrot2.org/"  target="_blank">Carrot2</a> clustering engine XML compatible files:</h3>
-        <ul style="list-style-type:square">
-            <li> <a href="{{u('PatentContents/Carrot2/EN_Abstract_*CollectName*.xml')}}" download> Abstract XML (english only) </a></li>
-            <li> <a href="{{u('PatentContents/Carrot2/FR_Abstract_*CollectName*.xml')}}" download> Abstract XML (french only) </a></li>
-            <li> <a href="{{u('PatentContents/Carrot2/UNK_Abstract_*CollectName*.xml')}}" download> Abstract XML (all others language: unknown) </a></li>
-        </ul>
+        <table style="width:100%">
+            <tr>
+                <td> <a href="{{u('PatentContents/Carrot2/EN_Abstract_*CollectName*.xml')}}" download> Abstract XML (english only) </a>
+                <a href="{{u('PatentContents/Carrot2/EN_Abstract_*CollectName*.json')}}" download> Abstract JSON </a>
+                </td>
+                <td> <a href="{{u('PatentContents/Carrot2/EN_Claims_*CollectName*.xml')}}" download> Claims XML </a>
+                <a href="{{u('PatentContents/Carrot2/EN_Claims_*CollectName*.json')}}" download> JSON  </a>
+                </td>
+                <td> <a href="{{u('PatentContents/Carrot2/EN_Descriptions_*CollectName*.xml')}}" download> Descriptions XML</a>
+                <a href="{{u('PatentContents/Carrot2/EN_Descriptions_*CollectName*.json')}}" download> Descriptions JSON</a>
+                </td>
+                <td> <a href="{{u('PatentContents/Consistent/Carrot2_EN_Abstract_*CollectName*.xml')}}" download> Consistent Abstracts Set XML  </a>
+                <a href="{{u('PatentContents/Consistent/Carrot2_EN_Abstract_*CollectName*.json')}}" download> Consistent Abstracts Set JSON </a>
+                </td>
+                <td> <a href="{{u('PatentContents/Consistent/Carrot2_EN_Claims_*CollectName*.xml')}}" download> Consistent Claims Set XML </a>
+                <a href="{{u('PatentContents/Consistent/Carrot2_EN_Claims_*CollectName*.json')}}" download> Consistent Claims Set JSON </a>
+                </td>
+                <td> <a href="{{u('PatentContents/Consistent/Carrot2_EN_Description_*CollectName*.xml')}}" download> Consistent Description Set XML </a>
+                 <a href="{{u('PatentContents/Consistent/Carrot2_EN_Description_*CollectName*.xml')}}" download> Consistent Description Set JSON </a>
+                </td>
+             </tr>
+            <tr>
+                <td> <a href="{{u('PatentContents/Carrot2/FR_Abstract_*CollectName*.xml')}}" download> Abstract XML (french only) </a>
+                <a href="{{u('PatentContents/Carrot2/FR_Abstract_*CollectName*.json')}}" download> Abstract JSON</a>
+                </td>
+                <td> <a href="{{u('PatentContents/Carrot2/FR_Claims_*CollectName*.xml')}}" download> Claims XML (french only) </a>
+                <a href="{{u('PatentContents/Carrot2/FR_Claims_*CollectName*.json')}}" download> Claims JSON </a>
+                </td>
+                <td> <a href="{{u('PatentContents/Carrot2/FR_Descriptions_*CollectName*.xml')}}" download> Descriptions XML (french only) </a>
+                <a href="{{u('PatentContents/Carrot2/FR_Descriptions_*CollectName*.json')}}" download> Descriptions JSON </a>
+                </td>
+                <td> <a href="{{u('PatentContents/Consistent/Carrot2_FR_Abstract_*CollectName*.xml')}}" download> Consistent Abstracts Set XML (french only) </a>
+                <a href="{{u('PatentContents/Consistent/Carrot2_FR_Abstract_*CollectName*.json')}}" download> Consistent Abstracts Set JSON</a>
+                </td>
+                <td> <a href="{{u('PatentContents/Consistent/Carrot2_FR_Claims_*CollectName*.xml')}}" download> Consistent Claims Set XML (french only) </a>
+                <a href="{{u('PatentContents/Consistent/Carrot2_FR_Claims_*CollectName*.json')}}" download> Consistent Claims Set JSON</a>
+                </td>
+                <td> <a href="{{u('PatentContents/Consistent/Carrot2_FR_Description_*CollectName*.xml')}}" download> Consistent Description Set XML </a>
+                 <a href="{{u('PatentContents/Consistent/Carrot2_FR_Description_*CollectName*.xml')}}" download> Consistent Description Set JSON</a>
+                </td>
+             </tr>
+            <tr>
+                <td> <a href="{{u('PatentContents/Carrot2/UNK_Abstract_*CollectName*.xml')}}" download> Abstract XML (all others language: unknown) </a></li>
+                <td> <a href="{{u('PatentContents/Consistent/Carrot2_UNK_Abstract_*CollectName*.xml')}}" download> Consistent Abstracts Set XML (others) </a></td>
+                <td> <a href="{{u('PatentContents/Consistent/Carrot2_UNK_Claims_*CollectName*.xml')}}" download> Consistent Claims Set XML (others) </a></td>
+                <td> <a href="{{u('PatentContents/Consistent/Carrot2_UNK_Description_*CollectName*.xml')}}" download> Consistent Description Set XML (others) </a></td>
+             </tr>
+        </table>
         <h3>Download bibliographic format </h3>
         <ul>
             <li> <a href="{{u('*CollectName*.bib')}}" download>Biblatex format, Zotero compatible (only A,B, C statuses)</a></li>
