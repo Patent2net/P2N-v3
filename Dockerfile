@@ -50,7 +50,7 @@ RUN { \
         echo 'pasv_addr_resolve=YES'; \
         echo 'pasv_address=0.0.0.0'; \
         echo 'pasv_enable=YES'; \
-        echo 'pasv_max_port=50520'; \
+        echo 'pasv_max_port=50050'; \
         echo 'pasv_min_port=50000'; \
         echo 'port_enable=YES'; \
         echo 'seccomp_sandbox=NO'; \
@@ -111,14 +111,22 @@ RUN apt-get update
 RUN apt-get -y install git
 RUN git -C ./usr/src clone -b master https://github.com/Patent2net/P2N-V3
 
+
+# java 
+RUN apt-get -y install openjdk-11-jdk
+
+# carrot2
+# RUN git -C ./usr/src clone -b master https://github.com/carrot2/carrot2.git
+# using the binary release
+
 # open vsftpd services for anonymous_enable
 
 RUN chown -R root:ftp /usr/src/P2N-V3
+RUN chgrp -R ftp /usr/src/P2N-V3
 RUN usermod -d /usr/src/P2N-V3 ftp
 RUN mkdir /usr/src/P2N-V3/DATA
 
-RUN chmod -R 777 /usr/src/P2N-V3/DATA
-
+RUN chmod -R 755 /usr/src/P2N-V3/DATA
 
 RUN mkdir /var/run/vsftpd
 RUN mkdir /var/run/vsftpd/empty
@@ -127,13 +135,18 @@ RUN mkdir /var/run/vsftpd/empty
 VOLUME /usr/src/P2N-V3
 
 EXPOSE 20-21
-EXPOSE 50000-50520
-EXPOSE 5000
+EXPOSE 5000-5010
+EXPOSE 50000-50050
+
+
+RUN apt-get -y install unzip
 
 WORKDIR /usr/src/P2N-V3
+RUN chmod -R 755 update.sh
+RUN chmod -R 755 carrot2.sh
+RUN ./carrot2.sh
+ 
+RUN /usr/src/P2N-V3/carrot2/carrot2-4.0.4/dcs/dcs.sh --port 5005 &
 
-RUN python setup.py build
-RUN python setup.py install
-
-ENTRYPOINT python app.py && bash && vsftpd
+ENTRYPOINT python app.py && bash && vsftpd && dcs
 
