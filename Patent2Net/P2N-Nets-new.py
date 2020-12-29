@@ -710,21 +710,21 @@ for ndf in PU:
             Visu['color'] = dict()
             #G.node[k]['label'] =  Nodes.keys()[k]
             #G.node[k]['category'] = Nodes[Nodes.keys()[k]]['category']
-            if G.node[k]['category'] == 'label':
-                G.node[k]['url'] =UrlPatent(k)[0]
+            if G.nodes[k]['category'] == 'label':
+                G.nodes[k]['url'] =UrlPatent(k)[0]
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(254)
                 Visu['color']['g']= int(0)
                 Visu['color']['b']= int(0)
                 Visu['shape'] ="diamond"
-            elif G.node[k]['category'] =='CitP':
+            elif G.nodes[k]['category'] =='CitP':
                     Visu['color']['a'] = 1
                     Visu['color']['r']= int(0)
                     Visu['color']['g']= int(254)
                     Visu['color']['b']= int(0)
                     Visu['shape'] ="ellipse"
 
-            elif G.node[k]['category'] == 'CitO':
+            elif G.nodes[k]['category'] == 'CitO':
                 # a hack here, trying to find out content in scholar
                 #https:/scholar.google.fr/scholar?hl=fr&q=pipo+test&btnG=&lr=
                 Visu['color']['r']= int(0)
@@ -734,39 +734,39 @@ for ndf in PU:
                 Visu['shape'] ="disc"
                 #UrlTemp = "https:/scholar.google.com/scholar?q=" + quot(Nodes.keys()[k])
                 #G.node[k]['url'] = UrlTemp
-            elif G.node[k]['category'] == 'CitedBy':
+            elif G.nodes[k]['category'] == 'CitedBy':
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(0)
                 Visu['color']['g']= int(127)
                 Visu['color']['b']= int(127)
                 Visu['shape'] ="square"
-                G.node[k]['url'] =UrlPatent(k)[0]
+                G.nodes[k]['url'] =UrlPatent(k)[0]
 
-            elif G.node[k]['category'] == "equivalents":
+            elif G.nodes[k]['category'] == "equivalents":
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(127)
                 Visu['color']['g']= int(127)
                 Visu['color']['b']= int(0)
                 Visu['shape'] ="ellipse"
-                G.node[k]['url'] =UrlPatent(k)[0]
-            elif G.node[k]['category'] == 'Applicant':
+                G.nodes[k]['url'] =UrlPatent(k)[0]
+            elif G.nodes[k]['category'] == 'Applicant':
                 #G.node[k]['category'] = 'Applicant'# for readable facility
-                G.node[k]['url'] = UrlApplicantBuild(k)[0]
+                G.nodes[k]['url'] = UrlApplicantBuild(k)[0]
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(127)
                 Visu['color']['g']= int(0)
                 Visu['color']['b']= int(127)
                 Visu['shape'] ="star"
-            elif G.node[k]['category'] == 'IPCR1' or G.node[k]['category'] == 'IPCR3' or G.node[k]['category'] == 'IPCR4' or G.node[k]['category'] == 'IPCR7' or G.node[k]['category'] == 'IPCR7' or G.node[k]['category'] == 'CPC':
-                G.node[k]['url'] = UrlIPCRBuild(k)[0]
+            elif G.nodes[k]['category'] == 'IPCR1' or G.nodes[k]['category'] == 'IPCR3' or G.nodes[k]['category'] == 'IPCR4' or G.nodes[k]['category'] == 'IPCR7' or G.nodes[k]['category'] == 'IPCR7' or G.nodes[k]['category'] == 'CPC':
+                G.nodes[k]['url'] = UrlIPCRBuild(k)[0]
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(127)
                 Visu['color']['g']= int(254)
                 Visu['color']['b']= int(127)
                 Visu['shape'] ="database"
-            elif G.node[k]['category'] == 'Inventor':
+            elif G.nodes[k]['category'] == 'Inventor':
                 #G.node[k]['category'] = 'inventor'# for readable facility
-                G.node[k]['url'] = UrlInventorBuild(k)[0]
+                G.nodes[k]['url'] = UrlInventorBuild(k)[0]
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(127)
                 Visu['color']['g']= int(127)
@@ -785,11 +785,11 @@ for ndf in PU:
             #     count = mixNet.index(categ)
             # else:
             #     count = mixNet.index(G.node[k]['category'])
-            count = Networks [network][1].index(G.node[k]['category'])
+            count = Networks [network][1].index(G.nodes[k]['category'])
             Visu['position']= {'x':(int(pos[k][0]*factx)+posx), 'y':(int(pos[k][1]*facty)+posy), 'z':0.0}
             # Visu['size'] = np.log(int(G.node[k]["weight"])+1)+4#
             Visu['color']['a']= count
-            G.node[k]['viz'] =dict()
+            G.nodes[k]['viz'] =dict()
 
 
         #            Visu['color']['a']= count
@@ -800,7 +800,7 @@ for ndf in PU:
             Visu['size'] = G.degree [k]*10.0/Maxdegs +4
         #        Visu['size'] = np.log(int(G.node[k]["weight"])+1)*zoom+1#
             for cle in list(Visu.keys()):
-                G.node[k]['viz'][cle] = Visu[cle]
+                G.nodes[k]['viz'][cle] = Visu[cle]
 
          #               print G.node[k]
          #       nx.set_node_attributes(G, 'weight', attr_dict)
