@@ -16,6 +16,7 @@ LogInstallP2N.txt
 RequestsSets/*
 FusionFusion.txt 
 NotesTraitementNormP7
+frontend/
 # C extensions
 *.so
 
