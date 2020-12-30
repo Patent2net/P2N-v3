@@ -113,13 +113,13 @@ lstfic = os.listdir(configFile.ResultPath +'//AcadCorpora')
 Inventeurs = []
 for bre in DataBrevet['brevets']:
     Inventeurs.extend(Nettoie(bre['inventor']))
-Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
-Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
+# Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
+# Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
 print ("nombre d'inventeurs ", len(Inventeurs))
 print ("Nombre d'inventeurs uniques :", len(set(Inventeurs)))
 print ("nombre d'auteurs", sum([1 for aut in Auteurs.keys() if int(Auteurs [aut]['publis'])>0]))
-print ("nombre d'auteurs FR", sum([1 for aut in Auteurs.keys() if Auteurs [aut]['affilFr'] == 'True']))
-print ("nombre d'auteurs pas FR", sum([1 for aut in Auteurs.keys() if Auteurs [aut]['affilFr'] == 'False']))
+# print ("nombre d'auteurs FR", sum([1 for aut in Auteurs.keys() if Auteurs [aut]['affilFr'] == 'True' and int(Auteurs [aut]['publis'])>0]))
+# print ("nombre d'auteurs pas FR", sum([1 for aut in Auteurs.keys() if Auteurs [aut]['affilFr'] == 'False' and int(Auteurs [aut]['publis'])>0]))
 #print ("nombre de publications", sum([int(Auteurs [aut]['publis']) for aut in Auteurs.keys()])) données fausse dans le fichier trace auc. Des publis mathchées alors que publis = 0 pour certains auteurs
 
 print ("nombre de publications matchées ", sum([int(Auteurs [aut]['publisMatch']) for aut in Auteurs.keys()]))
@@ -198,14 +198,19 @@ def GenereListeFichiers(rep):
     return (list(set(listeFicCSV)), list(set(listeFicTXT)))
 
 
+
 Csv, IRams = GenereListeFichiers(Auteur)
 pasMatches, matches, CountBadNomMatches, CountBadNomPubMed = 0, 0,0, 0
+
+Errors = [truc.replace('//Fr//', "//NoFr//") for truc in Csv if truc.replace('//Fr//', "//NoFr//") in Csv] # if author are found in another affiliation they remain on time in Fr and one in No FR !!!!
+# we exclude them in the countong procedure conserving just their FR affiliation
+Csv2 = [fi for fi in Csv if fi not in Errors]
 
 Scores = []     # la liste des scores de chaque IPCat
 Matches = dict()
 PasMatches=dict()
 cptPubli = 0
-for ficCsv in Csv:
+for ficCsv in Csv2:
     with open(ficCsv, "r", encoding='utf8') as ficcsv:
         Datacsv=ficcsv.readlines()
     # filtering with unique pubmed Id
@@ -265,8 +270,8 @@ for ficCsv in Csv:
         else:
             temp = Matches [VraiNom[1:].strip()][0]
             temp.append(ficCsv)
-            if Matches [VraiNom[1:].strip()][1]  != len(Datacsv)-1:
-                print ()
+            # if Matches [VraiNom[1:].strip()][1]  != len(Datacsv)-1: # I can't see what this test stands for...
+            #     print ()
             Matches [VraiNom[1:].strip()] = [temp, 
                                              Matches [VraiNom[1:].strip()][1] + len(Datacsv)-1,
                                              len(os.listdir("/".join(ficCsv.split('/')[0:len(ficCsv.split('/'))-1])+'publis')),
@@ -282,13 +287,13 @@ for ficCsv in Csv:
             PasMatches [VraiNom[1:].strip()].append(ficCsv)
 
 
-print ("Nombre d'auteurs/affiliations identifiés ", len(Csv))
+print ("Nombre d'auteurs/affiliations identifiés ", len(Csv2))
 #print ("Nombre d'auteurs affiliés Fr et NoFr ", )
 print ("Nombre d'auteurs No Fr identifiés avec publications", sum([1 for fic in ficCsv if len(os.listdir("/".join(ficCsv.split('/')[0:len(ficCsv.split('/'))-1])+'publis'))>0]))
-print ("Nombre d'auteurs FR identifiés avec publications", sum([1 for fic in Csv if "/Fr/" in fic and len(os.listdir("/".join(fic.split('/')[0:len(fic.split('/'))-1])+'publis'))>0]))
+print ("Nombre d'auteurs FR identifiés avec publications", sum([1 for fic in Csv2 if "/Fr/" in fic and len(os.listdir("/".join(fic.split('/')[0:len(fic.split('/'))-1])+'publis'))>0]))
 
-print ("Nombre de publications traitées des auteurs FR", sum([len(os.listdir("/".join(fic.split('/')[0:len(fic.split('/'))-1])+'publis')) for fic in Csv if "/Fr/" in fic]))
-print ("Nombre  de publications traitées des auteurs no affil FR", sum([len(os.listdir("/".join(fic.split('/')[0:len(fic.split('/'))-1])+'publis')) for fic in Csv if "/NoFr/" in fic]))
+print ("Nombre de publications traitées des auteurs FR", sum([len(os.listdir("/".join(fic.split('/')[0:len(fic.split('/'))-1])+'publis')) for fic in Csv2 if "/Fr/" in fic]))
+print ("Nombre  de publications traitées des auteurs no affil FR", sum([len(os.listdir("/".join(fic.split('/')[0:len(fic.split('/'))-1])+'publis')) for fic in Csv2 if "/NoFr/" in fic]))
 
 
 print("Nombre de brevets matchés (le même auteur dans plusieurs brevets) ", sum([len(Matches[aut][0]) for aut in Matches.keys()]))
