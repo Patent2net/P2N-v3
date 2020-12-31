@@ -134,10 +134,10 @@ RUN chown -R p2n:p2n /usr/src/P2N-V3
 RUN su - p2n
 RUN cd /usr/src/P2N-V3
 
-RUN mkdir DATA
+RUN mkdir /usr/src/P2N-V3/DATA
 #RUN mkdir P2N-V3/indexData
 #RUN chmod -R 755 P2N-V3/indexData
-RUN chmod -R 755 DATA
+RUN chmod -R 755 /usr/src/P2N-V3/DATA
 
 EXPOSE 20-21
 EXPOSE 5000
