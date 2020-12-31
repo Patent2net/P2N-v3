@@ -1,0 +1,8 @@
+cluster.name: "docker-P2N-cluster"
+network.host: 0.0.0.0
+path.data: /usr/share/elasticsearch/data
+path.logs: /usr/share/elasticsearch/logs
+node.name: ${HOSTNAME}
+# Allow localhost cross-origin requests.
+http.cors.enabled: true
+http.cors.allow-origin: /(null)|(https?:\/\/localhost(:[0-9]+)?)|(https?:\/\/cdn\.rawgit\.com(:[0-9]+)?)/

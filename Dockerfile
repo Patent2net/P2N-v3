@@ -1,22 +1,35 @@
 #For the manual installation on which that dockerfile is based go to :https://docs.ip-tools.org/patent2net/index.html
 # Run the ubuntu image of docker
-FROM ubuntu:latest
-
+FROM centos:8
 #Set Environment langage Profile
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+#ENV LANG=LC.UTF-8 LC_ALL=LC.UTF-8
+ENV container docker
 
-#Block the interactions of Debian Type applications, unblocking install tzdata
-ARG DEBIAN_FRONTEND=noninteractive
+## Systemd cleanup base image
+RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
+systemd-tmpfiles-setup.service ] || rm -f $i; done); \
+rm -f /lib/systemd/system/multi-user.target.wants/*;\
+rm -f /etc/systemd/system/*.wants/*;\
+rm -f /lib/systemd/system/local-fs.target.wants/*; \
+rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
+rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
+rm -f /lib/systemd/system/basic.target.wants/*;\
+rm -f /lib/systemd/system/anaconda.target.wants/*;
+
+
+#RUN localectl set-locale LANG=fr_FR.utf8
 
 #Install packages for system
-RUN apt-get update && apt-get install -y --no-install-recommends apt-utils
+RUN yum -y update 
 
+RUN yum -y update; yum clean all
+RUN yum -y install epel-release; yum clean all
+RUN yum -y install python-pip; yum clean all
 
-RUN apt-get install -y build-essential \
-		curl \
+RUN yum install -y curl \
 		gcc \
 		graphviz \
-		imagemagick \
+		ImageMagick \
 		libjpeg-dev \
 		libxml2-dev \
 		libfreetype6-dev \
@@ -25,46 +38,20 @@ RUN apt-get install -y build-essential \
 		libncurses5-dev \
 		libncursesw5-dev \
 		pkg-config \
-		python-dev 
 		
+RUN yum -y update; yum -y install which vsftpd net-tools vsftpd-sysvinit; yum clean all
+COPY vusers.txt /etc/vsftpd/
+RUN db_load -T -t hash -f /etc/vsftpd/vusers.txt /etc/vsftpd/vsftpd-virtual-user.db; rm -v /etc/vsftpd/vusers.txt; \ 
+	chmod 600 /etc/vsftpd/vsftpd-virtual-user.db
+COPY vsftpd.conf /etc/vsftpd/
+COPY vsftpd.virtual /etc/pam.d/
+COPY vsftpd.service /usr/lib/systemd/system/vsftpd.service
 
-		
-RUN apt-get update \
-    && apt-get install -y vsftpd \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
 
-		
-RUN  passwd -l root 
-
-RUN { \
-        echo 'allow_writeable_chroot=YES'; \
-        echo 'anonymous_enable=YES'; \
-        echo 'chroot_local_user=YES'; \
-        echo 'connect_from_port_20=YES'; \
-        echo 'dirmessage_enable=YES'; \
-        echo 'ftpd_banner=Welcome to P2N VSFTPD service.'; \
-        echo 'listen=YES'; \
-        echo 'local_enable=YES'; \
-        echo 'no_anon_password=YES'; \
-        echo 'pasv_addr_resolve=YES'; \
-        echo 'pasv_address=0.0.0.0'; \
-        echo 'pasv_enable=YES'; \
-        echo 'pasv_max_port=50050'; \
-        echo 'pasv_min_port=50000'; \
-        echo 'port_enable=YES'; \
-        echo 'seccomp_sandbox=NO'; \
-        echo 'write_enable=YES'; \
-        echo 'xferlog_enable=YES'; \
-		echo 'ftp_username=ftp'; \
-		echo 'anon_upload_enable=YES'; \	
-		echo 'anon_mkdir_write_enable=YES'; \	
-		echo 'anon_root=/usr/src/P2N-V3'; \	
-    } > /etc/vsftpd.conf
+#RUN  passwd -l root 
 
 
 	
-		
 #Install Miniconda environment
 RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh &&\
 	bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda -b &&\
@@ -104,49 +91,48 @@ RUN pip install dogpile.cache \
 		where \
 		fuzzywuzzy \
 		Flask \
-		flask_cors
+		flask_cors \
+		elasticsearch 
+
 #Clone and install p2n from github
 
-RUN apt-get update
-RUN apt-get -y install git
-RUN git -C ./usr/src clone -b master https://github.com/Patent2net/P2N-V3
+RUN yum -y update; yum clean all
+RUN yum -y install git; yum clean all
+RUN cd /usr/src/
+RUN git clone -b master https://github.com/Patent2net/P2N-V3
+#VOLUME P2N-V3
+#RUN chown -R root:ftp /usr/src/P2N-V3
 
 
 # java 
-RUN apt-get -y install openjdk-11-jdk
+RUN yum -y install java-11-openjdk.x86_64
 
 # carrot2
-# RUN git -C ./usr/src clone -b master https://github.com/carrot2/carrot2.git
+# RUN git clone -b master https://github.com/carrot2/carrot2.git
 # using the binary release
 
 # open vsftpd services for anonymous_enable
 
-RUN chown -R root:ftp /usr/src/P2N-V3
-RUN chgrp -R ftp /usr/src/P2N-V3
-RUN usermod -d /usr/src/P2N-V3 ftp
-RUN mkdir /usr/src/P2N-V3/DATA
 
-RUN chmod -R 755 /usr/src/P2N-V3/DATA
-
-RUN mkdir /var/run/vsftpd
-RUN mkdir /var/run/vsftpd/empty
-
-
-VOLUME /usr/src/P2N-V3
+RUN mkdir P2N-V3/DATA
+#RUN mkdir P2N-V3/indexData
+#RUN chmod -R 755 P2N-V3/indexData
+RUN chmod -R 755 P2N-V3/DATA
 
 EXPOSE 20-21
-EXPOSE 5000-5010
-EXPOSE 50000-50050
+EXPOSE 5000
+EXPOSE 8005
+EXPOSE 51000-51050
 
+RUN yum -y install unzip
 
-RUN apt-get -y install unzip
+WORKDIR P2N-V3
 
-WORKDIR /usr/src/P2N-V3
 RUN chmod -R 755 update.sh
-RUN chmod -R 755 carrot2.sh
-RUN ./carrot2.sh
+RUN chmod 755 carrot2.sh
+#RUN carrot2.sh
  
-RUN /usr/src/P2N-V3/carrot2/carrot2-4.0.4/dcs/dcs.sh --port 5005 &
-
-ENTRYPOINT python app.py && bash && vsftpd && dcs
+#RUN P2N-V3/carrot2/carrot2-4.0.4/dcs/dcs.sh --port 8005 &
+CMD ["/usr/sbin/vsftpd","-obackground=NO"]
+ENTRYPOINT /usr/sbin/init & python app.py && bash && /usr/sbin/vsftpd && dcs
 

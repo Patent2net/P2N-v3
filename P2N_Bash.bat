@@ -1,1 +1,1 @@
-docker exec -it p2na /bin/bash
+docker exec -it p2ne /bin/bash

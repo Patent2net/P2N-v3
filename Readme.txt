@@ -1,7 +1,7 @@
 -------------------- First installation of Docker P2N  ---------------------
 SECURITY ADVICE: As it opens a full access ftp server for anonymous in order to access file system, this docker installation aims to work locally on a connected machine but not on the cloud.
 CAUTION: DO NOT INSTALL AS IT ELSEWHERE THAN YOUR OWN REAL MACHINE
-
+BASE on CENTOS
 * To install the Docker version of P2N:
 
 	1- Download and install docker : https://docs.docker.com/get-docker/
@@ -35,13 +35,13 @@ If you want instead see all the research you done, go at 127.0.0.1:5000/index
 	4- you can now delete docker or do another installation of P2N
 
 
---------------------       Modify Cles-epo.txt         ---------------------
+--------------------    Manually   Modify Cles-epo.txt         ---------------------
 
-if you need to modify your "Cles-epo.txt" in Docker P2N :
+if you need to modify your "cles-epo.txt" in Docker P2N :
 
-* To add / replace a "Cles-epo.txt" in Docker P2N :
+* To add / replace a "cles-epo.txt" in Docker P2N :
 
-	1- Modify (or replace if you already have one) the "Cles-epo.txt" file you see in the folder.
+	1- Modify (or replace if you already have one) the "cles-epo.txt" file you see in the folder.
 	2- Click on "Replace_Epo_P2N.bat"
 	3- The file is now in docker P2N
 
