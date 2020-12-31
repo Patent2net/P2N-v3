@@ -83,26 +83,22 @@ RUN yum -y install unzip
 RUN yum -y install java-11-openjdk.x86_64
 
 #configuring vsftpd
-# COPY vusers.txt /etc/vsftpd/
-# RUN db_load -T -t hash -f /etc/vsftpd/vusers.txt /etc/vsftpd/vsftpd-virtual-user.db; rm -v /etc/vsftpd/vusers.txt; \ 
-#	chmod 600 /etc/vsftpd/vsftpd-virtual-user.db
-#COPY vsftpd.conf /etc/vsftpd/
-#COPY vsftpd.virtual /etc/pam.d/
-#COPY vsftpd.service /usr/lib/systemd/system/vsftpd.service
+RUN COPY vsftpd.conf /etc/vsftpd/
+RUN COPY users.txt /etc/vsftpd/user_list
 
-RUN useradd p2n -d /usr/src/P2N-V3 -G wheel,ftp -p p2n -M
-
+RUN yum install -y passwd
+RUN useradd p2n -d /usr/src/P2N-V3 -G wheel,ftp -M
+RUN passwd -f -d p2n
 RUN cd /usr/src/
 RUN mkdir P2N-V3
 RUN cd P2N-V3
-RUN wget https://github.com/Patent2net/P2N-V3.git
-#RUN git https://github.com/Patent2net/P2N-V3.git
+RUN git clone https://github.com/Patent2net/P2N-V3.git .
 RUN chown -R p2n:p2n /usr/src/P2N-V3
 RUN su - p2n
-RUN mkdir P2N-V3/DATA
+RUN mkdir DATA
 #RUN mkdir P2N-V3/indexData
 #RUN chmod -R 755 P2N-V3/indexData
-RUN chmod -R 755 P2N-V3/DATA
+RUN chmod -R 755 DATA
 
 EXPOSE 20-21
 EXPOSE 5000
@@ -110,12 +106,12 @@ EXPOSE 8005
 EXPOSE 51000-51010
 
 WORKDIR /usr/src/P2N-V3
-
+#RUN cd /usr/src/P2N-V3
 RUN chmod -R 755 update.sh
-RUN chmod 755 carrot2.sh
-RUN carrot2.sh
+#RUN chmod 755 carrot2.sh
+#RUN carrot2.sh
  
-RUN P2N-V3/carrot2/carrot2-4.0.4/dcs/dcs.sh --port 8005 &
-CMD ["/usr/sbin/vsftpd","-obackground=NO"]
-ENTRYPOINT python app.py && bash && /usr/sbin/vsftpd && dcs
+#RUN P2N-V3/carrot2/carrot2-4.0.4/dcs/dcs.sh --port 8005 &
+CMD ["/usr/sbin/vsftpd &"]
+ENTRYPOINT bash && /usr/sbin/vsftpd && python app.py
 
