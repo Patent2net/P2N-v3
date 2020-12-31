@@ -1,0 +1,139 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Dec 30 15:23:13 2020
+P2N-Indexer
+@author: david
+"""
+
+from datetime import datetime
+from elasticsearch import Elasticsearch
+import json
+from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
+from Patent2Net.P2N_Config import LoadConfig
+import os
+
+configFile = LoadConfig()
+requete = configFile.requete
+ndf = configFile.ndf
+Rep = configFile.ResultContentsPath
+Bib = configFile.ResultBiblioPath
+es = Elasticsearch()
+
+if 'Description'+ndf in os.listdir(Bib): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
+    DataBrevet = LoadBiblioFile(Bib, ndf)
+    LstBrevet = DataBrevet['brevets']
+elif 'Description'+ndf.title() in os.listdir(Bib): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
+    DataBrevet = LoadBiblioFile(Bib, ndf.title())
+    LstBrevet = DataBrevet['brevets']
+else: #Retrocompatibility
+    print("please use Comptatibilizer")
+
+def GenereListeFichiers(rep):
+    """ prend un dossier en paramètre (chemin absolu) et génère la liste
+    complète des fichiers TXT de l'arborescence"""
+    listeFicFR = []
+    listeFicEN = []
+    listeFicUNK = []
+    for root, subFolders, files in os.walk(rep):
+
+        if len(subFolders)>0:
+            for sousRep in subFolders:
+                temporar = GenereListeFichiers(rep+'//'+sousRep)
+                listeFicFR.extend(temporar[0])
+                listeFicEN.extend(temporar[1])
+                listeFicUNK.extend(temporar[2])
+        else:
+            for fichier in files:
+                if fichier.endswith('.txt') and fichier.lower().startswith('fr'):
+                    listeFicFR.append(root+'//'+fichier)
+                elif fichier.endswith('.txt') and fichier.lower().startswith('en'):
+                    listeFicEN.append(root+'//'+fichier)
+                else:
+                    if fichier.endswith('.txt'):
+                        listeFicUNK.append(root+'//'+fichier)
+
+    return (list(set(listeFicFR)), list(set(listeFicEN)), list(set(listeFicUNK)))
+
+
+#lstAbs = os.listdir(Rep+'//Abstract')
+#getting labels from file names
+lstAbs = [truc.split('-')[1].replace('.txt', '') for truc in os.listdir(Rep+'//Abstract')] 
+
+#lstClaims = os.listdir(Rep+'//Claims')
+#getting labels from file names
+lstClaims = [truc.split('-')[1].replace('.txt', '') for truc in os.listdir(Rep+'//Claims')] 
+
+#lstDesc = os.listdir(Rep+'//Description')
+#getting labels from file names
+lstDesc = [truc.split('-')[1].replace('.txt', '') for truc in os.listdir(Rep+'//Description')] 
+
+cpt = 0
+for bre in LstBrevet:
+    cpt +=1
+    if bre ['label'] in lstAbs:
+        fic = [truc for truc in  os.listdir(Rep+'//Abstract') if truc.split('-')[1].replace('.txt', '') == bre ['label']]
+        if len(fic) == 1:
+            with open(Rep+'/Abstract/' + fic [0], 'r') as data:
+                abstract = data.read()
+        elif len(fic) > 1:
+            fic = [truc for truc in fic if 'en' in truc] # using english only
+            if len(fic)>0:
+                with open(Rep+'/Abstract/' + fic [0], 'r') as data:
+                    abstract = data.read()
+            else:
+                 abstract = ''
+        else:
+             abstract = ''
+    else:
+        abstract = ''
+    if bre ['label'] in lstClaims:
+        fic = [truc for truc in  os.listdir(Rep+'//Claims') if truc.split('-')[1].replace('.txt', '') == bre ['label']]
+        if len(fic) == 1:
+            with open(Rep+'/Claims/' + fic [0], 'r') as data:
+                Claims = data.read()
+        elif len(fic) > 1:
+            fic = [truc for truc in fic if 'en' in truc] # using english only
+            if len(fic)>0:
+                with open(Rep+'/Claims/' + fic [0], 'r') as data:
+                    Claims = data.read()
+            else:
+                 Claims = ''
+        else:
+             Claims = ''
+    else:
+        Claims = ''
+    if bre ['label'] in lstDesc:
+        fic = [truc for truc in  os.listdir(Rep+'//Description') if truc.split('-')[1].replace('.txt', '') == bre ['label']]
+        if len(fic) == 1:
+            with open(Rep+'/Description/' + fic [0], 'r') as data:
+                Description = data.read()
+        elif len(fic) > 1:
+            fic = [truc for truc in fic if 'en' in truc] # using english only
+            if len(fic)>0:
+                with open(Rep+'/Description/' + fic [0], 'r') as data:
+                    Description = data.read()
+            else:
+                 Description = ''
+        else:
+             Description = ''
+    else:
+        Description = ''        
+             
+    doc = {
+        'author':bre ['inventor'],
+        'applicant': bre ['applicant'],
+        'country': bre ['country'],
+        'kind': bre ['kind'],
+        'classification': bre ['classification'],
+        'CitO': bre ['CitO'],
+        'CitP': bre ['CitP'],
+        'date': bre ['date'],
+        'CitedBy': bre ['CitedBy'],
+        'title': bre ['title'],
+        'abstract': abstract,
+        'claims': Claims,
+        'description': Description,
+        
+        }
+    res = es.index(index=ndf, id=cpt, body=doc)
+    print(res['result'])
