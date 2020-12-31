@@ -5,16 +5,6 @@ FROM centos:8
 #ENV LANG=LC.UTF-8 LC_ALL=LC.UTF-8
 ENV container docker
 
-## Systemd cleanup base image
-RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
-systemd-tmpfiles-setup.service ] || rm -f $i; done); \
-rm -f /lib/systemd/system/multi-user.target.wants/*;\
-rm -f /etc/systemd/system/*.wants/*;\
-rm -f /lib/systemd/system/local-fs.target.wants/*; \
-rm -f /lib/systemd/system/sockets.target.wants/*udev*; \
-rm -f /lib/systemd/system/sockets.target.wants/*initctl*; \
-rm -f /lib/systemd/system/basic.target.wants/*;\
-rm -f /lib/systemd/system/anaconda.target.wants/*;
 
 
 #RUN localectl set-locale LANG=fr_FR.utf8
@@ -26,31 +16,21 @@ RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
 RUN yum -y install python-pip; yum clean all
 
+
+		
+RUN yum -y update 
+RUN yum -y install vsftpd; yum clean all
+RUN yum -y install which; yum clean all
+RUN yum -y install net-tools; yum clean all
+
 RUN yum install -y curl \
 		gcc \
 		graphviz \
 		ImageMagick \
-		libjpeg-dev \
-		libxml2-dev \
-		libfreetype6-dev \
-		libpng-dev \
-		libgraphviz-dev \
-		libncurses5-dev \
-		libncursesw5-dev \
-		pkg-config \
-		
-RUN yum -y update; yum -y install which vsftpd net-tools vsftpd-sysvinit; yum clean all
-COPY vusers.txt /etc/vsftpd/
-RUN db_load -T -t hash -f /etc/vsftpd/vusers.txt /etc/vsftpd/vsftpd-virtual-user.db; rm -v /etc/vsftpd/vusers.txt; \ 
-	chmod 600 /etc/vsftpd/vsftpd-virtual-user.db
-COPY vsftpd.conf /etc/vsftpd/
-COPY vsftpd.virtual /etc/pam.d/
-COPY vsftpd.service /usr/lib/systemd/system/vsftpd.service
+		pkg-config
 
-
+RUN yum -y update; yum clean all		
 #RUN  passwd -l root 
-
-
 	
 #Install Miniconda environment
 RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh &&\
@@ -98,22 +78,27 @@ RUN pip install dogpile.cache \
 
 RUN yum -y update; yum clean all
 RUN yum -y install git; yum clean all
-RUN cd /usr/src/
-RUN git clone -b master https://github.com/Patent2net/P2N-V3
-#VOLUME P2N-V3
-#RUN chown -R root:ftp /usr/src/P2N-V3
-
-
+RUN yum -y install unzip
 # java 
 RUN yum -y install java-11-openjdk.x86_64
 
-# carrot2
-# RUN git clone -b master https://github.com/carrot2/carrot2.git
-# using the binary release
+#configuring vsftpd
+# COPY vusers.txt /etc/vsftpd/
+# RUN db_load -T -t hash -f /etc/vsftpd/vusers.txt /etc/vsftpd/vsftpd-virtual-user.db; rm -v /etc/vsftpd/vusers.txt; \ 
+#	chmod 600 /etc/vsftpd/vsftpd-virtual-user.db
+#COPY vsftpd.conf /etc/vsftpd/
+#COPY vsftpd.virtual /etc/pam.d/
+#COPY vsftpd.service /usr/lib/systemd/system/vsftpd.service
 
-# open vsftpd services for anonymous_enable
+RUN useradd p2n -d /usr/src/P2N-V3 -G wheel,ftp -p p2n -M
 
-
+RUN cd /usr/src/
+RUN mkdir P2N-V3
+RUN cd P2N-V3
+RUN wget https://github.com/Patent2net/P2N-V3.git
+#RUN git https://github.com/Patent2net/P2N-V3.git
+RUN chown -R p2n:p2n /usr/src/P2N-V3
+RUN su - p2n
 RUN mkdir P2N-V3/DATA
 #RUN mkdir P2N-V3/indexData
 #RUN chmod -R 755 P2N-V3/indexData
@@ -122,17 +107,15 @@ RUN chmod -R 755 P2N-V3/DATA
 EXPOSE 20-21
 EXPOSE 5000
 EXPOSE 8005
-EXPOSE 51000-51050
+EXPOSE 51000-51010
 
-RUN yum -y install unzip
-
-WORKDIR P2N-V3
+WORKDIR /usr/src/P2N-V3
 
 RUN chmod -R 755 update.sh
 RUN chmod 755 carrot2.sh
-#RUN carrot2.sh
+RUN carrot2.sh
  
-#RUN P2N-V3/carrot2/carrot2-4.0.4/dcs/dcs.sh --port 8005 &
+RUN P2N-V3/carrot2/carrot2-4.0.4/dcs/dcs.sh --port 8005 &
 CMD ["/usr/sbin/vsftpd","-obackground=NO"]
-ENTRYPOINT /usr/sbin/init & python app.py && bash && /usr/sbin/vsftpd && dcs
+ENTRYPOINT python app.py && bash && /usr/sbin/vsftpd && dcs
 
