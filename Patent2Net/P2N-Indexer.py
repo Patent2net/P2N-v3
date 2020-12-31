@@ -68,9 +68,9 @@ lstClaims = [truc.split('-')[1].replace('.txt', '') for truc in os.listdir(Rep+'
 lstDesc = [truc.split('-')[1].replace('.txt', '') for truc in os.listdir(Rep+'//Description')] 
 
 cpt = 0
-for bre in LstBrevet:
+for bre in LstBrevet: # get patent list from request file
     cpt +=1
-    if bre ['label'] in lstAbs:
+    if bre ['label'] in lstAbs: # if abstract file exists for that label in PatentContent///Abstract
         fic = [truc for truc in  os.listdir(Rep+'//Abstract') if truc.split('-')[1].replace('.txt', '') == bre ['label']]
         if len(fic) == 1:
             with open(Rep+'/Abstract/' + fic [0], 'r') as data:
@@ -86,7 +86,7 @@ for bre in LstBrevet:
              abstract = ''
     else:
         abstract = ''
-    if bre ['label'] in lstClaims:
+    if bre ['label'] in lstClaims: # if Claims file exists
         fic = [truc for truc in  os.listdir(Rep+'//Claims') if truc.split('-')[1].replace('.txt', '') == bre ['label']]
         if len(fic) == 1:
             with open(Rep+'/Claims/' + fic [0], 'r') as data:
@@ -102,7 +102,7 @@ for bre in LstBrevet:
              Claims = ''
     else:
         Claims = ''
-    if bre ['label'] in lstDesc:
+    if bre ['label'] in lstDesc: # if Description file exists
         fic = [truc for truc in  os.listdir(Rep+'//Description') if truc.split('-')[1].replace('.txt', '') == bre ['label']]
         if len(fic) == 1:
             with open(Rep+'/Description/' + fic [0], 'r') as data:
@@ -119,21 +119,24 @@ for bre in LstBrevet:
     else:
         Description = ''        
              
-    doc = {
-        'author':bre ['inventor'],
-        'applicant': bre ['applicant'],
-        'country': bre ['country'],
-        'kind': bre ['kind'],
-        'classification': bre ['classification'],
-        'CitO': bre ['CitO'],
-        'CitP': bre ['CitP'],
-        'date': bre ['date'],
-        'CitedBy': bre ['CitedBy'],
-        'title': bre ['title'],
-        'abstract': abstract,
-        'claims': Claims,
-        'description': Description,
-        
+    doc = { # indexing a doc field:content
+           # hacks should provide other views: citation equivalents or CIB counts... ?
+           # I don't know how to do such for the moment
+           "lang": "English",
+           'author':bre ['inventor'],
+           'applicant': bre ['applicant'],
+           'country': bre ['country'],
+           'kind': bre ['kind'],
+           'classification': bre ['classification'],
+           'CitO': bre ['CitO'],
+           'CitP': bre ['CitP'],
+           'date': bre ['date'],
+           'CitedBy': bre ['CitedBy'],
+           'title': bre ['title'],
+           'abstract': abstract,
+           'claims': Claims,
+           'description': Description,
+           'content': abstract + '\n' + Description + '\n' + Claims        
         }
     res = es.index(index=ndf, id=cpt, body=doc)
     print(res['result'])
