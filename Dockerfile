@@ -2,12 +2,8 @@
 # Run the ubuntu image of docker
 FROM centos:8
 #Set Environment langage Profile
-#ENV LANG=LC.UTF-8 LC_ALL=LC.UTF-8
+
 ENV container docker
-
-
-
-#RUN localectl set-locale LANG=fr_FR.utf8
 
 #Install packages for system
 RUN yum -y update 
@@ -16,8 +12,6 @@ RUN yum -y update; yum clean all
 RUN yum -y install epel-release; yum clean all
 RUN yum -y install python-pip; yum clean all
 
-
-		
 RUN yum -y update 
 RUN yum -y install vsftpd; yum clean all
 #RUN yum -y install which; yum clean all
@@ -30,9 +24,7 @@ RUN yum install -y curl \
 		pkg-config
 
 RUN yum -y update; yum clean all		
-#RUN  passwd -l root 
-#RUN useradd p2n -d /usr/src/P2N-V3 -G wheel,ftp -M
-#RUN passwd -f -d p2n	
+
 #Install Miniconda environment
 RUN curl -LO http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh &&\
 	bash Miniconda3-latest-Linux-x86_64.sh -p /miniconda -b &&\
@@ -80,10 +72,10 @@ RUN pip install dogpile.cache \
 RUN yum -y update; yum clean all
 RUN yum -y install git; yum clean all
 RUN yum -y install unzip
-# java uncomment for carrot2
-# RUN yum -y install java-11-openjdk.x86_64
+
 
 #configuring vsftpd
+# not sure that files in dicrectory are uptodate with this ugly way but..; the only that worked in last attemp. May be le copy line are ok now. But consider updating conf file
 RUN chmod 777  /etc/vsftpd/vsftpd.conf
 # RUN COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
 RUN { \
@@ -141,17 +133,22 @@ RUN chmod -R 755 /usr/src/P2N-V3/DATA
 
 EXPOSE 20-21
 EXPOSE 5000
-EXPOSE 8005
 EXPOSE 51000-51010
 
 WORKDIR /usr/src/P2N-V3
 RUN cd /usr/src/P2N-V3
 RUN chmod -R 755 update.sh
 
-# uncomment the 3 next lines for carrot2 (if java installed)
+# uncomment the 5 next lines for carrot2 (if java installed)
+# java 
+# RUN yum -y install java-11-openjdk.x86_64
+# carrot DL and install
 #RUN chmod 755 carrot2.sh
 #RUN carrot2.sh 
+# EXPOSE 8005
 #RUN P2N-V3/carrot2/carrot2-4.0.4/dcs/dcs.sh --port 8005 &
+
+# next line doesn't work... have to be launched by docker batchfile RUN_P2N.bat
 CMD ["/usr/sbin/vsftpd &"]
-ENTRYPOINT bash && /usr/sbin/vsftpd && python app.py
+ENTRYPOINT python app.py
 
