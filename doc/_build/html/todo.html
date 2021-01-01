@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Todo list and ideas &mdash; Patent2Net 3.0.0-dev6 documentation</title>
+  <title>Todo list and ideas &mdash; Patent2Net 3.1.10-dev6 documentation</title>
   
 
   
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                3.0.0-dev6
+                3.1
               </div>
             
           
@@ -97,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="release.html">Release</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Todo list and ideas</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#agenda">Agenda</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#user-ux-improvements">User UX improvements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#improvements">Improvements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#new-capabilities">New capabilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#new-ways-for-gathering-and-analysis">New ways for gathering and analysis</a></li>
@@ -181,13 +182,20 @@
 <h1>Todo list and ideas<a class="headerlink" href="#todo-list-and-ideas" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="agenda">
 <h2>Agenda<a class="headerlink" href="#agenda" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="user-ux-improvements">
+<h3>User UX improvements<a class="headerlink" href="#user-ux-improvements" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Use flask and template to redesing the whole interface keeping in ming kibana and ES new capability</p></li>
+<li><p>improve progress bar</p></li>
+</ul>
+</div>
 <div class="section" id="improvements">
 <h3>Improvements<a class="headerlink" href="#improvements" title="Permalink to this headline">¶</a></h3>
 <p>Although Patent2Net is fully operational, works fine and is enough to begin using Patent Information, a lot can be done to improve analysis:</p>
 <ul class="simple">
 <li><p>Correct the issues (continuous process, of course)</p></li>
-<li><p>Add some more information in the result html page (ModeleContenuIndex.html). Great to add the treating date (thus can be different from gathering) and P2N version</p></li>
-<li><p>As information analysis do not allways represent the whole Patent Universe (i.e. french abstrat) provide the proportion of P.U. concerned by each analysis</p></li>
+<li><p>Add some more information in the result html page (ModeleContenuIndex.html). Great to add the processing date (thus can be different from gathering) and P2N version</p></li>
+<li><p>As information analysis do not always represent the whole Patent Universe (i.e. french abstract) provide the proportion of P.U. concerned by each analysis</p></li>
 <li><p>Treat Designated State(s) information for EP and WO patentes to complete the attractivity maps</p></li>
 <li><p>Improve the Mindmap option to get it more efficient for creativity (Celso is working on)</p></li>
 <li><p>Build the entire network as a gephi file for download to let new combined network analysis possible</p></li>
@@ -235,6 +243,11 @@
 <div class="section" id="todo">
 <h4>Todo<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
+<li><p>[o] Kibana and elastic search usage</p></li>
+<li><p>[o] Carrot2 integration</p></li>
+<li><p>[o] Iramuteq processing steps</p></li>
+<li><p>[o] Mindmaps integration in full web</p></li>
+<li><p>[o] Network visualisation and exploring tool integration</p></li>
 <li><dl class="simple">
 <dt>[o] OPS Register: Always sort event-like data in ascending order?</dt><dd><p>Right now, sort order is mixed as of “history items” vs. “actions” vs. “{publication,application}_reference”.</p>
 </dd>
@@ -294,7 +307,7 @@
   <div role="contentinfo">
     <p>
         
-        &copy; Copyright 2013-2018, The Patent2Net Developers
+        &copy; Copyright 2013-2021, The Patent2Net Developers
 
     </p>
   </div>

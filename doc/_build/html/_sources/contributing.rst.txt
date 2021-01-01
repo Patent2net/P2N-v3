@@ -9,7 +9,7 @@ Get source code
 ===============
 ::
 
-    git clone https://github.com/Patent2net/P2N.git
+    git clone https://github.com/Patent2net/P2N-v3.git
     cd P2N
     git checkout develop
 
@@ -18,8 +18,8 @@ Create virtualenv
 =================
 ::
 
-    virtualenv --no-site-packages .venv27
-    source .venv27/bin/activate
+    virtualenv --no-site-packages .venv36
+    source .venv36/bin/activate
 
 
 Setup in development mode

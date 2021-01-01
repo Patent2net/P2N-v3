@@ -1,8 +1,5 @@
-.. image:: https://img.shields.io/badge/Python-2.7-green.svg
-    :target: https://github.com/Patent2net/P2N/tree/develop
-
-.. image:: https://img.shields.io/badge/version-3.0.0%20dev-orange.svg
-    :target: https://github.com/Patent2net/P2N/tree/develop
+.. image:: https://img.shields.io/badge/Python-3.6-green.svg
+    :target: https://github.com/Patent2net/P2N-v3/tree/master
 
 |
 
@@ -21,17 +18,15 @@ About
 *****
 Patent2Net is a toolkit for patent information processing and statistical analysis for education and science.
 
-Patent2Net helps to collect, study and analyze patent data from the
-European Patent Office's Open Patent Services API (OPS).
+Patent2Net aims to collect and help study and analyze patent data from the European Patent Office's Open Patent Services API (OPS).
 
-Patent2Net is free software, dedicated to ...
-
+Patent2Net is free software, dedicated to:
 * provide statistical analysis and representations of a set of patents.
 * promote the use of patent information in the academic field, nano and small firms,
-  developing countries and all those without pay mode access.
+  developing countries...
 * study and practice how to collect, treat and communicate "textual bibliographic information"
-  and learn the automation process.
-
+  and learn several information processing in the Library and Information Science fields.
+  
 Contributions are always welcome!
 
 
@@ -43,7 +38,7 @@ The project is elaborated and maintained by an `international team <Patent2Net C
 of university professors and researchers on a free basis.
 The software is provided "AS IS", see also `Patent2Net Disclaimer`_.
 
-.. _Patent2Net on GitHub: https://github.com/Patent2net/P2N/tree/develop
+.. _Patent2Net on GitHub: https://github.com/Patent2net/P2N-v3/tree/master
 .. _Patent2Net Disclaimer: http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer
 .. _Patent2Net Community: http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:community
 
@@ -51,7 +46,6 @@ The software is provided "AS IS", see also `Patent2Net Disclaimer`_.
 *************
 Documentation
 *************
-- `Patent2Net Wiki`_
 - `Patent2Net Documentation`_
 
 .. _Patent2Net Wiki: http://patent2netv2.vlab4u.info/dokuwiki/

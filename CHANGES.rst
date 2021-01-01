@@ -1,8 +1,11 @@
+Patent2Net CHANGES (in short)
+*****************************
+
 ##################
 Patent2Net CHANGES
 ##################
 
-2021-01-01 3.1.0-dev6
+2021-01-01 4.0.0-dev1
 =====================
 .. note::
 - Major improvements in the global architechture
@@ -43,6 +46,7 @@ User p2n with no passwd is set in Dockerfile. Mind in changing this for installi
 - New branch: docker installation
 - P2N works now in a standalone docker Ubuntu machine (Thanks Esteban).
 - Add Flask front end, localhost:5000 is the entry point.
+- Add update feature making p2n version allways uptodate. Static versions are useless from now.
 - Integration of several features (Pivot, Datatable)
 - Others exports (to IramuteQ or Carrot2) have to use the download data pages
 
