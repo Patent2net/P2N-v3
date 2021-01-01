@@ -29,7 +29,7 @@ Development
 
 .. toctree::
     :maxdepth: 1
-
+	
     Changelog <CHANGES>
     contributing
     documentation

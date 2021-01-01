@@ -203,5 +203,5 @@ def setup(app):
 
     # Application
     #app.add_javascript("custom.js")
-    app.add_stylesheet("css/patent2net-documentation.css")
+    app.add_css_file("css/patent2net-documentation.css")
 

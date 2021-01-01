@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>&lt;no title&gt; &mdash; Patent2Net 4.0.0.dev1 documentation</title>
+  <title>Patent2Net CHANGES (in short) &mdash; Patent2Net 4.0.0.dev1 documentation</title>
   
 
   
@@ -92,7 +92,31 @@
 <li class="toctree-l1"><a class="reference internal" href="configure.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage</a></li>
 </ul>
-<ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#patent2net-changes">Patent2Net CHANGES</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#dev1">2021-01-01 4.0.0-dev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dev5">2020-11-30 3.1.0-dev5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dev4">2020-07-20 3.1.0-dev4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dev3">2020-07-20 3.1.0-dev3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dev2">2020-06-20 3.1.0-dev2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">2020-01-20 3.1.0-dev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dev0">2019 3.1.0-dev0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#development">development</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dev6">2018-03-20 3.0.0-dev6</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">2017-12-01 3.0.0-dev5</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">2017-12-01 3.0.0-dev4</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">2017-12-01 3.0.0-dev3</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">2017-12-01 3.0.0-dev2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">2017-11-30 3.0.0-dev1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id7">2016-11-01 2.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id8">2014-10-30 1.0.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">2014-03-04 0.9.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id10">2014-03-15 0.0.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="release.html">Release</a></li>
@@ -143,7 +167,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>&lt;no title&gt;</li>
+      <li>Patent2Net CHANGES (in short)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -162,7 +186,230 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <p>../CHANGES.rst</p>
+  <div class="section" id="patent2net-changes-in-short">
+<span id="changes"></span><h1>Patent2Net CHANGES (in short)<a class="headerlink" href="#patent2net-changes-in-short" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="patent2net-changes">
+<h2>Patent2Net CHANGES<a class="headerlink" href="#patent2net-changes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dev1">
+<h3>2021-01-01 4.0.0-dev1<a class="headerlink" href="#dev1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Major improvements in the global architechture</p></li>
+<li><p>P2N in now built on centOS v8</p></li>
+<li><p>Added a docker image for Elasticsearch: 7.9.2 with carrot2 plugin (see <a class="reference external" href="https://github.com/carrot2/elasticsearch-carrot2">https://github.com/carrot2/elasticsearch-carrot2</a>). localhost:9200 and 9300 to accès the Elasticsearch server</p></li>
+<li><p>Added a docker image for Kibana: 7.9.2 (see <a class="reference external" href="https://www.elastic.co/fr/kibana">https://www.elastic.co/fr/kibana</a>). Also in the standard port 5601.</p></li>
+<li><p>First version of P2N indexer that feed the elastic search indexer</p></li>
+</ul>
+<ul class="simple">
+<li><p>ElasticSearch and Kibana are just here to start the new ways for P2N. At this time no features are provided at all. Specialists are welcome</p></li>
+<li><p>Secure version of VSFTPD, fixed several security bugs (port 20-21).</p></li>
+</ul>
+<p>User p2n with no passwd is set in Dockerfile. Mind in changing this for installing P2N on the cloud!</p>
+</div>
+<div class="section" id="dev5">
+<h3>2020-11-30 3.1.0-dev5<a class="headerlink" href="#dev5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>New processing feature in beta version (thanks Nezha): Trizifyer</p></li>
+<li><p>Major improvement in time processing in network production (using new libraries)</p></li>
+<li><p>but dynamic network aren’t functional yet. Imrpove this</p></li>
+</ul>
+</div>
+<div class="section" id="dev4">
+<h3>2020-07-20 3.1.0-dev4<a class="headerlink" href="#dev4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>New feature of “progess bar”</p></li>
+<li><p>SSE system for all data processing scripts</p></li>
+</ul>
+</div>
+<div class="section" id="dev3">
+<h3>2020-07-20 3.1.0-dev3<a class="headerlink" href="#dev3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Introduction of new libraries in various processing steps: pandas, mpld3, scipy</p></li>
+<li><p>New processing steps of data consolidation</p></li>
+<li><p>Applicants and Inventor Names normalisation (integration of a table from EPO with more than a million of entries)</p></li>
+<li><p>Added more thant 2000 lines in previous file thank to URFIST project</p></li>
+<li><p>New filtering process. Patents list collected from a request may contain (or not) equivalents patent. This tend to make biaises in several processing features of P2N. The new process extracts in the dataset the oldest patent in each subfamilies encountered in the set.</p></li>
+<li><p>several bug fixes</p></li>
+<li><p>added VSFTPD feature to communicate with the docker image</p></li>
+</ul>
+</div>
+<div class="section" id="dev2">
+<h3>2020-06-20 3.1.0-dev2<a class="headerlink" href="#dev2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>New branch: docker installation</p></li>
+<li><p>P2N works now in a standalone docker Ubuntu machine (Thanks Esteban).</p></li>
+<li><p>Add Flask front end, localhost:5000 is the entry point.</p></li>
+<li><p>Add update feature making p2n version allways uptodate. Static versions are useless from now.</p></li>
+<li><p>Integration of several features (Pivot, Datatable)</p></li>
+<li><p>Others exports (to IramuteQ or Carrot2) have to use the download data pages</p></li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h3>2020-01-20 3.1.0-dev1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>firt publication of the automatic request splitter: a tool to skirt the 2000 limit of the EPO API</p></li>
+<li><p>various updates</p></li>
+</ul>
+</div>
+<div class="section" id="dev0">
+<h3>2019 3.1.0-dev0<a class="headerlink" href="#dev0" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>various attemps in simplication of installation procedure</p></li>
+<li><p>many general bug fixes</p></li>
+</ul>
+</div>
+<div class="section" id="development">
+<h3>development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Use ImageMagick for thumbnail generation in <code class="docutils literal notranslate"><span class="pre">FusionImages.py</span></code>,
+see also <a class="reference external" href="https://github.com/Patent2net/P2N/issues/24">https://github.com/Patent2net/P2N/issues/24</a></p></li>
+<li><p>Use “Pillow” for thumbnail generation, gracefully fall back to ImageMagick’s “convert”</p></li>
+</ul>
+</div>
+<div class="section" id="dev6">
+<h3>2018-03-20 3.0.0-dev6<a class="headerlink" href="#dev6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Make <code class="docutils literal notranslate"><span class="pre">p2n</span> <span class="pre">adhoc</span> <span class="pre">dump</span></code> output results either in “OpsExchangeDocument” or “Patent2NetBrevet” format</p></li>
+<li><p>Make <code class="docutils literal notranslate"><span class="pre">p2n</span> <span class="pre">adhoc</span> <span class="pre">list</span></code> output arbitrary fields of “OpsExchangeDocument” (projection)</p></li>
+<li><p>Improve documentation regarding CQL query language and updated command line parameters</p></li>
+<li><p>Introduce ad-hoc mode for generating JSON data suitable for
+feeding into PivotTable.js with Patent2NetBrevet data model</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">p2n</span> <span class="pre">adhoc</span> <span class="pre">dump</span></code> with <code class="docutils literal notranslate"><span class="pre">--with-register</span></code></p></li>
+<li><p>Improve decoding raw JSON data into “OpsExchangeDocument” object instances</p></li>
+<li><p>Improve documentation</p></li>
+<li><p>Remove custom helper “attr_object_as_dict” in favor of vanilla “attr.asdict”</p></li>
+<li><p>Remove redundant “designated_states” field by using dotted name resolver
+for accessing “register.designated_states” when generating worldmap data</p></li>
+<li><p>Add support for PivotTable data generation in ad-hoc mode with “OPSExchangeDocument” data model</p></li>
+<li><p>Refactor maps.py and tables.py to “p2n.formatter” namespace</p></li>
+<li><p>Improve decoding of “OPSRegisterDocument”</p></li>
+<li><p>Improve error logging when decoding register information</p></li>
+<li><p>Decode historical data from register information</p></li>
+<li><p>Allow dotted attribute/field access for <code class="docutils literal notranslate"><span class="pre">p2n</span> <span class="pre">adhoc</span> <span class="pre">list</span></code></p></li>
+<li><p>Add advanced example about using <code class="docutils literal notranslate"><span class="pre">jq</span></code> to filter and reformat register information with <code class="docutils literal notranslate"><span class="pre">p2n</span> <span class="pre">adhoc</span> <span class="pre">dump</span></code></p></li>
+<li><p>Add convenience command <code class="docutils literal notranslate"><span class="pre">p2n</span> <span class="pre">images</span></code> for image data acquisition</p></li>
+<li><p>Properly display OPS error responses to the user, e.g. when
+submitting an invalid expression like <code class="docutils literal notranslate"><span class="pre">--expression='foo=bar'</span></code></p></li>
+<li><p>Add command <code class="docutils literal notranslate"><span class="pre">p2n</span> <span class="pre">adhoc</span> <span class="pre">search</span></code> for displaying search results only in raw OPS format</p></li>
+<li><p>Complete the data model for OPS Exchange Document</p></li>
+<li><dl class="simple">
+<dt>Improve FusionImages.py</dt><dd><ul>
+<li><p>Add link to general template, fix and add context info for images</p></li>
+<li><p>Image fusion</p></li>
+<li><p>Improve layout/pagination for patent images gallery</p></li>
+<li><p>Fix output thumbs</p></li>
+<li><p>Add page size handler</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p>Improve gracefulness for Interface2.py and OPSGatherContentsV2-Images.py, see also #23.</p></li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">p2n</span> <span class="pre">--version</span></code> output, addressing #23. Thanks, &#64;smorvan!</p></li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>2017-12-01 3.0.0-dev5<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Attempt to add missing NameCountryMap.csv by providing MANIFEST.in file</p></li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>2017-12-01 3.0.0-dev4<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Fix setup.py</p></li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h3>2017-12-01 3.0.0-dev3<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Improve logging and error handling for register data acquisition</p></li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h3>2017-12-01 3.0.0-dev2<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Add crawling behavior to new data acquisition subsystem
+to collect all results from OPS published data search</p></li>
+<li><p>Start project documentation based on Sphinx</p></li>
+<li><p>Improve documentation layout and move towards reStructuredText</p></li>
+</ul>
+</div>
+<div class="section" id="id6">
+<h3>2017-11-30 3.0.0-dev1<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Minor fixes re. argument processing</p></li>
+<li><p>Improve robustness re. case-sensitivity at map resource acquisition (countries.json)</p></li>
+<li><p>Add setup.py, convenience step runner and documentation</p></li>
+<li><p>Refactor scripts “FormateExportAttractivityCartography.py” and “FormateExportCountryCartography.py”</p></li>
+<li><p>Use utility function for accessing cles-epo.txt</p></li>
+<li><p>Upgrade to python-epo-ops-client==2.3.1, fixing access to OPS API 3.2</p></li>
+<li><p>Make p2n.maps.d3plus_data obtain single field attribute</p></li>
+<li><p>Memoize outcome of p2n.maps.read_name_country_map</p></li>
+<li><p>Introduce ad-hoc mode</p></li>
+<li><p>Worldmap generation in ad-hoc mode is now based on OPSExchangeDocument data model</p></li>
+<li><p>Enrich OPS bibliographic data by register information</p></li>
+<li><p>Add worldmap generation for designated states in ad-hoc mode</p></li>
+<li><p>Add automatic release task</p></li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h3>2016-11-01 2.0.0<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Release Patent2Net 2.0.0</p></li>
+</ul>
+</div>
+<div class="section" id="id8">
+<h3>2014-10-30 1.0.0<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Future development will add scenaris of analysis (one scenary, one network e.G authors, applicants etc. to avoid the need of Gephi expert’s skills)</p></li>
+<li><p>revisiting weight nodes on networks</p></li>
+<li><p>check abstracts gathering (seems lack of content)</p></li>
+<li><p>complete content gathering</p></li>
+<li><p>clean unused function and code everywhere ^_^</p></li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h3>2014-03-04 0.9.0<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>OpsGather-PatentList</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Accept an Espacenet “smart search” query</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>PatentsToNet</p>
+<blockquote>
+<div><ul>
+<li><p>Fully connected graph is provided in Gephi, connecting any relation (intra and Inter field) : filtering can be done in Gephi or hacking in the Python script.</p></li>
+<li><p>International Patent Classification is treated to be “truncated” at level 1,3,4,7. nodes for each level are created</p></li>
+<li><p>Countries from Patent numbers (first deposit?) are considered as nodes</p></li>
+<li><p>Kind codes (status) are separated as nodes</p></li>
+<li><p>URL links as node attribute in gexf</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>for patent number : link to espacenet</p></li>
+<li><p>for International Patent Classification IPC at level 1,3,4 : link to IPC database (French and English)</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Dynamic graph are available over first available date (column “deb” and “fin” as to be merged as timeline for nodes and edges in data laboratoty in Gephi)</p></li>
+<li><p>Directed graph is build complete in bidirection mode: Inventor-Inventor; IPC-IPC; Applicant-Applicant, and all combinations</p></li>
+<li><p>Weight of nodes are provided as….</p></li>
+<li><p>Weight among time are provided for node as …</p></li>
+<li><p>Weight of edges are provided as ….</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h3>2014-03-15 0.0.0<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Start public development</p></li>
+</ul>
+</div>
+</div>
+</div>
 
 
            </div>
