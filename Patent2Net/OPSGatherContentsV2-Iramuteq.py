@@ -102,6 +102,7 @@ if IsEnableScript:
     for ndf in [fic2 for fic2 in os.listdir(ResultBiblioPath) if fic2.count('Description')==0 and fic2.count('Old')==0]:
         if ndf.startswith('Families'):
             typeSrc = 'Families'
+
         else:
             typeSrc = ''
         if ('Description'+ndf in os.listdir(ResultBiblioPath)) or ('Description'+ndf.lower() in os.listdir(ResultBiblioPath)): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
@@ -109,7 +110,7 @@ if IsEnableScript:
 
         else: #Retrocompatibility
             print('gather your data again. sorry')
-            AnnoncLog(Appli=appli, typeSrc +" gather your data again. sorry")
+            AnnonceLog(Appli=appli, texte = typeSrc +" gather your data again. sorry")
             
             sys.exit()
 
@@ -122,7 +123,7 @@ if IsEnableScript:
             NumTotal += len(lstBrevet)
         else:
             print('gather your data again')
-            AnnoncLog(Appli=appli, typeSrc +" gather your data again. sorry")
+            AnnoncLog(Appli=appli,  texte = typeSrc +" gather your data again. sorry")
 
             
             sys.exit()
