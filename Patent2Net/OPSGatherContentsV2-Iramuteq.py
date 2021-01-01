@@ -109,7 +109,7 @@ if IsEnableScript:
 
         else: #Retrocompatibility
             print('gather your data again. sorry')
-            AnnonceProgres('Gather content', "gather your data again. sorry")
+            AnnoncLog(Appli=appli, typeSrc +" gather your data again. sorry")
             
             sys.exit()
 
@@ -122,7 +122,8 @@ if IsEnableScript:
             NumTotal += len(lstBrevet)
         else:
             print('gather your data again')
-            AnnonceProgres('Gather content', "gather your data again. sorry")
+            AnnoncLog(Appli=appli, typeSrc +" gather your data again. sorry")
+
             
             sys.exit()
 
