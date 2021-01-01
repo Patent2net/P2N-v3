@@ -65,6 +65,8 @@ RUN pip install dogpile.cache \
 		fuzzywuzzy \
 		Flask \
 		flask_cors \
+		Sphinx \
+		sphinx_rtd_theme \
 		elasticsearch 
 
 #Clone and install p2n from github
@@ -114,29 +116,32 @@ RUN chmod 400 /etc/vsftpd/user_list
 
 RUN yum install -y passwd
 
-RUN cd /usr/src/
-WORKDIR /usr/src/
-RUN mkdir P2N-V3
+RUN useradd p2n -G wheel,ftp 
+RUN passwd -f -d p2n
+
+RUN su - p2n
+RUN cd /home/p2n
+
+
+WORKDIR /home/p2n
+# RUN mkdir P2N-V3
 #
 RUN git clone https://github.com/Patent2net/P2N-V3.git
-
-RUN useradd p2n -d /usr/src/P2N-V3 -G wheel,ftp -M
-RUN passwd -f -d p2n
-RUN chown -R p2n:p2n /usr/src/P2N-V3
-RUN su - p2n
-RUN cd /usr/src/P2N-V3
-
-RUN mkdir /usr/src/P2N-V3/DATA
+WORKDIR /home/p2n/P2N-V3
+#RUN cd P2N-V3
+RUN mkdir DATA
 #RUN mkdir P2N-V3/indexData
 #RUN chmod -R 755 P2N-V3/indexData
-RUN chmod -R 755 /usr/src/P2N-V3/DATA
+RUN chown -R p2n:p2n /home/p2n/P2N-V3
+RUN chmod -R 775 /home/p2n/P2N-V3
 
 EXPOSE 20-21
 EXPOSE 5000
 EXPOSE 51000-51010
 
-WORKDIR /usr/src/P2N-V3
-RUN cd /usr/src/P2N-V3
+#WORKDIR /usr/src/P2N-V3
+# RUN cd P2N-V3
+
 RUN chmod -R 755 update.sh
 
 # uncomment the 5 next lines for carrot2 (if java installed)
@@ -149,6 +154,6 @@ RUN chmod -R 755 update.sh
 #RUN P2N-V3/carrot2/carrot2-4.0.4/dcs/dcs.sh --port 8005 &
 
 # next line doesn't work... have to be launched by docker batchfile RUN_P2N.bat
-CMD ["/usr/sbin/vsftpd &"]
+# CMD ["/bin/bash"]
 ENTRYPOINT python app.py
 
