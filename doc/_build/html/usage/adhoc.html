@@ -1,0 +1,366 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Ad-hoc mode &mdash; Patent2Net 3.0.0-dev6 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/patent2net-documentation.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="../CHANGES.html" />
+    <link rel="prev" title="Classic mode" href="classic.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Patent2Net
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0.0-dev6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#operation">Operation</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="classic.html">Classic mode</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Ad-hoc mode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#data-dumpers">Data dumpers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-formatters">Data formatters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#synopsis">Synopsis</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">Todo list and ideas</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Patent2Net</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Usage</a> &raquo;</li>
+        
+      <li>Ad-hoc mode</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/adhoc.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ad-hoc-mode">
+<h1>Ad-hoc mode<a class="headerlink" href="#ad-hoc-mode" title="Permalink to this headline">¶</a></h1>
+<p>The ad-hoc mode allows to specify the query expression on the command line.
+This gives Patent2Net a more interactive mode of operation.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#data-dumpers" id="id1">Data dumpers</a></p></li>
+<li><p><a class="reference internal" href="#data-formatters" id="id2">Data formatters</a></p></li>
+<li><p><a class="reference internal" href="#synopsis" id="id3">Synopsis</a></p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="data-dumpers">
+<h2><a class="toc-backref" href="#id1">Data dumpers</a><a class="headerlink" href="#data-dumpers" title="Permalink to this headline">¶</a></h2>
+<p>These actions run the query against OPS and display decoded/polished information in JSON format.</p>
+<p>You might want to have a look at the <a class="reference internal" href="jq.html#jq"><span class="std std-ref">jq usage</span></a> documentation for working with JSON data on the command line.</p>
+<div class="section" id="full-bibliographic-data">
+<h3>Full bibliographic data<a class="headerlink" href="#full-bibliographic-data" title="Permalink to this headline">¶</a></h3>
+<p>Display bibliographic data for given query expression:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">dump</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span>
+</pre></div>
+</div>
+<p>Expand each hit to its whole family:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">dump</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">family</span>
+</pre></div>
+</div>
+<p>Enrich each document with its register information:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">dump</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">family</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">register</span>
+</pre></div>
+</div>
+<p>For dumping data using the legacy Patent2Net brevet format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">dump</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">brevet</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="single-bibliographic-data-field">
+<h3>Single bibliographic data field<a class="headerlink" href="#single-bibliographic-data-field" title="Permalink to this headline">¶</a></h3>
+<p>Display list of publication numbers for given query expression:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2n</span> <span class="n">adhoc</span> <span class="nb">list</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span>
+<span class="n">p2n</span> <span class="n">adhoc</span> <span class="nb">list</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">family</span>
+</pre></div>
+</div>
+<p>Display list of application numbers in epodoc format:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2n</span> <span class="n">adhoc</span> <span class="nb">list</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;application_number_epodoc&#39;</span>
+</pre></div>
+</div>
+<p>Display list of <code class="docutils literal notranslate"><span class="pre">register.status</span></code> values:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2n</span> <span class="n">adhoc</span> <span class="nb">list</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">family</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">register</span> <span class="o">--</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;register.status&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can use all fields available in the OPSExchangeDocument data model.</p>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="data-formatters">
+<h2><a class="toc-backref" href="#id2">Data formatters</a><a class="headerlink" href="#data-formatters" title="Permalink to this headline">¶</a></h2>
+<p>Generate data for world maps using d3plus/geo_map (JSON):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">worldmap</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="n">country</span><span class="o">-</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;country&#39;</span>
+<span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">worldmap</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="n">country</span><span class="o">-</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;country&#39;</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">family</span>
+<span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">worldmap</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="n">country</span><span class="o">-</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;applicants&#39;</span>
+<span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">worldmap</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="n">country</span><span class="o">-</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;inventors&#39;</span>
+<span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">worldmap</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="n">country</span><span class="o">-</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;register.designated_states&#39;</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">register</span>
+</pre></div>
+</div>
+<p>Generate data suitable for PivotTable.js (JSON):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">pivot</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">family</span>
+</pre></div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="synopsis">
+<h2><a class="toc-backref" href="#id3">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="output-of-p2n-help">
+<h3>Output of “<code class="docutils literal notranslate"><span class="pre">p2n</span> <span class="pre">--help</span></code>”<a class="headerlink" href="#output-of-p2n-help" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ p2n --help
+
+-----------
+Ad hoc mode
+-----------
+  p2n ops init                          Initialize Patent2Net with OPS OAuth credentials
+  p2n adhoc search                      Display search results for given query expression in raw OPS format (JSON)
+  p2n adhoc dump                        Display full results for given query expression in OpsExchangeDocument or Patent2NetBrevet format (JSON)
+  p2n adhoc list                        Display list of values from single field for given query expression
+  p2n adhoc worldmap                    Generate world map for given query expression over given field
+  p2n adhoc pivot                       Generate data for pivot table
+
+Options:
+  --expression=&lt;expression&gt;             Search expression in CQL format, e.g. &quot;TA=lentille&quot;
+  --format=&lt;format&gt;                     Control output format for &quot;p2n adhoc dump&quot;,
+                                        Choose from &quot;ops&quot; or &quot;brevet&quot; [default: ops].
+  --field=&lt;field&gt;                       Which field name to use with &quot;p2n adhoc list&quot; [default: document_number].
+  --with-register                       Also acquire register information for each result hit.
+                                        Required for &quot;--country-field=register.designated_states&quot;.
+  --country-field=&lt;country-field&gt;       Field name of country code for &quot;p2n adhoc worldmap&quot;
+                                        e.g. &quot;country&quot;, &quot;applicants&quot;, &quot;inventors&quot;, &quot;register.designated_states&quot;
+
+Examples:
+
+  # Initialize Patent2Net with OPS OAuth credentials
+  p2n ops init --key=ScirfedyifJiashwOckNoupNecpainLo --secret=degTefyekDevgew1
+
+  # Run query and output results in OpsExchangeDocument format (JSON)
+  p2n adhoc dump --expression=&#39;TA=lentille&#39;
+
+  # Run query and output results in Patent2NetBrevet format (JSON)
+  p2n adhoc dump --expression=&#39;TA=lentille&#39; --format=brevet
+
+  # Run query and output list of document numbers, including family members (JSON)
+  p2n adhoc list --expression=&#39;TA=lentille&#39; --with-family
+
+  # Run query and output list of application numbers in epodoc format
+  p2n adhoc list --expression=&#39;TA=lentille&#39; --field=&#39;application_number_epodoc&#39;
+
+  # Generate data for world maps using d3plus/geo_map (JSON)
+  p2n adhoc worldmap --expression=&#39;TA=lentille&#39; --country-field=&#39;country&#39;
+  p2n adhoc worldmap --expression=&#39;TA=lentille&#39; --country-field=&#39;applicants&#39;
+  p2n adhoc worldmap --expression=&#39;TA=lentille&#39; --country-field=&#39;inventors&#39;
+  p2n adhoc worldmap --expression=&#39;TA=lentille&#39; --country-field=&#39;register.designated_states&#39; --with-register
+
+  # Generate data suitable for PivotTable.js (JSON)
+  p2n adhoc pivot --expression=&#39;TA=lentille&#39; --with-family
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../CHANGES.html" class="btn btn-neutral float-right" title="&lt;no title&gt;" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="classic.html" class="btn btn-neutral float-left" title="Classic mode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, The Patent2Net Developers
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

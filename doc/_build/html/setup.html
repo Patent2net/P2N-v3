@@ -1,0 +1,347 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Setup &mdash; Patent2Net 3.0.0-dev6 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/patent2net-documentation.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Configuration" href="configure.html" />
+    <link rel="prev" title="Welcome to Patent2Net" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> Patent2Net
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0.0-dev6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#old-ways">Old ways</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-from-source">Install from source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-binary-package-old-features">Install binary package (Old features)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#appendix">Appendix</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-imagemagick">Install ImageMagick</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-patent2net-on-linux">Install Patent2Net on Linux</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-patent2net-on-windows">Install Patent2Net on Windows</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="configure.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="release.html">Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="todo.html">Todo list and ideas</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Patent2Net</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Setup</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/setup.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="setup">
+<span id="id1"></span><h1>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h1>
+<p>This part of the documentation covers the installation of Patent2Net.
+The first step to using any software package is getting it properly installed.
+Please read this section carefully.</p>
+<p>After successfully installing the software, you might want to
+follow up with its <a class="reference internal" href="configure.html#configuration"><span class="std std-ref">Configuration</span></a>.</p>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Install docker desktop</p></li>
+<li><p>download the docker-install branch (<a class="reference external" href="https://github.com/Patent2net/P2N-v3/tree/docker_install">https://github.com/Patent2net/P2N-v3/tree/docker_install</a>)</p></li>
+<li><p>Use the Install_P2N.bat and enjoy P2N via docker imagemagick</p></li>
+<li><p>See Install.bat in the elatickibana directory for the full architecture (BETA)</p></li>
+</ul>
+</div>
+<div class="section" id="old-ways">
+<h2>Old ways<a class="headerlink" href="#old-ways" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-from-source">
+<h3>Install from source<a class="headerlink" href="#install-from-source" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Download Anaconda 3 (big installation, <a class="reference external" href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a>) OR Miniconda <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">https://docs.conda.io/en/latest/miniconda.html</a></p></li>
+<li><p>Download P2N latest <a class="reference external" href="https://github.com/Patent2net/P2N-v3">https://github.com/Patent2net/P2N-v3</a></p></li>
+<li><p>Unzip to a the P2N directory (please choose a safe path: the root of your second hard drive (d:P2N) for instance is the prefered choice)</p></li>
+<li><p>Launch (double click) installP2N.bat (let it work; do not close windows; that process can be quite long depending on you machine and network access)</p></li>
+<li><p>Copy or create cles-epo.txt file (be aware must be ANSI encode caracters!). See <a class="reference external" href="https://docs.ip-tools.org/patent2net/configure.html">https://docs.ip-tools.org/patent2net/configure.html</a></p></li>
+<li><p>Formulate the desired <a href="#id2"><span class="problematic" id="id3">*</span></a>.cql file in ./REQUESTS/ directory. See <a class="reference external" href="https://docs.ip-tools.org/patent2net/usage/index.html">https://docs.ip-tools.org/patent2net/usage/index.html</a></p></li>
+<li><p>Double click runP2N.bat and have fun!</p></li>
+</ul>
+<p>Nexr seems broken
+- Source releases are available from GitHub: <a class="reference external" href="https://github.com/Patent2net/P2N/releases">https://github.com/Patent2net/P2N/releases</a>
+- Install a specific version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="s1">&#39;https://github.com/Patent2net/P2N/archive/3.0.0-dev6.tar.gz&#39;</span> <span class="o">--</span><span class="n">upgrade</span>
+</pre></div>
+</div>
+<ul>
+<li><p>Install the current development version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="s1">&#39;https://github.com/Patent2net/P2N/archive/develop.tar.gz&#39;</span> <span class="o">--</span><span class="n">upgrade</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="install-binary-package-old-features">
+<h3>Install binary package (Old features)<a class="headerlink" href="#install-binary-package-old-features" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><div class="line-block">
+<div class="line">Binary releases are available at</div>
+<div class="line"><a class="reference external" href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=user_manual:download_install">http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=user_manual:download_install</a></div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="appendix">
+<h2>Appendix<a class="headerlink" href="#appendix" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-imagemagick">
+<h3>Install ImageMagick<a class="headerlink" href="#install-imagemagick" title="Permalink to this headline">¶</a></h3>
+<p>On Debian Linux:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span> <span class="n">install</span> <span class="n">imagemagick</span>
+</pre></div>
+</div>
+<p>On Windows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">www</span><span class="o">.</span><span class="n">imagemagick</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">script</span><span class="o">/</span><span class="n">download</span><span class="o">.</span><span class="n">php</span><span class="c1">#windows</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-patent2net-on-linux">
+<h3>Install Patent2Net on Linux<a class="headerlink" href="#install-patent2net-on-linux" title="Permalink to this headline">¶</a></h3>
+<p>If you’re using Ubuntu or Debian distributions, make sure to have these prerequisites installed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">python</span><span class="o">-</span><span class="n">dev</span> <span class="n">libjpeg</span><span class="o">-</span><span class="n">dev</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libfreetype6</span><span class="o">-</span><span class="n">dev</span> <span class="n">libpng</span><span class="o">-</span><span class="n">dev</span>
+</pre></div>
+</div>
+<p>Install pygraphviz on Mac OS X:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">install</span><span class="o">-</span><span class="n">option</span><span class="o">=</span><span class="s2">&quot;--include-path=/opt/local/include&quot;</span> <span class="o">--</span><span class="n">install</span><span class="o">-</span><span class="n">option</span><span class="o">=</span><span class="s2">&quot;--library-path=/opt/local/lib&quot;</span> <span class="s2">&quot;pygraphviz==1.3.1&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-patent2net-on-windows">
+<h3>Install Patent2Net on Windows<a class="headerlink" href="#install-patent2net-on-windows" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p>Install Graphviz (I used 2.38)</p></li>
+<li><p>Anaconda</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Starting from Anaconda 2.7 installation (32 or 64 bits)</p></li>
+<li><p>To install Anaconda go to <a class="reference external" href="https://www.continuum.io/downloads">https://www.continuum.io/downloads</a></p></li>
+<li><p>Use Anaconda 4.2.0 or superior version</p></li>
+<li><p>Use Python 2.7 version</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Then:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">requests</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">networkx</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">upgrade</span> <span class="n">setuptools</span>
+</pre></div>
+</div>
+</li>
+<li><p>Download the epo_ops directory of <a class="reference external" href="https://github.com/55minutes/python-epo-ops-client">https://github.com/55minutes/python-epo-ops-client</a> in …Anaconda2Libsite-packages</p></li>
+<li><p>In IPython: import epo_ops</p></li>
+<li><p>Download curses <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#curses">http://www.lfd.uci.edu/~gohlke/pythonlibs/#curses</a> followed by
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">curses-2.2-cp2.7(...).whl</span></code></p></li>
+<li><p>Download <a class="reference external" href="https://bitbucket.org/taynaud/python-louvain">https://bitbucket.org/taynaud/python-louvain</a> followed by
+<code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></code></p></li>
+<li><p>Install pygraphviz (for 64 bits use: <a class="reference external" href="http://www.lfd.uci.edu/~gohlke/pythonlibs/#pygraphviz">http://www.lfd.uci.edu/~gohlke/pythonlibs/#pygraphviz</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">--upgrade</span> <span class="pre">jinja2</span></code></p></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="configure.html" class="btn btn-neutral float-right" title="Configuration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Patent2Net" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, The Patent2Net Developers
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

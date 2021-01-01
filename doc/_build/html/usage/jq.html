@@ -1,0 +1,426 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>jq usage &mdash; Patent2Net 3.0.0-dev6 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/patent2net-documentation.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Patent2Net
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0.0-dev6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Usage</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">Todo list and ideas</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Patent2Net</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>jq usage</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/jq.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jq-usage">
+<span id="jq"></span><h1>jq usage<a class="headerlink" href="#jq-usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="about">
+<h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">jq</span></code> is a lightweight and flexible command-line JSON processor.
+It works on all popular platforms like Linux, Mac OSX and Windows.</p>
+<p>Please visit <a class="reference external" href="https://stedolan.github.io/jq/">https://stedolan.github.io/jq/</a> for more information and download.</p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>You can use it for pretty-printing output from the ad-hoc mode commands of <code class="docutils literal notranslate"><span class="pre">p2n</span></code>,
+but also for filtering and even reformatting.</p>
+<div class="section" id="pretty-printing">
+<h3>Pretty-printing<a class="headerlink" href="#pretty-printing" title="Permalink to this headline">¶</a></h3>
+<p>Just pipe JSON output into “<code class="docutils literal notranslate"><span class="pre">jq</span> <span class="pre">.</span></code>”:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">dump</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">family</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">register</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">ops</span> <span class="o">|</span> <span class="n">jq</span> <span class="o">.</span>
+</pre></div>
+</div>
+<p>and voilà:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="s2">&quot;application_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2010-07-29&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;application_year&quot;</span><span class="p">:</span> <span class="s2">&quot;2010&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;application_number_docdb&quot;</span><span class="p">:</span> <span class="s2">&quot;CN2010075569W&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;application_number_epodoc&quot;</span><span class="p">:</span> <span class="s2">&quot;WO2010CN75569&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;publication_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2011-02-10&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;publication_year&quot;</span><span class="p">:</span> <span class="s2">&quot;2011&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;publication_number_docdb&quot;</span><span class="p">:</span> <span class="s2">&quot;WO2011015115A1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;publication_number_epodoc&quot;</span><span class="p">:</span> <span class="s2">&quot;WO2011015115&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;country&quot;</span><span class="p">:</span> <span class="s2">&quot;WO&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;kind&quot;</span><span class="p">:</span> <span class="s2">&quot;A1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;document_number&quot;</span><span class="p">:</span> <span class="s2">&quot;WO2011015115A1&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;family_id&quot;</span><span class="p">:</span> <span class="s2">&quot;43543927&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;fr&quot;</span><span class="p">:</span> <span class="s2">&quot;CAPOT DE MODULE DE PUCE DE DEL POLYCRISTALLINE UNIQUE HAUTE PUISSANCE POUR ÉCLAIRAGE DE RUE&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;en&quot;</span><span class="p">:</span> <span class="s2">&quot;LIGHT SHELL OF HIGH POWER SINGLE POLYCRYSTALLINE LED CHIP MODULE OF STREET LAMP&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;abstract&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;en&quot;</span><span class="p">:</span> <span class="s2">&quot;A light shell of a high power single polycrystalline LED chip module ...&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;fr&quot;</span><span class="p">:</span> <span class="s2">&quot;L&#39;invention concerne un capot de module de puce de DEL polycristalline unique haute puissance pour éclairage ...&quot;</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;classifications&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;IPCR&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;F21V3/02&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;F21V17/00&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;F21V17/14&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;F21W131/103&quot;</span>
+      <span class="p">],</span>
+      <span class="s2">&quot;IPC&quot;</span><span class="p">:</span> <span class="p">[],</span>
+      <span class="s2">&quot;CPC&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;F21V3/00&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;F21V17/14&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;F21V17/164&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;F21W2131/103&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;F21Y2115/10&quot;</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;applicants&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;country&quot;</span><span class="p">:</span> <span class="s2">&quot;CN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;YANG JANSEN&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;country&quot;</span><span class="p">:</span> <span class="s2">&quot;CN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CHEN HONG&quot;</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;inventors&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;country&quot;</span><span class="p">:</span> <span class="s2">&quot;CN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;YANG JANSEN&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="s2">&quot;country&quot;</span><span class="p">:</span> <span class="s2">&quot;CN&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;CHEN HONG&quot;</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;register&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="s2">&quot;designated_states&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;AL&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;AT&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BE&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;BG&quot;</span><span class="p">,</span>
+        <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+  <span class="p">}</span>
+
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="filtering">
+<h3>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h3>
+<p>Just display list of <code class="docutils literal notranslate"><span class="pre">document_number</span></code> fields:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">dump</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">family</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">register</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">ops</span> <span class="o">|</span> <span class="n">jq</span> <span class="s1">&#39;.[] | .document_number&#39;</span>
+</pre></div>
+</div>
+<p>Output:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;WO2011015115A1&quot;</span>
+<span class="s2">&quot;CN101988689A&quot;</span>
+<span class="s2">&quot;CN101988689B&quot;</span>
+<span class="s2">&quot;CA2694840A1&quot;</span>
+<span class="s2">&quot;AT553722T&quot;</span>
+<span class="s2">&quot;CN101808594A&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reformatting-i">
+<h3>Reformatting I<a class="headerlink" href="#reformatting-i" title="Permalink to this headline">¶</a></h3>
+<p>Display list of document numbers with their designated states from register information:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">function</span> <span class="n">jq_register_designated_states</span> <span class="p">{</span> <span class="n">jq</span> <span class="s1">&#39;.[] | select(.register) | {number: .document_number, states: .register.designated_states}&#39;</span><span class="p">;</span> <span class="p">}</span>
+<span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">dump</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;TA=lentille&#39;</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">family</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">register</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">ops</span> <span class="o">|</span> <span class="n">jq_register_designated_states</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;number&quot;</span><span class="p">:</span> <span class="s2">&quot;WO2007091761A1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;states&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;AT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;BE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;BG&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CH&quot;</span><span class="p">,</span>
+    <span class="p">[</span><span class="o">...</span><span class="p">]</span>
+
+<span class="p">{</span>
+  <span class="s2">&quot;number&quot;</span><span class="p">:</span> <span class="s2">&quot;EP0191689A1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;states&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="s2">&quot;CH&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DE&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;FR&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;GB&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;IT&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LI&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;NL&quot;</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reformatting-ii">
+<h3>Reformatting II<a class="headerlink" href="#reformatting-ii" title="Permalink to this headline">¶</a></h3>
+<p>Display list of publication numbers with register status and action information:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">function</span> <span class="n">jq_register_status</span> <span class="p">{</span> <span class="n">jq</span> <span class="s1">&#39;.[] | select(.register) | {status: .register.status, pubnumber: .publication_number_docdb, pubdate: .publication_date, actions: .register.actions}&#39;</span><span class="p">;</span> <span class="p">}</span>
+<span class="n">p2n</span> <span class="n">adhoc</span> <span class="n">dump</span> <span class="o">--</span><span class="n">expression</span><span class="o">=</span><span class="s1">&#39;pa=grohe and pd=2015&#39;</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">family</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">register</span> <span class="o">|</span> <span class="n">jq_register_status</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;No opposition filed within time limit&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pubnumber&quot;</span><span class="p">:</span> <span class="s2">&quot;EP2964797A1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pubdate&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-01-13&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-09-22&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;first-examination-report-despatched&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-08-06&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;request-for-examination&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+<span class="p">{</span>
+  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;The patent has been granted&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pubnumber&quot;</span><span class="p">:</span> <span class="s2">&quot;EP2964798A1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pubdate&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-01-13&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2016-06-10&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;first-examination-report-despatched&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-08-06&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;request-for-examination&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+<span class="p">{</span>
+  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;The application is deemed to be withdrawn&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pubnumber&quot;</span><span class="p">:</span> <span class="s2">&quot;WO2014106529A1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pubdate&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-07-10&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[]</span>
+<span class="p">}</span>
+<span class="p">{</span>
+  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;Examination is in progress&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pubnumber&quot;</span><span class="p">:</span> <span class="s2">&quot;WO2014072031A1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pubdate&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-05-15&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2017-10-30&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;first-examination-report-despatched&quot;</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-01-15&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;request-for-examination&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+<span class="p">{</span>
+  <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;Request for examination was made&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pubnumber&quot;</span><span class="p">:</span> <span class="s2">&quot;WO2014037092A1&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;pubdate&quot;</span><span class="p">:</span> <span class="s2">&quot;2014-03-13&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;actions&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="s2">&quot;2015-01-15&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;request-for-examination&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, The Patent2Net Developers
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

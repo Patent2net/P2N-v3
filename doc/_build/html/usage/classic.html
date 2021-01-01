@@ -1,0 +1,358 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Classic mode &mdash; Patent2Net 3.0.0-dev6 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/patent2net-documentation.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Ad-hoc mode" href="adhoc.html" />
+    <link rel="prev" title="Usage" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> Patent2Net
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                3.0.0-dev6
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../setup.html">Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../configure.html">Configuration</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Usage</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#introduction">Introduction</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#operation">Operation</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Classic mode</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#request-description">Request description</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#legacy-interface">Legacy interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modern-interface">Modern interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#synopsis">Synopsis</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="adhoc.html">Ad-hoc mode</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../documentation.html">Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../todo.html">Todo list and ideas</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Patent2Net</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="index.html">Usage</a> &raquo;</li>
+        
+      <li>Classic mode</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/usage/classic.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="classic-mode">
+<h1>Classic mode<a class="headerlink" href="#classic-mode" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#request-description" id="id1">Request description</a></p></li>
+<li><p><a class="reference internal" href="#legacy-interface" id="id2">Legacy interface</a></p></li>
+<li><p><a class="reference internal" href="#modern-interface" id="id3">Modern interface</a></p></li>
+<li><p><a class="reference internal" href="#synopsis" id="id4">Synopsis</a></p></li>
+</ul>
+</div>
+<hr class="docutils" />
+<div class="section" id="request-description">
+<h2><a class="toc-backref" href="#id1">Request description</a><a class="headerlink" href="#request-description" title="Permalink to this headline">¶</a></h2>
+<p>Patent2Net needs a <code class="docutils literal notranslate"><span class="pre">requete.cql</span></code> file for operating in classic mode.
+It acts as a request description and contains various parameters you might want to have a look at.</p>
+<p>The most important ones are the CQL query to be submitted to OPS and the output directory where
+data is stored.</p>
+<p>Example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># CQL query expression</span>
+<span class="n">request</span><span class="p">:</span> <span class="n">ta</span><span class="o">=</span><span class="s2">&quot;filter*&quot;</span> <span class="ow">and</span> <span class="n">ta</span><span class="o">=</span><span class="s2">&quot;drink* water&quot;</span> <span class="n">AND</span> <span class="p">(</span><span class="n">pn</span> <span class="o">=</span> <span class="n">U</span> <span class="ow">not</span> <span class="p">(</span><span class="n">pn</span> <span class="o">=</span> <span class="n">UA</span> <span class="ow">or</span> <span class="n">pn</span> <span class="o">=</span> <span class="n">US</span> <span class="ow">or</span> <span class="n">pn</span> <span class="o">=</span> <span class="n">UY</span><span class="p">))</span>
+
+<span class="c1"># Output directory</span>
+<span class="n">DataDirectory</span><span class="p">:</span> <span class="n">Water</span>
+</pre></div>
+</div>
+<p>You can find some blueprints in the <code class="docutils literal notranslate"><span class="pre">/RequestsSets</span></code> directory.</p>
+</div>
+<div class="section" id="legacy-interface">
+<h2><a class="toc-backref" href="#id2">Legacy interface</a><a class="headerlink" href="#legacy-interface" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="run-suite-of-scripts">
+<h3>Run suite of scripts<a class="headerlink" href="#run-suite-of-scripts" title="Permalink to this headline">¶</a></h3>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">/Patent2Net/ProcessPy.bat</span></code> or the <code class="docutils literal notranslate"><span class="pre">/Patent2Net/Process.sh</span></code> file and enjoy!</p>
+</div>
+</div>
+<div class="section" id="modern-interface">
+<h2><a class="toc-backref" href="#id3">Modern interface</a><a class="headerlink" href="#modern-interface" title="Permalink to this headline">¶</a></h2>
+<p>The modern interface allows to specify a <code class="docutils literal notranslate"><span class="pre">requete.cql</span></code> file on the command line
+or by using the environment variable <code class="docutils literal notranslate"><span class="pre">P2N_CONFIG</span></code>.</p>
+<div class="section" id="acquire-data-from-ops">
+<h3>Acquire data from OPS<a class="headerlink" href="#acquire-data-from-ops" title="Permalink to this headline">¶</a></h3>
+<p>Run Patent2Net:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p2n</span> <span class="n">acquire</span> <span class="o">--</span><span class="n">config</span><span class="o">=/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">RequestsSets</span><span class="o">/</span><span class="n">Lentille</span><span class="o">.</span><span class="n">cql</span>
+</pre></div>
+</div>
+<p>Alternatively, you can specify the path to the <code class="docutils literal notranslate"><span class="pre">requete.cql</span></code> using an environment variable:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export P2N_CONFIG=`pwd`/RequestsSets/Lentille.cql
+</pre></div>
+</div>
+<p>then, just run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Acquire patent information from OPS</span>
+<span class="n">p2n</span> <span class="n">acquire</span>
+
+<span class="c1"># Also acquire family information for each hit</span>
+<span class="n">p2n</span> <span class="n">acquire</span> <span class="o">--</span><span class="k">with</span><span class="o">-</span><span class="n">family</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="analyze-information">
+<h3>Analyze information<a class="headerlink" href="#analyze-information" title="Permalink to this headline">¶</a></h3>
+<p>When running the analysis commands like this, you should set
+the <code class="docutils literal notranslate"><span class="pre">P2N_CONFIG</span></code> environment variable for convenience, like described above.</p>
+<p>E.g., run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Build all world maps</span>
+<span class="n">p2n</span> <span class="n">maps</span>
+
+<span class="c1"># Build all network graphs</span>
+<span class="n">p2n</span> <span class="n">networks</span>
+
+<span class="c1"># p2n {maps,networks,tables,bibfile,iramuteq,freeplane,carrot}</span>
+<span class="c1"># see full list below or run ``p2n --help``</span>
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="docutils" />
+<div class="section" id="synopsis">
+<h2><a class="toc-backref" href="#id4">Synopsis</a><a class="headerlink" href="#synopsis" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="output-of-p2n-help">
+<h3>Output of “<code class="docutils literal notranslate"><span class="pre">p2n</span> <span class="pre">--help</span></code>”<a class="headerlink" href="#output-of-p2n-help" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ p2n --help
+
+------------
+Classic mode
+------------
+  p2n ops init                          Initialize Patent2Net with OPS OAuth credentials
+  p2n run                               Run data acquisition and all formatters
+  p2n acquire                           Run document acquisition
+    --with-family                       Also run family data acquisition with &quot;p2n acquire&quot;
+  p2n maps                              Build maps of country coverage of patents, as well as applicants and inventors
+  p2n networks                          Build various artefacts for data exploration based on network graphs
+  p2n tables                            Export various artefacts for tabular data exploration
+  p2n bibfile                           Export data in bibfile format
+  p2n iramuteq                          Fetch more data and export it to suitable format for using in Iramuteq
+  p2n freeplane                         Build mind map for Freeplane
+  p2n carrot                            Export data to XML suitable for using in Carrot
+  p2n images                            Fetch images and build thumbnails
+  p2n interface                         Build main Patent2Net html interface
+
+Options:
+  --config=&lt;config&gt;                     Path to requete.cql. Will fall back to environment variable &quot;P2N_CONFIG&quot;.
+
+Examples:
+
+  # Initialize Patent2Net with OPS OAuth credentials
+  p2n ops init --key=ScirfedyifJiashwOckNoupNecpainLo --secret=degTefyekDevgew1
+
+  # Run query and gather data
+  p2n acquire --config=/path/to/RequestsSets/Lentille.cql --with-family
+
+  # Build all world maps
+  export P2N_CONFIG=/path/to/RequestsSets/Lentille.cql
+  p2n maps
+
+  # Run data acquisition and all targets
+  p2n run
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="adhoc.html" class="btn btn-neutral float-right" title="Ad-hoc mode" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2013-2018, The Patent2Net Developers
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
