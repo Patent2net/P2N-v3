@@ -5,14 +5,18 @@ Todo list and ideas
 ******
 Agenda
 ******
+User UX improvements
+====================
+* Use flask and template to redesing the whole interface keeping in ming kibana and ES new capability
+* improve progress bar 
 
 Improvements
 ============
 Although Patent2Net is fully operational, works fine and is enough to begin using Patent Information, a lot can be done to improve analysis:
 
 * Correct the issues (continuous process, of course)
-* Add some more information in the result html page (ModeleContenuIndex.html). Great to add the treating date (thus can be different from gathering) and P2N version
-* As information analysis do not allways represent the whole Patent Universe (i.e. french abstrat) provide the proportion of P.U. concerned by each analysis
+* Add some more information in the result html page (ModeleContenuIndex.html). Great to add the processing date (thus can be different from gathering) and P2N version
+* As information analysis do not always represent the whole Patent Universe (i.e. french abstract) provide the proportion of P.U. concerned by each analysis
 * Treat Designated State(s) information for EP and WO patentes to complete the attractivity maps
 * Improve the Mindmap option to get it more efficient for creativity (Celso is working on)
 * Build the entire network as a gephi file for download to let new combined network analysis possible
@@ -61,6 +65,11 @@ Completed
 
 Todo
 ----
+- [o] Kibana and elastic search usage
+- [o] Carrot2 integration
+- [o] Iramuteq processing steps
+- [o] Mindmaps integration in full web
+- [o] Network visualisation and exploring tool integration
 - [o] OPS Register: Always sort event-like data in ascending order?
       Right now, sort order is mixed as of "history items" vs. "actions" vs. "{publication,application}_reference".
 - [o] Write documentation about data model
