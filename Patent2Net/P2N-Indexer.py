@@ -2,6 +2,8 @@
 """
 Created on Wed Dec 30 15:23:13 2020
 P2N-Indexer
+Beta test: need to fix communication way with carrot.
+Need also SSE progress bar and process application.
 @author: david
 """
 
