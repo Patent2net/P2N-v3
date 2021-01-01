@@ -2,6 +2,62 @@
 Patent2Net CHANGES
 ##################
 
+2021-01-01 3.1.0-dev6
+=====================
+.. note::
+- Major improvements in the global architechture
+- P2N in now built on centOS v8
+- Added a docker image for Elasticsearch: 7.9.2 with carrot2 plugin (see https://github.com/carrot2/elasticsearch-carrot2). localhost:9200 and 9300 to accès the Elasticsearch server
+- Added a docker image for Kibana: 7.9.2 (see https://www.elastic.co/fr/kibana). Also in the standard port 5601.
+- First version of P2N indexer that feed the elastic search indexer
+.. warning:: 
+- ElasticSearch and Kibana are just here to start the new ways for P2N. At this time no features are provided at all. Specialists are welcome
+- Secure version of VSFTPD, fixed several security bugs (port 20-21). 
+.. warning:: 
+User p2n with no passwd is set in Dockerfile. Mind in changing this for installing P2N on the cloud!
+
+
+2020-11-30 3.1.0-dev5
+=====================
+- New processing feature in beta version (thanks Nezha): Trizifyer
+- Major improvement in time processing in network production (using new libraries)
+- but dynamic network aren't functional yet. Imrpove this
+
+2020-07-20 3.1.0-dev4
+=====================
+- New feature of "progess bar"
+- SSE system for all data processing scripts
+
+2020-07-20 3.1.0-dev3
+=====================
+- Introduction of new libraries in various processing steps: pandas, mpld3, scipy
+- New processing steps of data consolidation
+- Applicants and Inventor Names normalisation (integration of a table from EPO with more than a million of entries)
+- Added more thant 2000 lines in previous file thank to URFIST project
+- New filtering process. Patents list collected from a request may contain (or not) equivalents patent. This tend to make biaises in several processing features of P2N. The new process extracts in the dataset the oldest patent in each subfamilies encountered in the set.
+- several bug fixes
+- added VSFTPD feature to communicate with the docker image
+
+2020-06-20 3.1.0-dev2
+=====================
+- New branch: docker installation
+- P2N works now in a standalone docker Ubuntu machine (Thanks Esteban).
+- Add Flask front end, localhost:5000 is the entry point.
+- Integration of several features (Pivot, Datatable)
+- Others exports (to IramuteQ or Carrot2) have to use the download data pages
+
+2020-01-20 3.1.0-dev1
+=====================
+- firt publication of the automatic request splitter: a tool to skirt the 2000 limit of the EPO API
+- various updates
+
+2019 3.1.0-dev0
+=====================
+
+- various attemps in simplication of installation procedure
+- many general bug fixes
+
+
 
 development
 ===========

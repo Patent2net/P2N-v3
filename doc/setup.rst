@@ -15,8 +15,15 @@ follow up with its :ref:`configuration`.
 ************
 Installation
 ************
+- Install docker desktop
+- download the docker-install branch (https://github.com/Patent2net/P2N-v3/tree/docker_install)
+- Use the Install_P2N.bat and enjoy P2N via docker image
+- See Install.bat in the elatickibana directory for the full architecture (BETA)
 
 
+************
+Old ways
+************
 Install from source
 ===================
 - Download Anaconda 3 (big installation, https://www.anaconda.com/distribution/) OR Miniconda https://docs.conda.io/en/latest/miniconda.html
