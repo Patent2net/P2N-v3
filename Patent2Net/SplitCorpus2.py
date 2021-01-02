@@ -152,7 +152,7 @@ import copy
 
 # no good: la sélection des brevets à partir des représentants qui certaines fois ne sont que dans les familles, doit se faire sur la liste 
 # des équivalents du corpus initial. Là ce 'nest pas le cas et on a un joyeux mix
-for fic in ['Families'+ndf]:
+for fic in [ndf]:
     print("\n> Hi! This is corpora splitter used on:", fic)
     if 'Description' + fic in os.listdir(ListBiblioPath):
         with open(ListBiblioPath + '//' + fic, 'r') as data:
@@ -226,8 +226,20 @@ for fic in ['Families'+ndf]:
         elif isinstance(bre['applicant'], list) and len(bre['applicant'])>1 and CheckListExclu(bre['applicant'], Inventeurs):
                 bre ['type'] = "Inconnu"
                 bre['typeCollab'] = "NON"
-               
-        # elif len(bre['applicant'])>0: 
+        elif isinstance(bre['applicant'], list) and len([app for app in bre['applicant'] if app not in Inventeurs2]) != len (bre['applicant']):
+            if len([app for app in bre['applicant'] if app not in Inventeurs2]) >= 1:
+                if CheckListInclu([app for app in bre['applicant'] if app not in Inventeurs2], Public):
+                    bre ['type'] = "public"
+                    bre['typeCollab'] = "public-individu"
+                else:
+                    bre ['type'] = "indus"
+                    bre['typeCollab'] = "indus-individu"
+            else: # all applicants are inventors !!
+                    bre ['type'] = "individuels"
+                    bre['typeCollab'] = "individuels"
+                    
+                    
+         # elif len(bre['applicant'])>0: 
         #     bre ['type'] = "collab"
         #     bre['typeCollab'] = [ApplType[truc] if truc in ApplType.keys() else 'Indus' for truc in bre['applicant'] ]
         #     if len(bre['applicant']) ==0 or sum([len(truc)==0 for truc in bre['applicant']]) >0:
@@ -294,7 +306,7 @@ for fic in ['Families'+ndf]:
     if "AcadCorpora" not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '')):
         os.makedirs(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora')  
     shutil.copy(RepDir + '/'+"AuteursAffil.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"DejaTraites.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     if "InventeurNormes.pkl" in os.listdir(BiblioPath):
         shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)
         shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath)                                    
@@ -322,7 +334,7 @@ for fic in ['Families'+ndf]:
     if "AcadCorpora" not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '')):
         os.makedirs(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora')  
     shutil.copy(RepDir + '/'+"AuteursAffil.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"DejaTraites.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     if "InventeurNormes.pkl" in os.listdir(BiblioPath):
         shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)  
         shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath)  
@@ -349,7 +361,7 @@ for fic in ['Families'+ndf]:
         os.makedirs(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora')  
     #copy of author affiliation in each directory of splitted corpora
     shutil.copy(RepDir + '/'+"AuteursAffil.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"DejaTraites.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     if "InventeurNormes.pkl" in os.listdir(BiblioPath):
         shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)   
         shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath) 
@@ -375,7 +387,7 @@ for fic in ['Families'+ndf]:
         os.makedirs(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora')  
     #copy of author affiliation in each directory of splitted corpora
     shutil.copy(RepDir + '/'+"AuteursAffil.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"DejaTraites.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     if "InventeurNormes.pkl" in os.listdir(BiblioPath):
         shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)   
         shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath) 

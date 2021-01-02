@@ -16,7 +16,7 @@ import pickle
 from Patent2Net.P2N_Lib import LoadBiblioFile
 from Patent2Net.P2N_Config import LoadConfig
 #from Patent2Net.P2N_Lib_Acad import IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
-#from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct, CheckListInclu, CheckListMix, CheckListExclu, UnCheck, Check
+from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct, CheckListInclu, CheckListMix, CheckListExclu, UnCheck, Check
 #from fuzzywuzzy import fuzz
 
 
@@ -84,8 +84,11 @@ print("Nice, ", len(DataBrevet["brevets"]), " patents found. On calcule les aute
 #     return list(filter(lambda x: x not in indesirables, Liste))
 
 # test de consistance
-with open(Auteur+'//DejaTraites.csv', 'r',) as fic:
-    DejaVus = fic.readlines()
+try:
+    with open(Auteur+'//DejaTraites.csv', 'r',) as fic:
+        DejaVus = fic.readlines()
+except:
+    DejaVus = []
 
 if len (set(DejaVus)) == len(DataBrevet['brevets']):
     print ('Youhou, tous les brevets ' + ndf + ' ont été traités.')
