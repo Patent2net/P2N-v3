@@ -317,6 +317,7 @@ def classic_interface(options):
         if options['with-family']:
             run_script('OPSGatherAugment-Families.py', configfile)
         run_script('FusionCarrot2.py', configfile)
+        run_script('P2N-Indexer.py', configfile)
         
     #Gather images
     if options['images'] or options['run']:
