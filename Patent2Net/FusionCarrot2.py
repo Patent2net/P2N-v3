@@ -159,7 +159,10 @@ def complete3(listeFic, lang, det, Brevets):
 
                                 Contenu+='<snippet>%s</snippet>\n' %escape(str(tempo))
                                 Contenu+="</document>\n"
-                                document ['content'] = escape(titre)  + '\n' + escape(str(tempo))
+                                document ['content'] = escape(str(tempo))
+                                document ['title'] = titre
+                                document ['url'] = url
+                                document ['language'] = lang
                             else:
                                 Ignore+=1
                         except:
@@ -192,8 +195,11 @@ def complete3(listeFic, lang, det, Brevets):
 if IsEnableScript:
     Rep = configFile.ResultContentsPath
     Bib = configFile.ResultBiblioPath
-    Rep2 =  Rep + "//Consistent//EN"
-    lstConsistents = os.listdir(Rep2)
+    Rep2 =  Rep + "/Consistent/EN"
+    try:
+        lstConsistents = os.listdir(Rep2)
+    except: # fusion Iramuteq must be executed before or this is due to the patent set
+        lstConsistents = []
     
     
     
@@ -214,10 +220,13 @@ if IsEnableScript:
             print("please use Comptatibilizer")
 
         try:
-            os.makedirs(Rep+"//Carrot2")
+            os.makedirs(Rep+"/Carrot2")
         except:
             #directory exists
             pass
+        for bre in LstBrevet:
+            if isinstance(bre['label'], list):
+                bre['label'] = bre['label'] [0] # those patent with multiple labels GRRR
         temporar = GenereListeFichiers(Rep)
         cpt =0
         for det in ['Abstract', 'Claims', 'Description']:
@@ -234,11 +243,11 @@ if IsEnableScript:
                     
                 # lazy attempt for consistent vues
                 #NomResult2 = lang+'_'+det.replace('Abstracts', '') + '_' + ndf+'.xml' # det.replace('Abstracts', '') this command is for old old mispelling :-(.. I think)
-                ficRes2 = codecs.open(Rep+'//Consistent//Carrot2_'+NomResult, "w", 'utf8')
+                ficRes2 = codecs.open(Rep+'/Consistent/Carrot2_'+NomResult, "w", 'utf8')
                 ficRes2.write(carrot2)
                 ficRes2.close()
                 carrot2, json2 = complete3(temporar[ind], lang, prefix+det, [bre for bre in LstBrevet if 'EN-'+ bre ['label']+'.txt' in lstConsistents] )
-                with codecs.open(Rep+'//Consistent//Carrot2_'+NomResult.replace('.xml', '.json'), "w", 'utf8') as ficRes:
+                with codecs.open(Rep+'/Consistent/Carrot2_'+NomResult.replace('.xml', '.json'), "w", 'utf8') as ficRes:
                     json.dump( json2, ficRes, indent = 4)
                 
                 
