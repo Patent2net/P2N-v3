@@ -134,6 +134,17 @@ RenderTemplate(
 	
 )
 
+
+outfile = GlobalPath + '//' + ndf+'//'+ndf+'Carrot.html'
+ModeleCarrot = "carrot2.html"
+RenderTemplate(
+    "carrot2.html",
+    outfile,
+    jsonFile='./PatentContents/Consistent/Carrot2_EN_Abstract_'+ndf+'.json',
+    dataDir=ndf.replace('"', '').lower(),
+    request = requete
+)
+        
 # updating index.js for server side and local menu
 inFile = []  # memorize content
 with open('../dex.js') as FicRes:

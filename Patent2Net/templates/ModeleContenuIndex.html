@@ -131,16 +131,23 @@
         {% endif %}
 		{% if CompleteNetwork %}
 		<li>
-            <a href="#" onclick="{{wo('GephiFiles/*CollectName*_FullJS.html')}} 
+            <a href="#" onclick="{{wo('GephiFiles/*CollectName*_FullJS.html')}}
 			 return false;">Full network</a>
         </li>
 		{% endif %}
 		{% if Cluster %}
         <li>
             <a href="#" onclick="{{wo('*CollectName*-Clust.html')}} return false;"> P2N Clusterer</a>
-								   
+
         </li>
         {% endif %}
+      {% if FusionCarrot2 %}
+            <li>
+                <a href="#" onclick="{{wo('*CollectName*Carrot.html')}} return false;"> P2N Clusterer</a>
+
+            </li>
+      {% endif %}
+      DATA/IA/IACarrot.html
     </ul>
     {% if HasFamily %}
     <h2>Families</h2>
@@ -177,7 +184,7 @@
         {% endif %}
 		{% if CompleteNetwork %}
 		<li>
-            <a href="#" onclick="{{wo('GephiFiles/Families*CollectName*_FullJS.html')}} 
+            <a href="#" onclick="{{wo('GephiFiles/Families*CollectName*_FullJS.html')}}
 			 return false;">Full network</a>
         </li>
         {% endif %}
@@ -218,7 +225,7 @@
 			<tr>
                 <td>
                     <a href="{{u('GephiFiles/*CollectName*_Full.gexf')}}" download>Full Net</a>                    </td>
-            
+
         </table>
         <h3><a href="http://freeplane.sourceforge.net"  target="_blank">FreePlane compatible file</a> </h3>
         <ul>
@@ -331,7 +338,7 @@
                     <a href="{{u('GephiFiles/Families*CollectName*_ApplicantInventor.gexf')}}" download>Inventors and applicants</a> </td>
                 <td>
                     <a href="{{u('GephiFiles/Families*CollectName*_InventorsCrossTech.gexf')}}" download>Inventors and technologies</a>                    </td>
-		
+
                 <td>
                     <a href="{{u('GephiFiles/Families*CollectName*_Applicants_CrossTech.gexf')}}" download>Applicants and technologies</a>                    </td>
 		</tr>
@@ -340,7 +347,7 @@
             <a href="{{u('GephiFiles/Families*CollectName*_FullJS.html')}}">Full family network</a>
         </td>
 		</tr>
-            
+
 
         </table>
         <h3><a href="http://freeplane.sourceforge.net"  target="_blank">FreePlane compatible file</a> </h3>
