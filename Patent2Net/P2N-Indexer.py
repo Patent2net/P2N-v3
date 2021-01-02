@@ -59,28 +59,38 @@ def GenereListeFichiers(rep):
 
 #lstAbs = os.listdir(Rep+'//Abstract')
 #getting labels from file names
-lstAbs = [truc.split('-')[1].replace('.txt', '') for truc in os.listdir(Rep+'//Abstract')] 
-
+lstAbs = [truc.split('-')[1].replace('.txt', '') for truc in os.listdir(Rep+'//Abstract') if '-' in truc] 
+lstAbs2 =[truc.replace('.txt', '') for truc in os.listdir(Rep+'//Abstract') if '-' not in truc] 
 #lstClaims = os.listdir(Rep+'//Claims')
 #getting labels from file names
-lstClaims = [truc.split('-')[1].replace('.txt', '') for truc in os.listdir(Rep+'//Claims')] 
+lstClaims = [truc.split('-')[1].replace('.txt', '') for truc in os.listdir(Rep+'//Claims') if '-' in truc] 
+
+lstClaims2 =[truc.replace('.txt', '') for truc in os.listdir(Rep+'//Claims') if '-' not in truc] 
 
 #lstDesc = os.listdir(Rep+'//Description')
 #getting labels from file names
-lstDesc = [truc.split('-')[1].replace('.txt', '') for truc in os.listdir(Rep+'//Description')] 
+lstDesc = [truc.split('-')[1].replace('.txt', '') for truc in os.listdir(Rep+'//Description') if '-' in truc] 
+lstDesc2 =[truc.replace('.txt', '') for truc in os.listdir(Rep+'//Description') if '-' not in truc] 
 
 cpt = 0
 for bre in LstBrevet: # get patent list from request file
     cpt +=1
-    if bre ['label'] in lstAbs: # if abstract file exists for that label in PatentContent///Abstract
-        fic = [truc for truc in  os.listdir(Rep+'//Abstract') if truc.split('-')[1].replace('.txt', '') == bre ['label']]
+    if bre ['label'] in lstAbs or bre ['label'] in lstAbs2: #if abstract file exists for that label in PatentContent///Abstract
+        fic = []
+        for truc in  os.listdir(Rep+'//Abstract'):
+            if '-' in truc and truc.split('-')[1].replace('.txt', '') == bre ['label']:            
+                fic.append(truc)
+            elif truc.replace('.txt', '') == bre ['label']:
+                 fic.append(truc)
+            else:
+                pass
         if len(fic) == 1:
             with open(Rep+'/Abstract/' + fic [0], 'r') as data:
                 abstract = data.read()
         elif len(fic) > 1:
             fic = [truc for truc in fic if 'en' in truc] # using english only
             if len(fic)>0:
-                with open(Rep+'/Abstract/' + fic [0], 'r') as data:
+                with open(Rep+'/Abstract/' + fic [0], 'r', encoding ='utf8') as data:
                     abstract = data.read()
             else:
                  abstract = ''
@@ -88,10 +98,20 @@ for bre in LstBrevet: # get patent list from request file
              abstract = ''
     else:
         abstract = ''
-    if bre ['label'] in lstClaims: # if Claims file exists
-        fic = [truc for truc in  os.listdir(Rep+'//Claims') if truc.split('-')[1].replace('.txt', '') == bre ['label']]
+    if bre ['label'] in lstClaims or bre ['label'] in lstClaims2: # if Claims file exists
+        #fic = [truc for truc in  os.listdir(Rep+'//Claims') if truc.split('-')[1].replace('.txt', '') == bre ['label']]
+        fic = []
+        
+        for truc in  os.listdir(Rep+'//Claims'):
+            if '-' in truc and truc.split('-')[1].replace('.txt', '') == bre ['label']:            
+                 fic.append(truc)
+            elif truc.replace('.txt', '') == bre ['label']:
+                 fic.append(truc)
+            else:
+                pass
+        
         if len(fic) == 1:
-            with open(Rep+'/Claims/' + fic [0], 'r') as data:
+            with open(Rep+'/Claims/' + fic [0], 'r', encoding ='utf8') as data:
                 Claims = data.read()
         elif len(fic) > 1:
             fic = [truc for truc in fic if 'en' in truc] # using english only
@@ -104,10 +124,19 @@ for bre in LstBrevet: # get patent list from request file
              Claims = ''
     else:
         Claims = ''
-    if bre ['label'] in lstDesc: # if Description file exists
-        fic = [truc for truc in  os.listdir(Rep+'//Description') if truc.split('-')[1].replace('.txt', '') == bre ['label']]
+    if bre ['label'] in lstDesc or bre ['label'] in lstDesc2: # if Description file exists
+        #fic = [truc for truc in  os.listdir(Rep+'//Description') if truc.split('-')[1].replace('.txt', '') == bre ['label']]
+        fic = []
+        
+        for truc in  os.listdir(Rep+'//Description'):
+            if '-' in truc and truc.split('-')[1].replace('.txt', '') == bre ['label']:            
+                 fic.append(truc)
+            elif truc.replace('.txt', '') == bre ['label']:
+                 fic.append(truc)
+            else:
+                pass
         if len(fic) == 1:
-            with open(Rep+'/Description/' + fic [0], 'r') as data:
+            with open(Rep+'/Description/' + fic [0], 'r', encoding ='utf8') as data:
                 Description = data.read()
         elif len(fic) > 1:
             fic = [truc for truc in fic if 'en' in truc] # using english only
@@ -140,5 +169,5 @@ for bre in LstBrevet: # get patent list from request file
            'description': Description,
            'content': abstract + '\n' + Description + '\n' + Claims        
         }
-    res = es.index(index=ndf, id=cpt, body=doc)
+    res = es.index(index=ndf.lower(), id=cpt, body=doc)
     print(res['result'])
