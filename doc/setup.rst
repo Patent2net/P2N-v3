@@ -15,10 +15,10 @@ follow up with its :ref:`configuration`.
 ************
 Installation
 ************
-- Install docker desktop
-- download the docker-install branch (https://github.com/Patent2net/P2N-v3/tree/docker_install)
-- Use the Install_P2N.bat and enjoy P2N via docker image
-- See Install.bat in the elatickibana directory for the full architecture (BETA)
+#. Install docker desktop
+#. download the docker-install branch (https://github.com/Patent2net/P2N-v3/tree/docker_install)
+#. Use the Install_P2N.bat and enjoy P2N via docker image
+#. See Install.bat in the elatickibana directory for the full architecture (BETA) with elastic search and Kibana
 
 *****
 Usage
@@ -37,7 +37,7 @@ Install from source
 - Download P2N latest https://github.com/Patent2net/P2N-v3
 - Unzip to a the P2N directory (please choose a safe path: the root of your second hard drive (d:\P2N) for instance is the prefered choice)
 - Launch (double click) installP2N.bat (let it work; do not close windows; that process can be quite long depending on you machine and network access)
-- Copy or create cles-epo.txt file (be aware must be ANSI encode caracters!). See https://docs.ip-tools.org/patent2net/configure.html
+- Copy or create cles-epo.txt file (be aware must be ANSI encode caracters!). See https://docs.ip-tools.org/patent2net/configure.html .
 - Formulate the desired *.cql file in ./REQUESTS/ directory. See https://docs.ip-tools.org/patent2net/usage/index.html 
 - Double click runP2N.bat and have fun!
 

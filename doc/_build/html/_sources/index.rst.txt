@@ -7,7 +7,7 @@
 Welcome to Patent2Net
 #####################
 
-.. include:: README.rst
+.. include:: ../README.rst
 
 
 
@@ -22,7 +22,14 @@ Getting started
     configure
     usage/index
 
+***********************************
+Global architechture and data model 
+***********************************
 
+.. toctree::
+    :maxdepth: 1
+	
+	
 ***********
 Development
 ***********
@@ -35,6 +42,7 @@ Development
     documentation
     release
     todo
+
 
 
 Indices and tables

@@ -37,10 +37,9 @@ Install from source
 - Download P2N latest https://github.com/Patent2net/P2N-v3
 - Unzip to a the P2N directory (please choose a safe path: the root of your second hard drive (d:\P2N) for instance is the prefered choice)
 - Launch (double click) installP2N.bat (let it work; do not close windows; that process can be quite long depending on you machine and network access)
-- Copy or create cles-epo.txt file (be aware must be ANSI encode caracters!). See https://docs.ip-tools.org/patent2net/configure.html
+- Copy or create cles-epo.txt file (be aware must be ANSI encode caracters!). See https://docs.ip-tools.org/patent2net/configure.html .
 - Formulate the desired *.cql file in ./REQUESTS/ directory. See https://docs.ip-tools.org/patent2net/usage/index.html 
 - Double click runP2N.bat and have fun!
-
 
 Next is just for history
 ========================
@@ -52,7 +51,6 @@ Next is just for history
 - Install the current development version::
 
     pip install 'https://github.com/Patent2net/P2N/archive/develop.tar.gz' --upgrade
-
 
 
 Install binary package (Old features)

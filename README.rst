@@ -29,9 +29,12 @@ About
 
 .. note:: Contributions are always welcome!
 
-## P2N essential features covered
-
-### In short (read the usage manual in progress)
+******************************
+P2N essential features covered
+******************************
+ ********************************************
+ In short (read the usage manual in progress)
+ ********************************************
 
 * Patent2Net interface you to the [European Patent Organisation](https://www.epo.org/) worldwide database to gather patent documents set in answer to your requests 
 * Patent2Net interfaces also several softwares to build indicators and help analyse: [Datatable] (https://datatables.net/), [Pivot table] (https://pivottable.js.org/examples/)
