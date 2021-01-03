@@ -41,7 +41,6 @@ Install from source
 - Formulate the desired *.cql file in ./REQUESTS/ directory. See https://docs.ip-tools.org/patent2net/usage/index.html 
 - Double click runP2N.bat and have fun!
 
-
 Next is just for history
 ========================
 - Source releases are available from GitHub: https://github.com/Patent2net/P2N/releases
@@ -52,7 +51,6 @@ Next is just for history
 - Install the current development version::
 
     pip install 'https://github.com/Patent2net/P2N/archive/develop.tar.gz' --upgrade
-
 
 
 Install binary package (Old features)

@@ -29,6 +29,38 @@ Patent2Net is free software, dedicated to:
   
 Contributions are always welcome!
 
+## P2N essential features covered
+### In short (read the usage manual in progress)
+* Patent2Net interface you to [European Patent Organisation](https://www.epo.org/) worldwide database to gather patent documents set in answer to your requests 
+* Patent2Net interface several software to build indicators and help analyse: [Datatable] (https://datatables.net/), [Pivot table] (https://pivottable.js.org/examples/)
+* Patent2Net provides files compatible with two major open source projects in text analysis say [IRaMuTeQ] (iramuteq.org/) and document clustering (the already named Carrot2)[Carrot2] (https://github.com/carrot2/carrot2). But these programs have to be installed by your way. P2N provide data in compatible format for the distributions.
+* Patent2Net build as well network files from patent Metadata. Assuming some trivial hypothesis that co-authors of a patent works together... Same for co-applicants: so networks analyses aims to help in exploring who works for who, who works with who... And so on. Same with the  [International Patent Classification] (https://www.wipo.int/classifications/ipc/en/) that provides language independent views on patent sets. This P2N version integrate inline interface to those networks (see the link in page data synthesis) but the interface with network is not friendly enought. We recommend the use of the exported files in gexf format compatible with the wondefull Open Graph Viz Platform [Gephi](https://gephi.org/) that you may install on your machine.
+* Patent2Net, aside HTML5, exports also in several format: CSV, Excel, BibTex for [Zotero] (https://www.zotero.org/) import.
+
+### Undocumented features
+* some extra additional features comes also within the makefile... Help us to improve the docs and the projects
+
+Who we are
+----------
+[Patent2Net] (http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=page) is :
+* elaborated and maintained (on a free base) by a [small international team] (http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:community;) of university professors and researchers.  
+* an "open source" package and contributions are welcome
+
+Disclaim
+--------
+* available "[as it is] (http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer)".
+* To use at your own risk, same for all features provided and companion softwares or servers. 
+
+Objectives
+----------
+Patent2Net is a free package, dedicated to :
+* promote the use of patent information in academic, nano and small firms, developing countries
+* learn, study and practice how to collect, treat and communicate "textual bibliographic information", and automation process
+* provide statistical analysis and representations of a set of patents
+* learn skills in data-mining software, Data analysis, Textual data-mining, distance reading, knowledge discovery
+
+The example [results](http://patent2netv2.vlab4u.info/) of statistical patents analysis can be exported to a website with the firefox browser.
+
 
 Project information
 ===================
@@ -37,6 +69,8 @@ see also `Patent2Net on GitHub`_.
 The project is elaborated and maintained by an `international team <Patent2Net Community_>`_
 of university professors and researchers on a free basis.
 The software is provided "AS IS", see also `Patent2Net Disclaimer`_.
+* available "[as it is] (http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer)".
+* To use at your own risk, same for all features provided and companion softwares or servers. 
 
 .. _Patent2Net on GitHub: https://github.com/Patent2net/P2N-v3/tree/master
 .. _Patent2Net Disclaimer: http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer
