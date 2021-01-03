@@ -2,33 +2,62 @@
 Todo list and ideas
 ###################
 
+Version 4.0.0
+=============
 ******
 Agenda
 ******
-User UX improvements
-====================
-* Use flask and template to redesing the whole interface keeping in ming kibana and ES new capability
-* improve progress bar 
+.. note:: 
+ - ASAP
+ - when practioners are decides and can be recruited
+ - and when the weather is not so fine
+ 
+Completed
+---------
+- [x] Avoid the installation procedure by the use of a docker image
+- [x] Many bug fixing and data consolidation
+- [x] Integrate the full documentation system in the flask interface
+- [x] Use of the docker powerfull feature to extend the global architecture to an ElasticSearch server and it's Kibana brother (or sister I don't mind in fact). Opening to new ways of exploration
+- [x] Carrot2 plugin integration
 
-Improvements
-============
-Although Patent2Net is fully operational, works fine and is enough to begin using Patent Information, a lot can be done to improve analysis:
+Todo
+----
+- [o] Kibana and elastic search usage
+- [o] Some Iramuteq processing steps coulb directly part of P2N
+- [o] Mindmaps integration in the full web system
+- [o] Network visualisation and exploring tool integration. Actual Gexf-js interface is a poorly downgrade of Gephi features and data integrated by P2N in network representations.
+- [o] Write documentation about data model 
+- [o] Write documentation about usage
+- [o] Write documentation about global architecture
 
-* Correct the issues (continuous process, of course)
-* Add some more information in the result html page (ModeleContenuIndex.html). Great to add the processing date (thus can be different from gathering) and P2N version
-* As information analysis do not always represent the whole Patent Universe (i.e. french abstract) provide the proportion of P.U. concerned by each analysis
-* Treat Designated State(s) information for EP and WO patentes to complete the attractivity maps
-* Improve the Mindmap option to get it more efficient for creativity (Celso is working on)
-* Build the entire network as a gephi file for download to let new combined network analysis possible
-* Use the list of standardised applicant names from EPO to normalize nets and tables. See: [CSV datafile] (http://documents.epo.org/projects/babylon/rawdata.nsf/0/71DE2EB24A084A19C1257F3B0032BA98/)
+### User UX improvements
+
+* Use flask and templates to re-design the whole interface keeping in mind kibana and Elatic Search new capability
+* improve progress bar design page
+
+### Others improvements
+
+> Although Patent2Net is fully operational, works fine and is enough to begin using Patent Information, a lot can be done to improve analysis:
+ * Correct the issues (continuous process, of course)
+ * Add some more information in the result html page (ModeleContenuIndex.html). Great to add the processing date (thus can be different from the gathering date) and P2N version
+ * As information analysis do not always represent the whole _Patent Universe (PU)_ (for instance french abstracts only) metrics should provide the proportion of P.U. concerned by each analysis
+ * Treat Designated State(s) information for EP and WO patentes to complete the attractivity maps. Check if register information recently added (thanks amotl)
+ * Improve the Mindmap option to get it more efficient for creativity (Celso is still working on?)
 
 
+New contributions and ideas are always welcome.
+
+
+*****
+Tasks
+*****
 New capabilities
 ================
-Add some new capabilities to Patent2Net, i.e.:
+Added some new capabilities to Patent2Net, i.e.:
 
-* Within the Patent Universe, build a drawings gallery with hyperlink to the Espacenet patent (Andre is working on)
-* Within the Familly Patent Universe, provide all the same analysis as with the Patent Universe (Roberto is working on)
+* Within the Patent Universe, build a drawings gallery with hyperlink to the Espacenet patent 
+* Within the Familly Patent Universe, provide all the same analysis as with the Patent Universe 
+Todo
 * Include the treatment of the Cooperative Patent Classification (CPC) with the proportion of P.U. concerned (http://www.cooperativepatentclassification.org/Archive.html)
 * Build a small database to display results of a specific (Familly) Patent Universe. Database could be [PouchDB] (https://pouchdb.com/) or equivalent
 
@@ -41,14 +70,6 @@ Provide some new ways of gathering and analysis of patent information, i.e.:
 * Limit the Familly Patent Universe to the only Priority patents, and provide a complete analysis
 * Using citations of the Familly Patent Universe, provide genealogic analysis, especially descendants to try to detect invention fronts.
 * Gather research reports when avalaible and provide analysis chains
-
-
-New contributions and ideas are always welcome.
-
-
-*****
-Tasks
-*****
 
 Version 3.0.0
 =============
@@ -65,11 +86,7 @@ Completed
 
 Todo
 ----
-- [o] Kibana and elastic search usage
-- [o] Carrot2 integration
-- [o] Iramuteq processing steps
-- [o] Mindmaps integration in full web
-- [o] Network visualisation and exploring tool integration
+
 - [o] OPS Register: Always sort event-like data in ascending order?
       Right now, sort order is mixed as of "history items" vs. "actions" vs. "{publication,application}_reference".
 - [o] Write documentation about data model
