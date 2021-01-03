@@ -121,29 +121,32 @@ Auteurs = dict()
 for lig in data:
     col = lig   .strip()
     col = col.split(';')
-    if col[0].title() in InvNormes:
-        if col[0].title() in Inventeur_Norm.keys():
-            Auteurs [ col[0].title()] = col[1]
-        elif NoPunct(col[0].title()) in Inventeur_Norm.keys():
+    if len(col)>1:
+        if col[0].title() in InvNormes:
+            if col[0].title() in Inventeur_Norm.keys():
+                Auteurs [ col[0].title()] = col[1]
+            elif NoPunct(col[0].title()) in Inventeur_Norm.keys():
+                Auteurs [NoPunct(col[0].title())] = col[1]
+                
+            else:
+                Auteurs [[cle.title() for cle in Inventeur_Norm.keys() if col[0].title() in Inventeur_Norm[cle]][0].title()] = col[1]
+        if col[0].title() not in Auteurs.keys():
+            Auteurs [col[0].title()] = col[1]
+        elif NoPunct(col[0].title()) not in Auteurs.keys():
             Auteurs [NoPunct(col[0].title())] = col[1]
-            
         else:
-            Auteurs [[cle.title() for cle in Inventeur_Norm.keys() if col[0].title() in Inventeur_Norm[cle]][0].title()] = col[1]
-    if col[0].title() not in Auteurs.keys():
-        Auteurs [col[0].title()] = col[1]
-    elif NoPunct(col[0].title()) not in Auteurs.keys():
-        Auteurs [NoPunct(col[0].title())] = col[1]
+            if col[1] != Auteurs [col[0].title()] and '???' not in col[1]:
+                # print (col[0], " --> ", Auteurs [col[0]])
+                # print (col[0], " --> ", col[1])
+                # il suffit qu'il y ait une virgule plus ou de moins dans l'affiliation pour passer par là
+                
+                AffilDiff +=1
+                multiAut+=1  # non sens, le script peut recollecter plusieurs fois le même auteur... pour peut qu'il soit dans 2 brevets
+            else:
+                multiAut+=1
+                pass
     else:
-        if col[1] != Auteurs [col[0].title()] and '???' not in col[1]:
-            print (col[0], " --> ", Auteurs [col[0]])
-            print (col[0], " --> ", col[1])
-            
-            AffilDiff +=1
-            multiAut+=1  # non sens, le script peut recollecter plusieurs fois le même
-        else:
-            multiAut+=1
-            pass
-
+        print (col) # cas où il n'y a pas d'affiliation pour l'auteur :-()
 
 
 for fic in [ndf, 'Families'+ndf]:

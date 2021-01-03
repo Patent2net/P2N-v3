@@ -1,4 +1,4 @@
-$Reps = "requests3"
+$Reps = "requests3", "request2", "request", "REQ-P7"
 foreach ($scriptPath in $Reps) {
 	$scriptPath = (-join('..\', $scriptPath, '\'))
 	echo $scriptPath
