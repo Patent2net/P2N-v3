@@ -32,9 +32,8 @@ About
 ******************************
 P2N essential features covered
 ******************************
- ********************************************
- In short (read the usage manual in progress)
- ********************************************
+ #. In short (read the usage manual in progress)
+
 
 * Patent2Net interface you to the `European Patent Organisation <https://www.epo.org/>`_ worldwide database to gather patent documents set in answer to your requests 
 * Patent2Net interfaces also several softwares to build indicators and help analyse: `Datatable <https://datatables.net/>`_, `Pivot table <https://pivottable.js.org/examples/>`_
@@ -43,9 +42,9 @@ P2N essential features covered
 * Patent2Net, aside HTML5, exports also in several format: CSV, Excel, BibTex for `Zotero <https://www.zotero.org/>`_ import.
 
 
-### Undocumented features
+ #. Undocumented features
 
-> Some extra additional features comes also within the makefile... Help us to improve the docs and the projects
+Some extra additional features comes also within the makefile... Help us to improve the docs and the projects
 
 Project information: Who we are and disclaimer
 ==============================================
@@ -54,24 +53,29 @@ see also `Patent2Net on GitHub`_.
 The project is elaborated and maintained by an `international team <Patent2Net Community_>`_
 of university professors and researchers on a free basis.
 The software is provided "AS IS", see also `Patent2Net Disclaimer`_.
-* available "[as it is] (http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer)".
+
+* available `as it is <http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer)>`_.
 * To use at your own risk, same for all features provided and companion softwares or servers. 
 
-.. _Patent2Net on GitHub: https://github.com/Patent2net/P2N-v3/tree/master
-.. _Patent2Net Disclaimer: http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer
-.. _Patent2Net Community: http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:community
+.. _Patent2Net-repo:
+ `GitHub <https://github.com/Patent2net/P2N-v3/tree/master>`_.
+.. _Patent2Net-Disclaimer: 
+ `Disclaimer <http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer>`_.
+.. _Patent2Net-Community:
+ `Community <http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:community>`_.
 
 
-The example [results](http://patent2netv2.vlab4u.info/) of statistical patents analysis can be exported to a website with the firefox browser.
+The example `results <http://patent2netv2.vlab4u.info/>`_ of statistical patents analysis can be exported to a website with the firefox browser.
 
 
 *************
 Documentation
 *************
-- `Patent2Net Documentation`_
 
-.. _Patent2Net Wiki: http://patent2netv2.vlab4u.info/dokuwiki/
-.. _Patent2Net Documentation: https://docs.ip-tools.org/patent2net/
+
+.. _`Patent2Net-Documentation:
+ * `Wiki <http://patent2netv2.vlab4u.info/dokuwiki/>`_
+ * `Documentation <https://docs.ip-tools.org/patent2net/>`_
 
 
 ****
@@ -80,7 +84,12 @@ Demo
 Some results of patent analysis can be explored on http://patent2netv2.vlab4u.info/, e.g. about
 `3D printing`_, `Arabic gum emulsifiers`_ or `Creativity`_.
 
-.. _Creativity: http://patent2netv2.vlab4u.info/DATA/creativity.html
-.. _3D printing: http://patent2netv2.vlab4u.info/DATA/3Dprint.html
-.. _Arabic gum emulsifiers: http://patent2netv2.vlab4u.info/DATA/Arabic_Gum.html
+.. _Creativity:
+ * `Creativity <http://patent2netv2.vlab4u.info/DATA/creativity.html>`_.
+ 
+.. _3D-printing:
+ * `3D-printing <http://patent2netv2.vlab4u.info/DATA/3Dprint.html>`_
+
+.. _Arabic-gum-emulsifiers: 
+ * `Arabic gum emulsifiers <http://patent2netv2.vlab4u.info/DATA/Arabic_Gum.html>`_
 
