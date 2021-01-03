@@ -37,7 +37,7 @@
     
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Setup" href="setup.html" /> 
+    <link rel="next" title="Welcome to Patent2Net" href="welcome.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,9 +87,14 @@
             
             
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome to Patent2Net</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configure.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="system.html">System configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataModel.html">P2N Data model</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="CHANGES.html">Changelog</a></li>
@@ -179,9 +184,9 @@
 <div class="section" id="about">
 <h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
 <dl class="simple">
-<dt>&gt; Patent2Net is a toolkit for patent information processing and statistical analysis for education and science.</dt><dd><p>Patent2Net aims to collect and help study and analyze patent data from the European Patent Office’s Open Patent Services API (OPS).</p>
+<dt>:: Patent2Net is a toolkit for patent information processing and statistical analysis for education and science.</dt><dd><p>Patent2Net aims to collect and help study and analyze patent data from the European Patent Office’s <a class="reference external" href="https://www.epo.org/searching-for-patents/data/web-services/ops.html">Open Patent Services API (OPS)</a>.</p>
 </dd>
-<dt>&gt; Patent2Net is free software, dedicated to:</dt><dd><ul class="simple">
+<dt>:: Patent2Net is free software, dedicated to:</dt><dd><ul class="simple">
 <li><p>provide statistical analysis and representations of a set of patents.</p></li>
 <li><p>promote the use of patent information in academic, nano and small firms, developing countries</p></li>
 <li><p>learn, study and practice how to collect, treat and communicate “textual bibliographic information”, and automation process</p></li>
@@ -204,6 +209,12 @@
 <li><p>Patent2Net interface you to the <a class="reference external" href="https://www.epo.org/">European Patent Organisation</a> worldwide database to gather patent documents set in answer to your requests</p></li>
 <li><p>Patent2Net interfaces also several softwares to build indicators and help analyse: <a class="reference external" href="https://datatables.net/">Datatable</a>, <a class="reference external" href="https://pivottable.js.org/examples/">Pivot table</a></p></li>
 <li><p>Patent2Net provides compatible files with two major open source projects in text analysis <a class="reference external" href="http://iramuteq.org/">IRaMuTeQ</a> and document clustering <a class="reference external" href="https://github.com/carrot2/carrot2">Carrot2</a>. But these programs have to be installed by your way. P2N provide data in compatible format for the different distributions.</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>the docker version includes now a beta version of the Carrot2 software plugin using the Elastic Search server!</p>
+</div>
+<ul class="simple">
 <li><p>Patent2Net build as well network files from patent Metadata. Assuming some trivial hypothesis that co-authors of a patent works together… Same for co-applicants: so networks analyses aims to help in exploring who works for who, who works with who… And so on. Same with the  <a class="reference external" href="https://www.wipo.int/classifications/ipc/en/">International Patent Classification</a> metadata field that provides language independent views on patent sets. This P2N version integrate inline interface to those networks (see the link in page data synthesis) but the interface with network is not friendly enought. We recommend the use of the exported files in gexf format compatible with the wondefull Open Graph Viz Platform <a class="reference external" href="https://gephi.org/">Gephi</a> that you may install on your machine.</p></li>
 <li><p>Patent2Net, aside HTML5, exports also in several format: CSV, Excel, BibTex for <a class="reference external" href="https://www.zotero.org/">Zotero</a> import.</p></li>
 </ul>
@@ -228,16 +239,28 @@ The software is provided “AS IS”, see also <span class="xref std std-ref">Pa
 </div>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
-<p>Some results of patent analysis can be explored on <a class="reference external" href="http://patent2netv2.vlab4u.info/">http://patent2netv2.vlab4u.info/</a>, e.g. about
-<a href="#id1"><span class="problematic" id="id2">:ref:`3D-printing`_</span></a>, <a href="#id3"><span class="problematic" id="id4">:ref:`Arabic-gum-emulsifiers`_</span></a> or <a href="#id5"><span class="problematic" id="id6">:ref:`Creativity`_</span></a>.</p>
+<p>Some results of patent analysis can be explored on <a class="reference external" href="http://patent2netv2.vlab4u.info/">http://patent2netv2.vlab4u.info/</a>. See for instance some use case processed:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://patent2netv2.vlab4u.info/DATA/creativity.html">Creativity</a></p></li>
+<li><p><a class="reference external" href="http://patent2netv2.vlab4u.info/DATA/3Dprint.html">3D-printing</a></p></li>
+<li><p><a class="reference external" href="http://patent2netv2.vlab4u.info/DATA/Arabic_Gum.html">Arabic-gum-emulsifiers</a></p></li>
+</ul>
+</div>
+<div class="section" id="summary-of-the-whole-documentation">
+<h2>Summary of the whole documentation<a class="headerlink" href="#summary-of-the-whole-documentation" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome to Patent2Net</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configure.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage</a></li>
 </ul>
 </div>
 <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="system.html">System configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataModel.html">P2N Data model</a></li>
+</ul>
 </div>
 <div class="toctree-wrapper compound">
 <ul>
@@ -264,7 +287,7 @@ The software is provided “AS IS”, see also <span class="xref std std-ref">Pa
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="setup.html" class="btn btn-neutral float-right" title="Setup" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="welcome.html" class="btn btn-neutral float-right" title="Welcome to Patent2Net" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>

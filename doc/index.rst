@@ -10,28 +10,28 @@ Welcome to Patent2Net
 .. include:: ../README.rst
 
 
-
 ***************
 Getting started
 ***************
 
 .. toctree::
     :maxdepth: 1
-
+	
+    welcome
     setup
     configure
     usage/index
 
 ***********************************
-Global architechture and data model 
+Global architecture and data model 
 ***********************************
 
 .. toctree::
     :maxdepth: 1
 	
-	system
-	dataModel 
-	exports
+    system
+    dataModel 
+    exports
 	
 ***********
 Development
@@ -47,9 +47,9 @@ Development
     todo
 
 
-
+******************
 Indices and tables
-==================
+******************
 
 * :ref:`genindex`
 * :ref:`modindex`

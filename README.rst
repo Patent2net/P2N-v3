@@ -54,18 +54,14 @@ Some extra additional features comes also within the makefile... Help us to impr
 Project information: Who we are and disclaimer
 ==============================================
 The source code of the »Patent2Net« toolkit is available under an open source license,
-see also :ref:`Patent2Net-repo` Patent2Net on GitHub
+see also  ` Patent2Net on GitHub <https://github.com/Patent2net/P2N-v3/tree/master>`_
  
-The project is elaborated and maintained by an `international team :ref:`Patent2Net-Community`
+The project is elaborated and maintained by an `international team <http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:community>`_
 of university professors and researchers on a free basis.
-The software is provided "AS IS", see also :ref:`Patent2Net_Disclaimer`.
+The software is provided "AS IS", see also `Patent2Net_Disclaimer <http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer>`_
 
 * available `as it is <http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer)>`_.
 * To use at your own risk, same for all features provided and companion softwares or servers. 
-
-.. _Patent2Net-repo: https://github.com/Patent2net/P2N-v3/tree/master 
-.. _Patent2Net-Disclaimer: http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer
-.. _Patent2Net-Community: http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:community
 
 
 The example `results <http://patent2netv2.vlab4u.info/>`_ of statistical patents analysis can be exported to a website with the firefox browser.
