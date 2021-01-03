@@ -25,7 +25,7 @@ About
  * learn, study and practice how to collect, treat and communicate "textual bibliographic information", and automation process
  * learn several information processing in the Library and Information Science fields.
  * learn skills in data-mining software, Data analysis, Textual data-mining, distance reading, knowledge discovery
- * See extra-feature with [the docker version] (https://github.com/Patent2net/P2N-Docker)
+ * See extra-feature with `the docker version <https://github.com/Patent2net/P2N-Docker>`_
 
 .. note:: Contributions are always welcome!
 
@@ -36,11 +36,11 @@ P2N essential features covered
  In short (read the usage manual in progress)
  ********************************************
 
-* Patent2Net interface you to the [European Patent Organisation](https://www.epo.org/) worldwide database to gather patent documents set in answer to your requests 
-* Patent2Net interfaces also several softwares to build indicators and help analyse: [Datatable] (https://datatables.net/), [Pivot table] (https://pivottable.js.org/examples/)
-* Patent2Net provides compatible files with two major open source projects in text analysis [IRaMuTeQ] (iramuteq.org/) and document clustering [Carrot2] (https://github.com/carrot2/carrot2). But these programs have to be installed by your way. P2N provide data in compatible format for the different distributions.
-* Patent2Net build as well network files from patent Metadata. Assuming some trivial hypothesis that co-authors of a patent works together... Same for co-applicants: so networks analyses aims to help in exploring who works for who, who works with who... And so on. Same with the  [International Patent Classification] (https://www.wipo.int/classifications/ipc/en/) metadata field that provides language independent views on patent sets. This P2N version integrate inline interface to those networks (see the link in page data synthesis) but the interface with network is not friendly enought. We recommend the use of the exported files in gexf format compatible with the wondefull Open Graph Viz Platform [Gephi](https://gephi.org/) that you may install on your machine.
-* Patent2Net, aside HTML5, exports also in several format: CSV, Excel, BibTex for [Zotero] (https://www.zotero.org/) import.
+* Patent2Net interface you to the `European Patent Organisation <https://www.epo.org/>`_ worldwide database to gather patent documents set in answer to your requests 
+* Patent2Net interfaces also several softwares to build indicators and help analyse: `Datatable <https://datatables.net/>`_, `Pivot table <https://pivottable.js.org/examples/>`_
+* Patent2Net provides compatible files with two major open source projects in text analysis `IRaMuTeQ <http://iramuteq.org/>`_ and document clustering `Carrot2 <https://github.com/carrot2/carrot2>`_. But these programs have to be installed by your way. P2N provide data in compatible format for the different distributions.
+* Patent2Net build as well network files from patent Metadata. Assuming some trivial hypothesis that co-authors of a patent works together... Same for co-applicants: so networks analyses aims to help in exploring who works for who, who works with who... And so on. Same with the  `International Patent Classification <https://www.wipo.int/classifications/ipc/en/>`_ metadata field that provides language independent views on patent sets. This P2N version integrate inline interface to those networks (see the link in page data synthesis) but the interface with network is not friendly enought. We recommend the use of the exported files in gexf format compatible with the wondefull Open Graph Viz Platform `Gephi <https://gephi.org/>`_ that you may install on your machine.
+* Patent2Net, aside HTML5, exports also in several format: CSV, Excel, BibTex for `Zotero <https://www.zotero.org/>`_ import.
 
 
 ### Undocumented features
