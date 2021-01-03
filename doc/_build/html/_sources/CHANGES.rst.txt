@@ -20,8 +20,8 @@ Patent2Net CHANGES
  - ElasticSearch and Kibana are just here to start the new ways for P2N. At this time no features are provided at all. Specialists are welcome
  - Secure version of VSFTPD, fixed several security bugs (port 20-21). 
 
-.. warning:: 
- User p2n with no passwd is set in Dockerfile. Mind in changing this if installing P2N on the cloud!
+.. danger:: 
+ User p2n with no passwd is set in Dockerfile. Mind in changing this if installing P2N on the cloud or on an docker open to the Internet!
 
 
 2020-11-30 3.1.0-dev5

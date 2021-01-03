@@ -51,20 +51,18 @@ Some extra additional features comes also within the makefile... Help us to impr
 Project information: Who we are and disclaimer
 ==============================================
 The source code of the »Patent2Net« toolkit is available under an open source license,
-see also `Patent2Net on GitHub`_.
-The project is elaborated and maintained by an `international team <Patent2Net Community_>`_
+see also :ref:`Patent2Net-repo` Patent2Net on GitHub
+ 
+The project is elaborated and maintained by an `international team :ref:`Patent2Net-Community`
 of university professors and researchers on a free basis.
-The software is provided "AS IS", see also `Patent2Net Disclaimer`_.
+The software is provided "AS IS", see also :ref:`Patent2Net_Disclaimer`.
 
 * available `as it is <http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer)>`_.
 * To use at your own risk, same for all features provided and companion softwares or servers. 
 
-.. _Patent2Net-repo:
- `GitHub <https://github.com/Patent2net/P2N-v3/tree/master>`_.
-.. _Patent2Net-Disclaimer: 
- `Disclaimer <http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer>`_.
-.. _Patent2Net-Community:
- `Community <http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:community>`_.
+.. _Patent2Net-repo: https://github.com/Patent2net/P2N-v3/tree/master 
+.. _Patent2Net-Disclaimer: http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer
+.. _Patent2Net-Community: http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:community
 
 
 The example `results <http://patent2netv2.vlab4u.info/>`_ of statistical patents analysis can be exported to a website with the firefox browser.
@@ -73,11 +71,11 @@ The example `results <http://patent2netv2.vlab4u.info/>`_ of statistical patents
 =============
 Documentation
 =============
-
+************
 Doc and wiki
-------------
+************
 
-.. _`Patent2Net-Documentation:
+.. _Patent2Net-Documentation:
  * `Wiki <http://patent2netv2.vlab4u.info/dokuwiki/>`_
  * `Documentation <https://docs.ip-tools.org/patent2net/>`_
 
@@ -86,14 +84,11 @@ Doc and wiki
 Demo
 ****
 Some results of patent analysis can be explored on http://patent2netv2.vlab4u.info/, e.g. about
-`3D printing`_, `Arabic gum emulsifiers`_ or `Creativity`_.
+:ref:`3D-printing`_, :ref:`Arabic-gum-emulsifiers`_ or :ref:`Creativity`_.
 
-.. _Creativity:
- * `Creativity <http://patent2netv2.vlab4u.info/DATA/creativity.html>`_.
+.. _Creativity: http://patent2netv2.vlab4u.info/DATA/creativity.html
  
-.. _3D-printing:
- * `3D-printing <http://patent2netv2.vlab4u.info/DATA/3Dprint.html>`_
+.. _3D-printing: 3D-printing <http://patent2netv2.vlab4u.info/DATA/3Dprint.html
 
-.. _Arabic-gum-emulsifiers: 
- * `Arabic gum emulsifiers <http://patent2netv2.vlab4u.info/DATA/Arabic_Gum.html>`_
+.. _Arabic-gum-emulsifiers: http://patent2netv2.vlab4u.info/DATA/Arabic_Gum.html
 
