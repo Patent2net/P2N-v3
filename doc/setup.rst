@@ -43,6 +43,7 @@ Install from source
 
 Next is just for history
 ========================
+
 - Source releases are available from GitHub: https://github.com/Patent2net/P2N/releases
 - Install a specific version::
 

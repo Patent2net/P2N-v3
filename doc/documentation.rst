@@ -7,7 +7,7 @@ Documentation
 Introduction
 ************
 Beautiful static HTML documentation can be easily built using the Sphinx documentation generator.
-Sphinx uses .. _reStructuredText: https://docutils.sourceforge.io/docs/user/rst/quickref.html as its markup language, and many of its strengths come from the power
+Sphinx uses `reStructuredText <https://docutils.sourceforge.io/docs/user/rst/quickref.html>`_ as its markup language, and many of its strengths come from the power
 and straightforwardness of reStructuredText.
 
 The documentation can be built locally and also will be published to https://docs.ip-tools.org/patent2net/.

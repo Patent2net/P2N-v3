@@ -29,6 +29,9 @@ Global architechture and data model
 .. toctree::
     :maxdepth: 1
 	
+	System
+	Data model 
+	Exports
 	
 ***********
 Development
