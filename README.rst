@@ -83,12 +83,11 @@ Doc and wiki
 ****
 Demo
 ****
-Some results of patent analysis can be explored on http://patent2netv2.vlab4u.info/, e.g. about
-:ref:`3D-printing`_, :ref:`Arabic-gum-emulsifiers`_ or :ref:`Creativity`_.
+Some results of patent analysis can be explored on http://patent2netv2.vlab4u.info/. See for instance some use case processed:
 
-.. _Creativity: http://patent2netv2.vlab4u.info/DATA/creativity.html
+* `Creativity <http://patent2netv2.vlab4u.info/DATA/creativity.html>`_
  
-.. _3D-printing: 3D-printing <http://patent2netv2.vlab4u.info/DATA/3Dprint.html
+* `3D-printing <http://patent2netv2.vlab4u.info/DATA/3Dprint.html>`_
 
-.. _Arabic-gum-emulsifiers: http://patent2netv2.vlab4u.info/DATA/Arabic_Gum.html
+* `Arabic-gum-emulsifiers <http://patent2netv2.vlab4u.info/DATA/Arabic_Gum.html>`_
 
