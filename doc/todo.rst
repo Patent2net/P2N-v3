@@ -57,7 +57,9 @@ Added some new capabilities to Patent2Net, i.e.:
 
 * Within the Patent Universe, build a drawings gallery with hyperlink to the Espacenet patent 
 * Within the Familly Patent Universe, provide all the same analysis as with the Patent Universe 
+
 Todo
+====
 * Include the treatment of the Cooperative Patent Classification (CPC) with the proportion of P.U. concerned (http://www.cooperativepatentclassification.org/Archive.html)
 * Build a small database to display results of a specific (Familly) Patent Universe. Database could be [PouchDB] (https://pouchdb.com/) or equivalent
 

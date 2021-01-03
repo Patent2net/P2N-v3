@@ -30,6 +30,7 @@ There is a convenience command for initializing Patent2Net with your OPS credent
 
 .. note:: The Patent2Net scripts expect to find the file ``cles-epo.txt`` in the projects' root folder.
 
+.. note:: the get started section: http://localhost:5000/get_started helps in integrating your credentials on P2N but you have to follow the OPS registration to get them!
 
 OPS registration
 ================

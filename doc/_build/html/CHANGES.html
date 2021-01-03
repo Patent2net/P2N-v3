@@ -195,9 +195,9 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p>Major improvements in the global architechture</p></li>
+<li><p>Major improvements in the global architecture</p></li>
 <li><p>P2N in now built on centOS v8</p></li>
-<li><p>Added a docker image for Elasticsearch: 7.9.2 with carrot2 plugin (see <a class="reference external" href="https://github.com/carrot2/elasticsearch-carrot2">https://github.com/carrot2/elasticsearch-carrot2</a>). localhost:9200 and 9300 to accès the Elasticsearch server</p></li>
+<li><p>Added a docker image for Elasticsearch: 7.9.2 with carrot2 plugin (see <a class="reference external" href="https://github.com/carrot2/elasticsearch-carrot2">https://github.com/carrot2/elasticsearch-carrot2</a>). localhost:9200 and 9300 to access the Elasticsearch server</p></li>
 <li><p>Added a docker image for Kibana: 7.9.2 (see <a class="reference external" href="https://www.elastic.co/fr/kibana">https://www.elastic.co/fr/kibana</a>). Also in the standard port 5601.</p></li>
 <li><p>First version of P2N indexer that feed the elastic search indexer</p></li>
 </ul>
@@ -211,7 +211,7 @@
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>User p2n with no passwd is set in Dockerfile. Mind in changing this for installing P2N on the cloud!</p>
+<p>User p2n with no passwd is set in Dockerfile. Mind in changing this if installing P2N on the cloud!</p>
 </div>
 </div>
 <div class="section" id="dev5">
@@ -225,18 +225,28 @@
 <div class="section" id="dev4">
 <h3>2020-07-20 3.1.0-dev4<a class="headerlink" href="#dev4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>New feature of “progess bar”</p></li>
+<li><p>New features of “progess bar”</p></li>
 <li><p>SSE system for all data processing scripts</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Help to fix the ugly page. UX and designer skills welcome!</p>
+</div>
 </div>
 <div class="section" id="dev3">
 <h3>2020-07-20 3.1.0-dev3<a class="headerlink" href="#dev3" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Introduction of new libraries in various processing steps: pandas, mpld3, scipy</p></li>
-<li><p>New processing steps of data consolidation</p></li>
+<li><p>New processing steps of data consolidation:</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
 <li><p>Applicants and Inventor Names normalisation (integration of a table from EPO with more than a million of entries)</p></li>
 <li><p>Added more thant 2000 lines in previous file thank to URFIST project</p></li>
 <li><p>New filtering process. Patents list collected from a request may contain (or not) equivalents patent. This tend to make biaises in several processing features of P2N. The new process extracts in the dataset the oldest patent in each subfamilies encountered in the set.</p></li>
+</ul>
+</div></blockquote>
+<ul class="simple">
 <li><p>several bug fixes</p></li>
 <li><p>added VSFTPD feature to communicate with the docker image</p></li>
 </ul>
@@ -246,11 +256,15 @@
 <ul class="simple">
 <li><p>New branch: docker installation</p></li>
 <li><p>P2N works now in a standalone docker Ubuntu machine (Thanks Esteban).</p></li>
+</ul>
+<blockquote>
+<div><ul class="simple">
 <li><p>Add Flask front end, localhost:5000 is the entry point.</p></li>
 <li><p>Add update feature making p2n version allways uptodate. Static versions are useless from now.</p></li>
 <li><p>Integration of several features (Pivot, Datatable)</p></li>
 <li><p>Others exports (to IramuteQ or Carrot2) have to use the download data pages</p></li>
 </ul>
+</div></blockquote>
 </div>
 <div class="section" id="id1">
 <h3>2020-01-20 3.1.0-dev1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>

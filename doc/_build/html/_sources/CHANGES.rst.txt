@@ -11,9 +11,9 @@ Patent2Net CHANGES
 2021-01-01 4.0.0-dev1
 =====================
 .. note::
- - Major improvements in the global architechture
+ - Major improvements in the global architecture
  - P2N in now built on centOS v8
- - Added a docker image for Elasticsearch: 7.9.2 with carrot2 plugin (see https://github.com/carrot2/elasticsearch-carrot2). localhost:9200 and 9300 to accès the Elasticsearch server
+ - Added a docker image for Elasticsearch: 7.9.2 with carrot2 plugin (see https://github.com/carrot2/elasticsearch-carrot2). localhost:9200 and 9300 to access the Elasticsearch server
  - Added a docker image for Kibana: 7.9.2 (see https://www.elastic.co/fr/kibana). Also in the standard port 5601.
  - First version of P2N indexer that feed the elastic search indexer
 .. warning:: 
@@ -21,7 +21,7 @@ Patent2Net CHANGES
  - Secure version of VSFTPD, fixed several security bugs (port 20-21). 
 
 .. warning:: 
- User p2n with no passwd is set in Dockerfile. Mind in changing this for installing P2N on the cloud!
+ User p2n with no passwd is set in Dockerfile. Mind in changing this if installing P2N on the cloud!
 
 
 2020-11-30 3.1.0-dev5
@@ -32,16 +32,21 @@ Patent2Net CHANGES
 
 2020-07-20 3.1.0-dev4
 =====================
-- New feature of "progess bar"
+- New features of "progess bar"
 - SSE system for all data processing scripts
 
+.. note::
+ Help to fix the ugly page. UX and designer skills welcome!
+ 
 2020-07-20 3.1.0-dev3
 =====================
 - Introduction of new libraries in various processing steps: pandas, mpld3, scipy
-- New processing steps of data consolidation
-- Applicants and Inventor Names normalisation (integration of a table from EPO with more than a million of entries)
-- Added more thant 2000 lines in previous file thank to URFIST project
-- New filtering process. Patents list collected from a request may contain (or not) equivalents patent. This tend to make biaises in several processing features of P2N. The new process extracts in the dataset the oldest patent in each subfamilies encountered in the set.
+- New processing steps of data consolidation:
+
+ - Applicants and Inventor Names normalisation (integration of a table from EPO with more than a million of entries)
+ - Added more thant 2000 lines in previous file thank to URFIST project
+ - New filtering process. Patents list collected from a request may contain (or not) equivalents patent. This tend to make biaises in several processing features of P2N. The new process extracts in the dataset the oldest patent in each subfamilies encountered in the set.
+
 - several bug fixes
 - added VSFTPD feature to communicate with the docker image
 
@@ -49,10 +54,11 @@ Patent2Net CHANGES
 =====================
 - New branch: docker installation
 - P2N works now in a standalone docker Ubuntu machine (Thanks Esteban).
-- Add Flask front end, localhost:5000 is the entry point.
-- Add update feature making p2n version allways uptodate. Static versions are useless from now.
-- Integration of several features (Pivot, Datatable)
-- Others exports (to IramuteQ or Carrot2) have to use the download data pages
+
+ - Add Flask front end, localhost:5000 is the entry point.
+ - Add update feature making p2n version allways uptodate. Static versions are useless from now.
+ - Integration of several features (Pivot, Datatable)
+ - Others exports (to IramuteQ or Carrot2) have to use the download data pages
 
 2020-01-20 3.1.0-dev1
 =====================

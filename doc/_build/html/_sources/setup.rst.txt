@@ -42,7 +42,8 @@ Install from source
 - Double click runP2N.bat and have fun!
 
 
-Nexr seems broken
+Next is just for history
+========================
 - Source releases are available from GitHub: https://github.com/Patent2net/P2N/releases
 - Install a specific version::
 
@@ -55,7 +56,7 @@ Nexr seems broken
 
 
 Install binary package (Old features)
-======================
+=====================================
 - | Binary releases are available at
   | http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=user_manual:download_install
 
@@ -64,6 +65,8 @@ Install binary package (Old features)
 ********
 Appendix
 ********
+.. warning::
+ The following (Image Magic, graphviz etc.) is functional on the Docker image. Only follow it if you make your own installation on your system. Not recommended if you aren't sure!
 
 Install ImageMagick
 ===================
