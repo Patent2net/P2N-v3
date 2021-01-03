@@ -91,3 +91,7 @@ Some results of patent analysis can be explored on http://patent2netv2.vlab4u.in
 
 * `Arabic-gum-emulsifiers <http://patent2netv2.vlab4u.info/DATA/Arabic_Gum.html>`_
 
+==================================
+Summary of the whole documentation
+==================================
+
