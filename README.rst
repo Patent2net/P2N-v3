@@ -13,9 +13,9 @@
     |_|   \__,_|\__\___|_| |_|\__| |____| |_| \_|\___|\__|     \ |_|     |____| |_| \_| /
 
 
-*****
+=====
 About
-*****
+=====
 > Patent2Net is a toolkit for patent information processing and statistical analysis for education and science.  
   Patent2Net aims to collect and help study and analyze patent data from the European Patent Office's Open Patent Services API (OPS).
 
@@ -29,11 +29,12 @@ About
 
 .. note:: Contributions are always welcome!
 
-******************************
+==============================
 P2N essential features covered
-******************************
- #. In short (read the usage manual in progress)
-
+==============================
+---------------------------------------------
+In short (read the usage manual in progress)
+---------------------------------------------
 
 * Patent2Net interface you to the `European Patent Organisation <https://www.epo.org/>`_ worldwide database to gather patent documents set in answer to your requests 
 * Patent2Net interfaces also several softwares to build indicators and help analyse: `Datatable <https://datatables.net/>`_, `Pivot table <https://pivottable.js.org/examples/>`_
@@ -41,8 +42,9 @@ P2N essential features covered
 * Patent2Net build as well network files from patent Metadata. Assuming some trivial hypothesis that co-authors of a patent works together... Same for co-applicants: so networks analyses aims to help in exploring who works for who, who works with who... And so on. Same with the  `International Patent Classification <https://www.wipo.int/classifications/ipc/en/>`_ metadata field that provides language independent views on patent sets. This P2N version integrate inline interface to those networks (see the link in page data synthesis) but the interface with network is not friendly enought. We recommend the use of the exported files in gexf format compatible with the wondefull Open Graph Viz Platform `Gephi <https://gephi.org/>`_ that you may install on your machine.
 * Patent2Net, aside HTML5, exports also in several format: CSV, Excel, BibTex for `Zotero <https://www.zotero.org/>`_ import.
 
-
- #. Undocumented features
+---------------------------------------------
+Undocumented features
+---------------------------------------------
 
 Some extra additional features comes also within the makefile... Help us to improve the docs and the projects
 
@@ -68,10 +70,12 @@ The software is provided "AS IS", see also `Patent2Net Disclaimer`_.
 The example `results <http://patent2netv2.vlab4u.info/>`_ of statistical patents analysis can be exported to a website with the firefox browser.
 
 
-*************
+=============
 Documentation
-*************
+=============
 
+Doc and wiki
+------------
 
 .. _`Patent2Net-Documentation:
  * `Wiki <http://patent2netv2.vlab4u.info/dokuwiki/>`_
