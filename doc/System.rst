@@ -20,5 +20,4 @@ Dealing with docker version
 .. tip:: Elastic search is only used for providing data to the Carrot2 plugin. Kibana is just here to start to work with it!
 
 
-P2N Data model
-==============
+
