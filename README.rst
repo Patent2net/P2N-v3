@@ -1,8 +1,7 @@
-.. image:: /doc/dev/LogoP2N.png
+.. image:: dev/images/LogoP2N.png
 	:target: /_build/index.html
-|
-.. image:: https://img.shields.io/badge/Python-3.6-green.svg
-    :target: https://github.com/Patent2net/P2N-v3/tree/master
+.. image:: https://img.shields.io/badge/Python-3.6-green.svg 
+	:target: https://github.com/Patent2net/P2N-v3/tree/master 
 
 
 
@@ -13,16 +12,16 @@ About
 =====
 :: 
 Patent2Net is a tool suite for patent information processing and statistical analysis for education and science.  
-  Patent2Net aims to collect and help study and analyze patent data from the European Patent Office's `Open Patent Services API (OPS) <https://www.epo.org/searching-for-patents/data/web-services/ops.html>`_.
+Patent2Net aims to collect and help study and analyze patent data from the European Patent Office's `Open Patent Services API (OPS) <https://www.epo.org/searching-for-patents/data/web-services/ops.html>`_.
 
 :: 
 Patent2Net is free software, dedicated to:
- * provide statistical analysis and representations of a set of patents.
- * promote the use of patent information in academic, nano and small firms, developing countries
- * learn, study and practice how to collect, treat and communicate "textual bibliographic information", and automation process
- * learn several information processing in the Library and Information Science fields.
- * learn skills in data-mining software, Data analysis, Textual data-mining, distance reading, knowledge discovery
- * See extra-feature with `the docker version <https://github.com/Patent2net/P2N-Docker>`_
+* provide statistical analysis and representations of a set of patents.
+* promote the use of patent information in academic, nano and small firms, developing countries
+* learn, study and practice how to collect, treat and communicate "textual bibliographic information", and automation process
+* learn several information processing in the Library and Information Science fields.
+* learn skills in data-mining software, Data analysis, Textual data-mining, distance reading, knowledge discovery
+* See extra-feature with `the docker version <https://github.com/Patent2net/P2N-Docker>`_
 
 .. note:: Contributions are always welcome!
 
@@ -68,18 +67,18 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 =============
 Documentation
 =============
-************
+------------
 Doc and wiki
-************
+------------
 
 .. _Patent2Net-Documentation:
  * `Wiki <http://patent2netv2.vlab4u.info/dokuwiki/>`_
  * `Documentation <https://docs.ip-tools.org/patent2net/>`_
 
 
-****
+----
 Demo
-****
+----
 Some results of patent analysis can be explored on http://patent2netv2.vlab4u.info/. See for instance some use case processed:
 
 * `Creativity <http://patent2netv2.vlab4u.info/DATA/creativity.html>`_

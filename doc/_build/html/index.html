@@ -93,8 +93,10 @@
 <li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="system.html">System configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataModel.html">P2N Data model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/system.html">System configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/dataModel.html">P2N Data model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exports.html">Chained software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exports.html#file-extension-and-data-formats-for-specific-software">File extension and data formats for specific software</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="CHANGES.html">Changelog</a></li>
@@ -169,46 +171,21 @@
             
   <div class="section" id="welcome-to-patent2net">
 <h1>Welcome to Patent2Net<a class="headerlink" href="#welcome-to-patent2net" title="Permalink to this headline">¶</a></h1>
+<a class="reference external image-reference" href="/_build/index.html"><img alt="_images/LogoP2N.png" src="_images/LogoP2N.png" /></a>
 <a class="reference external image-reference" href="https://github.com/Patent2net/P2N-v3/tree/master"><img alt="https://img.shields.io/badge/Python-3.6-green.svg" src="https://img.shields.io/badge/Python-3.6-green.svg" /></a>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<dl>
-<dt>::</dt><dd><blockquote>
-<div><p>_____      _             _     ___    _   _      _           ____   ___    _   _</p>
-</div></blockquote>
-<div class="line-block">
-<div class="line-block">
-<div class="line">__    | |           | |   <a href="#id1"><span class="problematic" id="id2">|</span></a>__  | | |    | |      /  |  __ <a href="#id3"><span class="problematic" id="id4">|</span></a>__  | | | </div>
-</div>
-<div class="line"><a href="#id17"><span class="problematic" id="id18">|__) |_ _|</span></a> <a href="#id19"><span class="problematic" id="id20">|_ ___ _ __ | |_     ) | |  \| | ___|</span></a> <a href="#id5"><span class="problematic" id="id6">|</span></a>_    /   | <a href="#id7"><span class="problematic" id="id8">|</span></a>__) |   ) | |  | |  </div>
-<div class="line-block">
-<div class="line">___/ _` | __/ _ ‘_ | __|   / /  | . ` <a href="#id21"><span class="problematic" id="id22">|/ _ \ __|</span></a>   |   |  ___/   / /  | . ` |   |</div>
-</div>
-<div class="line">|  | (_| | ||  __/ | | | <a href="#id9"><span class="problematic" id="id10">|</span></a>_   / /_  | <a href="#id11"><span class="problematic" id="id12">|</span></a> |  __/ <a href="#id13"><span class="problematic" id="id14">|</span></a>_      | |      / /_  | <a href="#id15"><span class="problematic" id="id16">|</span></a> |  /</div>
-</div>
-<p><a href="#id23"><span class="problematic" id="id24">|_|</span></a>   __,_|_____|_| <a href="#id25"><span class="problematic" id="id26">|_|</span></a>__| <a href="#id27"><span class="problematic" id="id28">|____|</span></a> <a href="#id29"><span class="problematic" id="id30">|_|</span></a> _|___|__|     <a href="#id31"><span class="problematic" id="id32">|_|</span></a>     <a href="#id33"><span class="problematic" id="id34">|____|</span></a> <a href="#id35"><span class="problematic" id="id36">|_|</span></a> _| /</p>
-</dd>
-</dl>
 <div class="section" id="about">
 <h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
 <p>::
-Patent2Net is a tool suite for patent information processing and statistical analysis for education and science.</p>
-<blockquote>
-<div><p>Patent2Net aims to collect and help study and analyze patent data from the European Patent Office’s <a class="reference external" href="https://www.epo.org/searching-for-patents/data/web-services/ops.html">Open Patent Services API (OPS)</a>.</p>
-</div></blockquote>
+Patent2Net is a tool suite for patent information processing and statistical analysis for education and science.
+Patent2Net aims to collect and help study and analyze patent data from the European Patent Office’s <a class="reference external" href="https://www.epo.org/searching-for-patents/data/web-services/ops.html">Open Patent Services API (OPS)</a>.</p>
 <p>::
-Patent2Net is free software, dedicated to:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>provide statistical analysis and representations of a set of patents.</p></li>
-<li><p>promote the use of patent information in academic, nano and small firms, developing countries</p></li>
-<li><p>learn, study and practice how to collect, treat and communicate “textual bibliographic information”, and automation process</p></li>
-<li><p>learn several information processing in the Library and Information Science fields.</p></li>
-<li><p>learn skills in data-mining software, Data analysis, Textual data-mining, distance reading, knowledge discovery</p></li>
-<li><p>See extra-feature with <a class="reference external" href="https://github.com/Patent2net/P2N-Docker">the docker version</a></p></li>
-</ul>
-</div></blockquote>
+Patent2Net is free software, dedicated to:
+* provide statistical analysis and representations of a set of patents.
+* promote the use of patent information in academic, nano and small firms, developing countries
+* learn, study and practice how to collect, treat and communicate “textual bibliographic information”, and automation process
+* learn several information processing in the Library and Information Science fields.
+* learn skills in data-mining software, Data analysis, Textual data-mining, distance reading, knowledge discovery
+* See extra-feature with <a class="reference external" href="https://github.com/Patent2net/P2N-Docker">the docker version</a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Contributions are always welcome!</p>
@@ -251,12 +228,22 @@ of university professors and researchers on a free basis.</p>
 </div>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="doc-and-wiki">
+<h3>Doc and wiki<a class="headerlink" href="#doc-and-wiki" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="demo">
+<h3>Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h3>
 <p>Some results of patent analysis can be explored on <a class="reference external" href="http://patent2netv2.vlab4u.info/">http://patent2netv2.vlab4u.info/</a>. See for instance some use case processed:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://patent2netv2.vlab4u.info/DATA/creativity.html">Creativity</a></p></li>
 <li><p><a class="reference external" href="http://patent2netv2.vlab4u.info/DATA/3Dprint.html">3D-printing</a></p></li>
 <li><p><a class="reference external" href="http://patent2netv2.vlab4u.info/DATA/Arabic_Gum.html">Arabic-gum-emulsifiers</a></p></li>
 </ul>
+</div>
+</div>
+</div>
+<div class="section" id="getting-started">
+<h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome to Patent2Net</a></li>
@@ -265,12 +252,20 @@ of university professors and researchers on a free basis.</p>
 <li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage</a></li>
 </ul>
 </div>
+</div>
+<div class="section" id="global-architecture-and-data-model">
+<h1>Global architecture and data model<a class="headerlink" href="#global-architecture-and-data-model" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="system.html">System configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dataModel.html">P2N Data model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/system.html">System configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/dataModel.html">P2N Data model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exports.html">Chained software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exports.html#file-extension-and-data-formats-for-specific-software">File extension and data formats for specific software</a></li>
 </ul>
 </div>
+</div>
+<div class="section" id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="CHANGES.html">Changelog</a></li>
@@ -280,12 +275,14 @@ of university professors and researchers on a free basis.</p>
 <li class="toctree-l1"><a class="reference internal" href="todo.html">Todo list and ideas</a></li>
 </ul>
 </div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
-</div>
 </div>
 
 

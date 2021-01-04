@@ -9,7 +9,7 @@ Agenda
 ******
 .. note:: 
  - ASAP
- - when practioners are decides and can be recruited
+ - when practioners are decided and can be recruited
  - and when the weather is not so fine
  
 Completed
@@ -19,6 +19,7 @@ Completed
 - [x] Integrate the full documentation system in the flask interface
 - [x] Use of the docker powerfull feature to extend the global architecture to an ElasticSearch server and it's Kibana brother (or sister I don't mind in fact). Opening to new ways of exploration
 - [x] Carrot2 plugin integration
+- [x] Install Webhook on GitHub for automatic documentation building and upload to Read The Docs
 
 Todo
 ----
@@ -30,24 +31,27 @@ Todo
 - [o] Write documentation about usage
 - [o] Write documentation about global architecture
 
-### User UX improvements
+User UX improvements
+^^^^^^^^^^^^^^^^^^^^
 
 * Use flask and templates to re-design the whole interface keeping in mind kibana and Elatic Search new capability
 * improve progress bar design page
 
-### Others improvements
+Others improvements
+^^^^^^^^^^^^^^^^^^^
 
-> Although Patent2Net is fully operational, works fine and is enough to begin using Patent Information, a lot can be done to improve analysis:
- * Correct the issues (continuous process, of course)
- * Add some more information in the result html page (ModeleContenuIndex.html). Great to add the processing date (thus can be different from the gathering date) and P2N version
- * As information analysis do not always represent the whole _Patent Universe (PU)_ (for instance french abstracts only) metrics should provide the proportion of P.U. concerned by each analysis
- * Treat Designated State(s) information for EP and WO patentes to complete the attractivity maps. Check if register information recently added (thanks amotl)
- * Improve the Mindmap option to get it more efficient for creativity (Celso is still working on?)
+Although Patent2Net is fully operational, works fine and is enough to begin using Patent Information, a lot can be done to improve analysis:
+* Correct the issues (continuous process, of course)
+* Add some more information in the result html page (ModeleContenuIndex.html). Great to add the processing date (thus can be different from the gathering date) and P2N version
+* As information analysis do not always represent the whole _Patent Universe (PU)_ (for instance french abstracts only) metrics should provide the proportion of P.U. concerned by each analysis
+* Treat Designated State(s) information for EP and WO patentes to complete the attractivity maps. Check if register information recently added (thanks amotl)
+* Improve the Mindmap option to get it more efficient for creativity (Celso is still working on?)
 
 
 New contributions and ideas are always welcome.
 
-
+Version 3.0.0
+=============
 *****
 Tasks
 *****
@@ -73,11 +77,9 @@ Provide some new ways of gathering and analysis of patent information, i.e.:
 * Using citations of the Familly Patent Universe, provide genealogic analysis, especially descendants to try to detect invention fronts.
 * Gather research reports when avalaible and provide analysis chains
 
-Version 3.0.0
-=============
-
 Completed
----------
+*********
+
 - [x] Introduce and stabilize new data model and ad-hoc mode
 - [x] Write about "jq"
 - [x] Remove attr_object_as_dict in favor of attr.as_dict
@@ -87,7 +89,7 @@ Completed
 - [x] Display OPS error message when running invalid queries like "p2n adhoc dump --expression='pa=grohe and py=2015'"
 
 Todo
-----
+****
 
 - [o] OPS Register: Always sort event-like data in ascending order?
       Right now, sort order is mixed as of "history items" vs. "actions" vs. "{publication,application}_reference".

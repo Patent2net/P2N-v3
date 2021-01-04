@@ -87,9 +87,16 @@
             
             
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome to Patent2Net</a></li>
 <li class="toctree-l1"><a class="reference internal" href="setup.html">Setup</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configure.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev/system.html">System configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/dataModel.html">P2N Data model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exports.html">Chained software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exports.html#file-extension-and-data-formats-for-specific-software">File extension and data formats for specific software</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="CHANGES.html">Changelog</a></li>
@@ -103,13 +110,15 @@
 <li class="toctree-l4"><a class="reference internal" href="#todo">Todo</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#version-3-0-0">Version 3.0.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#tasks">Tasks</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#new-capabilities">New capabilities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#id1">Todo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#new-ways-for-gathering-and-analysis">New ways for gathering and analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#version-3-0-0">Version 3.0.0</a></li>
 </ul>
 </li>
 </ul>
@@ -187,7 +196,7 @@
 <p class="admonition-title">Note</p>
 <ul class="simple">
 <li><p>ASAP</p></li>
-<li><p>when practioners are decides and can be recruited</p></li>
+<li><p>when practioners are decided and can be recruited</p></li>
 <li><p>and when the weather is not so fine</p></li>
 </ul>
 </div>
@@ -199,6 +208,7 @@
 <li><p>[x] Integrate the full documentation system in the flask interface</p></li>
 <li><p>[x] Use of the docker powerfull feature to extend the global architecture to an ElasticSearch server and it’s Kibana brother (or sister I don’t mind in fact). Opening to new ways of exploration</p></li>
 <li><p>[x] Carrot2 plugin integration</p></li>
+<li><p>[x] Install Webhook on GitHub for automatic documentation building and upload to Read The Docs</p></li>
 </ul>
 </div>
 <div class="section" id="todo">
@@ -212,25 +222,28 @@
 <li><p>[o] Write documentation about usage</p></li>
 <li><p>[o] Write documentation about global architecture</p></li>
 </ul>
-<p>### User UX improvements</p>
+<div class="section" id="user-ux-improvements">
+<h5>User UX improvements<a class="headerlink" href="#user-ux-improvements" title="Permalink to this headline">¶</a></h5>
 <ul class="simple">
 <li><p>Use flask and templates to re-design the whole interface keeping in mind kibana and Elatic Search new capability</p></li>
 <li><p>improve progress bar design page</p></li>
 </ul>
-<p>### Others improvements</p>
-<dl class="simple">
-<dt>&gt; Although Patent2Net is fully operational, works fine and is enough to begin using Patent Information, a lot can be done to improve analysis:</dt><dd><ul class="simple">
-<li><p>Correct the issues (continuous process, of course)</p></li>
-<li><p>Add some more information in the result html page (ModeleContenuIndex.html). Great to add the processing date (thus can be different from the gathering date) and P2N version</p></li>
-<li><p>As information analysis do not always represent the whole _Patent Universe (PU)_ (for instance french abstracts only) metrics should provide the proportion of P.U. concerned by each analysis</p></li>
-<li><p>Treat Designated State(s) information for EP and WO patentes to complete the attractivity maps. Check if register information recently added (thanks amotl)</p></li>
-<li><p>Improve the Mindmap option to get it more efficient for creativity (Celso is still working on?)</p></li>
-</ul>
-</dd>
-</dl>
+</div>
+<div class="section" id="others-improvements">
+<h5>Others improvements<a class="headerlink" href="#others-improvements" title="Permalink to this headline">¶</a></h5>
+<p>Although Patent2Net is fully operational, works fine and is enough to begin using Patent Information, a lot can be done to improve analysis:
+* Correct the issues (continuous process, of course)
+* Add some more information in the result html page (ModeleContenuIndex.html). Great to add the processing date (thus can be different from the gathering date) and P2N version
+* As information analysis do not always represent the whole _Patent Universe (PU)_ (for instance french abstracts only) metrics should provide the proportion of P.U. concerned by each analysis
+* Treat Designated State(s) information for EP and WO patentes to complete the attractivity maps. Check if register information recently added (thanks amotl)
+* Improve the Mindmap option to get it more efficient for creativity (Celso is still working on?)</p>
 <p>New contributions and ideas are always welcome.</p>
 </div>
 </div>
+</div>
+</div>
+<div class="section" id="version-3-0-0">
+<h2>Version 3.0.0<a class="headerlink" href="#version-3-0-0" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="tasks">
 <h3>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h3>
 </div>
@@ -259,9 +272,6 @@
 <li><p>Using citations of the Familly Patent Universe, provide genealogic analysis, especially descendants to try to detect invention fronts.</p></li>
 <li><p>Gather research reports when avalaible and provide analysis chains</p></li>
 </ul>
-</div>
-<div class="section" id="version-3-0-0">
-<h2>Version 3.0.0<a class="headerlink" href="#version-3-0-0" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>[x] Introduce and stabilize new data model and ad-hoc mode</p></li>
 <li><p>[x] Write about “jq”</p></li>

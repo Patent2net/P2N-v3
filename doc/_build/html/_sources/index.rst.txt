@@ -3,12 +3,11 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-#####################
+*********************
 Welcome to Patent2Net
-#####################
+*********************
 
 .. include:: ../README.rst
-
 
 ***************
 Getting started
@@ -29,9 +28,9 @@ Global architecture and data model
 .. toctree::
     :maxdepth: 1
 	
-    system
-    dataModel 
-    exports
+    dev/system
+    dev/dataModel 
+    dev/exports
 	
 ***********
 Development
