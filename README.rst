@@ -3,9 +3,7 @@
 
 |
 
-::
-
-     _____      _             _     ___    _   _      _           _____   ___    _   _
+::   _____      _             _     ___    _   _      _           ____   ___    _   _
     |  __ \    | |           | |   |__ \  | \ | |    | |      /  |  __ \ |__ \  | \ | | \
     | |__) |_ _| |_ ___ _ __ | |_     ) | |  \| | ___| |_    /   | |__) |   ) | |  \| |  \
     |  ___/ _` | __/ _ \ '_ \| __|   / /  | . ` |/ _ \ __|   |   |  ___/   / /  | . ` |   |
@@ -16,10 +14,12 @@
 =====
 About
 =====
-:: Patent2Net is a toolkit for patent information processing and statistical analysis for education and science.  
+:: 
+Patent2Net is a tool suite for patent information processing and statistical analysis for education and science.  
   Patent2Net aims to collect and help study and analyze patent data from the European Patent Office's `Open Patent Services API (OPS) <https://www.epo.org/searching-for-patents/data/web-services/ops.html>`_.
 
-:: Patent2Net is free software, dedicated to:
+:: 
+Patent2Net is free software, dedicated to:
  * provide statistical analysis and representations of a set of patents.
  * promote the use of patent information in academic, nano and small firms, developing countries
  * learn, study and practice how to collect, treat and communicate "textual bibliographic information", and automation process
@@ -51,6 +51,7 @@ Undocumented features
 
 Some extra additional features comes also within the makefile... Help us to improve the docs and the projects
 
+==============================================
 Project information: Who we are and disclaimer
 ==============================================
 The source code of the »Patent2Net« toolkit is available under an open source license,
@@ -90,7 +91,4 @@ Some results of patent analysis can be explored on http://patent2netv2.vlab4u.in
 
 * `Arabic-gum-emulsifiers <http://patent2netv2.vlab4u.info/DATA/Arabic_Gum.html>`_
 
-==================================
-Summary of the whole documentation
-==================================
 
