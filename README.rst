@@ -10,11 +10,12 @@
 About
 =====
 .. hint:: 
-Patent2Net is a tool suite for patent information processing and statistical analysis for education and science.  
-Patent2Net aims to collect and help study and analyze patent data from the European Patent Office's `Open Patent Services API (OPS) <https://www.epo.org/searching-for-patents/data/web-services/ops.html>`_.
+ Patent2Net is a tool suite for patent information processing and statistical analysis for education and science.  
+ Patent2Net aims to collect and help study and analyze patent data from the European Patent Office's `Open Patent Services API (OPS) <https://www.epo.org/searching-for-patents/data/web-services/ops.html>`_.
 
 
 Patent2Net is free software, dedicated to:
+
 * provide statistical analysis and representations of a set of patents.
 * **promote the use of patent information in academic**, nano and small firms or developing countries
 * learn, study and practice how to collect, process and communicate "textual bibliographic information", and automation process
@@ -31,11 +32,11 @@ P2N essential features covered
 In short (read the usage manual in progress)
 ---------------------------------------------
 
-* Patent2Net interface you to the `European Patent Organisation <https://www.epo.org/>`_ worldwide database to gather patent documents set in answer to your requests 
-* Patent2Net interfaces also several softwares to build indicators and help analyse: `Datatable <https://datatables.net/>`_, `Pivot table <https://pivottable.js.org/examples/>`_
+* Patent2Net interface you to the `European Patent Organisation <https://www.epo.org/>`_ worldwide database [API] to gather patent documents set in answer to your requests 
+* Patent2Net interfaces also several softwares ([Gephi, to build indicators and help analyse: `Datatable <https://datatables.net/>`_, `Pivot table <https://pivottable.js.org/examples/>`_
 * Patent2Net provides compatible files with two major open source projects in text analysis `IRaMuTeQ <http://iramuteq.org/>`_ and document clustering `Carrot2 <https://github.com/carrot2/carrot2>`_. But these programs have to be installed by your way. P2N provide data in compatible format for the different distributions.
 
-.. TIP:: the docker version includes now a beta version of the Carrot2 software plugin using the Elastic Search server!
+.. TIP:: The docker version includes now a beta version of the Carrot2 software plugin using the Elastic Search server!
 
 * Patent2Net build as well network files from patent Metadata. Assuming some trivial hypothesis that co-authors of a patent works together... Same for co-applicants: so networks analyses aims to help in exploring who works for who, who works with who... And so on. Same with the  `International Patent Classification <https://www.wipo.int/classifications/ipc/en/>`_ metadata field that provides language independent views on patent sets. This P2N version integrate inline interface to those networks (see the link in page data synthesis) but the interface with network is not friendly enought. We recommend the use of the exported files in gexf format compatible with the wondefull Open Graph Viz Platform `Gephi <https://gephi.org/>`_ that you may install on your machine.
 * Patent2Net, aside HTML5, exports also in several format: CSV, Excel, BibTex for `Zotero <https://www.zotero.org/>`_ import.
@@ -49,7 +50,7 @@ Some extra additional features comes also within the makefile... Help us to impr
 ==============================================
 Project information: Who we are
 ==============================================
-The source code of the »Patent2Net« toolkit is available under an open source license,
+The source code of the Patent2Net toolkit is available under an open source license,
 see also  ` Patent2Net on GitHub <https://github.com/Patent2net/P2N-v3/tree/master>`_
  
 The project is elaborated and maintained by an `international team <http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:community>`_
@@ -70,7 +71,6 @@ Documentation
 Doc and wiki
 ------------
 
-.. _Patent2Net-Documentation:
  * `Wiki <http://patent2netv2.vlab4u.info/dokuwiki/>`_
  * `Documentation <https://docs.ip-tools.org/patent2net/>`_
 

@@ -17,9 +17,6 @@
   <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
   <meta http-equiv="pragma" content="no-cache" />
 
-	
-
-	
     <style>
         .container2 {
             width: 612px;
@@ -61,7 +58,10 @@
 					</li>
 					
 					<li class="mr-3">
-						<a href="/downloadDat" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Download Data</a>
+						<a href="/downloadDat" class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4">Download Data</a>
+					</li>
+					<li class="mr-3">
+						<a href="/doc/_build/html/index.html" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Documentation</a>
 					</li>
 				</ul>
 			</div>
@@ -85,11 +85,11 @@
 
 			<form action="/confirmation" method="post">
 				<div>
-					<label class="font-semibold">Request Description * :</label>
+					<label class="font-semibold">Request in CQL format * :</label>
 					<p class="pt-2 pb-2 text-sm italic text-gray-800">Enter in the textbox a valid espacenet smart search query for your patent research.</p>
 				</div>
 				<div class="mb-2">
-					<input class="text-sm border px-2 py-1 rounded w-full" type="text" required placeholder="lentille" name="p2n_req" id="p2n_reqBtn" />
+					<input class="text-sm border px-2 py-1 rounded w-full" type="text" required placeholder="TA=lentille" name="p2n_req" id="p2n_reqBtn" />
 				</div>
 
 				<div>

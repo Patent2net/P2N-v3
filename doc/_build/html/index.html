@@ -4,7 +4,11 @@
 <html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8">
-  
+  <meta content="The Patent2Net documentation" name="description" />
+<meta content="Patent analysis, datamining, education, research" lang="en" name="keywords" xml:lang="en" />
+<meta content="Analyse de brevets, fouille de données textuelles, éducation, recherche" lang="fr" name="keywords" xml:lang="fr" />
+<meta content="The patent2Net developpers" name="author" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <title>Welcome to Patent2Net &mdash; Patent2Net 4.0.0.beta.dev1 documentation</title>
@@ -95,8 +99,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dev/system.html">System configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dev/dataModel.html">P2N Data model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev/exports.html">Chained software</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev/exports.html#file-extension-and-data-formats-for-specific-software">File extension and data formats for specific software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exports.html">File extension and data formats for specific software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exports.html#chained-software">Chained software</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="CHANGES.html">Changelog</a></li>
@@ -173,19 +177,24 @@
 <h1>Welcome to Patent2Net<a class="headerlink" href="#welcome-to-patent2net" title="Permalink to this headline">¶</a></h1>
 <a class="reference external image-reference" href="/_build/index.html"><img alt="_images/LogoP2N.png" src="_images/LogoP2N.png" /></a>
 <a class="reference external image-reference" href="https://github.com/Patent2net/P2N-v3/tree/master"><img alt="https://img.shields.io/badge/Python-3.6-green.svg" src="https://img.shields.io/badge/Python-3.6-green.svg" /></a>
+<img alt="https://img.shields.io/github/stars/Patent2net/P2N-v3?label=Github%20stars" src="https://img.shields.io/github/stars/Patent2net/P2N-v3?label=Github%20stars" />
+<img alt="https://img.shields.io/github/issues/Patent2net/P2N-v3" src="https://img.shields.io/github/issues/Patent2net/P2N-v3" />
 <div class="section" id="about">
 <h2>About<a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
-<p>::
-Patent2Net is a tool suite for patent information processing and statistical analysis for education and science.
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Patent2Net is a tool suite for patent information processing and statistical analysis for education and science.
 Patent2Net aims to collect and help study and analyze patent data from the European Patent Office’s <a class="reference external" href="https://www.epo.org/searching-for-patents/data/web-services/ops.html">Open Patent Services API (OPS)</a>.</p>
-<p>::
-Patent2Net is free software, dedicated to:
-* provide statistical analysis and representations of a set of patents.
-* promote the use of patent information in academic, nano and small firms, developing countries
-* learn, study and practice how to collect, treat and communicate “textual bibliographic information”, and automation process
-* learn several information processing in the Library and Information Science fields.
-* learn skills in data-mining software, Data analysis, Textual data-mining, distance reading, knowledge discovery
-* See extra-feature with <a class="reference external" href="https://github.com/Patent2net/P2N-Docker">the docker version</a></p>
+</div>
+<p>Patent2Net is free software, dedicated to:</p>
+<ul class="simple">
+<li><p>provide statistical analysis and representations of a set of patents.</p></li>
+<li><p><strong>promote the use of patent information in academic</strong>, nano and small firms or developing countries</p></li>
+<li><p>learn, study and practice how to collect, process and communicate “textual bibliographic information”, and automation process</p></li>
+<li><p>learn several <strong>information processing skills</strong> in the <em>Library and Information Science</em> fields.</p></li>
+<li><p>learn skills in <strong>data-mining software, Data analysis, Textual data-mining, distance reading, knowledge discovery</strong></p></li>
+<li><p>See extra-feature with <a class="reference external" href="https://github.com/Patent2net/P2N-Docker">the docker version</a></p></li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Contributions are always welcome!</p>
@@ -196,13 +205,13 @@ Patent2Net is free software, dedicated to:
 <div class="section" id="in-short-read-the-usage-manual-in-progress">
 <h3>In short (read the usage manual in progress)<a class="headerlink" href="#in-short-read-the-usage-manual-in-progress" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
-<li><p>Patent2Net interface you to the <a class="reference external" href="https://www.epo.org/">European Patent Organisation</a> worldwide database to gather patent documents set in answer to your requests</p></li>
-<li><p>Patent2Net interfaces also several softwares to build indicators and help analyse: <a class="reference external" href="https://datatables.net/">Datatable</a>, <a class="reference external" href="https://pivottable.js.org/examples/">Pivot table</a></p></li>
+<li><p>Patent2Net interface you to the <a class="reference external" href="https://www.epo.org/">European Patent Organisation</a> worldwide database [API] to gather patent documents set in answer to your requests</p></li>
+<li><p>Patent2Net interfaces also several softwares ([Gephi, to build indicators and help analyse: <a class="reference external" href="https://datatables.net/">Datatable</a>, <a class="reference external" href="https://pivottable.js.org/examples/">Pivot table</a></p></li>
 <li><p>Patent2Net provides compatible files with two major open source projects in text analysis <a class="reference external" href="http://iramuteq.org/">IRaMuTeQ</a> and document clustering <a class="reference external" href="https://github.com/carrot2/carrot2">Carrot2</a>. But these programs have to be installed by your way. P2N provide data in compatible format for the different distributions.</p></li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>the docker version includes now a beta version of the Carrot2 software plugin using the Elastic Search server!</p>
+<p>The docker version includes now a beta version of the Carrot2 software plugin using the Elastic Search server!</p>
 </div>
 <ul class="simple">
 <li><p>Patent2Net build as well network files from patent Metadata. Assuming some trivial hypothesis that co-authors of a patent works together… Same for co-applicants: so networks analyses aims to help in exploring who works for who, who works with who… And so on. Same with the  <a class="reference external" href="https://www.wipo.int/classifications/ipc/en/">International Patent Classification</a> metadata field that provides language independent views on patent sets. This P2N version integrate inline interface to those networks (see the link in page data synthesis) but the interface with network is not friendly enought. We recommend the use of the exported files in gexf format compatible with the wondefull Open Graph Viz Platform <a class="reference external" href="https://gephi.org/">Gephi</a> that you may install on your machine.</p></li>
@@ -216,7 +225,7 @@ Patent2Net is free software, dedicated to:
 </div>
 <div class="section" id="project-information-who-we-are">
 <h2>Project information: Who we are<a class="headerlink" href="#project-information-who-we-are" title="Permalink to this headline">¶</a></h2>
-<p>The source code of the »Patent2Net« toolkit is available under an open source license,
+<p>The source code of the Patent2Net toolkit is available under an open source license,
 see also  ` Patent2Net on GitHub &lt;<a class="reference external" href="https://github.com/Patent2net/P2N-v3/tree/master">https://github.com/Patent2net/P2N-v3/tree/master</a>&gt;`_</p>
 <p>The project is elaborated and maintained by an <a class="reference external" href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:community">international team</a>
 of university professors and researchers on a free basis.</p>
@@ -230,6 +239,12 @@ of university professors and researchers on a free basis.</p>
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="doc-and-wiki">
 <h3>Doc and wiki<a class="headerlink" href="#doc-and-wiki" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="http://patent2netv2.vlab4u.info/dokuwiki/">Wiki</a></p></li>
+<li><p><a class="reference external" href="https://docs.ip-tools.org/patent2net/">Documentation</a></p></li>
+</ul>
+</div></blockquote>
 </div>
 <div class="section" id="demo">
 <h3>Demo<a class="headerlink" href="#demo" title="Permalink to this headline">¶</a></h3>
@@ -257,10 +272,13 @@ of university professors and researchers on a free basis.</p>
 <h1>Global architecture and data model<a class="headerlink" href="#global-architecture-and-data-model" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="dev/system.html">System configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/system.html">System configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dev/system.html#dealing-with-docker-version">Dealing with docker version</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="dev/dataModel.html">P2N Data model</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev/exports.html">Chained software</a></li>
-<li class="toctree-l1"><a class="reference internal" href="dev/exports.html#file-extension-and-data-formats-for-specific-software">File extension and data formats for specific software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exports.html">File extension and data formats for specific software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exports.html#chained-software">Chained software</a></li>
 </ul>
 </div>
 </div>

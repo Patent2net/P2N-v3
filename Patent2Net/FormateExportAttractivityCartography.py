@@ -4,8 +4,15 @@ Created on Wed Apr 29 07:57:19 2015
 
 @author: dreymond
 
-Draws the map of patent applicants' and inventors' origin countries for a universe.
-Next version should consider EP and WO patents.
+.. py:module:: Patent2Net.FormateExportAttractivityCartography
+    :param file: config file in relative path
+    :template file: ModeleCartoDeposant.html
+    :output file: html files DATA/DataDir/[Families]DataDirCartoApplicant.html
+                  json files DATA/DataDir/[Families]MapApplicant.json
+                  html files DATA/DataDir/[Families]DataDirCartoInventor.html
+                  json files DATA/DataDir/[Families]MapInventor.json  
+    Draws the map of patent applicants' and inventors' origin countries for a universe.
+    Next version should consider EP and WO patents.
 """
 import os
 import sys

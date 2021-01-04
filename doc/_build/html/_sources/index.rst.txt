@@ -3,6 +3,12 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. meta::
+   :description: The Patent2Net documentation
+   :keywords lang=en:  Patent analysis, datamining, education, research
+   :keywords lang=fr: Analyse de brevets, fouille de données textuelles, éducation, recherche
+   :author: The patent2Net developpers
+   
 *********************
 Welcome to Patent2Net
 *********************
@@ -26,7 +32,7 @@ Global architecture and data model
 ***********************************
 
 .. toctree::
-    :maxdepth: 1
+    :maxdepth: 2
 	
     dev/system
     dev/dataModel 
