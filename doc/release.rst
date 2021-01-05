@@ -5,6 +5,7 @@ Release
 #######
 
 .. warning:: Please help to fix it.  
+
 	1. Entry point in doc/conf.py  
 	2. linux functionality? Doen't work on the P2N installation on centOS  
 	3. how to push on Read the docs ?
