@@ -4,7 +4,10 @@ Welcome to Patent2Net
 
 .. image:: dev/images/LogoP2N.png
 	:target: /_build/index.html
-
+	:align: center
+	:width: 80%
+	
+----
 
 .. image:: https://img.shields.io/badge/Python-3.6-green.svg 
 	:target: https://github.com/Patent2net/P2N-v3/tree/master 

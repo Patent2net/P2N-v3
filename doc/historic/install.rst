@@ -17,6 +17,8 @@ Install from source
 - Formulate the desired cql file in ./REQUESTS/ directory. See https://docs.ip-tools.org/patent2net/usage/index.html 
 - Double click runP2N.bat and have fun!
 
+.. _note: After successfully installing the software, you might want to follow up with its :ref:`configuration`.
+
 Next is just for history
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
