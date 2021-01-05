@@ -1,15 +1,15 @@
-###################
+*******************
 Todo list and ideas
-###################
+*******************
 
 Version 4.0.0
 =============
-******
+------
 Agenda
-******
+------
 .. note:: 
  - ASAP
- - when practioners are decided and can be recruited
+ - when practitioners are decided and can be recruited
  - and when the weather is not so fine
  
 Completed
@@ -32,13 +32,13 @@ Todo
 - [o] Write documentation about global architecture
 
 User UX improvements
-^^^^^^^^^^^^^^^^^^^^
+--------------------
 
 * Use flask and templates to re-design the whole interface keeping in mind kibana and Elatic Search new capability
 * improve progress bar design page
 
 Others improvements
-^^^^^^^^^^^^^^^^^^^
+-------------------
 
 Although Patent2Net is fully operational, works fine and is enough to begin using Patent Information, a lot can be done to improve analysis:
 * Correct the issues (continuous process, of course)
@@ -52,24 +52,22 @@ New contributions and ideas are always welcome.
 
 Version 3.0.0
 =============
-*****
-Tasks
-*****
+
 New capabilities
-================
+----------------
 Added some new capabilities to Patent2Net, i.e.:
 
 * Within the Patent Universe, build a drawings gallery with hyperlink to the Espacenet patent 
 * Within the Familly Patent Universe, provide all the same analysis as with the Patent Universe 
 
 Todo
-====
+----
 * Include the treatment of the Cooperative Patent Classification (CPC) with the proportion of P.U. concerned (http://www.cooperativepatentclassification.org/Archive.html)
 * Build a small database to display results of a specific (Familly) Patent Universe. Database could be [PouchDB] (https://pouchdb.com/) or equivalent
 
 
 New ways for gathering and analysis
-===================================
+-----------------------------------
 Provide some new ways of gathering and analysis of patent information, i.e.:
 
 * Within the Familly Patent Universe, provide a new range of analysis, considering a familly as a unique entity (invention)
@@ -78,7 +76,7 @@ Provide some new ways of gathering and analysis of patent information, i.e.:
 * Gather research reports when avalaible and provide analysis chains
 
 Completed
-*********
+---------
 
 - [x] Introduce and stabilize new data model and ad-hoc mode
 - [x] Write about "jq"
@@ -89,7 +87,7 @@ Completed
 - [x] Display OPS error message when running invalid queries like "p2n adhoc dump --expression='pa=grohe and py=2015'"
 
 Todo
-****
+----
 
 - [o] OPS Register: Always sort event-like data in ascending order?
       Right now, sort order is mixed as of "history items" vs. "actions" vs. "{publication,application}_reference".

@@ -9,53 +9,46 @@
    :keywords lang=fr: Analyse de brevets, fouille de données textuelles, éducation, recherche
    :author: The patent2Net developpers
    
-*********************
-Welcome to Patent2Net
-*********************
+
 
 .. include:: ../README.rst
 
-***************
-Getting started
-***************
+
 
 .. toctree::
     :maxdepth: 1
 	
-    welcome
     setup
-    configure
-    usage/index
-
-***********************************
-Global architecture and data model 
-***********************************
+    
+	
 
 .. toctree::
     :maxdepth: 2
 	
-    dev/system
-    dev/dataModel 
-    dev/exports
+    usage/index
 	
-***********
-Development
-***********
 
+.. toctree::
+    :maxdepth: 2
+	
+    historic/index
+	
 .. toctree::
     :maxdepth: 1
 	
-    Changelog <CHANGES>
-    contributing
+    CHANGES
+    historic/contributing
     documentation
     release
     todo
 
 
-******************
+##################
 Indices and tables
-******************
+##################
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
+..
+	* :ref:`search`
+	I put it in comment... I don't know what this ref is intended for

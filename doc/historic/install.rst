@@ -1,9 +1,14 @@
-******************************
-Experts and contributing group
-******************************
+.. _install:
+
+
+You can install locally patent2Net and use it in standalone mode. Only the P2N indexer and integrated Carrot2 feature won't work. The use of the web interface may also be conditionned you run the app.py launcher. Aside this, the API patent2Net (p2n) will work and can do a lot of stuff for you.
+
+----------------------------
+When you know what you do...
+----------------------------
 
 Install from source
-===================
+^^^^^^^^^^^^^^^^^^^
 - Download Anaconda 3 (big installation, https://www.anaconda.com/distribution/) OR Miniconda https://docs.conda.io/en/latest/miniconda.html
 - Download P2N latest https://github.com/Patent2net/P2N-v3
 - Unzip to a the P2N directory (please choose a safe path: the root of your second hard drive (d:\P2N) for instance is the prefered choice)
@@ -13,7 +18,7 @@ Install from source
 - Double click runP2N.bat and have fun!
 
 Next is just for history
-========================
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 - Source releases are available from GitHub: https://github.com/Patent2net/P2N/releases
 - Install a specific version::
@@ -26,20 +31,20 @@ Next is just for history
 
 
 Install binary package (Old features)
-=====================================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - | Binary releases are available at
-  | http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=user_manual:download_install
+  | http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id^user_manual:download_install
 
 
 
-********
+--------
 Appendix
-********
+--------
 .. warning::
  The following (Image Magic, graphviz etc.) is functional on the Docker image. Only follow it if you make your own installation on your system. Not recommended if you aren't sure!
 
 Install ImageMagick
-===================
+^^^^^^^^^^^^^^^^^^^
 
 On Debian Linux::
 
@@ -51,18 +56,18 @@ On Windows::
 
 
 Install Patent2Net on Linux
-===========================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 If you're using Ubuntu or Debian distributions, make sure to have these prerequisites installed::
 
     sudo apt-get install python-pip build-essential python-dev libjpeg-dev libxml2-dev libfreetype6-dev libpng-dev
 
 Install pygraphviz on Mac OS X::
 
-    pip install --install-option="--include-path=/opt/local/include" --install-option="--library-path=/opt/local/lib" "pygraphviz==1.3.1"
+    pip install --install-option^"--include-path^/opt/local/include" --install-option^"--library-path^/opt/local/lib" "pygraphviz^^1.3.1"
 
 
 Install Patent2Net on Windows
-=============================
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 - Install Graphviz (I used 2.38)
 - Anaconda
 

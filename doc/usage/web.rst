@@ -1,3 +1,8 @@
+.. contents::
+   :local:
+   :depth: 1
+
+=============
 Web interface
 =============
 You can interact with Patent2Net using a HTML5 compliant browser. Best results using Firefox or chrome are acheived. 
@@ -18,7 +23,7 @@ Request is a form to build your requests.
 * Enter a request in CQL format. See the EPO's `pocket guide <http://documents.epo.org/projects/babylon/eponet.nsf/0/8C12F50E07515DBEC12581B00050BFDA/$File/espacenet-pocket-guide_en.pdf>`_.
  
  .. tip:: You can use the advanced search interface `provided by the EPO <https://worldwide.espacenet.com/patent/search?>`_. Consider using the menu at the left side (the blue     square on the image below) to build you request by selecting the fields of search (Title, abstract, date, names, classification), the binary operators (OR, AND, NOT) between the fields and do the search. The interface fills the research form with the request formulated in CQL format that you can copy and paste to the Patent2Net form (the red circle on the image). You can also check the number of patents in the database (the green ellipse).
- .. image:: images/EPO-CQL.png
+ .. image:: ../dev/images/EPO-CQL.png
  
  .. note:: if your request expects more than 2000 patents you must consider to split your request in several subrequests. P2N offers two scripts for this (AutomRequest3.py and AutomRequestSpliterTime.py) but it's not web friendly nor documented yet and you have to use them in :ref:[bash mode].
  

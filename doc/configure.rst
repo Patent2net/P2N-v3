@@ -18,4 +18,4 @@ follow up reading about its :ref:`usage`.
 Manual way
 ==========
 
-.. include:: historic/config.rst
+.. include:: historic/manualconfig.rst

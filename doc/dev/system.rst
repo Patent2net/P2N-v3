@@ -1,6 +1,8 @@
-####################
+********************
 System configuration
-####################
+********************
+
+.. _docker-config:
 
 Dealing with docker version
 ===========================
@@ -19,10 +21,10 @@ Generalities
 
 In the directory _Uninstall_ you will find all the stuff to unistall properly P2N. You could also use the Docker Desktop interface to stop the container, remove it and remove the image (in that specific order or it will fail). 
 
-In the same directory you find a elastickibana directory. Inside you will find another *install.bat*. this one is dedicated to a install two servers: the first is an Elastic Search server. The second a Kibana.
+In the same directory you find a elastickibana directory. Inside you will find another *install.bat*. this one is dedicated to a install two servers: the first is an Elastic Search server. The second server is a Kibana instance. Configuration is done to listen the *P2N-Indexer* tool.
 
 .. tip:: *Elastic search* is only used for providing data to the Carrot2 plugin. Kibana is also just here to start to work with it!
 
 Dealing out of docker version
 =============================
-If you prefer you can install patent2Net in an anaconda environment. We guess that you know what you do. Refer then to the :ref:[devmod]_ section.
+If you prefer you can install patent2Net in an anaconda environment. We guess that you know what you do. Refer then to the :ref:`devmod` section.

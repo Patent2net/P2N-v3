@@ -1,12 +1,12 @@
+###########
+Development
+###########	
+
 .. _Changes:
 
 *****************************
 Patent2Net CHANGES (in short)
 *****************************
-
-##################
-Patent2Net CHANGES
-##################
 
 2021-01-01 4.0.0-dev1
 =====================
@@ -71,16 +71,14 @@ Patent2Net CHANGES
 - various attemps in simplication of installation procedure
 - many general bug fixes
 
-
-
-development
-===========
+2018 ending development 3.1
+===========================
 - Use ImageMagick for thumbnail generation in ``FusionImages.py``,
   see also https://github.com/Patent2net/P2N/issues/24
 - Use "Pillow" for thumbnail generation, gracefully fall back to ImageMagick's "convert"
 
 2018-03-20 3.0.0-dev6 (Thanks a lot Andreas)
-=====================
+============================================
 - Make ``p2n adhoc dump`` output results either in "OpsExchangeDocument" or "Patent2NetBrevet" format
 - Make ``p2n adhoc list`` output arbitrary fields of "OpsExchangeDocument" (projection)
 - Improve documentation regarding CQL query language and updated command line parameters

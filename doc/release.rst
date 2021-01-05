@@ -1,8 +1,8 @@
 .. _release:
 
-#######
+*******
 Release
-#######
+*******
 
 .. warning:: Please help to fix it.  
 

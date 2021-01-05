@@ -1,6 +1,6 @@
-=====================================================
+*****************************************************
 File extension and data formats for specific software
-=====================================================
+*****************************************************
 
 .. [GEXF]
 	Heymann, Sebastien, Bastian, Mathieu, Jacomy, Mathieu, Maussang, Camille, Rohmer, Antonin, Bilcke, Julian, & Jacomy, Alexis. (2007). GEXF File Format (Version 1.2). Paris, France: The Gephi Consortium - Médialab Sciences Po. `GEXF network file format <http://gexf.net/format/>`_
@@ -15,9 +15,9 @@ File extension and data formats for specific software
 	XML data for the FreePlane software [Freeplane]_
 
 
-================
+****************
 Chained software 
-================
+****************
 .. [API]
 	Console EPO Developer Portal (OPS). (2014). (Version 1.2). European Patent Office. `Console EPO Developer Portal <https://developers.epo.org/>`_
 

@@ -1,6 +1,6 @@
-############
+============
 Classic mode
-############
+============
 
 .. contents::
    :local:
@@ -9,9 +9,9 @@ Classic mode
 ----
 
 
-*******************
+-------------------
 Request description
-*******************
+-------------------
 Patent2Net needs a ``requete.cql`` file for operating in classic mode.
 It acts as a request description and contains various parameters you might want to have a look at.
 
@@ -21,7 +21,7 @@ data is stored.
 Example::
 
     # CQL query expression
-    request: ta="filter*" and ta="drink* water" AND (pn = U not (pn = UA or pn = US or pn = UY))
+    request: ta="filter-" and ta="drink- water" AND (pn = U not (pn = UA or pn = US or pn = UY))
 
     # Output directory
     DataDirectory: Water
@@ -29,24 +29,24 @@ Example::
 You can find some blueprints in the ``/RequestsSets`` directory.
 
 
-****************
+----------------
 Legacy interface
-****************
+----------------
 
 Run suite of scripts
-====================
+^^^^^^^^^^^^^^^^^^^^
 Use the ``/Patent2Net/ProcessPy.bat`` or the ``/Patent2Net/Process.sh`` file and enjoy!
 
 
-****************
+----------------
 Modern interface
-****************
+----------------
 The modern interface allows to specify a ``requete.cql`` file on the command line
 or by using the environment variable ``P2N_CONFIG``.
 
 
 Acquire data from OPS
-=====================
+^^^^^^^^^^^^^^^^^^^^^
 Run Patent2Net::
 
     p2n acquire --config=/path/to/RequestsSets/Lentille.cql
@@ -65,7 +65,7 @@ then, just run::
 
 
 Analyze information
-===================
+^^^^^^^^^^^^^^^^^^^^
 When running the analysis commands like this, you should set
 the ``P2N_CONFIG`` environment variable for convenience, like described above.
 
@@ -84,13 +84,13 @@ E.g., run::
 ----
 
 
-********
+--------
 Synopsis
-********
+--------
 
 
 Output of "``p2n --help``"
-==========================
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 ::
 
     $ p2n --help

@@ -1,11 +1,11 @@
-#############
-Documentation
-#############
+***************************
+Contribute to documentation
+***************************
 
 
-************
+============
 Introduction
-************
+============
 Beautiful static HTML documentation can be easily built using the Sphinx documentation generator.
 Sphinx uses `reStructuredText <https://docutils.sourceforge.io/docs/user/rst/quickref.html>`_ as its markup language, and many of its strengths come from the power
 and straightforwardness of reStructuredText.
@@ -14,12 +14,12 @@ The documentation can be built locally and also will be published to https://doc
 It could also be pushed to https://readthedocs.org/.
 
 
-*****
+=====
 Usage
-*****
+=====
 
 On Linux
-========
+--------
 
 Build HTML::
 
@@ -29,18 +29,21 @@ Display::
 
     open doc/_build/html/index.html
 
-.. warning:: I couldn't acheive this on the centOs docker image. Help to fix please.
+.. warning:: I couldn't achieive this on the centOs docker image. I had to hack the make procedure. See ./update.sh file. Help to fix please.
 
 
 On Windows
-==========
+----------
 
 Build HTML::
 
     cd doc
-    make.bat
+    make.bat html
 
 Display::
 
     open _build/html/index.html
 
+Clean start::
+	
+	make.bat clean

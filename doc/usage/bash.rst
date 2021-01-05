@@ -1,12 +1,10 @@
-#########
+=========
 bash mode
-#########
+=========
 
 .. contents::
    :local:
    :depth: 1
-
-----
 
 You can enter the docker machine using the P2N_Bash.bat of Docker installation directory or launching the docker command :
 .. code:: docker exec -it p2ne /bin/bash
@@ -17,4 +15,4 @@ You get root access to the machine. You should su to p2n user: `su - p2n`
 
 All patent2Net scripts are accessibles in the /home/p2n/P2N-V3 directory. Enjoy.
 
-Refer also to classic mode :ref:usage_. 
+Refer then to classic mode :ref:`usage`. 
