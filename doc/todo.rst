@@ -1,10 +1,10 @@
 *******************
 Todo list and ideas
 *******************
-
+=============
 Version 4.0.0
 =============
-------
+
 Agenda
 ------
 .. note:: 
@@ -50,11 +50,13 @@ Although Patent2Net is fully operational, works fine and is enough to begin usin
 
 New contributions and ideas are always welcome.
 
+=============
 Version 3.0.0
 =============
 
 New capabilities
 ----------------
+
 Added some new capabilities to Patent2Net, i.e.:
 
 * Within the Patent Universe, build a drawings gallery with hyperlink to the Espacenet patent 
@@ -62,6 +64,7 @@ Added some new capabilities to Patent2Net, i.e.:
 
 Todo
 ----
+
 * Include the treatment of the Cooperative Patent Classification (CPC) with the proportion of P.U. concerned (http://www.cooperativepatentclassification.org/Archive.html)
 * Build a small database to display results of a specific (Familly) Patent Universe. Database could be [PouchDB] (https://pouchdb.com/) or equivalent
 

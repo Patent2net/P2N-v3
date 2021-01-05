@@ -13,26 +13,31 @@
 
 .. include:: ../README.rst
 
-
-
 .. toctree::
     :maxdepth: 1
 	
     setup
     
-	
-
 .. toctree::
     :maxdepth: 2
 	
     usage/index
-	
-
+		
 .. toctree::
     :maxdepth: 2
 	
     historic/index
 	
+
+.. toctree::
+    :maxdepth: 1
+	
+    dev/index
+	
+###########
+Development
+###########	
+
 .. toctree::
     :maxdepth: 1
 	
@@ -49,6 +54,7 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`modindex`
+
 ..
 	* :ref:`search`
 	I put it in comment... I don't know what this ref is intended for

@@ -1,16 +1,17 @@
-.. _devmod:
+.. _historicdevmod:
 
-##################################
-Global architecture and data model 
-##################################
+###################
+Historical features
+###################
 
 *****************
 Developper's mode
 *****************
 
-.. contents::
-   :local:
-   :depth: 2
+.. 
+ contents::
+ :local:
+ :depth: 2
 
 ----
 
@@ -35,7 +36,7 @@ configure
 =========
 Operation
 =========
-Patent2Net in devmod offers two modes of operation:
+Patent2Net in dev mod offers two modes of operation:
 
 .. toctree::
     :maxdepth: 3

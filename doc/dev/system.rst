@@ -3,6 +3,7 @@ System configuration
 ********************
 
 .. _docker-config:
+.. _docker-install:
 
 Dealing with docker version
 ===========================
@@ -27,4 +28,4 @@ In the same directory you find a elastickibana directory. Inside you will find a
 
 Dealing out of docker version
 =============================
-If you prefer you can install patent2Net in an anaconda environment. We guess that you know what you do. Refer then to the :ref:`devmod` section.
+If you prefer you can install patent2Net in an anaconda environment. We guess that you know what you do. Refer then to the :ref:`historicdevmod` section.

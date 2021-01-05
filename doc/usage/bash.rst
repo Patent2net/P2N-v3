@@ -1,3 +1,5 @@
+.. _bash mode:
+
 =========
 bash mode
 =========

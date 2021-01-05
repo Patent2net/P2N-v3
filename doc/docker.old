@@ -1,0 +1,66 @@
+.. image:: dev/images/LogoP2N.png
+.. _docker-install:
+
+########################
+Docker install procedure 
+########################
+Makefile and installation scripts for Patent2Net (P2N) suite. 
+
+*************
+What's new ?
+*************
+.. hint: Sorry if some information are redundant here
+
+* [Patent2Net](https://github.com/Patent2net/P2N-v3) comes now in *beta version 4* for a short time.
+* P2N now works in Docker mode. To install it simply download `this repository <https://github.com/Patent2net/P2N-Docker>`_ and follow first the Readme.txt (that must be fixed, help needed here) and the following
+ 
+ * Patent2Net now integrate an user interface to enter request instead of creating cql file.
+ * To access simply use a compliant browser to go to 127.0.0.1:5000
+ * DATA stuff can be acceded by FTP (Filezila on localhost for instance).
+ * Update is operated using the "UPDATE" button. Silly, ins't it?
+
+.. tip: In short,  click on the install.bat to build the docker image and install P2N on it.
+
+.. danger: DO NOT INSTALL AS IT on the cloud: care to unactivate FTP feature or properly configure it in secure mode.
+
+* This repo comes also with two giants helpers in data analysis: 
+
+ 1. [ElasticSearch](https://www.elastic.co/) 
+ 2. [Kibana](https://www.elastic.co/fr/kibana) servers. 
+
+.. tip: You can access a straightforward installation using the subdirectory install file in elastickibana directory. This will install and configure it to open last Patent2Net features.
+ 
+.. note: 
+ * ES is also upgraded with [Carrot2](https://github.com/carrot2/carrot2) [ElasticSearch Plugin](https://github.com/carrot2/elasticsearch-carrot2)
+ * Carrot2 [Document Clustering Service](https://carrot2.github.io/release/4.0.4/doc/rest-api-basics/) is also "ready to install" by uncommenting the good lines in DockerFile. But this is only is you know how to use it in order to replace the **ES-Kibana servers**.
+ * Of course only the open source features are allowed but this installation is still open for every paid features offered by cited tools.
+
+***********************
+Features (P2N specific)
+***********************
+Installation scripts
+====================
+1. Batch Scripts (windows format easyly transposable for Mac and \*Nix system) to install Patent2Net, Run P2N, stop it or Uninstall it.
+2. Batch Scripts (windows format) to install ElasticSeach (ports 9200 and 9300) and Kibana servers (port 5601) and make them compatible with P2N.
+
+P2N docker special features
+===========================
+* Centos image with P2N automatically installed
+* user p2n (no passwd)
+* vsftpd pointing to p2n homedir for file interactions between your machine and P2N's using File Transport Protocol. [FileZilla] (https://filezilla-project.org/) is a good client. Use 127.0.0.1 address with user p2n. Hence, DATA stuff can be acceded by FTP.
+* RUN_P2N scripts starts a flask server to provide a standalone web server and serves P2N functions and files. See http://localhost:5000
+* Patent2Net now integrate an user interface to enter request instead of creating cql file... And Read the doc...
+* Update is operated using the "UPDATE" button. Silly, ins't it?
+* opens a bash shell (use P2N_Bash.bat scripts) on this docker machine assuming you know what you do...
+
+P2N essential features covered
+===============================
+* Patent2Net interface you to `European Patent Organisation <https://www.epo.org/>`_ worldwide database to gather patent documents set in answer to your requests 
+* Patent2Net interface several software to build indicators and help analyse: [Datatable], [Pivot table]
+* Patent2Net provides files compatible with two major open source projects in text analysis say [IRaMuTeQ] and document clustering (the already named Carrot2)[Carrot2]. But these programs have to be installed by your way. P2N provide data in compatible format for the distributions.
+* Patent2Net build as well network files from patent Metadata. Assuming some trivial hypothesis that co-authors of a patent works together... Same for co-applicants: so networks analyses aims to help in exploring who works for who, who works with who... And so on. Same with the  `International Patent Classification <https://www.wipo.int/classifications/ipc/en/>`_ that provides language independent views on patent sets. This P2N version integrate inline interface to those networks (see the link in page data synthesis) but the interface with network is not friendly enought. We recommend the use of the exported files in gexf format compatible with the wondefull Open Graph Viz Platform [Gephi] that you may install on your machine.
+* Patent2Net, aside HTML5, exports also in several format: CSV, Excel, BibTex for [Zotero](https://www.zotero.org/) import.
+
+Undocumented features
+=====================
+* some extra additional features comes also within the makefile... Help us to improve the docs and the projects

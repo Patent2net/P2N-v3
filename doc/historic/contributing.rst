@@ -1,6 +1,6 @@
-************
-Contributing
-************
+*************************
+Contribute to the project
+*************************
 
 For contributing to the project, this is the way to go.
 

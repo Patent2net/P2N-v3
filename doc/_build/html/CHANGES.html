@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Development &mdash; Patent2Net 4.0.0.beta.dev1 documentation</title>
+  <title>Patent2Net CHANGES (in short) &mdash; Patent2Net 4.0.0.beta.dev1 documentation</title>
   
 
   
@@ -38,7 +38,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Contributing" href="historic/contributing.html" />
-    <link rel="prev" title="Configuration" href="configure.html" /> 
+    <link rel="prev" title="File extension and data formats for specific software" href="dev/exports.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -94,31 +94,34 @@
 <li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="historic/index.html">Global architecture and data model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="historic/index.html">Historical features</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="dev/system.html">System configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/dataModel.html">P2N Data model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exports.html">File extension and data formats for specific software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev/exports.html#chained-software">Chained software</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Development</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#patent2net-changes-in-short">Patent2Net CHANGES (in short)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#dev1">2021-01-01 4.0.0-dev1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dev5">2020-11-30 3.1.0-dev5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dev4">2020-07-20 3.1.0-dev4</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dev3">2020-07-20 3.1.0-dev3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dev2">2020-06-20 3.1.0-dev2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id1">2020-01-20 3.1.0-dev1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dev0">2019 3.1.0-dev0</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#ending-development-3-1">2018 ending development 3.1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#dev6-thanks-a-lot-andreas">2018-03-20 3.0.0-dev6 (Thanks a lot Andreas)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">2017-12-01 3.0.0-dev5</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">2017-12-01 3.0.0-dev4</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id4">2017-12-01 3.0.0-dev3</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id5">2017-12-01 3.0.0-dev2</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id6">2017-11-30 3.0.0-dev1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id7">2016-11-01 2.0.0</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id8">2014-10-30 1.0.0</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id9">2014-03-04 0.9.0</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id10">2014-03-15 0.0.0</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Patent2Net CHANGES (in short)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dev1">2021-01-01 4.0.0-dev1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dev5">2020-11-30 3.1.0-dev5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dev4">2020-07-20 3.1.0-dev4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dev3">2020-07-20 3.1.0-dev3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dev2">2020-06-20 3.1.0-dev2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">2020-01-20 3.1.0-dev1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dev0">2019 3.1.0-dev0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#ending-development-3-1">2018 ending development 3.1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dev6-thanks-a-lot-andreas">2018-03-20 3.0.0-dev6 (Thanks a lot Andreas)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">2017-12-01 3.0.0-dev5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">2017-12-01 3.0.0-dev4</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">2017-12-01 3.0.0-dev3</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">2017-12-01 3.0.0-dev2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">2017-11-30 3.0.0-dev1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id7">2016-11-01 2.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">2014-10-30 1.0.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">2014-03-04 0.9.0</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">2014-03-15 0.0.0</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="historic/contributing.html">Contributing</a></li>
@@ -171,7 +174,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Development</li>
+      <li>Patent2Net CHANGES (in short)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -190,12 +193,10 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="development">
-<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="patent2net-changes-in-short">
-<span id="changes"></span><h2>Patent2Net CHANGES (in short)<a class="headerlink" href="#patent2net-changes-in-short" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="patent2net-changes-in-short">
+<span id="changes"></span><h1>Patent2Net CHANGES (in short)<a class="headerlink" href="#patent2net-changes-in-short" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="dev1">
-<h3>2021-01-01 4.0.0-dev1<a class="headerlink" href="#dev1" title="Permalink to this headline">¶</a></h3>
+<h2>2021-01-01 4.0.0-dev1<a class="headerlink" href="#dev1" title="Permalink to this headline">¶</a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -219,7 +220,7 @@
 </div>
 </div>
 <div class="section" id="dev5">
-<h3>2020-11-30 3.1.0-dev5<a class="headerlink" href="#dev5" title="Permalink to this headline">¶</a></h3>
+<h2>2020-11-30 3.1.0-dev5<a class="headerlink" href="#dev5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>New processing feature in beta version (thanks Nezha): Trizifyer</p></li>
 <li><p>Major improvement in time processing in network production (using new libraries)</p></li>
@@ -227,7 +228,7 @@
 </ul>
 </div>
 <div class="section" id="dev4">
-<h3>2020-07-20 3.1.0-dev4<a class="headerlink" href="#dev4" title="Permalink to this headline">¶</a></h3>
+<h2>2020-07-20 3.1.0-dev4<a class="headerlink" href="#dev4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>New features of &quot;progess bar&quot;</p></li>
 <li><p>SSE system for all data processing scripts</p></li>
@@ -238,7 +239,7 @@
 </div>
 </div>
 <div class="section" id="dev3">
-<h3>2020-07-20 3.1.0-dev3<a class="headerlink" href="#dev3" title="Permalink to this headline">¶</a></h3>
+<h2>2020-07-20 3.1.0-dev3<a class="headerlink" href="#dev3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Introduction of new libraries in various processing steps: pandas, mpld3, scipy</p></li>
 <li><p>New processing steps of data consolidation:</p></li>
@@ -256,7 +257,7 @@
 </ul>
 </div>
 <div class="section" id="dev2">
-<h3>2020-06-20 3.1.0-dev2<a class="headerlink" href="#dev2" title="Permalink to this headline">¶</a></h3>
+<h2>2020-06-20 3.1.0-dev2<a class="headerlink" href="#dev2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>New branch: docker installation</p></li>
 <li><p>P2N works now in a standalone docker Ubuntu machine (Thanks Esteban).</p></li>
@@ -271,21 +272,21 @@
 </div></blockquote>
 </div>
 <div class="section" id="id1">
-<h3>2020-01-20 3.1.0-dev1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h2>2020-01-20 3.1.0-dev1<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>firt publication of the automatic request splitter: a tool to skirt the 2000 limit of the EPO API</p></li>
 <li><p>various updates</p></li>
 </ul>
 </div>
 <div class="section" id="dev0">
-<h3>2019 3.1.0-dev0<a class="headerlink" href="#dev0" title="Permalink to this headline">¶</a></h3>
+<h2>2019 3.1.0-dev0<a class="headerlink" href="#dev0" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>various attemps in simplication of installation procedure</p></li>
 <li><p>many general bug fixes</p></li>
 </ul>
 </div>
 <div class="section" id="ending-development-3-1">
-<h3>2018 ending development 3.1<a class="headerlink" href="#ending-development-3-1" title="Permalink to this headline">¶</a></h3>
+<h2>2018 ending development 3.1<a class="headerlink" href="#ending-development-3-1" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Use ImageMagick for thumbnail generation in <code class="docutils literal notranslate"><span class="pre">FusionImages.py</span></code>,
 see also <a class="reference external" href="https://github.com/Patent2net/P2N/issues/24">https://github.com/Patent2net/P2N/issues/24</a></p></li>
@@ -293,7 +294,7 @@ see also <a class="reference external" href="https://github.com/Patent2net/P2N/i
 </ul>
 </div>
 <div class="section" id="dev6-thanks-a-lot-andreas">
-<h3>2018-03-20 3.0.0-dev6 (Thanks a lot Andreas)<a class="headerlink" href="#dev6-thanks-a-lot-andreas" title="Permalink to this headline">¶</a></h3>
+<h2>2018-03-20 3.0.0-dev6 (Thanks a lot Andreas)<a class="headerlink" href="#dev6-thanks-a-lot-andreas" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Make <code class="docutils literal notranslate"><span class="pre">p2n</span> <span class="pre">adhoc</span> <span class="pre">dump</span></code> output results either in &quot;OpsExchangeDocument&quot; or &quot;Patent2NetBrevet&quot; format</p></li>
 <li><p>Make <code class="docutils literal notranslate"><span class="pre">p2n</span> <span class="pre">adhoc</span> <span class="pre">list</span></code> output arbitrary fields of &quot;OpsExchangeDocument&quot; (projection)</p></li>
@@ -334,25 +335,25 @@ submitting an invalid expression like <code class="docutils literal notranslate"
 </ul>
 </div>
 <div class="section" id="id2">
-<h3>2017-12-01 3.0.0-dev5<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<h2>2017-12-01 3.0.0-dev5<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Attempt to add missing NameCountryMap.csv by providing MANIFEST.in file</p></li>
 </ul>
 </div>
 <div class="section" id="id3">
-<h3>2017-12-01 3.0.0-dev4<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<h2>2017-12-01 3.0.0-dev4<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Fix setup.py</p></li>
 </ul>
 </div>
 <div class="section" id="id4">
-<h3>2017-12-01 3.0.0-dev3<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<h2>2017-12-01 3.0.0-dev3<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Improve logging and error handling for register data acquisition</p></li>
 </ul>
 </div>
 <div class="section" id="id5">
-<h3>2017-12-01 3.0.0-dev2<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<h2>2017-12-01 3.0.0-dev2<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Add crawling behavior to new data acquisition subsystem
 to collect all results from OPS published data search</p></li>
@@ -361,7 +362,7 @@ to collect all results from OPS published data search</p></li>
 </ul>
 </div>
 <div class="section" id="id6">
-<h3>2017-11-30 3.0.0-dev1<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<h2>2017-11-30 3.0.0-dev1<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Minor fixes re. argument processing</p></li>
 <li><p>Improve robustness re. case-sensitivity at map resource acquisition (countries.json)</p></li>
@@ -379,13 +380,13 @@ to collect all results from OPS published data search</p></li>
 </ul>
 </div>
 <div class="section" id="id7">
-<h3>2016-11-01 2.0.0<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<h2>2016-11-01 2.0.0<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Release Patent2Net 2.0.0</p></li>
 </ul>
 </div>
 <div class="section" id="id8">
-<h3>2014-10-30 1.0.0<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<h2>2014-10-30 1.0.0<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Future development will add scenaris of analysis (one scenary, one network e.G authors, applicants etc. to avoid the need of Gephi expert's skills)</p></li>
 <li><p>revisiting weight nodes on networks</p></li>
@@ -395,7 +396,7 @@ to collect all results from OPS published data search</p></li>
 </ul>
 </div>
 <div class="section" id="id9">
-<h3>2014-03-04 0.9.0<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<h2>2014-03-04 0.9.0<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <ul>
 <li><p>OpsGather-PatentList</p>
 <blockquote>
@@ -430,11 +431,10 @@ to collect all results from OPS published data search</p></li>
 </ul>
 </div>
 <div class="section" id="id10">
-<h3>2014-03-15 0.0.0<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<h2>2014-03-15 0.0.0<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>Start public development</p></li>
 </ul>
-</div>
 </div>
 </div>
 
@@ -449,7 +449,7 @@ to collect all results from OPS published data search</p></li>
         <a href="historic/contributing.html" class="btn btn-neutral float-right" title="Contributing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="configure.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="dev/exports.html" class="btn btn-neutral float-left" title="File extension and data formats for specific software" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
