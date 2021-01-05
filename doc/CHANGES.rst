@@ -79,7 +79,7 @@ development
   see also https://github.com/Patent2net/P2N/issues/24
 - Use "Pillow" for thumbnail generation, gracefully fall back to ImageMagick's "convert"
 
-2018-03-20 3.0.0-dev6
+2018-03-20 3.0.0-dev6 (Thanks a lot Andreas)
 =====================
 - Make ``p2n adhoc dump`` output results either in "OpsExchangeDocument" or "Patent2NetBrevet" format
 - Make ``p2n adhoc list`` output arbitrary fields of "OpsExchangeDocument" (projection)
