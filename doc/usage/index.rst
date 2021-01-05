@@ -30,11 +30,12 @@ Please follow up with these resources to learn something about CQL:
 *********
 Operation
 *********
-Patent2Net offers two modes of operation:
+Patent2Net offers three modes of operation:
 
 .. toctree::
     :maxdepth: 1
 
+	web
     classic
     adhoc
-
+	bash
