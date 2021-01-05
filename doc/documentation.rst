@@ -1,7 +1,9 @@
 ***************************
 Contribute to documentation
 ***************************
-
+.. image:: https://readthedocs.org/projects/p2n-v3/badge/?version=latest
+:target: https://p2n-v3.readthedocs.io/en/latest/?badge=latest
+:alt: Documentation Status
 
 ============
 Introduction
@@ -11,8 +13,9 @@ Sphinx uses `reStructuredText <https://docutils.sourceforge.io/docs/user/rst/qui
 and straightforwardness of reStructuredText.
 
 The documentation can be built locally and also will be published to https://docs.ip-tools.org/patent2net/.
-It could also be pushed to https://readthedocs.org/.
+It is also pushed to https://readthedocs.org/.
 
+.. _note: it seems that latexmk fails due to svg graphics. (badges included from shield.io or readthedoc...
 
 =====
 Usage
