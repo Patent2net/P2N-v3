@@ -8,18 +8,18 @@ This part of the documentation covers the configuration of Patent2Net.
 The second step to using any software package is getting it properly configured.
 Please read this section carefully.
 
-docker version via web interface
+Docker version via web interface
 ================================
 Follow the get started section: http://localhost:5000/get_started
-
-
 
 After successfully configuring the software, you might want to
 follow up reading about its :ref:`usage`.
 
+Manual way
+==========
 
 OPS credentials
-===============
+---------------
 Patent2Net needs your personal credentials for accessing the OPS API.
 You have to provide them once as they are stored into the file
 ``cles-epo.txt`` in the current working directory.
@@ -33,7 +33,7 @@ There is a convenience command for initializing Patent2Net with your OPS credent
 .. note:: the get started section: http://localhost:5000/get_started helps in integrating your credentials on P2N but you have to follow the OPS registration to get them!
 
 OPS registration
-================
+----------------
 
 Please follow the `Register P2N with OPS`_ documentation to install your
 OPS OAuth credentials in the "``cles-epo.txt``" file in the root directory.
