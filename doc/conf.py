@@ -30,7 +30,13 @@
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
+import alabaster
+
+html_theme_path = [alabaster.get_path()]
+#extensions = ['alabaster']
+html_theme = 'alabaster'
+
+extensions = ['alabaster',
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
     'sphinx.ext.todo',
@@ -69,7 +75,7 @@ release = u'4.0.0.beta.dev1'
 #
 # This is also used if you do content translation via gettext catalogs.
 # Usually you set "language" from the command line for these cases.
-language = None
+language = 'python'
 
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.

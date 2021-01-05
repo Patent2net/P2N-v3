@@ -19,7 +19,7 @@ File extension and data formats for specific software
 Chained software 
 ================
 .. [API]
-	Console EPO Developer Portal (OPS). (2014). (Version 1.2). European Patent Office. `Console EPO Developer Portal<https://developers.epo.org/>`_
+	Console EPO Developer Portal (OPS). (2014). (Version 1.2). European Patent Office. `Console EPO Developer Portal <https://developers.epo.org/>`_
 
 .. [Gephi]
 	Bastian, Mathieu. (2009). language Java, Paris, France: Médialab Sciences Po. `Gephi <https://gephi.github.io/>`_
