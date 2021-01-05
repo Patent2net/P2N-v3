@@ -2,7 +2,7 @@
 Welcome to Patent2Net
 ######################
 
-.. image:: dev/images/LogoP2N.png
+.. image:: core/images/LogoP2N.png
 	:target: /_build/index.html
 	:align: center
 	:width: 80%
@@ -13,7 +13,10 @@ Welcome to Patent2Net
 	:target: https://github.com/Patent2net/P2N-v3/tree/master 
 .. image:: https://img.shields.io/github/stars/Patent2net/P2N-v3?label=Github%20stars
 .. image:: https://img.shields.io/github/issues/Patent2net/P2N-v3
-
+.. image:: https://readthedocs.org/projects/p2n-v3/badge/?version=latest
+    :target: https://p2n-v3.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+	
 -----
 About
 -----

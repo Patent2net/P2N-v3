@@ -2,8 +2,8 @@
 Contribute to documentation
 ***************************
 .. image:: https://readthedocs.org/projects/p2n-v3/badge/?version=latest
-:target: https://p2n-v3.readthedocs.io/en/latest/?badge=latest
-:alt: Documentation Status
+    :target: https://p2n-v3.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 ============
 Introduction

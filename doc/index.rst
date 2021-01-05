@@ -28,24 +28,15 @@
 	
     historic/index
 	
-
 .. toctree::
     :maxdepth: 1
 	
-    dev/index
+    core/index
 	
-###########
-Development
-###########	
-
 .. toctree::
     :maxdepth: 1
 	
-    CHANGES
-    historic/contributing
-    documentation
-    release
-    todo
+    devindex
 
 
 ##################
