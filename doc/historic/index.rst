@@ -8,13 +8,6 @@ Historical features
 Developper's mode
 *****************
 
-.. 
- contents::
- :local:
- :depth: 2
-
-----
-
 ============
 installation
 ============

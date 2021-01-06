@@ -1,8 +1,8 @@
 .. _devmod:
 
-#################
-Core informations
-#################
+##################################
+Global architecture and data model
+##################################
 
 .. toctree::
     :maxdepth: 1
