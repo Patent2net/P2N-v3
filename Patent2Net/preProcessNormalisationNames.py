@@ -136,8 +136,7 @@ for fic in [ndf, 'Families'+ndf]:# Modif here for debug   [ndf, 'Families'+ndf]:
     
     for bre in LstBrevet:#[:alpha]:
         memo = copy.copy(bre['inventor'])
-        if bre['label'] == 'FR3007658':
-            print (bre)
+
         bre['inventor'] = Nettoie(list(set(bre['inventor'])))
         if isinstance(bre['inventor'], list) and len(bre['inventor'])>1 and ''.join(memo).lower() != 'empty':
             for inv in bre['inventor']:

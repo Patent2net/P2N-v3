@@ -207,14 +207,14 @@ for fic in [ndf]:
         elif isinstance(bre['applicant'], str):
             if bre['applicant'].upper() in Public:
                 bre ['type'] = "public"
-                bre['typeCollab'] ="NON" # one applicant, no collaboration
+                bre['typeCollab'] ="NON" # one applicant public, no collaboration
             else:
                 bre ['type'] = "indus"
                 bre['typeCollab'] = "NON" # one applicant, no collaboration
         elif isinstance(bre['applicant'], list) and len(bre['applicant'])>1 and CheckListExclu(bre['applicant'], Inventeurs):
             if CheckListInclu(bre['applicant'], Public):  # one public entity
                 bre ['type'] = "public"
-                bre['typeCollab'] = [ApplType[truc] for truc in bre['applicant']]
+                bre['c'] = [ApplType[truc] for truc in bre['applicant']]
             elif CheckListExclu(bre['applicant'], Public):  # no public entity
                 bre ['type'] = "indus"
                 bre['typeCollab'] = "indus"
@@ -236,7 +236,7 @@ for fic in [ndf]:
                     bre['typeCollab'] = "indus-individu"
             else: # all applicants are inventors !!
                     bre ['type'] = "individuels"
-                    bre['typeCollab'] = "individuels"
+                    bre['typeCollab'] = "Inconnu"
                     
                     
          # elif len(bre['applicant'])>0: 
@@ -275,7 +275,7 @@ for fic in [ndf]:
     AutInvDeposant = [bre for bre in LstBrevet if bre['type'] == 'Inconnu']
     #check consistance
     total = len(Mix) + len(Univ) + len(Indus) + len(AutInvDeposant)
-    if total == 0:
+    if total-len(LstBrevet) == 0:
         print (total -len(LstBrevet)), " patents left... GOOD"
 
     projectNameMix=projectName+'Mix'
