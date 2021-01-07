@@ -15,26 +15,31 @@
 
 .. toctree::
     :maxdepth: 1
+    :caption: Setup
 	
     setup
     
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
+    :caption: Usage
 	
     usage/index
 		
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 1
+    :caption: Avanced setup
 	
     historic/index
 	
 .. toctree::
     :maxdepth: 1
+    :caption: Core information
 	
     core/index
 	
 .. toctree::
     :maxdepth: 1
+    :caption: Development information
 	
     devindex
 

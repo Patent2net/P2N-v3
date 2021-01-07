@@ -84,21 +84,8 @@ print("Nice, ", len(DataBrevet["brevets"]), " patents found. On calcule les aute
 #     Liste = [' '.join([truc.lower().title() for truc in nom.split(' ')]) for nom in Liste ] 
 #     return list(filter(lambda x: x not in indesirables, Liste))
 
-# test de consistance
-with open(Auteur+'//DejaTraites.csv', 'r',) as fic:
-    DejaVus = fic.readlines()
 
-if len (set(DejaVus)) == len(DataBrevet['brevets']):
-    print ('Youhou, tous les brevets ' + ndf + ' ont été traités.')
-    print ('Nb de brevets : ', len(DataBrevet['brevets']))
-    
-else:
-    reste = [bre['label'] for bre in DataBrevet['brevets'] if bre['label'] not in DejaVus ]
-    print ('il reste ', len(reste), ' brevets à traiter')
- 
-# Analyse stat des résultats
-print ("""Ceux qui ont changé d'affiliation la première trouvée puis la seconde... 
-       S'il en est plus de deux, ce sera la première puis la 2e....""")
+
 lstfic = os.listdir(configFile.ResultPath +'//AcadCorpora')
 # loading file from preProcessNormalisationNames
 # inventors names are normalised there
@@ -111,37 +98,80 @@ for cle in Inventeur_Norm.keys():
     Inventeur_Norm [cle] = [truc.title() for truc in Inventeur_Norm [cle]]
     
 InvNormes = [aut.title() for cle in Inventeur_Norm.keys() for aut in Inventeur_Norm [cle]]
-with codecs.open(configFile.ResultPath +'//AcadCorpora//AuteursAffil.csv', 'r', 'utf8') as fic:
-    data = fic.readlines()
-multiAut = 0  # inventeurs prolixes
-AffilDiff = 0   # les affiliations différentes
+# with codecs.open(configFile.ResultPath +'//AcadCorpora//AuteursAffil.csv', 'r', 'utf8') as fic:
+#     data = fic.readlines()
+# multiAut = 0  # inventeurs prolixes
+# AffilDiff = 0   # les affiliations différentes
+# Auteurs = dict()
+# for lig in data:
+#     col = lig   .strip()
+#     col = col.split(';')
+#     if col[0].title() in InvNormes:
+#         if col[0].title() in Inventeur_Norm.keys():
+#             Auteurs [ col[0].title()] = col[1]
+#         elif NoPunct(col[0].title()) in Inventeur_Norm.keys():
+#             Auteurs [NoPunct(col[0].title())] = col[1]
+            
+#         else:
+#             Auteurs [[cle.title() for cle in Inventeur_Norm.keys() if col[0].title() in Inventeur_Norm[cle]][0].title()] = col[1]
+#     if col[0].title() not in Auteurs.keys():
+#         Auteurs [col[0].title()] = col[1]
+#     elif NoPunct(col[0].title()) not in Auteurs.keys():
+#         Auteurs [NoPunct(col[0].title())] = col[1]
+#     else:
+#         if col[1] != Auteurs [col[0].title()] and '???' not in col[1]:
+#             print (col[0], " --> ", Auteurs [col[0]])
+#             print (col[0], " --> ", col[1])
+            
+#             AffilDiff +=1
+#             multiAut+=1  # non sens, le script peut recollecter plusieurs fois le même
+#         else:
+#             multiAut+=1
+#             pass
 Auteurs = dict()
-for lig in data:
-    col = lig   .strip()
-    col = col.split(';')
-    if col[0].title() in InvNormes:
-        if col[0].title() in Inventeur_Norm.keys():
-            Auteurs [ col[0].title()] = col[1]
-        elif NoPunct(col[0].title()) in Inventeur_Norm.keys():
-            Auteurs [NoPunct(col[0].title())] = col[1]
-            
-        else:
-            Auteurs [[cle.title() for cle in Inventeur_Norm.keys() if col[0].title() in Inventeur_Norm[cle]][0].title()] = col[1]
-    if col[0].title() not in Auteurs.keys():
-        Auteurs [col[0].title()] = col[1]
-    elif NoPunct(col[0].title()) not in Auteurs.keys():
-        Auteurs [NoPunct(col[0].title())] = col[1]
-    else:
-        if col[1] != Auteurs [col[0].title()] and '???' not in col[1]:
-            print (col[0], " --> ", Auteurs [col[0]])
-            print (col[0], " --> ", col[1])
-            
-            AffilDiff +=1
-            multiAut+=1  # non sens, le script peut recollecter plusieurs fois le même
-        else:
-            multiAut+=1
-            pass
+with open(RepDir + "//AuteursMatches.tsv", "r", encoding = 'utf8') as ficMatch:
+    DataMatch = ficMatch.readlines()[1:]
 
+for lig in DataMatch:
+    col = lig.strip().split("\t")
+    if col[0] not in Auteurs.keys():
+        Auteurs [col[0]] = dict()
+    else:
+        print ("pb here")
+    Auteurs [col[0]]["publisMatch"] = int(col [1])
+    Auteurs [col[0]]["publis"] = int(col [2])
+    Auteurs [col[0]]["Score moyen"] = float(col [3])
+    
+    
+
+with open(RepDir + "//AuteursPAsMatches.tsv", "r", encoding = 'utf8') as ficMatch:
+    DataPasMatch = ficMatch.readlines()[1:]
+
+for lig in DataPasMatch:
+    col = lig.strip().split("\t")
+    if col[0] not in Auteurs.keys():
+        Auteurs [col[0]] = dict()
+    else:
+        print ("big pb here")
+    Auteurs [col[0]]["publisMatch"] = 0
+    Auteurs [col[0]]["publis"] = 0
+    Auteurs [col[0]]["Score moyen"] = 0
+
+with open(Auteur+'//traceAuct.csv', 'r',) as fic:
+    dataAuct = fic.readlines()
+
+for lig in dataAuct[1:]:
+    lig = lig.strip()
+    col= lig.split(';')
+    if col[0] not in Auteurs.keys():
+        Auteurs [col[0]] = dict()
+        Auteurs [col[0]]['publis'] =  int(col [1])
+        Auteurs [col[0]]['publisMatch'] = int(col [2])
+        Auteurs [col[0]]['affilFr'] = bool(col [3])
+    else: # merging
+        Auteurs [col[0]]['publis'] += int(col [1])
+        Auteurs [col[0]]['publisMatch'] += int(col [2])
+        Auteurs [col[0]]['affilFr'] = bool(col [3])
 
 
 for fic in [ndf, 'Families'+ndf]:
@@ -206,8 +236,12 @@ for fic in [ndf, 'Families'+ndf]:
         df_Fam = pd.DataFrame(LstBrevet)
     else:
         df = pd.DataFrame(LstBrevet)
-AuteursFr = {cle for cle, val in Auteurs.items() if "france" in val.lower()}
-AuteursNotFr = {cle for cle, val in Auteurs.items() if not Check(val, AuteursFr)}
+
+for aut in Auteurs.keys():
+    if 'affilFr' not in Auteurs [aut].keys():
+        Auteurs [aut]['affilFr'] = False
+AuteursFr = [cle for cle in Auteurs.keys() if Auteurs[cle]['affilFr']]#{cle for cle, val in Auteurs.items() if "france" in val.lower()}
+AuteursNotFr = [cle for cle in Auteurs.keys() if not Auteurs[cle]['affilFr']]
 
 Applis = []
 Techno = dict()

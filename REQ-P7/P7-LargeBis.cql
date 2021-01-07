@@ -1,4 +1,4 @@
-﻿# Patent2Net configuration file
+# Patent2Net configuration file
 ##############################
 # request
 # insert below your request in cql format as done in the example
@@ -20,8 +20,8 @@ GatherPatent: False
 GatherBiblio: False
 
 # patent content (description, abstract, claims) completing patents bibliographic data
-GatherContent: False
-OPSGatherContentsv2-Iramuteq: False
+GatherContent: True
+OPSGatherContentsv2-Iramuteq: True
 
 #patents families extending the PU to families
 GatherFamilly: True

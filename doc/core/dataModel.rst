@@ -32,7 +32,7 @@ The following scheme, presents the general organisation of the Patent2Net script
 
 Main scripts
 ------------
-These scripts are separated in the four categories apearing on previous figure. They follow the generic named convention:
+These scripts are separated in the four categories appearing on previous figure. They follow the generic named convention:
 * a gatherer starts with *OPS-Gather* and they are used for:
 
  - patent gathering. *OPS-GatherPatentsv2.py* is the entry gatherer. It creates:

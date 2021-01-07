@@ -59,7 +59,7 @@ def Nettoie(Liste):
 with open(Auteur+'//traceAuct.csv', 'r',) as fic:
     dataAuct = fic.readlines()
 Auteurs = dict()
-for lig in dataAuct:
+for lig in dataAuct[1:]:
     lig = lig.strip()
     col= lig.split(';')
     if col[0] not in Auteurs.keys():
@@ -117,7 +117,7 @@ for bre in DataBrevet['brevets']:
 # Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
 print ("nombre d'inventeurs ", len(Inventeurs))
 print ("Nombre d'inventeurs uniques :", len(set(Inventeurs)))
-print ("nombre d'auteurs", sum([1 for aut in Auteurs.keys() if int(Auteurs [aut]['publis'])>0]))
+print ("nombre d'auteurs", sum([1 for aut in Inventeurs if aut in Auteurs.keys() and int(Auteurs [aut]['publis'])>0]))
 # print ("nombre d'auteurs FR", sum([1 for aut in Auteurs.keys() if Auteurs [aut]['affilFr'] == 'True' and int(Auteurs [aut]['publis'])>0]))
 # print ("nombre d'auteurs pas FR", sum([1 for aut in Auteurs.keys() if Auteurs [aut]['affilFr'] == 'False' and int(Auteurs [aut]['publis'])>0]))
 #print ("nombre de publications", sum([int(Auteurs [aut]['publis']) for aut in Auteurs.keys()])) données fausse dans le fichier trace auc. Des publis mathchées alors que publis = 0 pour certains auteurs
@@ -219,7 +219,10 @@ for ficCsv in Csv2:
         tempo = []
         DejaVus = []
         for lig in set(Datacsv[1:]):
-            pubmedId = lig.split(';')[4]
+            if len(lig.split(';')) >3:
+                pubmedId = lig.split(';')[4]
+            else: # seems a problem with DOI
+                pubmedId = lig[0]
             if pubmedId not in DejaVus:
                 tempo.append(lig)
                 DejaVus.append(pubmedId)

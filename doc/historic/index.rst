@@ -32,7 +32,7 @@ Operation
 Patent2Net in dev mod offers two modes of operation:
 
 .. toctree::
-    :maxdepth: 3
+    :maxdepth: 1
 
     ../usage/classic
     ../usage/adhoc    

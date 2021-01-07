@@ -1,7 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ed1b0d0e-8ce5-4379-960a-4b5e895c3c42" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Patent2Net/AcadTraite2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Patent2Net/AcadTraite2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Patent2Net/PreScriptP7.ps1" beforeDir="false" afterPath="$PROJECT_DIR$/Patent2Net/PreScriptP7.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Patent2Net/SplitCorpus2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Patent2Net/SplitCorpus2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dex.js" beforeDir="false" afterPath="$PROJECT_DIR$/dex.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/doctrees/environment.pickle" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/doctrees/environment.pickle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/doctrees/index.doctree" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/doctrees/index.doctree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/doctrees/setup.doctree" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/doctrees/setup.doctree" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/CHANGES.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/CHANGES.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/_sources/index.rst.txt" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/_sources/index.rst.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/_sources/setup.rst.txt" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/_sources/setup.rst.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/configure.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/configure.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/documentation.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/documentation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/genindex.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/genindex.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/objects.inv" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/objects.inv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/release.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/release.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/searchindex.js" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/searchindex.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/setup.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/setup.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/todo.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/todo.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/usage/adhoc.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/usage/adhoc.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/usage/classic.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/usage/classic.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/usage/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/usage/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/_build/html/usage/jq.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc/_build/html/usage/jq.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/core/dataModel.rst" beforeDir="false" afterPath="$PROJECT_DIR$/doc/core/dataModel.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/core/images/LogoP2N.png" beforeDir="false" afterPath="$PROJECT_DIR$/doc/core/images/LogoP2N.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/historic/index.rst" beforeDir="false" afterPath="$PROJECT_DIR$/doc/historic/index.rst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc/index.rst" beforeDir="false" afterPath="$PROJECT_DIR$/doc/index.rst" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1dacdVX0nMRGBkXYwptpCvZhPho" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Patent2Net/AcadStatsSuiteDer.py" />
     <property name="settings.editor.selected.configurable" value="settings.github" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ed1b0d0e-8ce5-4379-960a-4b5e895c3c42" name="Default Changelist" comment="" />
+      <created>1609932477848</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1609932477848</updated>
+      <workItem from="1609932479820" duration="1844000" />
+      <workItem from="1610008143569" duration="290000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Patent2Net/AcadStatsSuiteDer.py</url>
+          <line>78</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

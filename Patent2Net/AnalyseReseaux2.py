@@ -2,6 +2,8 @@
 """
 Created on Sat Jun 29 07:41:54 2019
 
+OLD version. Use P2N-Nets !!!!
+
 @author: dreymond
 """
 

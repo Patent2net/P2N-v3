@@ -76,8 +76,8 @@ ResultPathContent= configFile.ResultContentsPath
 ResultAbstractPath = configFile.ResultAbstractPath
 ListBiblioPath = configFile.ResultBiblioPath
 # special path used with AcadPubMed.py
-Auteur = configFile.ResultPath + '//AcadCorpora'
-RepDir = configFile.ResultPath + '//AcadCorpora'
+Auteur = configFile.ResultPath + '/AcadCorpora'
+RepDir = configFile.ResultPath + '/AcadCorpora'
 project = RepDir
 if 'AcadCorpora' not in os.listdir(configFile.ResultPath):
     print ("relancez le script de collecte (AcadPubMed.py 29/06/2019)")
@@ -152,7 +152,7 @@ import copy
 
 # no good: la sélection des brevets à partir des représentants qui certaines fois ne sont que dans les familles, doit se faire sur la liste 
 # des équivalents du corpus initial. Là ce 'nest pas le cas et on a un joyeux mix
-for fic in [ndf]:
+for fic in [ndf, 'Families'+ndf]:
     print("\n> Hi! This is corpora splitter used on:", fic)
     if 'Description' + fic in os.listdir(ListBiblioPath):
         with open(ListBiblioPath + '//' + fic, 'r') as data:
@@ -276,7 +276,7 @@ for fic in [ndf]:
     #check consistance
     total = len(Mix) + len(Univ) + len(Indus) + len(AutInvDeposant)
     if total-len(LstBrevet) == 0:
-        print (total -len(LstBrevet)), " patents left... GOOD"
+        print (total -len(LstBrevet), " patents left... GOOD")
 
     projectNameMix=projectName+'Mix'
     projectNameUniv=projectName+'Public'
@@ -307,6 +307,9 @@ for fic in [ndf]:
         os.makedirs(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora')  
     shutil.copy(RepDir + '/'+"AuteursAffil.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    shutil.copy(RepDir + '/'+"AuteursPAsMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    shutil.copy(RepDir + '/'+"AuteursMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+
     if "InventeurNormes.pkl" in os.listdir(BiblioPath):
         shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)
         shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath)                                    
@@ -335,6 +338,9 @@ for fic in [ndf]:
         os.makedirs(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora')  
     shutil.copy(RepDir + '/'+"AuteursAffil.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    shutil.copy(RepDir + '/'+"AuteursPAsMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    shutil.copy(RepDir + '/'+"AuteursMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    
     if "InventeurNormes.pkl" in os.listdir(BiblioPath):
         shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)  
         shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath)  
@@ -362,6 +368,9 @@ for fic in [ndf]:
     #copy of author affiliation in each directory of splitted corpora
     shutil.copy(RepDir + '/'+"AuteursAffil.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    shutil.copy(RepDir + '/'+"AuteursPAsMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    shutil.copy(RepDir + '/'+"AuteursMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+
     if "InventeurNormes.pkl" in os.listdir(BiblioPath):
         shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)   
         shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath) 
@@ -388,6 +397,9 @@ for fic in [ndf]:
     #copy of author affiliation in each directory of splitted corpora
     shutil.copy(RepDir + '/'+"AuteursAffil.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    shutil.copy(RepDir + '/'+"AuteursPAsMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+    shutil.copy(RepDir + '/'+"AuteursMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
+
     if "InventeurNormes.pkl" in os.listdir(BiblioPath):
         shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)   
         shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath) 
