@@ -98,6 +98,8 @@ for cle in Inventeur_Norm.keys():
     Inventeur_Norm [cle] = [truc.title() for truc in Inventeur_Norm [cle]]
     
 InvNormes = [aut.title() for cle in Inventeur_Norm.keys() for aut in Inventeur_Norm [cle]]
+InvNormes = list(set(InvNormes))
+
 # with codecs.open(configFile.ResultPath +'//AcadCorpora//AuteursAffil.csv', 'r', 'utf8') as fic:
 #     data = fic.readlines()
 # multiAut = 0  # inventeurs prolixes
@@ -131,6 +133,7 @@ InvNormes = [aut.title() for cle in Inventeur_Norm.keys() for aut in Inventeur_N
 Auteurs = dict()
 with open(RepDir + "//AuteursMatches.tsv", "r", encoding = 'utf8') as ficMatch:
     DataMatch = ficMatch.readlines()[1:]
+PubMedAuct = []
 
 for lig in DataMatch:
     col = lig.strip().split("\t")
@@ -141,7 +144,7 @@ for lig in DataMatch:
     Auteurs [col[0]]["publisMatch"] = int(col [1])
     Auteurs [col[0]]["publis"] = int(col [2])
     Auteurs [col[0]]["Score moyen"] = float(col [3])
-    
+    PubMedAuct.append(col[0])
     
 
 with open(RepDir + "//AuteursPAsMatches.tsv", "r", encoding = 'utf8') as ficMatch:
@@ -156,22 +159,25 @@ for lig in DataPasMatch:
     Auteurs [col[0]]["publisMatch"] = 0
     Auteurs [col[0]]["publis"] = 0
     Auteurs [col[0]]["Score moyen"] = 0
-
+    PubMedAuct.append(col[0])
+    
 with open(Auteur+'//traceAuct.csv', 'r',) as fic:
     dataAuct = fic.readlines()
+    if 'Nombre publications' in dataAuct [0]:
+        dataAuct = dataAuct [1:]
 
-for lig in dataAuct[1:]:
+for lig in dataAuct:
     lig = lig.strip()
     col= lig.split(';')
     if col[0] not in Auteurs.keys():
         Auteurs [col[0]] = dict()
         Auteurs [col[0]]['publis'] =  int(col [1])
         Auteurs [col[0]]['publisMatch'] = int(col [2])
-        Auteurs [col[0]]['affilFr'] = bool(col [3])
+        Auteurs [col[0]]['affilFr'] = col [3]
     else: # merging
         Auteurs [col[0]]['publis'] += int(col [1])
         Auteurs [col[0]]['publisMatch'] += int(col [2])
-        Auteurs [col[0]]['affilFr'] = bool(col [3])
+        Auteurs [col[0]]['affilFr'] = col [3]
 
 
 for fic in [ndf, 'Families'+ndf]:
@@ -240,8 +246,8 @@ for fic in [ndf, 'Families'+ndf]:
 for aut in Auteurs.keys():
     if 'affilFr' not in Auteurs [aut].keys():
         Auteurs [aut]['affilFr'] = False
-AuteursFr = [cle for cle in Auteurs.keys() if Auteurs[cle]['affilFr']]#{cle for cle, val in Auteurs.items() if "france" in val.lower()}
-AuteursNotFr = [cle for cle in Auteurs.keys() if not Auteurs[cle]['affilFr']]
+AuteursFr = [cle for cle in Auteurs.keys() if Auteurs[cle]['affilFr'] == 'True']#{cle for cle, val in Auteurs.items() if "france" in val.lower()}
+AuteursNotFr = [cle for cle in Auteurs.keys() if Auteurs[cle]['affilFr'] == 'False']
 
 Applis = []
 Techno = dict()
@@ -260,6 +266,9 @@ def cycle (liste):
         for indice in range(taille):
             tempo.append((liste [indice], liste[indice+1]))
         return tempo
+AuteursFr2 = []
+for aut in AuteursFr:
+    AuteursFr2.extend(aut.split(' '))
 
 for bre in df['label']:
     try:
@@ -272,11 +281,12 @@ for bre in df['label']:
             if len(inv)>0:
                 if inv in AuteursFr :
                     df .loc[df.index[df['label'] == bre], ['AutorFr']] += 1
+
 Inventeurs = set()
 for bre in DataBrevet  ['brevets']:
     for appl in  bre['applicant']:
         if len(appl) ==1:
-            print()
+            print("encore des données pas bonnes !")
         appl=appl.upper()
         if appl in Techno.keys():
             for cib in bre ['IPCR11']:
@@ -290,6 +300,10 @@ for bre in DataBrevet  ['brevets']:
             print("ARFFFFF")
         Inventeurs.add(inv.title())
         Techno[inv.title()] =  [cib for cib in bre ['IPCR11']] 
+        if inv not in Auteurs.keys() and inv.title() not in Auteurs.keys():
+            #authors coming from "families sets"
+            print ('GRRR: ', inv)
+            Auteurs [inv] = {'publis': -1, 'publisMatch': 0, 'affilFr': 'False'}
 GraphAuteurs = nx.DiGraph()
 GraphApplicant = nx.DiGraph()
 GraphBrevets = nx.DiGraph()
@@ -408,8 +422,10 @@ for bre in DataBrevet['brevets']:
         if aut in dicoAttrsAut.keys():
             if dicoAttrsAut [aut]['AutFr']:
                 typeAut = 'AutFr'
-            else:
+            elif not dicoAttrsAut [aut]['AutFr']:
                 typeAut = 'AutEtr'
+            else:
+                typeAut = 'PasSurPubMed'
             dicoAttrsAut [aut] = {'AutFr': dicoAttrsAut [aut]['AutFr'],
                                   'Citations' : dicoAttrsAut [aut]['Citations'] + bre['Citations'],
                                   'Famille' : df['family lenght'].loc[df.index[df['label'] == bre['label']]].values[0],
@@ -422,19 +438,26 @@ for bre in DataBrevet['brevets']:
                                   'IPCForce' : len(Techno [aut])
                                 }
         else:
-            typeAut = 'PasSurPubMed'
-            dicoAttrsAut [aut] = {'AutFr': aut.title() in AuteursFr,
-                      'Citations' : bre['Citations'],
-                      'Famille' : df['family lenght'].loc[df.index[df['label'] == bre['label']]].values[0],
-                      'type' : typeAut,
-                      'NbBrevets' : 1,
-                      'IPC11-range' : Techno[aut],
-                      'IPC7-range' : Techno[aut],
-                      'IPC4-range' : Techno[aut],
-                      'IPCDiversity': len(set(Techno [aut])),
-                      'IPCForce' : len(Techno [aut])
-                    }
-    
+                
+                dicoAttrsAut [aut] = {'AutFr': aut.title() in AuteursFr,
+                          'Citations' : bre['Citations'],
+                          'Famille' : df['family lenght'].loc[df.index[df['label'] == bre['label']]].values[0],
+                          'NbBrevets' : 1,
+                          'IPC11-range' : Techno[aut],
+                          'IPC7-range' : Techno[aut],
+                          'IPC4-range' : Techno[aut],
+                          'IPCDiversity': len(set(Techno [aut])),
+                          'IPCForce' : len(Techno [aut])
+                        }
+                if dicoAttrsAut [aut]['AutFr']:
+                    typeAut = 'AutFr'
+                elif not dicoAttrsAut [aut]['AutFr']:
+                    typeAut = 'AutEtr'
+                else:
+                    typeAut = 'PasSurPubMed'
+                dicoAttrsAut [aut] ['type'] = typeAut
+
+
     # chaining collaborations
     
     if isinstance(bre['inventor'], list) and len( bre['inventor'])>1:
@@ -529,7 +552,8 @@ for appl in set(Applis):
     IPC4 +=dicoAttrs [appl]['IPC4-range']
     IPCForce += Techno [appl]
 
-
+lstFr= [truc.split('-')[1] for truc in os.listdir(configFile.ResultPath +'//AcadCorpora/Fr')]
+lstEtr= [truc.split('-')[1] for truc in os.listdir(configFile.ResultPath +'//AcadCorpora/NoFr')]
 for appl in Inventeurs:
         Techno [appl] = list(filter(lambda x: x !='', Techno [appl]))
         appl=appl.title()
@@ -551,6 +575,29 @@ for appl in Inventeurs:
                       'IPCDiversity': len(set(Techno [appl])),
                       'IPCForce' : IPCForceAut
                     }
+    
+for aut in Auteurs.keys():
+    #if aut in PubMedAuct:
+   # pas forcément vrai j'ai dû zapper cette info dans le traitement
+    # on retrouve les étrangers dans le dossier et fait un check par leur nom... tordu
+       if aut.replace(' ','') in lstFr and aut.replace(' ','') not in lstEtr:
+           typeAut = 'AutFr'
+       elif aut.replace(' ','') in lstEtr and aut.replace(' ','') not in lstFr:
+           typeAut = 'AutEtr'
+
+
+       elif aut.replace(' ','') not in lstFr and aut.replace(' ','') not in lstEtr:    
+           typeAut = 'PasSurPubMed'    
+       
+       elif aut in AuteursFr:
+           typeAut = 'AutFr'
+       else:
+           typeAut = 'AutEtr'
+    
+           
+       if aut in  dicoAttrsAut.keys():
+           dicoAttrsAut [aut] ['type'] = typeAut
+
         
 IPCDiversity = len(set(IPCForce))
 IPCForce = len(IPCForce)
@@ -578,7 +625,7 @@ tailleCrp = len(DataBrevet  ['brevets'])
 ligne = str(tailleCrp) +';'
 if tailleCrp ==0:
     tailleCrp =1
-
+# [aut for aut in dicoAttrsAut.keys() if dicoAttrsAut[aut]["type"]=="PasSurPubMed"]
 ligne +=    str(NbBrevets) +';'+\
         str(len(set(Applis)))+';'+\
         str(len(dicoAttrsAut.keys())) +';'+\

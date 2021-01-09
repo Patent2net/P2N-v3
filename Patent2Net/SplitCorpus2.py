@@ -309,7 +309,13 @@ for fic in [ndf, 'Families'+ndf]:
     shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     shutil.copy(RepDir + '/'+"AuteursPAsMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     shutil.copy(RepDir + '/'+"AuteursMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-
+    if 'Fr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
+        shutil.copytree(RepDir + '/Fr', 
+                        ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/Fr')
+    if 'NoFr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
+  
+        shutil.copytree(RepDir + '/NoFr', 
+                    ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/NoFr')
     if "InventeurNormes.pkl" in os.listdir(BiblioPath):
         shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)
         shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath)                                    
@@ -340,7 +346,13 @@ for fic in [ndf, 'Families'+ndf]:
     shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     shutil.copy(RepDir + '/'+"AuteursPAsMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     shutil.copy(RepDir + '/'+"AuteursMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    
+    if 'Fr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
+        shutil.copytree(RepDir + '/Fr', 
+                        ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/Fr')
+    if 'NoFr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
+  
+        shutil.copytree(RepDir + '/NoFr', 
+                    ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/NoFr')
     if "InventeurNormes.pkl" in os.listdir(BiblioPath):
         shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)  
         shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath)  
@@ -370,7 +382,13 @@ for fic in [ndf, 'Families'+ndf]:
     shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     shutil.copy(RepDir + '/'+"AuteursPAsMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     shutil.copy(RepDir + '/'+"AuteursMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-
+    if 'Fr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
+        shutil.copytree(RepDir + '/Fr', 
+                        ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/Fr')
+    if 'NoFr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
+  
+        shutil.copytree(RepDir + '/NoFr', 
+                    ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/NoFr')
     if "InventeurNormes.pkl" in os.listdir(BiblioPath):
         shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)   
         shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath) 
@@ -399,7 +417,13 @@ for fic in [ndf, 'Families'+ndf]:
     shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     shutil.copy(RepDir + '/'+"AuteursPAsMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
     shutil.copy(RepDir + '/'+"AuteursMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-
+    if 'Fr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
+        shutil.copytree(RepDir + '/Fr', 
+                        ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/Fr')
+    if 'NoFr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
+  
+        shutil.copytree(RepDir + '/NoFr', 
+                    ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/NoFr')
     if "InventeurNormes.pkl" in os.listdir(BiblioPath):
         shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)   
         shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath) 
