@@ -3,6 +3,10 @@
 <head>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
     <script>
@@ -67,10 +71,20 @@
             
     </script>
 <style>
-.section {display: flex;}
+html, body {
+    height: 100%;
+    background-color: #333;
+}
+
+  body {
+      color: #fff;
+      text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+  }
+
+  .section {display: flex;}
 
 
-    .container .progress {
+  .container .progress {
   position: relative;
   float: left;
   border: 1px solid black;
@@ -96,28 +110,29 @@
     }
 </style>    
 </head>
-<body>
-   <div style="width:512px; margin:24px;">
+<body class="text-center">
+   <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
         <h4 class="mb-2"> Gathering and processing steps as expected</h4>
         <hr class="mb-4"/>
 
-<section id="container" class="column" style="width: 100%;">
-{% for bar in range(0,num_bars) %}
-   
-        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 45%" id="prog_{{bar}}">
-            <span class="progress-bar-label" id="prog_{{bar}}_label">0%</span> {{label [bar]}} </div>
+        <section id="container" class="column" style="width: 100%;">
+      {% for bar in range(0,num_bars) %}
+
+        <div class="progress" id="prog_{{bar}}">
+        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="prog_{{bar}}_label">{{label [bar]}}</div>
+        </div>
+
         
 
      <div id="info_{{bar}}" class="right" style="width: 53%; margin: 5px; overflow-y:scroll; height:50px;" >
-    Hello prog_{{bar}}_label
-    
-    <br/>
-    </div>
+     Hello prog_{{bar}}_label
+      <br/>
+     </div>
 
     
-{% endfor %}
+    {% endfor %}
 
-    </section>
+     </section>
   </div>
 
 </body>
