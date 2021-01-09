@@ -1,4 +1,4 @@
-﻿# Patent2Net V3 configuration file
+# Patent2Net V3 configuration file
 ##############################
 # request
 # insert below your request in cql format as done in the example
