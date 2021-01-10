@@ -99,7 +99,7 @@ if IsEnableScript:
     ops_client.accept_type = 'application/json'
     NumTotal = 0
     cpt = 0
-    for ndf in [fic2 for fic2 in os.listdir(ResultBiblioPath) if fic2.count('Description')==0 and fic2.count('Old')==0]:
+    for ndf in [configFile.ndf, 'Families' + configFile.ndf]:
         if ndf.startswith('Families'):
             typeSrc = 'Families'
 
@@ -158,13 +158,13 @@ if IsEnableScript:
                 AnnonceProgres (Appli = 'p2n_cluster', valMax = 100, valActu = cpt*50/NumTotal)
                 brevet = dictCleaner(brevet)
                 ndb = brevet['label']#[u'document-id'][u'country']['$']+brevet[u'document-id'][u'doc-number']['$']brevet['publication-ref'][u'document-id'][0][u'kind']['$'])
-                print("Retrieving ", ndb)
+                #print("Retrieving ", ndb)
                 AnnonceLog(Appli=appli, texte= "Retrieving: "+ ndb)
             
         #check for already gathered patents
                 pays = brevet['country']
                 if isinstance(ndb, list):
-                    print(ndb, "using first one...")
+                    #print(ndb, "using first one...")
                     ndb = ndb[0]
                     for key in ['label', 'country', 'kind']:
                         brevet[key] = list(set(brevet[key])) # hum some problem (again) in cleaning data within the family gatherer... 22/12/15
