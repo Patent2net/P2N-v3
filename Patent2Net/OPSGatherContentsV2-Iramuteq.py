@@ -109,7 +109,7 @@ if IsEnableScript:
             ficBrevet = LoadBiblioFile(ResultBiblioPath, ndf)
 
         else: #Retrocompatibility
-            print('gather your data again. sorry')
+            print('gather your data again. sorry:', typeSrc + ndf)
             AnnonceLog(Appli=appli, texte = typeSrc +" gather your data again. sorry")
             
             sys.exit()
