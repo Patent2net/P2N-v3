@@ -6,3 +6,4 @@ cd ..
 python setup.py build
 python setup.py install
 chmod +x update.sh
+chmod +x run-all.sh
