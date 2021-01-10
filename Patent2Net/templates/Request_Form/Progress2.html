@@ -51,40 +51,40 @@
                     {
                     $(qi).css('width', sent_data[i]+'%').attr('aria-valuenow', sent_data[i]);
                     }
-                switch(qi) {
+                switch(i) {
     // ['p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content','p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster', ]
 
-                    case "p2n_req":
+                    case 1:
                         lqi = "Gathering patent list"
                         break;
-                    case "p2n_gather_biblio":
+                    case 2:
                         lqi = "Gathering bibliographic metadata"
                         break;    
-                    case "p2n_filtering":
+                    case 3:
                         lqi = "Filtering patents"
                         break;    
-                    case "p2n_family":
+                    case 4:
                         lqi = "Gathering families"
                         break;            
-                    case "p2n_content":
+                    case 5:
                         lqi = "Gathering content"
                         break;            
-                    case "p2n_image":
+                    case 6:
                         lqi = "Gathering images"
                         break;          
-                    case "p2n_network":
+                    case 7:
                         lqi = "Processing networks"
                         break;                     
-                     case "p2n_tables":
+                     case 8:
                         lqi = "Processing tables"
                         break;               
-                    case "p2n_carrot":
+                    case 9:
                         lqi = "Preparing carrot2 files"
                         break;          
-                    case "p2n_iramuteq":
+                    case 10:
                         lqi = "Processing IRAMuTeQ files"
                         break;                     
-                     case "p2n_cluster":
+                     case 11:
                         lqi = "Clustering"
                         break;                                                                
                 }
