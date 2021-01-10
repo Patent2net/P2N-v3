@@ -51,7 +51,44 @@
                     {
                     $(qi).css('width', sent_data[i]+'%').attr('aria-valuenow', sent_data[i]);
                     }
-                lqi = qi+"_label"
+                switch(qi) {
+    // ['p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content','p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster', ]
+
+                    case "p2n_req":
+                        lqi = "Gathering patent list"
+                        break;
+                    case "p2n_gather_biblio":
+                        lqi = "Gathering bibliographic metadata"
+                        break;    
+                    case "p2n_filtering":
+                        lqi = "Filtering patents"
+                        break;    
+                    case "p2n_family":
+                        lqi = "Gathering families"
+                        break;            
+                    case "p2n_content":
+                        lqi = "Gathering content"
+                        break;            
+                    case "p2n_image":
+                        lqi = "Gathering images"
+                        break;          
+                    case "p2n_network":
+                        lqi = "Processing networks"
+                        break;                     
+                     case "p2n_tables":
+                        lqi = "Processing tables"
+                        break;               
+                    case "p2n_carrot":
+                        lqi = "Preparing carrot2 files"
+                        break;          
+                    case "p2n_iramuteq":
+                        lqi = "Processing IRAMuTeQ files"
+                        break;                     
+                     case "p2n_cluster":
+                        lqi = "Clustering"
+                        break;                                                                
+                }
+                //lqi = qi+"_label"
                 $(lqi).text(sent_data[i]+'%');
                 if (somme < 999)
                 done = false
