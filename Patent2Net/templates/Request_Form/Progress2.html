@@ -50,44 +50,8 @@
                     {
                     $(qi).css('width', sent_data[i]+'%').attr('aria-valuenow', sent_data[i]);
                     }
-                switch(parseInt (i)) {
-    // ['p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content','p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster', ]
-
-                    case 0:
-                        lqi = "Gathering patent list"
-                        break;
-                    case 1:
-                        lqi = "Gathering bibliographic metadata"
-                        break;    
-                    case 2:
-                        lqi = "Filtering patents"
-                        break;    
-                    case 3:
-                        lqi = "Gathering families"
-                        break;            
-                    case 4:
-                        lqi = "Gathering content"
-                        break;            
-                    case 5:
-                        lqi = "Gathering images"
-                        break;          
-                    case 6:
-                        lqi = "Processing networks"
-                        break;                     
-                     case 7:
-                        lqi = "Processing tables"
-                        break;               
-                    case 8:
-                        lqi = "Preparing carrot2 files"
-                        break;          
-                    case 9:
-                        lqi = "Processing IRAMuTeQ files"
-                        break;                     
-                     case 10:
-                        lqi = "Clustering"
-                        break;                                                                
-                }
-                //lqi = qi+"_label"
+ 
+                lqi = qi+"_label"
                 $(lqi).text(sent_data[i]+'%');
                 if (somme < 999)
                 done = false
@@ -161,7 +125,7 @@ html, body {
         
 
      <div id="info_{{bar}}" class="right" style="width: 53%; margin: 5px; overflow-y:scroll; height:50px;" >
-     Hello {{lqi}}
+     Hello {{label [bar]}}
       <br/>
      </div>
 

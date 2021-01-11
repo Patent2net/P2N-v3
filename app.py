@@ -143,13 +143,29 @@ def form():
 #Single Request form confirmation route
 @app.route('/confirmation', methods=['GET'])
 def confirmation():
-    print (request.url)
+    # print (request.url)
     form_result =  request.args#dict(parse.parse_qsl(parse.urlsplit(request).query))
+
+  # ['p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content','p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster', ]
+
+    labels = { 'p2n_req' : "Gathering patent list",
+              'p2n_gather_biblio' : "Gathering bibliographic metadata", 
+              "p2n_filtering" : "Filtering patents", 
+              'p2n_family' : "Gathering families",
+              'p2n_content' : "Gathering content",
+              'p2n_image' :  "Gathering images",
+              'p2n_network' : "Processing networks",
+              'p2n_tables' : "Processing tables",
+              'p2n_carrot' :  "Preparing carrot2 files",
+              'p2n_iramuteq' : "Processing IRAMuTeQ files",
+              'p2n_cluster' : "Clustering" 
+              }
+
     
+    AppLab = [labels [lab] for lab in lstAppl if form_result [lab] and lab not in ['p2n_dir']]
     
+
     
-    AppLab = [lab for lab in lstAppl if form_result [lab] and lab not in ['p2n_dir']]
-        
     app_cfg.num_bars = len(AppLab) - len([truc for truc in AppLab if not form_result [truc]] )
     return render_template('Patent2Net/templates/Request_Form/Progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
