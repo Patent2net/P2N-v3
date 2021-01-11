@@ -64,8 +64,7 @@ Project information: Who we are
 The source code of the Patent2Net toolkit is available under an open source license,
 see also  `Patent2Net on GitHub <https://github.com/Patent2net/P2N-v3/tree/master>`_
  
-The project is elaborated and maintained by an `international team <http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:community>`_
-of university professors and researchers on a free basis.
+The project is elaborated and maintained by an international team of university professors and researchers on a free basis.
 
 -------
 License
@@ -82,7 +81,7 @@ Documentation
 Doc and wiki
 ^^^^^^^^^^^^
 
- * `Wiki <http://patent2netv2.vlab4u.info/dokuwiki/>`_
+ * `Wiki <https://github.com/Patent2net/P2N-v3/wiki>`_
  * `Documentation <https://docs.ip-tools.org/patent2net/>`_
 
 

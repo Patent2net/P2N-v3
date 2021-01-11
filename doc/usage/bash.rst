@@ -1,7 +1,7 @@
 .. _bash mode:
 
 =========
-bash mode
+Bash mode
 =========
 
 .. contents::

@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Getting started &mdash; Patent2Net 4.0.0.beta.dev1 documentation</title>
+  <title>Quick start &mdash; Patent2Net 4.0.0.beta.dev1 documentation</title>
   
 
   
@@ -36,7 +36,9 @@
 
     
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Usage" href="usage/index.html" />
+    <link rel="prev" title="Welcome to Patent2Net" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -85,24 +87,22 @@
               
             
             
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Getting started</a><ul>
-<li><a class="reference internal" href="#quick-start">Quick start</a><ul>
-<li><a class="reference internal" href="#installation">Installation</a></li>
-<li><a class="reference internal" href="#configuration">Configuration</a><ul>
-<li><a class="reference internal" href="#when-you-know-what-you-do">When you know what you do...</a><ul>
-<li><a class="reference internal" href="#install-from-source">Install from source</a></li>
-<li><a class="reference internal" href="#next-is-just-for-history">Next is just for history</a></li>
-<li><a class="reference internal" href="#install-binary-package-old-features">Install binary package (Old features)</a></li>
+              <p class="caption"><span class="caption-text">Setup</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-old-way-for-developpers">The old way for developpers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#when-you-know-what-you-do">When you know what you do...</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#install-from-source">Install from source</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#next-is-just-for-history">Next is just for history</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-binary-package-old-features">Install binary package (Old features)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#appendix">Appendix</a><ul>
-<li><a class="reference internal" href="#install-imagemagick">Install ImageMagick</a></li>
-<li><a class="reference internal" href="#install-patent2net-on-linux">Install Patent2Net on Linux</a></li>
-<li><a class="reference internal" href="#install-patent2net-on-windows">Install Patent2Net on Windows</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#appendix">Appendix</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#install-imagemagick">Install ImageMagick</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-patent2net-on-linux">Install Patent2Net on Linux</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-patent2net-on-windows">Install Patent2Net on Windows</a></li>
 </ul>
 </li>
 </ul>
@@ -110,7 +110,23 @@
 </ul>
 </li>
 </ul>
-</div>
+<p class="caption"><span class="caption-text">Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="usage/index.html">Usage</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Avanced setup</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="historic/index.html">Historical features</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Core information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="core/index.html">Global architecture and data model</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Development information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="devindex.html">Development info</a></li>
+</ul>
+
             
           
         </div>
@@ -155,7 +171,7 @@
     
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
-      <li>Getting started</li>
+      <li>Quick start</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -174,15 +190,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="getting-started">
-<span id="setup"></span><h1>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="quick-start">
-<h2>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="quick-start">
+<span id="setup"></span><h1>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
 <p>This part of the documentation covers the installation of Patent2Net.
 The first step to using any software package is getting it properly installed.
 Please read this section carefully.</p>
 <div class="section" id="installation">
-<h3>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h3>
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Install docker desktop</p></li>
 <li><p>download the docker-install repository (<a class="reference external" href="https://github.com/Patent2net/P2N-Docker">https://github.com/Patent2net/P2N-Docker</a>)</p></li>
@@ -192,7 +206,7 @@ Please read this section carefully.</p>
 </ol>
 </div>
 <div class="section" id="configuration">
-<h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h3>
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li><p>setup your EPO's API key in the <a class="reference external" href="http://localhost:5000/get_started)">get_started page:</a></p></li>
 <li><p>enjoy the request form (<a class="reference external" href="http://localhost:5000/form">http://localhost:5000/form</a>) to make your requests and see progress (Help need to fix UX and SSE consolidate)</p></li>
@@ -201,11 +215,18 @@ Please read this section carefully.</p>
 <li><p>go to the <a class="reference internal" href="core/system.html#docker-config"><span class="std std-ref">Dealing with docker version</span></a> section for details on the interface</p></li>
 <li><p>see <a class="reference internal" href="usage/index.html#usage"><span class="std std-ref">Usage</span></a> for details.</p></li>
 </ul>
+</div>
+<div class="section" id="the-old-way-for-developpers">
+<h2>The old way for developpers<a class="headerlink" href="#the-old-way-for-developpers" title="Permalink to this headline">¶</a></h2>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>the following on this page concerns developpers and avanced users information. Welcome to new users that should follow first theses pages <a class="reference internal" href="core/system.html#docker-install"><span class="std std-ref">Dealing with docker version</span></a>, <a class="reference internal" href="usage/index.html#usage"><span class="std std-ref">Usage</span></a>.</p>
+</div>
 <p id="install">You can install locally patent2Net and use it in standalone mode. Only the P2N indexer and integrated Carrot2 feature won't work. The use of the web interface may also be conditionned you run the app.py launcher. Aside this, the API patent2Net (p2n) will work and can do a lot of stuff for you.</p>
 <div class="section" id="when-you-know-what-you-do">
-<h4>When you know what you do...<a class="headerlink" href="#when-you-know-what-you-do" title="Permalink to this headline">¶</a></h4>
+<h3>When you know what you do...<a class="headerlink" href="#when-you-know-what-you-do" title="Permalink to this headline">¶</a></h3>
 <div class="section" id="install-from-source">
-<h5>Install from source<a class="headerlink" href="#install-from-source" title="Permalink to this headline">¶</a></h5>
+<h4>Install from source<a class="headerlink" href="#install-from-source" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Download Anaconda 3 (big installation, <a class="reference external" href="https://www.anaconda.com/distribution/">https://www.anaconda.com/distribution/</a>) OR Miniconda <a class="reference external" href="https://docs.conda.io/en/latest/miniconda.html">https://docs.conda.io/en/latest/miniconda.html</a></p></li>
 <li><p>Download P2N latest <a class="reference external" href="https://github.com/Patent2net/P2N-v3">https://github.com/Patent2net/P2N-v3</a></p></li>
@@ -217,7 +238,7 @@ Please read this section carefully.</p>
 </ul>
 </div>
 <div class="section" id="next-is-just-for-history">
-<h5>Next is just for history<a class="headerlink" href="#next-is-just-for-history" title="Permalink to this headline">¶</a></h5>
+<h4>Next is just for history<a class="headerlink" href="#next-is-just-for-history" title="Permalink to this headline">¶</a></h4>
 <ul>
 <li><p>Source releases are available from GitHub: <a class="reference external" href="https://github.com/Patent2net/P2N/releases">https://github.com/Patent2net/P2N/releases</a></p></li>
 <li><p>Install a specific version:</p>
@@ -233,7 +254,7 @@ Please read this section carefully.</p>
 </ul>
 </div>
 <div class="section" id="install-binary-package-old-features">
-<h5>Install binary package (Old features)<a class="headerlink" href="#install-binary-package-old-features" title="Permalink to this headline">¶</a></h5>
+<h4>Install binary package (Old features)<a class="headerlink" href="#install-binary-package-old-features" title="Permalink to this headline">¶</a></h4>
 <ul>
 <li><div class="line-block">
 <div class="line">Binary releases are available at</div>
@@ -244,13 +265,13 @@ Please read this section carefully.</p>
 </div>
 </div>
 <div class="section" id="appendix">
-<h4>Appendix<a class="headerlink" href="#appendix" title="Permalink to this headline">¶</a></h4>
+<h3>Appendix<a class="headerlink" href="#appendix" title="Permalink to this headline">¶</a></h3>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The following (Image Magic, graphviz etc.) is functional on the Docker image. Only follow it if you make your own installation on your system. Not recommended if you aren't sure!</p>
 </div>
 <div class="section" id="install-imagemagick">
-<h5>Install ImageMagick<a class="headerlink" href="#install-imagemagick" title="Permalink to this headline">¶</a></h5>
+<h4>Install ImageMagick<a class="headerlink" href="#install-imagemagick" title="Permalink to this headline">¶</a></h4>
 <p>On Debian Linux:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">apt</span> <span class="n">install</span> <span class="n">imagemagick</span>
 </pre></div>
@@ -261,7 +282,7 @@ Please read this section carefully.</p>
 </div>
 </div>
 <div class="section" id="install-patent2net-on-linux">
-<h5>Install Patent2Net on Linux<a class="headerlink" href="#install-patent2net-on-linux" title="Permalink to this headline">¶</a></h5>
+<h4>Install Patent2Net on Linux<a class="headerlink" href="#install-patent2net-on-linux" title="Permalink to this headline">¶</a></h4>
 <p>If you're using Ubuntu or Debian distributions, make sure to have these prerequisites installed:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span> <span class="n">build</span><span class="o">-</span><span class="n">essential</span> <span class="n">python</span><span class="o">-</span><span class="n">dev</span> <span class="n">libjpeg</span><span class="o">-</span><span class="n">dev</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">dev</span> <span class="n">libfreetype6</span><span class="o">-</span><span class="n">dev</span> <span class="n">libpng</span><span class="o">-</span><span class="n">dev</span>
 </pre></div>
@@ -272,7 +293,7 @@ Please read this section carefully.</p>
 </div>
 </div>
 <div class="section" id="install-patent2net-on-windows">
-<h5>Install Patent2Net on Windows<a class="headerlink" href="#install-patent2net-on-windows" title="Permalink to this headline">¶</a></h5>
+<h4>Install Patent2Net on Windows<a class="headerlink" href="#install-patent2net-on-windows" title="Permalink to this headline">¶</a></h4>
 <ul>
 <li><p>Install Graphviz (I used 2.38)</p></li>
 <li><p>Anaconda</p>
@@ -305,13 +326,21 @@ Please read this section carefully.</p>
 </div>
 </div>
 </div>
-</div>
 
 
            </div>
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage/index.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to Patent2Net" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
