@@ -166,7 +166,7 @@ def confirmation():
     
 
     
-    app_cfg.num_bars = len(AppLab) - len([truc for truc in AppLab if not form_result [truc]] )
+    app_cfg.num_bars = len(AppLab) - len([truc for truc in labels.keys() if not form_result [truc]] )
     return render_template('Patent2Net/templates/Request_Form/Progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
 @app.route('/confirmation', methods=['POST'])    
