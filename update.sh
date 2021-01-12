@@ -1,3 +1,4 @@
+cp dex.js dex.sav
 git stash
 git pull $@
 cd doc
@@ -7,3 +8,4 @@ python setup.py build
 python setup.py install
 chmod +x update.sh
 chmod +x run-all.sh
+cp dex.sav dex.js
