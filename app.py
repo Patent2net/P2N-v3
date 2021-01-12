@@ -354,9 +354,9 @@ def gitupdater():
 
 @app.route('/mass', methods=['GET','POST'])
 def mass():
-    for file in os.listdir("./RequestsSets"):
+    for file in os.listdir("./REQUESTS"):
         if file.endswith(".cql"):
-                command="p2n run --config=../RequestsSets/%s"%(file)
+                command="p2n run --config=../REQUESTS/%s"%(file)
                 os.system(command)
     return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
 
