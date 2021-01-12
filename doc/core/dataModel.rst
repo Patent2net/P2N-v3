@@ -37,7 +37,7 @@ These scripts are separated in the four categories appearing on previous figure.
 
 Gatherers
 ---------
-* a gatherer starts with *OPS-Gather* and they are used for:
+* a gatherer starts with *OPS-Gather*. They use the wonderfull [epo-ops]_ library and they stand for:
 
  - patent gathering. *OPS-GatherPatentsv2.py* is the entry gatherer. It creates:
 	- the list of patent according to the cql request retreived to the [API]_. This list is stocked in ../DATA/Datadir/PatentLists in pickeled dump format of the dictionnary returned by the API [#f1]_. 
@@ -58,41 +58,77 @@ Data from the databasse comes most often dirty. Two scripts, added recently, pre
 
 Processors
 ----------
-* a processor script. This category is divide mainly in two: Fusionner that adresses the production of textual data [XML]_, [TXT]_ or Formatters that prepares data for visualisation tools (json files):
+* a processor script. This category is divided mainly in two parts: Fusionner that adresses the production of textual data [XML]_, [TXT]_ or Formatters that prepares data for visualisation tools (json files):
 
  - Fusion (Images, Carrot2, IRAMuTeQ) respectively prepares data for images visualisation, Carrot2 files in stadalone mode or via the Elastic Search plugin, and IRAMuTeQ formated textual files [IRAMuTeQ]_.
  - FormateExport* scripts prepares data for DataTables [Datatable]_, PivotTables  [PivotTable.js]_, D3Js maps [D3plus]_, and Zotero compatible files [Zotero]_.
+ - P2N-Freeplane prepares data for a mind-map of IPC labels augmented with their WIPO's definition.
  - P2N-Nets-new.py scripts prepares data for network representations:
  
 	- the [GEXF-JS]_ used in the network HTML pages as an online network visualisation tool,
-	- the [GEXF]_ files to use with [Gephi]_ or other network visualisation ans exploration tool.
+	- the [GEXF]_ files to use with [Gephi]_ or other network visualisation ans exploration tool,
 	- the following networks are processed:
 		
 		- **Collaboration networks**: builds the representation of who works with.
 		
 			- **Inventors collaborations**: for each patent, each co-inventor is considered and attached to the first inventors. Data is stored in ../DATA/Datadir/GephiFiles/DataDir_Inventors.gexf". [GEXF-JS]_ exports introduces a neatto [Graphviz]_ positioning of node, takes the same name followed by a "JS" i.e.: ../DATA/Datadir/GephiFiles/DataDir_InventorsJS.gexf. For this visualization tool, a javascript file is created from a model template and loaded with the adequate HTML model page;
 			- **_Applicant collaborations**: for each patent, each co-applicant is considered and attached to the first one. Same convention of naming and JS format files;
-			- **_Applicant and patents** net: for each patent, each applicant is considered and attached to the label.
-			- **_Applicant, inventors and patents** net: for each patent, each applicant is considered and attached to the label and so on for the author;
+			- **_Applicant and patents** net: for each patent, each applicant is considered and attached to the label;
+			- **_Applicant, inventors and patents** net: for each patent, each applicant is considered and attached to the label and so on for the author.
 			
 		- **Bibliographic networks**: builds the representation of where do this technology comes from or it is used.
 			
-			- patents and their **Equivalents**: for each patent, each equivalent label is attached to the main label (the oldest in the dataset, equivalents from this one are excluded by the filtering process). 
+			- patents and their **Equivalents**: for each patent, each equivalent label is attached to the main label (the oldest in the dataset, equivalents from this one are excluded by the filtering process); 
 			- patent and the **References** they cite: for each patent, each reference (label or non patent reference) is attached to its label
-			- patent **Citations**:  for each patent, each citation it receives from labels in the patent database is attached to its label
+			- patent **Citations**:  for each patent, each citation it receives from labels in the patent database is attached to its label.
 		
 		- **Technologic networks**: builds the representations of the mixed technology in application, and the expertises applicants or inventors are attached to:
 		
-			- **Technology crossing**: the DataDir_CrossTech networks represents for each patent and each International Patent Classification (IPC), the co-occurence of each technology code (from 4 digits to 11).
-			- **Authors and technology**: the DataDir_Inventors_CrossTech represents for each inventor name a link to each IPC code owned patents declares.
+			- **Technology crossing**: the DataDir_CrossTech networks represents for each patent and each International Patent Classification (IPC), the co-occurence of each technology code (from 4 digits to 11);
+			- **Authors and technology**: the DataDir_Inventors_CrossTech represents for each inventor name a link to each IPC code owned patents declares;
 			- **Applicants and technologies**: the DataDir_Applicants_CrossTech represents for each applicant name a link to each IPC code owned patents declares.
 
-.. note: Each node in the differents networks file is qualified with usefull caracterics acccording to the node category: families lenght, IPC force and diversity, or number of patent owned. Gephi help in computing several network well known caracteristics and visualization of them. 
+.. note:: Each node in the differents networks file is qualified with usefull caracterics acccording to the node category: families lenght, IPC force and diversity, or number of patent owned. Gephi help in computing several network well known caracteristics and visualization of them. 
     
 Visualization scripts
 =====================
 
- 
+.. caution:: theses script are in beta version (more than others I mean)
+
+Trizifyer
+---------
+
+Clusterer
+---------
+Double clusterisation process.
+
+Indexer
+-------
+.. caution:: this script is also in beta version. 
+
+**P2N-Indexer** is intended to feed *Elastic Search* with the documents containing the text of patent data gathered. Results of this new feature are presented thought the clusterer *carrot2 elasicsearch plugin*. Page presentation expects some new features coming soon. 
+
+Interface script
+----------------
+
+The script *interface2* prepares the /DATA/DataDir/DataDir.html file using the config file and the template to present the whole processed files. 
+
+.. note:: The image below represents the general directory structure and schematic data flows in Patent2Net.
+
+.. image:: ./images/P2N-Directories.png
+	:align: center
+	
+*******************
+Other cool stuff
+*******************
+.. caution:: the feautures of the scripts below are only accessible via *bash mode* assuming you have some computer skills.
+
+- **import label list from csv** file in order to produce a PatentList compatible with OPS-Gather*.
+- **Request splitters**: AutomRequestSplitter* allow to split a request in time and/or over the IPC codes to produce requests that do not exceed the [API]_ 2000' limit
+
+
+
+
 .. rubric:: footnotes
 
 .. [#f1] at this time I didn't know about *xmltodict* library. Very quick cleaning can be done here.

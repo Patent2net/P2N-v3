@@ -317,8 +317,7 @@ for fic in [ndf, 'Families'+ndf]:
     Inventors [fic] = [[],0]
     Applicants [fic] = [[],0]
     for brev in LstBrevet:
-       if brev['label'] == 'FR3034554':
-           print (brev)
+
        memo = copy.copy(brev['applicant']) 
        if not isinstance(brev['applicant'], list):
            brev['applicant'] = [brev['applicant']]
@@ -404,9 +403,7 @@ for fic in [ndf, 'Families'+ndf]:
      # saving file
        with open(ResultBiblioPath + '//tempo' + fic,  'ab') as ficRes:
            pickle.dump(brev, ficRes)
-       if brev['label'] == 'FR3034554':
-           print ("----------------")
-           print (brev)
+
     print ('Good, ', cpt, ' normalisations done on ', fic, ' among ', appliCpt, " applicant names")
     
                 # sauvegarde dans un fichier tempo

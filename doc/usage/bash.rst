@@ -9,7 +9,8 @@ Bash mode
    :depth: 1
 
 You can enter the docker machine using the P2N_Bash.bat of Docker installation directory or launching the docker command :
-.. code:: docker exec -it p2ne /bin/bash
+
+.. hint:: docker exec -it p2ne /bin/bash
 
 You get root access to the machine. You should su to p2n user: `su - p2n`
 
