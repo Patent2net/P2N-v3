@@ -295,14 +295,14 @@ def classic_interface(options):
 #             compt += 1
 # #             run_script('P2N-PreNetworks.py {network}'.format(network=network), configfile)
 #             run_script('P2N-NetworksBis.py {network}'.format(network=network), configfile)
-#             AnnonceProgres (Appli = 'p2n_network', valMax = len(networks), valActu = compt*100/len(networks)) # valMax is unused in front end
+#            AnnonceProgres (Appli = 'p2n_network', valMax = len(networks), valActu = compt*100/len(networks)) # valMax is unused in front end
 #            run_script('P2N-NetworksJS.py {network}'.format(network=network), configfile)
     #adding the complete net a very very slow process
     
         # run_script('P2N-NetworksFull.py', configfile)
     if options['freeplane'] or options['run']:
         run_script('P2N-FreePlane.py', configfile)
-        AnnonceProgres (Appli = 'p2n_network', valMax = len(networks), valActu = compt*100/len(networks)) # valMax is unused in front end
+       # AnnonceProgres (Appli = 'p2n_network', valMax = len(networks), valActu = compt*100/len(networks)) # valMax is unused in front end
 
     #Gather more textual data if it exsts (Claims, Descriptions) an format them
     #for Iramuteq
