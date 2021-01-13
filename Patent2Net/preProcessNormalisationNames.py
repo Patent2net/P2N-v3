@@ -246,7 +246,7 @@ for inv in Inventeurs:
                     else:
                         print ('suspects : ', inv, " --> ", inv2)
                       
-print ("Nombre d'inventeurs 'normés' (corpus + families) :", len(Inventeur_Norm.keys()), " pour ", len(Norm_Inventeurs.keys())), " sur ", cptInv, " formes au total"
+#print ("Nombre d'inventeurs 'normés' (corpus + families) :", len(Inventeur_Norm.keys()), " pour ", len(Norm_Inventeurs.keys())), " sur ", cptInv, " formes au total"
 #print ("Nombre de formes d'applicants différentes avant traitement :", AppliAvant)
 
              
@@ -296,8 +296,8 @@ with tqdm(total=len(Applicants), desc="computing", bar_format="{l_bar}{bar} [ ti
             
     #            print ('match : ', appli, '  --> ', joliNom)
 
-print ('Good, ', cpt, ' normalisations done among ', appliCpt, " applicant names")
-print ('Normalizing biblio files')
+#print ('Good, ', cpt, ' normalisations done among ', appliCpt, " applicant names")
+#print ('Normalizing biblio files')
 
 InvNormes = [aut for cle in Inventeur_Norm.keys() for aut in Inventeur_Norm [cle]]
 
@@ -421,9 +421,9 @@ with open(ResultBiblioPath + '//InventeurNormes.pkl', 'wb' ) as fic:
 with open(ResultBiblioPath + '//NormInventeurs.pkl', 'wb' ) as fic:
     pickle.dump(Norm_Inventeurs, fic)
             
-for fic in [ndf, 'Families'+ndf]:
-    print ("Number of Inventors differents in ", fic, " : ", len(set(Inventors [fic] [0])), " from ", Inventors [fic] [1], "inventors processed in total. Before there was: ", nbInvAvant [fic])
-    print ("Number of Applicants differents in ", fic, " : ", len(set(Applicants [fic] [0])), " from ", Applicants [fic] [1], "applicants processed in total. Before there was: ", nbAppliAvant [fic])
+# for fic in [ndf, 'Families'+ndf]:
+#     print ("Number of Inventors differents in ", fic, " : ", len(set(Inventors [fic] [0])), " from ", Inventors [fic] [1], "inventors processed in total. Before there was: ", nbInvAvant [fic])
+#     print ("Number of Applicants differents in ", fic, " : ", len(set(Applicants [fic] [0])), " from ", Applicants [fic] [1], "applicants processed in total. Before there was: ", nbAppliAvant [fic])
 with open(ResultBiblioPath + '//tempoInconnus', 'wb') as ficRes:
     pickle.dump(inconnus, ficRes)
         

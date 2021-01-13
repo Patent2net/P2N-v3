@@ -85,7 +85,7 @@ for bre in LstBrevet: # get patent list from request file
             else:
                 pass
         if len(fic) == 1:
-            with open(Rep+'/Abstract/' + fic [0], 'r') as data:
+            with open(Rep+'/Abstract/' + fic [0], 'r', encoding = 'utf8') as data:
                 abstract = data.read()
         elif len(fic) > 1:
             fic = [truc for truc in fic if 'en' in truc] # using english only

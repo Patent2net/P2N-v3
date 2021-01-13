@@ -183,10 +183,10 @@ def complete3(listeFic, lang, det, Brevets):
             Ignore+=1
         if len(document)>0:
             dico ['document'].append (document)
-    print(len(set(resum)), "fichiers "+det+ " à traiter en langage : ", lang)
-    print(cmpt, " fichiers "+det+ " traités", end=' ')
-    if Ignore >0:
-        print(" et ", Ignore, " fichier(s) ignores (non dédoublés)")
+    #print(len(set(resum)), "fichiers "+det+ " à traiter en langage : ", lang)
+    #print(cmpt, " fichiers "+det+ " traités", end=' ')
+    #if Ignore >0:
+    #    print(" et ", Ignore, " fichier(s) ignores (non dédoublés)")
     Contenu += "</searchresult>"
 
     return Contenu.lower(), dico
