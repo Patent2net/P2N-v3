@@ -70,7 +70,7 @@ else:
 		stopwords.extend(brev_stpswrds)
     
 #adding stopwords
-with open('StoplistEnglish.txt', 'r') as fic:
+with open('StoplistEnglish.txt', 'r', encoding='utf8') as fic:
     wrds = fic.readlines()
 
 
