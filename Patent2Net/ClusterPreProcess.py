@@ -122,7 +122,7 @@ for bre in lstBrevet:
     if FicName in lstfic:
         try: 
             toto = bre['title'].encode('ascii')
-            with codecs.open(ResultContentsPath +'//CibDesc//'+CibName, 'r', encoding='ascii', errors="ignore") as fic:
+            with codecs.open(ResultContentsPath +'//CibDesc//'+CibName, 'r', encoding='utf8', errors="ignore") as fic:
                 tempo = fic.readlines()
             IPCRsTexte= ' '.join([lig for lig in tempo if "***" not in lig])
             IPCRsTexte.encode('ascii')
@@ -137,12 +137,12 @@ for bre in lstBrevet:
 #                
                 
                 
-            with codecs.open(ResultContentsPath +'//Abstract//'+AbsName, 'r', encoding='ascii', errors="ignore") as fic:
+            with codecs.open(ResultContentsPath +'//Abstract//'+AbsName, 'r', encoding='utf8', errors="ignore") as fic:
                 tempo = fic.readlines()
             PureAbstract= '\n'.join([lig for lig in tempo if "***" not in lig])
             PureAbstract.encode('ascii')
             
-            with codecs.open(ResultPathContentAug+'//'+FicName, 'w', encoding='ascii', errors="ignore") as fic:
+            with codecs.open(ResultPathContentAug+'//'+FicName, 'w', encoding='utf8', errors="ignore") as fic:
                  tempo = fic.write(IPCRsTexte+' \n'+ toto.decode().lower()+' \n'+ PureAbstract +' \n')
             Abstracts.append(PureAbstract)
             IPCRsText.append(IPCRsTexte)
