@@ -77,7 +77,7 @@ ResultBiblioPath = configFile.ResultBiblioPath
 
 # using excel reader seem to avoid to BOM problem
 
-df = pd.read_excel('../Patent2Net/Resources/StanNORM2.xlsx', dtype=str, encoding='utf-8')
+df = pd.read_excel('../Patent2Net/Resources/StanNORM2.xlsx', dtype=str)
 
 # import csv
 # line = []
