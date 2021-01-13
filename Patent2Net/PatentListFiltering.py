@@ -26,7 +26,7 @@ from tqdm import tqdm
 from Patent2Net.P2N_Config import LoadConfig
 from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct
 # import bs4
-from Patent2Net.P2N_Lib import  flatten, LoadBiblioFile, AnnonceProgres, AnnonceLog 
+from Patent2Net.P2N_Lib import  flatten, LoadBiblioFile, AnnonceProgres#, AnnonceLog 
 import re
 import unidecode
 import copy
@@ -346,7 +346,7 @@ for fic in [ndf]: # Families shouln't be processed like that!!!
     for bre in Resultat:
         for pat in bre ['equivalents']:
             EquivFiltered2.append(pat)     
-    AnnonceProgres (Appli = 'p2n_filtering', valMax = 100, valActu = 100)
+    AnnonceProgres (Appli = 'p2n_filtering', valMax = 100, valActu = 90)
     print("net set of equivalent covered: ",len(EquivFiltered2))
     print(len(LstBrevet), '  --> ', len (Filtres), ' --> ', len(Resultat)) 
     print  ("Good, ", len(Resultat + complement), " patents filterd from equivalent unicity exrtracted from ", fic)
@@ -420,3 +420,4 @@ if 'Description' + fic in os.listdir(ResultBiblioPath):
         DataBrevets['requete'] = "Families of: " + requete
         DataBrevets["number"] = len(set(labs))
         pickle.dump(DataBrevets, ficRes)           
+AnnonceProgres (Appli = 'p2n_filtering', valMax = 100, valActu = 100)

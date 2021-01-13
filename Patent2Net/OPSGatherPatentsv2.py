@@ -243,8 +243,9 @@ if ndf in os.listdir(ResultBiblioPath):
     if len(BibliDataBrevets['brevets']) == len(listeLabel):
             print(len(BibliDataBrevets['brevets']), " bibliographic patent data gathered yet? ")
             GatherBibli = False
-            sys.exit('Nothing else to do :-). Good bye')
+            
             AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100)
+            sys.exit('Nothing else to do :-). Good bye')
     else:
         print(len(listeLabel)-len(BibliDataBrevets['brevets']), " patent misssing... processing")
  

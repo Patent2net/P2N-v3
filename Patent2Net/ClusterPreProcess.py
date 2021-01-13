@@ -184,15 +184,15 @@ for i in IPCRsText:
 for i in Contents:
     ContentsTok.extend(tokenize_only(i))
 
-
-print ("mots des titres ->" + str(len(TitlesTok)))
-print ("mots des résumés ->" + str(len(AbstractsTok)))
-print ("mots des IPC ->" + str(len(ClassTextTok)))
-print ("mots des totaux ->" + str(len(TitlesTok)+len(AbstractsTok)+len(ClassTextTok)))
-print ("mots des totaux uniques ->" + str(len(set(TitlesTok+AbstractsTok+ClassTextTok))))
-print ("mots des totaux (autre ensemble test)->"+ str(len(ContentsTok)))    # should be the same as previous
-print ("mots des totaux uniques (autre ensemble test)->" +str(len(set(ContentsTok))))
-print ("Diff (test et ense ref should be 0 !!!)" + str(len(set(TitlesTok+AbstractsTok+ClassTextTok)-set(ContentsTok))))
+# the following should go in annonceLog
+# print ("mots des titres ->" + str(len(TitlesTok)))
+# print ("mots des résumés ->" + str(len(AbstractsTok)))
+# print ("mots des IPC ->" + str(len(ClassTextTok)))
+# print ("mots des totaux ->" + str(len(TitlesTok)+len(AbstractsTok)+len(ClassTextTok)))
+# print ("mots des totaux uniques ->" + str(len(set(TitlesTok+AbstractsTok+ClassTextTok))))
+# print ("mots des totaux (autre ensemble test)->"+ str(len(ContentsTok)))    # should be the same as previous
+# print ("mots des totaux uniques (autre ensemble test)->" +str(len(set(ContentsTok))))
+# print ("Diff (test et ense ref should be 0 !!!)" + str(len(set(TitlesTok+AbstractsTok+ClassTextTok)-set(ContentsTok))))
 params={  'ls' : '-.',
             #'drawstyle' : 'steps',
             #'basex':10, 
@@ -312,15 +312,15 @@ for entr in  FreqTrie.values:
         print ('lost in translation ', entr[0], cpt)
     cpt +=1
 
-for indi in range(len(EnsVoc)):
-    print ("taille de ", Labelle[indi],':', len(EnsVoc[indi]), "Uniques :", len(set(EnsVoc[indi])))
+# for indi in range(len(EnsVoc)):
+#     print ("taille de ", Labelle[indi],':', len(EnsVoc[indi]), "Uniques :", len(set(EnsVoc[indi])))
         
 
 
 joblib.dump(EnsVoc, ResultContentsPath+'//EnsVocFile'+ndf+'.pkl')
 joblib.dump(Voc, ResultContentsPath+'//VocFile'+ndf+'.pkl')
 
-print("ready for P2N-Cluster")
+# print("ready for P2N-Cluster")
    
 
 
