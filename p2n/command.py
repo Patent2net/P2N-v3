@@ -247,7 +247,8 @@ def classic_interface(options):
         run_script('PatentListFiltering.py', configfile)
         if options['with-family']:
             run_script('OPSGatherAugment-Families.py', configfile)
-
+        
+        # the following will fail if Families aren't gathered yet.... 
         run_script('preProcessNormalisationNames.py', configfile)
     
     # normalisation features New 08/2020
@@ -297,7 +298,7 @@ def classic_interface(options):
 #             run_script('P2N-NetworksBis.py {network}'.format(network=network), configfile)
 #            AnnonceProgres (Appli = 'p2n_network', valMax = len(networks), valActu = compt*100/len(networks)) # valMax is unused in front end
 #            run_script('P2N-NetworksJS.py {network}'.format(network=network), configfile)
-    #adding the complete net a very very slow process
+    #adding the complete net a buggy very very slow process
     
         # run_script('P2N-NetworksFull.py', configfile)
     if options['freeplane'] or options['run']:
