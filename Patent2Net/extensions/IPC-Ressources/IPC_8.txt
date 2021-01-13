@@ -1,4 +1,4 @@
-﻿A01B1	Hand tools
+A01B1	Hand tools
 A01B3	Ploughs
 A01B3	Ploughs with fixed plough-shares
 A01B5	Ploughs with rolling non-driven tools, e.g. discs
