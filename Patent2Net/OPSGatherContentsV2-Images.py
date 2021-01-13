@@ -6,7 +6,7 @@ import epo_ops
 import json
 import pickle
 from epo_ops.models import Epodoc
-from Patent2Net.P2N_Lib import LoadBiblioFile
+from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
 import traceback
 
