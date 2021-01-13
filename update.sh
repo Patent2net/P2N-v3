@@ -8,4 +8,6 @@ python setup.py build
 python setup.py install
 chmod +x update.sh
 chmod +x run-all.sh
-cp dex.sav dex.js
+cp -f dex.sav dex.js
+rm dex.sav
+
