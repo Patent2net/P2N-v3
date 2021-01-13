@@ -131,13 +131,13 @@ def LoadDescs():
     global listdesc7
     global listdesc11
 
-    with open (".//extensions//IPC-Ressources//IPC_3.txt","r") as fidesc:
+    with open (".//extensions//IPC-Ressources//IPC_3.txt","r", encoding='utf-8') as fidesc:
         listdesc3 = fidesc.readlines()
-    with open (".//extensions//IPC-Ressources//IPC_4.txt","r") as fidesc:
+    with open (".//extensions//IPC-Ressources//IPC_4.txt","r", encoding='utf-8') as fidesc:
         listdesc4 = fidesc.readlines()
-    with open (".//extensions//IPC-Ressources//IPC_8.txt","r") as fidesc:
+    with open (".//extensions//IPC-Ressources//IPC_8.txt","r",encoding='utf-8') as fidesc:
         listdesc7 = fidesc.readlines()
-    with open (".//extensions//IPC-Ressources//IPC_11.txt","r") as fidesc:
+    with open (".//extensions//IPC-Ressources//IPC_11.txt","r", encoding='utf-8') as fidesc:
         listdesc11 = fidesc.readlines()
 
 # end LoadDescs
