@@ -381,7 +381,7 @@ def mass():
     return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
 
 @app.route('/cqlList', methods=['GET','POST'])
-def mass2():
+def cqlList():
     lstReq = [fi for fi in os.listdir("./REQUESTS") if fi.endswith(".cql")]
     cpt = 0
     for file in lstReq:
