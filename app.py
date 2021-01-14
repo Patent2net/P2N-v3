@@ -184,7 +184,7 @@ def confirmation():
   # ['p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content','p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster', ]
 
   
-    AppLab = [labels [lab] for lab in lstAppl if lab not in ['p2n_dir', 'cql-files'] and  form_result [lab]]
+    AppLab = [labels [lab] for lab in lstAppl if lab not in ['p2n_dir', 'cql-files', 'p2n_indexer'] and  form_result [lab]]
     
 
     
