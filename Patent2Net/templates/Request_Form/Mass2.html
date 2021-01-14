@@ -112,7 +112,7 @@ html, body {
 </head>
 <body class="text-center">
    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
-        <h4 class="mb-2">Launching all Cql files in /REQUESTS/</h4>
+        <h1 class="mb-2">Launching all Cql files in /REQUESTS/</h4>
         <hr class="mb-4"/>
         
         <section id="container" class="row" style="width: 100%;">
@@ -132,7 +132,7 @@ html, body {
                  {% for bar in range(1,num_bars) %}
 
                     <div class="progress" id="prog_{{bar}}">
-                    <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="prog_{{bar}}_label">{{label [bar]}}</div>
+                    <div class="progress-bar" role="progressbar" style="width: 100%; margin: 5px;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="prog_{{bar}}_label">{{label [bar]}}</div>
                     </div>
                 {% endfor %}
             </section>     

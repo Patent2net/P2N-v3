@@ -94,6 +94,7 @@ ops_client = epo_ops.Client(key, secret)
 #        data = ops_client.family('publication', , 'biblio')
 ops_client.accept_type = 'application/json'
 
+AnnonceLog(Appli = 'p2n_gather_biblio', texte= "Starting gathering patent list for request:" + requete )
 if ndf in os.listdir(ResultListPath):
     with codecs.open(ResultListPath + '//' + ndf, 'rb') as fic:
         DataBrevets = pickle.load(fic)

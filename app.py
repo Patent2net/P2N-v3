@@ -401,7 +401,7 @@ def processList():
     for file in lstReq:
 
             cpt +=1
-            AnnonceProgres (Appli = 'cql-files', valMax = len(lstReq), valActu = cpt)
+            AnnonceProgres (Appli = 'cql-files', valMax = 100, valActu = cpt*100/len(lstReq))
             for cmd in lstScripts1:
                 command="python " + cmd + " ../RequestsAuto/%s"%(file)               
                 
