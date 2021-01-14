@@ -159,7 +159,7 @@ def progress():
         #Launch the P2N research
         #os.system(cmd)
         form_result =  request.args
-        AppLab = [lab for lab in lstAppl if form_result [lab] and lab not in ['p2n_dir', 'cql-files']]
+        AppLab = [lab for lab in lstAppl if lab not in ['p2n_dir', 'cql-files'] and  form_result [lab]]
         app_cfg.num_bars = len(AppLab)
         return render_template('Patent2Net/templates/Request_Form/progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
@@ -184,7 +184,7 @@ def confirmation():
   # ['p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content','p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster', ]
 
   
-    AppLab = [labels [lab] for lab in lstAppl if form_result [lab] and lab not in ['p2n_dir', 'cql-files']]
+    AppLab = [labels [lab] for lab in lstAppl if lab not in ['p2n_dir', 'cql-files'] and  form_result [lab]]
     
 
     
