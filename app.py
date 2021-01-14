@@ -395,8 +395,9 @@ def processList():
                           
     lstScripts2 = ["FormateExportCountryCartography.py", "FormateExportAttractivityCartography.py",
                           "FormateExportBiblio.py", "FormateExportDataTableFamilies.py", "FormateExportDataTable.py",
-                          "FormateExportPivotTable.py", "P2N-Nets-new.py", "P2N-FreePlane.py",
-                          "FusionCarrot2.py", "P2N-Indexer.py", "FusionImages.py",
+                          "FormateExportPivotTable.py", "P2N-Nets-new.py", "P2N-FreePlane.py"] 
+    lstScripts3 = [ "FusionIramuteq2.py", "FusionCarrot2.py", "FusionImages.py",
+                           "P2N-Indexer.py", 
                           "IPC-WS-metrics.py", "ClusterPreProcess.py", "P2N-Cluster.py", "Interface2.py"]
     for file in lstReq:
 
@@ -408,9 +409,12 @@ def processList():
                 test = os.system(command)
             for cmd in lstScripts2:
                 command="python " + cmd + " ../RequestsAuto/%s"%(file)               
+                #♥ can be launched in parallel
+                os.system(command)
+            for cmd in lstScripts3:
+                command="python " + cmd + " ../RequestsAuto/%s"%(file)               
                 
-                test = os.system(command)
-
+                os.system(command)
                 
     return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
