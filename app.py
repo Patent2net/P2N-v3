@@ -398,7 +398,7 @@ def mass2():
                 
                 os.system(command)
                 
-    return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
+    return render_template('Patent2Net/templates/Request_Form/mass2.html')
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
 if __name__ == "__main__":
