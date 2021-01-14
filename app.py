@@ -376,7 +376,7 @@ def gitupdater():
 
 @app.route('/mass', methods=['GET','POST'])
 def mass():
-    for file in os.listdir("./REQUESTS"):
+    for file in os.listdir("./RequestsAuto"):
         if file.endswith(".cql"):
                 command="p2n run --config=../REQUESTS/%s"%(file)
                 os.system(command)
@@ -387,27 +387,36 @@ def mass():
 def cqlList(): 
     
     app_cfg.num_bars = 12
+    render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
     processList()
     return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 def processList():   
     cpt = 0
-    lstReq = [fi for fi in os.listdir("./REQUESTS") if fi.endswith(".cql")]
+    lstReq = [fi for fi in os.listdir("./RequestsAuto") if fi.endswith(".cql")]
     os.chdir("/home/p2n/P2N-V3/Patent2Net")
-    for file in lstReq:
-            lstScripts = ["OPSGatherPatentsv2.py", "PatentListFiltering.py", 
-                          "OPSGatherAugment-Families.py", "PatentListFiltering.py", "preProcessNormalisationNames.py",
-                          "FormateExportCountryCartography.py", "FormateExportAttractivityCartography.py",
+    lstScripts1 = ["OPSGatherPatentsv2.py", "PatentListFiltering.py", "OPSGatherAugment-Families.py", "PatentListFiltering.py", "preProcessNormalisationNames.py",
+                   "OPSGatherContentsV2-Iramuteq.py", "OPSGatherContentsV2-Images.py"]
+    
+                   
+                          
+    lstScripts2 = ["FormateExportCountryCartography.py", "FormateExportAttractivityCartography.py",
                           "FormateExportBiblio.py", "FormateExportDataTableFamilies.py", "FormateExportDataTable.py",
-                          "FormateExportPivotTable.py", "P2N-Nets-new.py", "P2N-FreePlane.py", "OPSGatherAugment-Families.py",
-                          "OPSGatherContentsV2-Iramuteq.py", "FusionIramuteq2.py", "OPSGatherAugment-Families.py",
-                          "FusionCarrot2.py", "P2N-Indexer.py", "OPSGatherContentsV2-Images.py", "FusionImages.py",
+                          "FormateExportPivotTable.py", "P2N-Nets-new.py", "P2N-FreePlane.py",
+                          "FusionCarrot2.py", "P2N-Indexer.py", "FusionImages.py",
                           "IPC-WS-metrics.py", "ClusterPreProcess.py", "P2N-Cluster.py", "Interface2.py"]
+    for file in lstReq:
+
             cpt +=1
             AnnonceProgres (Appli = 'cql-files', valMax = len(lstReq), valActu = cpt)
-            for cmd in lstScripts:
-                command="python " + cmd + " ../REQUESTS/%s"%(file)               
+            for cmd in lstScripts1:
+                command="python " + cmd + " ../RequestsAuto/%s"%(file)               
                 
-                os.system(command)
+                test = os.system(command)
+            for cmd in lstScripts2:
+                command="python " + cmd + " ../RequestsAuto/%s"%(file)               
+                
+                test = os.system(command)
+
                 
     return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 

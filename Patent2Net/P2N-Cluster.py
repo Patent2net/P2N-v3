@@ -124,10 +124,10 @@ word_freq_df = joblib.load(os.path.normpath(ResultContentsPath+'//word_freq'+ndf
 
 D0=len(set(word_freq_df['term'])) #unic forms of corpus
 H0=np.log(D0) # 
-H1=-sum([pi* np.log(pi) for pi in FreqTrie.get_values().transpose()[2]]) #pi means p_i in latex writing style ;-). Shannon entropy
+H1=-sum([pi* np.log(pi) for pi in FreqTrie.values.transpose()[2]]) #pi means p_i in latex writing style ;-). Shannon entropy
 D1 = np.exp(H1)
 R = np.abs(H1/H0) #regularité
-C=sum([ np.emath.power(pi,2) for pi in FreqTrie.get_values().transpose()[2]])
+C=sum([ np.emath.power(pi,2) for pi in FreqTrie.values.transpose()[2]])
 H2 = -np.log(C)
 D2 =  1/C                       #trivial shortcut
 Lt = H1-H2
@@ -136,8 +136,8 @@ Lb = H0-H1
 Cb= D0 -D0*(1/R)*(Lb/(Lb+Lt+Li)) # noise shortcut 
 CuttingLeft=int(Cb) #Lhen, J, T Lafouge, Y Elskens, L Quoniam, et H Dou. « La statistique des lois de Zipf, actes du colloque, Les systèmes d’informations élaborés ». In Les systèmes d’information élaborés. Ile Rousse - Corse: Société Française de Bibliométrie Appliquée, 1995.
 CuttingRight=int(D2)
-minDf = FreqTrie.get_values().transpose()[2][CuttingLeft]
-maxDf = FreqTrie.get_values().transpose()[2][CuttingRight]
+minDf = FreqTrie.values.transpose()[2][CuttingLeft]
+maxDf = FreqTrie.values.transpose()[2][CuttingRight]
 I1 = len( FreqTrie[FreqTrie['occurrences']==1]) # words of Occurence =1
 rankGoffman  = int(round(np.sqrt(1+8+I1)-1)/2) 
 GoodZone = FreqTrie[rankGoffman:CuttingRight] # non trivial and non noisy terms
@@ -213,6 +213,9 @@ for thing in GoodZone[int(rankGoffman-rankGoffman/2):CuttingRight].values:
 #learnig from IPC vocabulary 
 vectorizer = TfidfVectorizer(stop_words=stopwords, use_idf=True, tokenizer=tokenize_only, 
                              ngram_range=(1,4), vocabulary = list(DicoMaxiGood.keys()))
+if len(Contents)< 9:
+    print("not enought data")
+    sys.exit()
 PreX = vectorizer.fit_transform(Contents)           
 km2 = KMeans(n_clusters=num_clusters , init='k-means++', max_iter=100, n_init=1, verbose=True)
 #define vectorizer parameters

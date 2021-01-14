@@ -143,10 +143,10 @@ for bre in lstBrevet:
             #PureAbstract.encode('ascii')
             
             with codecs.open(ResultPathContentAug+'//'+FicName, 'w', encoding='utf8', errors="ignore") as fic:
-                 tempo = fic.write(IPCRsTexte+' \n'+ toto.decode().lower()+' \n'+ PureAbstract +' \n')
+                 tempo = fic.write(IPCRsTexte+' \n'+ toto.lower()+' \n'+ PureAbstract +' \n')
             Abstracts.append(PureAbstract)
             IPCRsText.append(IPCRsTexte)
-            Contents.append(IPCRsTexte+' \n'+ toto.decode().lower()+' \n'+ PureAbstract +' \n')
+            Contents.append(IPCRsTexte+' \n'+ toto.lower()+' \n'+ PureAbstract +' \n')
              #should explode on chinese titles
             Titles.append(toto.lower())
             Labels.append(bre['label'])    
