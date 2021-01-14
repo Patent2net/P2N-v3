@@ -384,6 +384,24 @@ def mass():
 def cqlList():
     lstReq = [fi for fi in os.listdir("./REQUESTS") if fi.endswith(".cql")]
     cpt = 0
+    AppLab = [lab for lab in lstAppl if lab not in ['p2n_dir', 'p2n_filtering'] and form_result [lab]]
+        
+    labels = { 'p2n_req' : "Gathering patent list",
+              'p2n_gather_biblio' : "Gathering bibliographic metadata", 
+              "p2n_filtering" : "Filtering patents", 
+              'p2n_family' : "Gathering families",
+              'p2n_content' : "Gathering content",
+              'p2n_image' :  "Gathering images",
+              'p2n_network' : "Processing networks",
+              'p2n_tables' : "Processing tables",
+              'p2n_carrot' :  "Preparing carrot2 files",
+              'p2n_iramuteq' : "Processing IRAMuTeQ files",
+              'p2n_cluster' : "Clustering",
+              'p2n_indexer': "Indexing documents",
+              'p2n_AllCql': "Processing request file",  
+              }
+    app_cfg.num_bars = 12
+
     for file in lstReq:
             lstScripts = ["OPSGatherPatentsv2.py", "PatentListFiltering.py", 
                           "OPSGatherAugment-Families.py", "PatentListFiltering.py", "preProcessNormalisationNames.py",
@@ -400,7 +418,7 @@ def cqlList():
                 
                 os.system(command)
                 
-    return render_template('Patent2Net/templates/Request_Form/Mass2.html')
+    return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
 if __name__ == "__main__":
