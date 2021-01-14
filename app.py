@@ -114,10 +114,25 @@ def format_sse(data: str, event=None) -> str:
 version = "0.5"
 #list of application controled actually (approximativelly)
 
-lstAppl = ['p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content',
-           'p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster' ]
+lstAppl = ['cql-files', 'p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content',
+           'p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster',
+           'p2n_indexer']
 lstAppl2 = [truc + 'Log' for truc in lstAppl]
 
+labels = { 'p2n_req' : "Gathering patent list",
+              'p2n_gather_biblio' : "Gathering bibliographic metadata", 
+              "p2n_filtering" : "Filtering patents", 
+              'p2n_family' : "Gathering families",
+              'p2n_content' : "Gathering content",
+              'p2n_image' :  "Gathering images",
+              'p2n_network' : "Processing networks",
+              'p2n_tables' : "Processing tables",
+              'p2n_carrot' :  "Preparing carrot2 files",
+              'p2n_iramuteq' : "Processing IRAMuTeQ files",
+              'p2n_cluster' : "Clustering",
+              'p2n_indexer': "Indexing documents",
+              'cql-files': "Processing request file",  
+              }
 
 
 # unused: "p2n_filtering", "
@@ -386,20 +401,7 @@ def cqlList():
     cpt = 0
     os.chdir("Patent2Net")
         
-    labels = { 'p2n_req' : "Gathering patent list",
-              'p2n_gather_biblio' : "Gathering bibliographic metadata", 
-              "p2n_filtering" : "Filtering patents", 
-              'p2n_family' : "Gathering families",
-              'p2n_content' : "Gathering content",
-              'p2n_image' :  "Gathering images",
-              'p2n_network' : "Processing networks",
-              'p2n_tables' : "Processing tables",
-              'p2n_carrot' :  "Preparing carrot2 files",
-              'p2n_iramuteq' : "Processing IRAMuTeQ files",
-              'p2n_cluster' : "Clustering",
-              'p2n_indexer': "Indexing documents",
-              'p2n_AllCql': "Processing request file",  
-              }
+
     app_cfg.num_bars = 12
     render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
     
