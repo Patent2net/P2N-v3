@@ -384,7 +384,7 @@ def mass():
 def cqlList():
     lstReq = [fi for fi in os.listdir("./REQUESTS") if fi.endswith(".cql")]
     cpt = 0
-   
+    os.chdir("Patent2Net")
         
     labels = { 'p2n_req' : "Gathering patent list",
               'p2n_gather_biblio' : "Gathering bibliographic metadata", 
@@ -401,7 +401,7 @@ def cqlList():
               'p2n_AllCql': "Processing request file",  
               }
     app_cfg.num_bars = 12
-
+    
     for file in lstReq:
             lstScripts = ["OPSGatherPatentsv2.py", "PatentListFiltering.py", 
                           "OPSGatherAugment-Families.py", "PatentListFiltering.py", "preProcessNormalisationNames.py",
@@ -414,7 +414,7 @@ def cqlList():
             cpt +=1
             AnnonceProgres (Appli = 'cql-files', valMax = len(lstReq), valActu = cpt)
             for cmd in lstScripts:
-                command="python ./Patent2Net/" + cmd + " ../REQUESTS/%s"%(file)               
+                command="python " + cmd + " ../REQUESTS/%s"%(file)               
                 
                 os.system(command)
                 
