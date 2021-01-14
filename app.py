@@ -401,6 +401,7 @@ def cqlList():
               'p2n_AllCql': "Processing request file",  
               }
     app_cfg.num_bars = 12
+    render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
     
     for file in lstReq:
             lstScripts = ["OPSGatherPatentsv2.py", "PatentListFiltering.py", 
