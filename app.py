@@ -384,7 +384,7 @@ def mass():
 def cqlList():
     lstReq = [fi for fi in os.listdir("./REQUESTS") if fi.endswith(".cql")]
     cpt = 0
-    AppLab = [lab for lab in lstAppl if lab not in ['p2n_dir', 'p2n_filtering'] and form_result [lab]]
+   
         
     labels = { 'p2n_req' : "Gathering patent list",
               'p2n_gather_biblio' : "Gathering bibliographic metadata", 
@@ -418,7 +418,7 @@ def cqlList():
                 
                 os.system(command)
                 
-    return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = AppLab)
+    return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
 if __name__ == "__main__":
