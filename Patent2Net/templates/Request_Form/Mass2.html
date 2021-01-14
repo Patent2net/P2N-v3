@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <script>
+
+    console.log("Opening the SSE connection")
+    var source = new EventSource("/listen");
+    source.onmessage = function(event) {
+        sent_data = JSON.parse(event.data)
+        console.log(sent_data)
+        var done = true
+        var somme = 0
+        for (i in sent_data) {
+            console.log(i, sent_data[i])
+            
+            if (sent_data[i].includes("LOG")) {
+                 qi = "#progLog_"+i
+                 const newElement = document.createElement("li");
+                 const eventList = document.getElementById("info_0");
+                 console.log(i)
+                 newElement.innerHTML = sent_data[i].replace("LOG", ":") 
+                 eventList.appendChild(newElement);
+                 var done = false;
+}
+            else {
+            // data received is in the form : {'appli1':value}
+                somme = somme + sent_data[i]
+                qi = "#prog_"+i
+                if (sent_data [i]>90)
+                    $(qi).css({background:'green'});
+                if (sent_data [i]>99){
+                    $(qi).css({background:'green'});
+                    $(qi).css('width', '100%').attr('aria-valuenow', 100);
+                    $(qi).finish().animate(
+                        {
+                          width:'100%'
+                        },
+                        {
+                        }
+                    )}
+                       
+                else
+                    {
+                    $(qi).css('width', sent_data[i]+'%').attr('aria-valuenow', sent_data[i]);
+                    }
+ 
+                lqi = qi+"_label"
+                $(lqi).text(sent_data[i]+'%');
+                if (somme < 999)
+                done = false
+        }
+        
+        if(done){
+        
+            console.log("Closing the SSE connection")
+            source.close()
+        }
+        
+    }
+    }
+    
+    
+
+            
+    </script>
+<style>
+html, body {
+    height: 100%;
+    background-color: #333;
+}
+
+  body {
+      color: #fff;
+      text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+  }
+
+  .section {display: flex;}
+
+
+  .container .progress {
+  position: relative;
+  float: left;
+  border: 1px solid black;
+  height: 40px;
+  width: 100px;
+  padding: 5px;
+  margin: 2px;
+  line-height: 1.2;
+  flex-direction: column;
+  
+}
+    .progress-bar {
+  float: left;
+  width: 45%;
+}
+    .right {
+  float: right;
+  width: 50%;
+}
+   .container .info {
+        background-color: #FF0000;
+    
+    }
+</style>    
+</head>
+<body class="text-center">
+   <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+        <h4 class="mb-2"> Launching all Cql files in /REQUESTS/</h4>
+        <hr class="mb-4"/>
+
+        <section id="container" class="column" style="width: 75%;">
+        <div class="progress" id="prog_0">
+            <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="prog_0_label">Requetes</div>
+        </div>     
+        </section>
+        
+        <section id="container" class="column" style="width: 25%;">
+            {% for bar in range(0,num_bars) %}
+
+        <div class="progress" id="prog_{{bar}}">
+        <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" id="prog_{{bar}}_label">{{label [bar]}}</div>
+        </div>
+
+            {% endfor %}
+            
+       <div id="info_0" class="right" style="width: 100%; margin: 5px; overflow-y:scroll; height:50px;" >
+             <br/>
+       </div>
+          </div>
+
+     </section>
+  </div>
+
+</body>
+</html>

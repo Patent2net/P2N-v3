@@ -5,17 +5,18 @@ Created on Mon Jun 15 13:58:37 2020
 @author: Admin
 """
 import os
-import glob
+#import glob
 from flask import Flask, render_template, request, send_file, Response
 from flask_cors import CORS
 
-import time
+#import time
 import json
 import zipfile
 import io
 import pathlib
 import queue
-from urllib import parse
+#from urllib import parse
+import requests
 
 # static_folder call the emplacement of all the content who will work with the HTML. template_folder the emplacement of the HTML. \
 #    In theory they don't have to be at Root.
@@ -56,7 +57,23 @@ class MessageAnnouncer:
 
 
 announcer = MessageAnnouncer()
+def AnnonceProgres(Appli, valActu, valMax):
+    if valActu and valMax:
+        valActu = "%.2f" % valActu 
+        try:
+            requests.get('http://localhost:5000/announce?appli=%s&ValActu=%s&valMax=%s' %(Appli, valActu, valMax) )
+        except:
+            pass
+    else:
+        pass # must be a error
+#☻    print ('annnonce envoyée: ', pipo)
 
+def AnnonceLog(Appli, texte):
+
+    try:
+        requests.get('http://localhost:5000/announce?appli=%s&log=%s' %(Appli+'Log', texte) )
+    except:
+        pass
 
 def format_sse(data: str, event=None) -> str:
     """Formats a string and an event name in order to follow the event stream convention.
@@ -95,7 +112,8 @@ def format_sse(data: str, event=None) -> str:
 version = "0.5"
 #list of application controled actually (approximativelly)
 
-lstAppl = ['p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content','p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster', ]
+lstAppl = ['p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content',
+           'p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster' ]
 lstAppl2 = [truc + 'Log' for truc in lstAppl]
 
 
@@ -344,11 +362,11 @@ def requestReqSet_zip():
 @app.route('/updateP2N', methods=['GET','POST'])
 def gitupdater():
     #Launch the P2N research
-    commandupdate="git pull"
-    os.system(commandupdate)
-    os.system("python setup.py build")
-    os.system("python setup.py install")
-    
+    # commandupdate="git pull"
+    # os.system(commandupdate)
+    # os.system("python setup.py build")
+    # os.system("python setup.py install")
+    os.system("./update.sh")
     return render_template("Patent2Net/templates/Request_Form/P2N.html" ,variable_vers= version)
 
 
@@ -358,6 +376,28 @@ def mass():
         if file.endswith(".cql"):
                 command="p2n run --config=../REQUESTS/%s"%(file)
                 os.system(command)
+    return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
+
+@app.route('/mass2', methods=['GET','POST'])
+def mass2():
+    lstReq = [fi for fi in os.listdir("./REQUESTS") if fi.endswith(".cql")]
+    cpt = 0
+    for file in lstReq:
+            lstScripts = ["OPSGatherPatentsv2.py", "PatentListFiltering.py", 
+                          "OPSGatherAugment-Families.py", "PatentListFiltering.py", "preProcessNormalisationNames.py",
+                          "FormateExportCountryCartography.py", "FormateExportAttractivityCartography.py",
+                          "FormateExportBiblio.py", "FormateExportDataTableFamilies.py", "FormateExportDataTable.py",
+                          "FormateExportPivotTable.py", "P2N-Nets-new.py", "P2N-FreePlane.py", "OPSGatherAugment-Families.py",
+                          "OPSGatherContentsV2-Iramuteq.py", "FusionIramuteq2.py", "OPSGatherAugment-Families.py",
+                          "FusionCarrot2.py", "P2N-Indexer.py", "OPSGatherContentsV2-Images.py", "FusionImages.py",
+                          "IPC-WS-metrics.py", "ClusterPreProcess.py", "P2N-Cluster.py", "Interface2.py"]
+            cpt +=1
+            AnnonceProgres (Appli = 'cql-files', valMax = len(lstReq), valActu = cpt)
+            for cmd in lstScripts:
+                command="python ./Patent2Net/" + cmd + " ../REQUESTS/%s"%(file)               
+                
+                os.system(command)
+                
     return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
