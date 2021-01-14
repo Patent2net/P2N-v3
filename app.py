@@ -159,7 +159,7 @@ def progress():
         #Launch the P2N research
         #os.system(cmd)
         form_result =  request.args
-        AppLab = [lab for lab in lstAppl if form_result [lab] and lab not in ['p2n_dir']]
+        AppLab = [lab for lab in lstAppl if form_result [lab] and lab not in ['p2n_dir', 'cql-files']]
         app_cfg.num_bars = len(AppLab)
         return render_template('Patent2Net/templates/Request_Form/progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
