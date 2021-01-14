@@ -113,7 +113,7 @@ if FusionIramuteq2:
             temporary1 = fi.split('-')[0] # lang code
             temporary2 = fi.split('-')[1].split('.')[0] # PatentNumber
             temporary3 = fi.split('-')[1].split('.')[1] # File extension
-            contenuFic = ResultPathContent+ '//Abstract//'+temporary1 + temporary2.upper() + '.' + temporary3
+            contenuFic = ResultPathContent+ '//Abstract//'+temporary1 +'-' + temporary2.upper() + '.' + temporary3
             with codecs.open(contenuFic, 'r', 'utf8') as absFic:
                 data = absFic.readlines()
                 tempo = '**** *Type_Abstract'+ ' *'
