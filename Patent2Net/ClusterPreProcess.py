@@ -121,11 +121,11 @@ for bre in lstBrevet:
     CibName = 'en-'+ bre['label']+"Desc.txt" 
     if FicName in lstfic:
         try: 
-            toto = bre['title'].encode('ascii')
+            toto = bre['title']
             with codecs.open(ResultContentsPath +'//CibDesc//'+CibName, 'r', encoding='utf8', errors="ignore") as fic:
                 tempo = fic.readlines()
             IPCRsTexte= ' '.join([lig for lig in tempo if "***" not in lig])
-            IPCRsTexte.encode('ascii')
+            #IPCRsTexte.encode('ascii')
             
 #            with codecs.open(ResultPathContentAug+'//'+FicName, 'r', encoding='ascii', errors="ignore") as fic:
 #                tempo = fic.readlines()
@@ -140,7 +140,7 @@ for bre in lstBrevet:
             with codecs.open(ResultContentsPath +'//Abstract//'+AbsName, 'r', encoding='utf8', errors="ignore") as fic:
                 tempo = fic.readlines()
             PureAbstract= '\n'.join([lig for lig in tempo if "***" not in lig])
-            PureAbstract.encode('ascii')
+            #PureAbstract.encode('ascii')
             
             with codecs.open(ResultPathContentAug+'//'+FicName, 'w', encoding='utf8', errors="ignore") as fic:
                  tempo = fic.write(IPCRsTexte+' \n'+ toto.decode().lower()+' \n'+ PureAbstract +' \n')
@@ -148,9 +148,9 @@ for bre in lstBrevet:
             IPCRsText.append(IPCRsTexte)
             Contents.append(IPCRsTexte+' \n'+ toto.decode().lower()+' \n'+ PureAbstract +' \n')
              #should explode on chinese titles
-            Titles.append(toto.decode().lower())
+            Titles.append(toto.lower())
             Labels.append(bre['label'])    
-            Tit2FicName[toto.decode().lower()] = FicName
+            Tit2FicName[toto.lower()] = FicName # .decode()
         except:
             pass # no file OR bad coding
         
