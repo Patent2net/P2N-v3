@@ -179,7 +179,7 @@ def read_name_country_map(filename=None):
     countrycode_map = dict()
     topojson_map = dict()
 
-    with open(filename, 'r') as fic:
+    with open(filename, 'r', encoding = 'utf-8') as fic:
 
         for line in fic.readlines():
 
