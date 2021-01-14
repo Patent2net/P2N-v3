@@ -399,8 +399,9 @@ def mass():
 def cqlList():
     lstReq = [fi for fi in os.listdir("./REQUESTS") if fi.endswith(".cql")]
     cpt = 0
-
+    
     os.chdir("/home/p2n/P2N-V3/Patent2Net")
+
         
 
     app_cfg.num_bars = 12
