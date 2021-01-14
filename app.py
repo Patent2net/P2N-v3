@@ -35,6 +35,8 @@ class Config:
 # Instantiate app_config
 app_cfg = Config
 
+import logging
+from logging.handlers import RotatingFileHandler
 
 
 class MessageAnnouncer:
@@ -378,7 +380,7 @@ def mass():
                 os.system(command)
     return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
 
-@app.route('/mass2', methods=['GET','POST'])
+@app.route('/cqlList', methods=['GET','POST'])
 def mass2():
     lstReq = [fi for fi in os.listdir("./REQUESTS") if fi.endswith(".cql")]
     cpt = 0
@@ -398,10 +400,13 @@ def mass2():
                 
                 os.system(command)
                 
-    return render_template('Patent2Net/templates/Request_Form/mass2.html')
+    return render_template('Patent2Net/templates/Request_Form/Mass2.html')
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
 if __name__ == "__main__":
     # execute only if run as a script
+    handler = RotatingFileHandler('p2n.log', maxBytes=10000, backupCount=1)
+    handler.setLevel(logging.INFO)
+    app.logger.addHandler(handler)
 
     app.run(debug=True, host='0.0.0.0', port=5000) 
