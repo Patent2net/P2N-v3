@@ -383,16 +383,16 @@ def mass():
     return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
 
 @app.route('/cqlList', methods=['GET','POST'])
-def cqlList():
-    lstReq = [fi for fi in os.listdir("./REQUESTS") if fi.endswith(".cql")]
-    cpt = 0
-    
-    os.chdir("/home/p2n/P2N-V3/Patent2Net")
-    
 
-    app_cfg.num_bars = 12
-    render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
+def cqlList(): 
     
+    app_cfg.num_bars = 12
+    processList()
+    return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
+def processList():   
+    cpt = 0
+    lstReq = [fi for fi in os.listdir("./REQUESTS") if fi.endswith(".cql")]
+    os.chdir("/home/p2n/P2N-V3/Patent2Net")
     for file in lstReq:
             lstScripts = ["OPSGatherPatentsv2.py", "PatentListFiltering.py", 
                           "OPSGatherAugment-Families.py", "PatentListFiltering.py", "preProcessNormalisationNames.py",
