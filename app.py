@@ -374,23 +374,17 @@ def gitupdater():
     return render_template("Patent2Net/templates/Request_Form/P2N.html" ,variable_vers= version)
 
 
-@app.route('/mass', methods=['GET','POST'])
-def mass():
-    for file in os.listdir("./RequestsAuto"):
-        if file.endswith(".cql"):
-                command="p2n run --config=../REQUESTS/%s"%(file)
-                os.system(command)
-    return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
-
-@app.route('/cqlList', methods=['GET','POST'])
-
-def cqlList(): 
-    
-    app_cfg.num_bars = 12
-    render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
-    processList()
-    return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
-def processList():   
+# @app.route('/mass', methods=['GET','POST'])
+# def mass():
+#     for file in os.listdir("./RequestsAuto"):
+#         if file.endswith(".cql"):
+#                 command="p2n run --config=../REQUESTS/%s"%(file)
+#                 os.system(command)
+#     return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
+@app.route('/processList', methods=['GET','POST'])
+def processList():  
+    import sys
+    sys.path.extend("/home/p2n/P2N-V3/")
     cpt = 0
     lstReq = [fi for fi in os.listdir("./RequestsAuto") if fi.endswith(".cql")]
     os.chdir("/home/p2n/P2N-V3/Patent2Net")
@@ -418,6 +412,16 @@ def processList():
                 test = os.system(command)
 
                 
+    return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
+
+
+@app.route('/cqlList', methods=['GET','POST'])
+
+def cqlList(): 
+    
+    app_cfg.num_bars = 12
+    render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
+    requests.get('localhost:5000/processList')
     return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
