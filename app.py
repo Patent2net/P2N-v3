@@ -188,7 +188,7 @@ def confirmation():
     
 
     
-    app_cfg.num_bars = len(AppLab) - len([truc for truc in labels.keys() if not form_result [truc]] )
+    app_cfg.num_bars = len(AppLab) - len([truc for truc in labels.keys() if truc not in ['p2n_dir', 'cql-files', 'p2n_indexer'] and not form_result [truc]] )
     return render_template('Patent2Net/templates/Request_Form/Progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
 @app.route('/confirmation', methods=['POST'])    
@@ -247,7 +247,7 @@ def CqlCreator():
     #form_result['p2n_filtering'] = True #
     AppLab = [lab for lab in lstAppl if lab not in ['p2n_dir', 'p2n_filtering', 'p2n_indexer'] and form_result [lab]]
         
-    app_cfg.num_bars = len(AppLab) - len([truc for truc in AppLab if not form_result [truc]] )
+    app_cfg.num_bars = len(AppLab) - len([truc for truc in AppLab if  truc not in ['p2n_dir', 'cql-files', 'p2n_indexer'] and not form_result [truc]] )
     return render_template('Patent2Net/templates/Request_Form/Request.html', num_bars = app_cfg.num_bars, label = AppLab)
 
 # @app.route('/progressBar' , methods=['GET','POST'])
