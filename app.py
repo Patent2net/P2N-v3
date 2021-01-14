@@ -421,7 +421,7 @@ def cqlList():
     
     app_cfg.num_bars = 12
     render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
-    requests.get('localhost:5000/processList')
+    requests.get('http://localhost:5000/processList')
     return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
