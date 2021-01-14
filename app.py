@@ -159,7 +159,7 @@ def progress():
         #Launch the P2N research
         #os.system(cmd)
         form_result =  request.args
-        AppLab = [lab for lab in lstAppl if lab not in ['p2n_dir', 'cql-files'] and  form_result [lab]]
+        AppLab = [lab for lab in lstAppl if lab not in ['p2n_dir', 'cql-files', 'p2n_indexer'] and  form_result [lab]]
         app_cfg.num_bars = len(AppLab)
         return render_template('Patent2Net/templates/Request_Form/progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
@@ -245,7 +245,7 @@ def CqlCreator():
     print ('starting')
     
     #form_result['p2n_filtering'] = True #
-    AppLab = [lab for lab in lstAppl if lab not in ['p2n_dir', 'p2n_filtering'] and form_result [lab]]
+    AppLab = [lab for lab in lstAppl if lab not in ['p2n_dir', 'p2n_filtering', 'p2n_indexer'] and form_result [lab]]
         
     app_cfg.num_bars = len(AppLab) - len([truc for truc in AppLab if not form_result [truc]] )
     return render_template('Patent2Net/templates/Request_Form/Request.html', num_bars = app_cfg.num_bars, label = AppLab)
