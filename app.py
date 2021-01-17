@@ -384,10 +384,20 @@ def gitupdater():
 @app.route('/processList', methods=['GET','POST'])
 def processList():  
     import sys
-    sys.path.extend("/home/p2n/P2N-V3/")
+    try:
+        sys.path.index('/home/p2n/P2N-V3/') # Or os.getcwd() for this directory
+    except ValueError:
+        sys.path.append('/home/p2n/P2N-V3/')
+   
     cpt = 0
     lstReq = [fi for fi in os.listdir("./RequestsAuto") if fi.endswith(".cql")]
     os.chdir("/home/p2n/P2N-V3/Patent2Net")
+    try:
+        sys.path.index('/home/p2n/P2N-V3/Patent2Net/') # Or os.getcwd() for this directory
+    except ValueError:
+        sys.path.append('/home/p2n/P2N-V3/Patent2Net/')
+   
+    
     lstScripts1 = ["OPSGatherPatentsv2.py", "PatentListFiltering.py", "OPSGatherAugment-Families.py", "PatentListFiltering.py", "preProcessNormalisationNames.py",
                    "OPSGatherContentsV2-Iramuteq.py", "OPSGatherContentsV2-Images.py"]
     
