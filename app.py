@@ -383,9 +383,10 @@ def gitupdater():
 #                 command="p2n run --config=../REQUESTS/%s"%(file)
 #                 os.system(command)
 #     return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
-@app.route('/processList', methods=['GET','POST'])
+
+@app.route('/cqlList', methods=['GET','POST'])
 def processList():  
-    import sys
+  #  import sys
     # try:
     #     sys.path.index('/home/p2n/P2N-V3/') # Or os.getcwd() for this directory
     # except ValueError:
@@ -431,13 +432,19 @@ def processList():
     return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
 
-@app.route('/cqlList', methods=['GET','POST'])
-
 def cqlList(): 
+    if request.method == 'GET':
+        app_cfg.num_bars = 12
+        return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
+
+    if request.method == 'POST':
+
+        processList()
+
+        return render_template("index.html")
     
-    app_cfg.num_bars = 12
-    render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
-    requests.get('http://localhost:5000/processList')
+    
+   
     return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
