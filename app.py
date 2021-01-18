@@ -395,7 +395,7 @@ def cqlList():
 
         processList()
 
-        return render_template("index.html")
+        return "done"
 
     return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 def processList():  
