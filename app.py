@@ -386,6 +386,18 @@ def gitupdater():
 #     return render_template('Patent2Net/templates/Request_Form/ConfirmationP2N.html')
 
 @app.route('/cqlList', methods=['GET','POST'])
+def cqlList(): 
+    if request.method == 'GET':
+        app_cfg.num_bars = 12
+        return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
+
+    if request.method == 'POST':
+
+        processList()
+
+        return render_template("index.html")
+
+    return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 def processList():  
   #  import sys
     # try:
@@ -434,20 +446,7 @@ def processList():
     return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
 
-def cqlList(): 
-    if request.method == 'GET':
-        app_cfg.num_bars = 12
-        return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
-    if request.method == 'POST':
-
-        processList()
-
-        return render_template("index.html")
-    
-    
-   
-    return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
 if __name__ == "__main__":
