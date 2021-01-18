@@ -372,6 +372,7 @@ def gitupdater():
     # os.system(commandupdate)
     # os.system("python setup.py build")
     # os.system("python setup.py install")
+    os.chdir("/home/p2n/P2N-V3/")
     os.system("./update.sh")
     return render_template("Patent2Net/templates/Request_Form/P2N.html" ,variable_vers= version)
 
@@ -391,6 +392,7 @@ def processList():
     #     sys.path.index('/home/p2n/P2N-V3/') # Or os.getcwd() for this directory
     # except ValueError:
     #     sys.path.append('/home/p2n/P2N-V3/')
+    app_cfg.num_bars = 12
     os.chdir("/home/p2n/P2N-V3/")
     cpt = 0
     lstReq = [fi for fi in os.listdir("./RequestsAuto") if fi.endswith(".cql")]
@@ -450,8 +452,8 @@ def cqlList():
 #Authorize the app to be accessed in a different environment (localhost in our case)
 if __name__ == "__main__":
     # execute only if run as a script
-    handler = RotatingFileHandler('p2n.log', maxBytes=10000, backupCount=1)
-    handler.setLevel(logging.INFO)
-    app.logger.addHandler(handler)
+    # handler = RotatingFileHandler('p2n.log', maxBytes=10000, backupCount=1)
+    # handler.setLevel(logging.INFO)
+    # app.logger.addHandler(handler)
 
     app.run(debug=False, host='0.0.0.0', port=5000) 
