@@ -94,8 +94,12 @@ Inventeurs = []
 Applicants = []
 nbAppliAvant = dict()
 nbInvAvant = dict()
+if configFile.GatherFamilly:
+    lstTraite = [ndf, 'Families'+ndf]
+else:
+    lstTraite = [ndf]
 # traitement des fichiers + familles 
-for fic in [ndf, 'Families'+ndf]:# Modif here for debug   [ndf, 'Families'+ndf]:
+for fic in lstTraite:# Modif here for debug   [ndf, 'Families'+ndf]:
     cptInv, cptAppl = 0,0
 
             
@@ -302,7 +306,7 @@ with tqdm(total=len(Applicants), desc="computing", bar_format="{l_bar}{bar} [ ti
 InvNormes = [aut for cle in Inventeur_Norm.keys() for aut in Inventeur_Norm [cle]]
 
 Inventors, Applicants = dict(), dict()
-for fic in [ndf, 'Families'+ndf]:
+for fic in lstTraite:
     print("\n> Hi! This is Pre Process for normalizing applicant names: used on:", fic)
     if 'Description' + fic in os.listdir(ListBiblioPath):
         with open(ListBiblioPath + '//' + fic, 'r', encoding='utf8') as data:
