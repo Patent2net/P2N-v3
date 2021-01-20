@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="rerere" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="rerere" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="rerere" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="graphrecipes" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Make your own graphs from {{request}} case</title>
+  <meta name="description" content="">
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+  <link rel="stylesheet" href="../../Patent2Net/media/Graph-recipes/app.css">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700|Lobster|Open+Sans+Condensed:300" rel="stylesheet">
+
+
+</head>
+<body>
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <div ng-view layout="column" layout-fill></div>
+
+  <div id="dummy-font-div" ng-show="false">-</div>
+
+  <script src="../../Patent2Net/media/Graph-recipes/assets/ace/ace.js"></script>
+  <script src="../../Patent2Net/media/Graph-recipes/assets/gexf.min.js"></script>
+  <script src="../../Patent2Net/media/Graph-recipes/assets/FileSaver.min.js"></script>
+
+  <script src="../../Patent2Net/media/Graph-recipes/bundle2.js"></script>
+
+</body>
+</html>
