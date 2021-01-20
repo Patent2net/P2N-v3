@@ -871,7 +871,7 @@ RenderTemplate(
 # maybe we could adjust node size and other parameters here
 RenderTemplate(
     "GraphUploadModel.html",
-    configFile.ResultPath+"/GraphUpload"+ projectName+ ".html",
+    configFile.ResultPath+"/GraphUpload.html",
     request=projectName,
     anglOpt = "{{loadingMessage=='' ? 'LOAD GRAPH' : loadingMessage}}"
 )    

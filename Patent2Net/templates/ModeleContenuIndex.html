@@ -62,7 +62,7 @@
         </header>
         <div class="caption dark animated wow fadeInDown clearfix">
         <h1><a href="https://p2n-v3.readthedocs.io/en/latest/" title="Patent2Net documentation" target="_blank">A patent collector and analyser</a> to expand <br/> your horizon with various data processing tools<br/> for education and scientific purposes</h1>
-            <p>using EPO's database of over <a href="http://worldwide.espacenet.com/"> 110 000 000 patents </a></p>
+            <p>using EPO's database of over <a href="http://worldwide.espacenet.com/"> 120 000 000 patents </a></p>
 
             <hr>
         </div>
@@ -116,6 +116,8 @@
         {% endif %}
         {% if InventorNetwork or ApplicantNetwork or CrossTechNetwork %}
         <li>
+		<a href="#" onclick="{{wo('GraphIndex*CollectName*.html')}} return false;">New Networks analyser tool</a>
+		<br>
             <a href="#" onclick="{{wo('GephiFiles/*CollectName*_InventorsJS.html')}} {{wo('GephiFiles/*CollectName*_ApplicantsJS.html')}} {{wo('GephiFiles/*CollectName*_CrossTechJS.html')}} return false;">Networks (Inventor, Applicant, Technology)</a>
         </li>
         {% endif %}
