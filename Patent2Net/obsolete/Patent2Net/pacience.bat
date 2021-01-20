@@ -1,1 +1,0 @@
-type P2N.txt
