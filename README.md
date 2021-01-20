@@ -8,14 +8,14 @@
 
 About
 -----
-[Patent2Net] (http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=page) is :
+[Patent2Net] (https://p2n-v3.readthedocs.io/en/latest/) is :
 * elaborated and maintained (on a free base) by a [small international team] (http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:community;) of university professors and researchers.  
 * an "open source" package and contributions are welcome
-* available "[as it is] (http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=about_p2n:disclaimer)".
+* available "[as it is] (https://p2n-v3.readthedocs.io/en/latest/)".
 
 Patent2Net is a free package, dedicated to :
 * augment the use of patent information in academic, nano and small firms, developing countries (all those without pay mode access)
 * learn, study and practice how to collect, treat and communicate "textual bibliographic information", and automation process
 * provide statistical analysis and representations of a set of patents.
 
-The [results](http://patent2netv2.vlab4u.info/) of statistical patents analysis can be explored as a website with the firefox browser
+The (old, not featured with this new version) [results](http://patent2netv2.vlab4u.info/) of statistical patents analysis can be explored as a website with the firefox browser
