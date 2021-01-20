@@ -1,1 +1,0 @@
-(ic=A61 AND (pd within "201312, 201312")) AND pr=FR UNION (ic=A61 AND (pd within "201308, 201311")) AND pr=FR UNION (ic=A61 AND (pd within "201305, 201307")) AND pr=FR UNION (ic=A61 AND (pd within "201301, 201304")) AND pr=FR
