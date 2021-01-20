@@ -81,6 +81,7 @@ def Nettoie(Liste):
     return list(filter(lambda x: x not in indesirables, Liste))
 
 # test de consistance
+
 with open(Auteur+'//DejaTraites.csv', 'r',) as fic:
     DejaVus = fic.readlines()
 

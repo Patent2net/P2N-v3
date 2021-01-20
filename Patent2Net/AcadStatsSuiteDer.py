@@ -2,6 +2,11 @@
 """
 Created on Sat Jun 29 07:41:54 2019
 
+Après moficitation de AcadPuMed2, celui-ci prétraite l'autctorialité pour qualifier les Fr à l'aide de l'affiliation
+
+Le fichier traceAut.csv suit l'entete = "Nom Inventeur ; Nombre publications ; Nombre publication matchées; AffilFr \n"
+
+Ce script à l'aide de ce fichier produit quelques statistiques de publication'
 @author: dreymond
 """
 
@@ -51,144 +56,187 @@ def Nettoie(Liste):
     return list(filter(lambda x: x not in indesirables, Liste))
 
 # test de consistance
-with open(Auteur+'//DejaTraites.csv', 'r',) as fic:
-    DejaVus = fic.readlines()
-
-if len (set(DejaVus)) == len(DataBrevet['brevets']):
-    print ('Youhou, tous les brevets ' + ndf + ' ont été traités.')
-    print ('Nb de brevets : ', len(DataBrevet['brevets']))
+with open(Auteur+'//traceAuct.csv', 'r',) as fic:
+    dataAuct = fic.readlines()
+Auteurs = dict()
+for lig in dataAuct[1:]:
+    lig = lig.strip()
+    col= lig.split(';')
+    if col[0] not in Auteurs.keys():
+        Auteurs [col[0]] = dict()
+        Auteurs [col[0]]['publis'] = col [1]
+        Auteurs [col[0]]['publisMatch'] = col [2]
+        Auteurs [col[0]]['affilFr'] = col [3]
+    else:
+        if Auteurs [col[0]]['publis'] != col [1]:
+            print ("aille")
+        if Auteurs [col[0]]['publisMatch'] != col [2]:
+            print ("aille")
+        if Auteurs [col[0]]['affilFr'] != col [3]:
+            print ("aille")
+        else:
+            pass
+DejaVus =Auteurs.keys()        
+# if len (set(DejaVus)) == len(DataBrevet['brevets']):
+#     print ('Youhou, tous les brevets ' + ndf + ' ont été traités.')
+#     print ('Nb de brevets : ', len(DataBrevet['brevets']))
     
-else:
-    reste = [bre['label'] for bre in DataBrevet['brevets'] if bre['label'] not in DejaVus ]
-    print ('il reste ', len(reste), ' brevets à traiter')
+# else:
+#     reste = [bre['label'] for bre in DataBrevet['brevets'] if bre['label'] not in DejaVus ]
+#     print ('il reste ', len(reste), ' brevets à traiter')
  
 # Analyse stat des résultats
-print ("""Ceux qui ont changé d'affiliation la première trouvée puis la seconde... 
-       S'il en est plus de deux, ce sera la première puis la 3e....""")
+# print ("""Ceux qui ont changé d'affiliation la première trouvée puis la seconde... 
+#        S'il en est plus de deux, ce sera la première puis la 3e....""")
 lstfic = os.listdir(configFile.ResultPath +'//AcadCorpora')
-with codecs.open(configFile.ResultPath +'//AcadCorpora//AuteursAffil.csv', 'r', 'utf8') as fic:
-    data = fic.readlines()
-multiAut = 0  # inventeurs prolixes
-AffilDiff = 0   # les affiliations différentes
-Auteurs = dict()
-for lig in data:
-    col = lig   .strip()
-    col = col.split(';')
-    if col[0] not in Auteurs.keys():
-        Auteurs [col[0]] = col[1]
-    else:
-        if col[1] != Auteurs [col[0]]:
-            print (col[0], " --> ", Auteurs [col[0]])
-            print (col[0], " --> ", col[1])
+# with codecs.open(configFile.ResultPath +'//AcadCorpora//AuteursAffil.csv', 'r', 'utf8') as fic:
+#     data = fic.readlines()
+# multiAut = 0  # inventeurs prolixes
+# AffilDiff = 0   # les affiliations différentes
+# Auteurs = dict()
+# for lig in data:
+#     col = lig   .strip()
+#     col = col.split(';')
+#     if col[0] not in Auteurs.keys():
+#         Auteurs [col[0]] = col[1]
+#     else:
+#         if col[1] != Auteurs [col[0]]:
+#             print (col[0], " --> ", Auteurs [col[0]])
+#             print (col[0], " --> ", col[1])
             
-            AffilDiff +=1
-            multiAut+=1  # non sens, le script peut recollecter plusieurs fois le même
-        else:
-            multiAut+=1
-            pass
+#             AffilDiff +=1
+#             multiAut+=1  # non sens, le script peut recollecter plusieurs fois le même
+#         else:
+#             multiAut+=1
+#             pass
 
 Inventeurs = []
 for bre in DataBrevet['brevets']:
     Inventeurs.extend(Nettoie(bre['inventor']))
-Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
-Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
-print ("Nombre d'auteurs identifiés sur PubMed ", len(list(Auteurs.keys())), " et le nombre d'inventeurs ", len(Inventeurs))
-print ("Les auteurs inventeurs .... mais pour ces stats : Nom Prénom est différent de Prénom Nom" )
+# Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
+# Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
+print ("nombre d'inventeurs ", len(Inventeurs))
+print ("Nombre d'inventeurs uniques :", len(set(Inventeurs)))
+print ("nombre d'auteurs", sum([1 for aut in Inventeurs if aut in Auteurs.keys() and int(Auteurs [aut]['publis'])>0]))
+# print ("nombre d'auteurs FR", sum([1 for aut in Auteurs.keys() if Auteurs [aut]['affilFr'] == 'True' and int(Auteurs [aut]['publis'])>0]))
+# print ("nombre d'auteurs pas FR", sum([1 for aut in Auteurs.keys() if Auteurs [aut]['affilFr'] == 'False' and int(Auteurs [aut]['publis'])>0]))
+#print ("nombre de publications", sum([int(Auteurs [aut]['publis']) for aut in Auteurs.keys()])) données fausse dans le fichier trace auc. Des publis mathchées alors que publis = 0 pour certains auteurs
+
+print ("nombre de publications matchées ", sum([int(Auteurs [aut]['publisMatch']) for aut in Auteurs.keys()]))
+print ("nombre de publications matchées en AffilFr", sum([int(Auteurs [aut]['publisMatch']) for aut in Auteurs.keys() if Auteurs [aut]['affilFr'] == 'True']))
+print ("nombre de publications matchées pas en AffilFr", sum([int(Auteurs [aut]['publisMatch']) for aut in Auteurs.keys() if Auteurs [aut]['affilFr'] == 'False']))
 
 Inventeur_Norm = dict()
 InvDejaVus = []
 import copy
 Inventeurs = set(Inventeurs)
 InventeurSafe = copy.copy(Inventeurs)
-print ("Nombre d'inventeurs :", len(set(Inventeurs)))
-for inv in Inventeurs:
-    if inv not in DejaVus:
-        reste = Inventeurs- set([inv]+InvDejaVus)
-        InvDejaVus.append(inv)
-        for inv2 in reste:
-            if fuzz.token_sort_ratio(inv, inv2)>89:
-                if len(inv) == len(inv2) and inv.split()[0] != inv2.split()[1] and '-' not in inv and '-' not in inv2:
-                    print ("Suspects : ", inv, inv2)
-                InvDejaVus.append(inv2)
-                if inv in Inventeur_Norm.keys():
-                    Inventeur_Norm [inv].append(inv2)                    
-                else:
-                    Inventeur_Norm [inv] = [inv2]
 
-Estrangers = [inv for inv in Inventeurs2 if inv not in Auteurs.keys() and inv.split(' ')[1] + inv.split(' ')[0] not in Auteurs.keys()]
-Estrangers += [inv for inv in Inventeurs1 if inv not in Auteurs.keys()]
-print ("nombre d'inventeurs non affiliés FR", len(Estrangers))
+# for inv in Inventeurs:
+#     if inv not in DejaVus:
+#         reste = Inventeurs- set([inv]+InvDejaVus)
+#         InvDejaVus.append(inv)
+#         for inv2 in reste:
+#             if fuzz.token_sort_ratio(inv, inv2)>89:
+#                 if len(inv) == len(inv2) and inv.split()[0] != inv2.split()[1] and '-' not in inv and '-' not in inv2:
+#                     print ("Suspects : ", inv, inv2)
+#                 InvDejaVus.append(inv2)
+#                 if inv in Inventeur_Norm.keys():
+#                     Inventeur_Norm [inv].append(inv2)                    
+#                 else:
+#                     Inventeur_Norm [inv] = [inv2]
+
+# Estrangers = [inv for inv in Inventeurs2 if inv not in Auteurs.keys() and inv.split(' ')[1] + inv.split(' ')[0] not in Auteurs.keys()]
+# Estrangers += [inv for inv in Inventeurs1 if inv not in Auteurs.keys()]
+# print ("nombre d'inventeurs non affiliés FR", len(Estrangers))
 #distFonct = lambda x: { cle: max([fuzz.token_set_ratio( x, aut) for aut in Inventeurs]) for cle in Auteurs}
-print ("Nouvelles stats")
-BadCasInv = dict()
-for inv in Inventeur_Norm.keys():
-    if isinstance(Inventeur_Norm [inv], list):
-        for inv2 in Inventeur_Norm [inv]:
-            BadCasInv [inv2] = inv
-    else:
-        BadCasInv [Inventeur_Norm [inv]] = inv
+# print ("Nouvelles stats")
+# BadCasInv = dict()
+# for inv in Inventeur_Norm.keys():
+#     if isinstance(Inventeur_Norm [inv], list):
+#         for inv2 in Inventeur_Norm [inv]:
+#             BadCasInv [inv2] = inv
+#     else:
+#         BadCasInv [Inventeur_Norm [inv]] = inv
         
-print ("Nombre d'inventeurs rectifiants les erreurs de saisie :", len(set(Inventeurs))-len(BadCasInv.keys()))
+# print ("Nombre d'inventeurs rectifiants les erreurs de saisie :", len(set(Inventeurs))-len(BadCasInv.keys()))
 
 # Traitement des dossiers et des abstracts collectés
 
 def GenereListeFichiers(rep):
-    """ prend un dossier en paramètre (chemin absolu) et génère la liste
+    """ prend un auteur en paramètre (chemin absolu) et génère la liste
     complète des fichiers TXT et CSV de l'arborescence"""
     import os
     listeFicCSV = []
     listeFicTXT = []
+    for lang in ['Fr', 'NoFr']: # depending the affiliation (France or not) of the author of an article, the directory is one or other
+        
+        for ficOuRep in os.listdir(rep +'//'+lang):
+    
+            if "." not in ficOuRep:
+                for fic in os.listdir( rep +'//'+lang +'//' +ficOuRep):
 
-    for ficOuRep in os.listdir(rep):
-
-        if "." not in ficOuRep:
-            for fic in os.listdir(rep+'//'+ficOuRep):
-                #for fic in os.listdir(root+"//"+sousRep):
-               # temporar = GenereListeFichiers(rep+'//'+sousRep)
-
-                         if fic.endswith('.csv'):
-                             listeFicCSV.append(rep+"//"+ficOuRep+'//'+fic)
-                         elif fic.endswith('.txt'):
-                             listeFicTXT.append(rep+"//"+ficOuRep+'//'+fic)
-                         else:
-                             pass
-
-#                listeFicCSV.extend(temporar[0])
-#                listeFicTXT.extend(temporar[1])
-#                listeFicUNK.extend(temporar[2])
-        else:
-           pass
-#                if ficOuRep.endswith('.csv'):
-#                    listeFicCSV.append(root+'//'+fichier)
-#                elif ficOuRep.endswith('.txt'):
-#                    listeFicTXT.append(root+'//'+fichier)
-#                else:
-#                    pass
-                
+                             if fic.endswith('.csv'):
+                                 listeFicCSV.append(rep+'//'+lang+"//"+ficOuRep +'//' +fic)
+                             elif fic.endswith('.txt'):
+                                 listeFicTXT.append(rep+'//'+lang+"//"+ficOuRep+'//'  +fic)
+                             else:
+                                 pass
+    
+    #                listeFicCSV.extend(temporar[0])
+    #                listeFicTXT.extend(temporar[1])
+    #                listeFicUNK.extend(temporar[2])
+            else:
+               pass
+    #                if ficOuRep.endswith('.csv'):
+    #                    listeFicCSV.append(root+'//'+fichier)
+    #                elif ficOuRep.endswith('.txt'):
+    #                    listeFicTXT.append(root+'//'+fichier)
+    #                else:
+    #                    pass
+                    
     return (list(set(listeFicCSV)), list(set(listeFicTXT)))
 
 
+
 Csv, IRams = GenereListeFichiers(Auteur)
-matches, NotFound, CountBadNomMatches, CountBadNomPubMed = 0, 0,0, 0
+pasMatches, matches, CountBadNomMatches, CountBadNomPubMed = 0, 0,0, 0
+
+Errors = [truc.replace('//Fr//', "//NoFr//") for truc in Csv if truc.replace('//Fr//', "//NoFr//") in Csv] # if author are found in another affiliation they remain on time in Fr and one in No FR !!!!
+# we exclude them in the countong procedure conserving just their FR affiliation
+Csv2 = [fi for fi in Csv if fi not in Errors]
+
 Scores = []     # la liste des scores de chaque IPCat
 Matches = dict()
 PasMatches=dict()
 cptPubli = 0
-for ficCsv in Csv:
+for ficCsv in Csv2:
     with open(ficCsv, "r", encoding='utf8') as ficcsv:
         Datacsv=ficcsv.readlines()
-    
+    # filtering with unique pubmed Id
     if len(Datacsv) >1:
         enTete = [Datacsv[0]]
-        enTete.extend(list(set(Datacsv[1:])))
+        tempo = []
+        DejaVus = []
+        for lig in set(Datacsv[1:]):
+            if len(lig.split(';')) >3:
+                pubmedId = lig.split(';')[4]
+            else: # seems a problem with DOI
+                pubmedId = lig[0]
+            if pubmedId not in DejaVus:
+                tempo.append(lig)
+                DejaVus.append(pubmedId)
+            else:
+                pass
+            
+        enTete.extend(tempo)
         Datacsv = enTete
         
         with open(ficCsv, "w", encoding='utf8') as ficcsvNet:
            ficcsvNet.write("".join(Datacsv))
         
     
-    temp = ficcsv.name.split('//')[2]
-    #Nom=temp.split('-')[1]
+    temp = ficcsv.name.split('//')[3]
     First = False
     VraiNom = ''
     Numro = ''
@@ -196,7 +244,7 @@ for ficCsv in Csv:
         if not lettre.isnumeric():
             if lettre.lower() != lettre and not First:
                 VraiNom += ' ' + lettre
-            else:
+            elif lettre != '-':
                 VraiNom +=lettre
                 if lettre.lower() != lettre:
                     First = True
@@ -204,39 +252,8 @@ for ficCsv in Csv:
             Numro += lettre
     #decodage
     VraiNom = VraiNom.replace('- ', '-')
-    if VraiNom[1:].strip() in Auteurs.keys():
-        if VraiNom[1:].strip() in BadCasInv.keys():
-            CountBadNomPubMed +=1
-#            if VraiNom[1:].strip() in BadCasInv.keys():
-#                BadCasInv [VraiNom[1:].strip()] 
-#            #☻ on pourrait rassembler ici toutes lesprod d'un même gugusse
-        else:
-            GoodException = []
-            for nom in BadCasInv.keys():
-                if fuzz.token_set_ratio(nom, VraiNom[1:].strip()) >85:
-                    GoodException.append(nom)
-            if len(GoodException) == 1:
-                VraiNom = ' '+GoodException [0] #on l'a retrouvé
-            elif len(GoodException) == 0:
-                pass
-            else:
-                
-                VraiNom = ' '+GoodException [0]
-#        else:
-#            with open(ficCsv, "w", encoding='utf8') as ficcsvNet:
-#                ficcsvNet.write("".join(Datacsv))
-    else:
-        
-        pass
-        
-#        print(VraiNom)        
-    #denombrement
-
-    #sauvegarde de la version nettoyée
-
-
-    if len(Datacsv)>1:
-        matches+=1 # Mauvais compteurs si le processe de collecte n'a pas été correctement aboutit (en une fois)
+    if len(Datacsv)>2:
+        matches+=1 # publications matchées IPC
         
         for lig in Datacsv:
             if not lig.startswith('Label Brevet'):
@@ -248,67 +265,72 @@ for ficCsv in Csv:
                     else: #quelquefois le champs score est décalé... un ";" dans les données ???
                         Scores.append(int(dat[10]))
         ScoreMoy = sum(Scores)*1.0/len(Scores)
-        Matches [VraiNom[1:].strip()] = [Numro, str(len(Datacsv)-1), str(ScoreMoy)]
-        if VraiNom[1:].strip() in BadCasInv:
-            CountBadNomMatches +=1
-    else:
-        PasMatches [VraiNom[1:].strip()] = Numro
-        NotFound+=1 # Mauvais compteurs si le processe de collecte n'a pas été correctement aboutit
+        if VraiNom[1:].strip() not in Matches.keys():
+            Matches [VraiNom[1:].strip()] = [[ficCsv],
+                                             len(Datacsv)-1, # Match par auteur
+                                             len(os.listdir("/".join(ficCsv.split('/')[0:len(ficCsv.split('/'))-1])+'publis')), #nb publications
+                                             len(Datacsv)-1, ScoreMoy]
+        else:
+            temp = Matches [VraiNom[1:].strip()][0]
+            temp.append(ficCsv)
+            # if Matches [VraiNom[1:].strip()][1]  != len(Datacsv)-1: # I can't see what this test stands for...
+            #     print ()
+            Matches [VraiNom[1:].strip()] = [temp, 
+                                             Matches [VraiNom[1:].strip()][1] + len(Datacsv)-1,
+                                             len(os.listdir("/".join(ficCsv.split('/')[0:len(ficCsv.split('/'))-1])+'publis')),
+                                             len(Datacsv)-1, (Matches [VraiNom[1:].strip()][2] + ScoreMoy)/2]
 
-print("Nombre d'auteurs identifiés (le même auteur dans plusieurs brevets) ", matches)
-print("Nombre d'auteurs identifiés sans publi", NotFound)
+        # if VraiNom[1:].strip() in BadCasInv:
+        #     CountBadNomMatches +=1
+    else:
+        pasMatches += 1
+        if VraiNom[1:].strip() not in PasMatches.keys():
+            PasMatches [VraiNom[1:].strip()] = [ficCsv]
+        else:
+            PasMatches [VraiNom[1:].strip()].append(ficCsv)
+
+
+print ("Nombre d'auteurs/affiliations identifiés ", len(Csv2))
+#print ("Nombre d'auteurs affiliés Fr et NoFr ", )
+print ("Nombre d'auteurs No Fr identifiés avec publications", sum([1 for fic in ficCsv if len(os.listdir("/".join(ficCsv.split('/')[0:len(ficCsv.split('/'))-1])+'publis'))>0]))
+print ("Nombre d'auteurs FR identifiés avec publications", sum([1 for fic in Csv2 if "/Fr/" in fic and len(os.listdir("/".join(fic.split('/')[0:len(fic.split('/'))-1])+'publis'))>0]))
+
+print ("Nombre de publications traitées des auteurs FR", sum([len(os.listdir("/".join(fic.split('/')[0:len(fic.split('/'))-1])+'publis')) for fic in Csv2 if "/Fr/" in fic]))
+print ("Nombre  de publications traitées des auteurs no affil FR", sum([len(os.listdir("/".join(fic.split('/')[0:len(fic.split('/'))-1])+'publis')) for fic in Csv2 if "/NoFr/" in fic]))
+
+
+print("Nombre de brevets matchés (le même auteur dans plusieurs brevets) ", sum([len(Matches[aut][0]) for aut in Matches.keys()]))
+
+# print ("Nombre de publications traitées ", )
+
 print("Nombre d'auteurs (uniques) identifiés avec publi  pubmed matchées IPCCat", len(Matches.keys()) )
 print("Nombre d'auteurs (uniques) identifiés sans publi matchées IPCCat", len(PasMatches.keys()) )
+print("Nombre d'auteurs à publications matchées", len(Matches.keys()) )
+print("Max par auteur du nomnbre de publications matchées", max([len(Matches[aut][0]) for aut in Matches.keys()]))
+print ("nombre de publications matchées ", cptPubli )
 
-print("Nombre d'auteurs identifiés (mal orthogr) sans publi matchées IPCCat", CountBadNomPubMed)
-print("Nombre d'auteurs identifiés (mal orthogr) avec publi matchées IPCCat", CountBadNomMatches )
-print ("nombre de publications traitées ", cptPubli )
-# Normalisation sur Mauvaise orthogrphes
-pasGrave = 0 #les cas où c'est pas si grave (pas un vrai auteur puisque mal ortho et pas de publi)
-MatchMalOrtho = dict()
-for aut in Matches.keys():
-    if aut in BadCasInv.keys():
-        if BadCasInv [aut] in Matches.keys():
-            MatchMalOrtho [aut] = [Matches [aut]]
-            
-            if Matches[BadCasInv [aut]] == Matches [aut]:
-                print ("remove key ?")
-            else:
-                MatchMalOrtho [aut].append( Matches [BadCasInv [aut]])
-                
-        elif BadCasInv [aut] in PasMatches.keys():
-            #La cas où un inventeur est un auteur mais sa version mal orthographiée non
-            pass # faudrait virer de ce côté la ligne
-        else:
-            
-            pasGrave += 1 # 
-            #print ('wtf')
-    else:
-        pass
+
 
 with open(RepDir + "//AuteursMatches.tsv", "w", encoding = 'utf8') as ficMatch:
     
-    ficMatch.write('Auteur \t Numéro \t  Nombre Articles \t Score \t\n')
+    ficMatch.write('Auteur \t Nombre match \t Articles \t Score moyen \t\n')
     for aut in Matches.keys():
-        ficMatch.write(aut + '\t' +  Matches[aut][0]+ '\t' +  str(Matches[aut][1]) +'\t' +  str(Matches[aut][2]) +'\t\n')
+        if Matches[aut][1] == Matches[aut][3]:
+            ficMatch.write(aut + '\t' +   str(Matches[aut][1]) +'\t' +  str(Matches[aut][2]) +'\t' +  str(Matches[aut][4]) +'\t\n')
+        else:
+            ficMatch.write(aut + '\t' +   str(Matches[aut][1] - Matches[aut][3]) +'\t' +  str(Matches[aut][2]) +'\t' +  str(Matches[aut][4]) +'\t\n')            
         
 
 with open(RepDir + "//AuteursPAsMatches.tsv", "w", encoding = 'utf8') as ficMatch:
-    ficMatch.write('Auteur \t Numéro \t\n')
+    ficMatch.write('Auteur \t\n')
     for aut in PasMatches.keys():
-        ficMatch.write(aut + '\t' +  PasMatches[aut]+ '\t\n')
+        ficMatch.write(aut +  '\t\n')
 
-with open(RepDir + "//MalNommes.tsv", "w", encoding = 'utf8') as ficMatch:
-    ficMatch.write('Auteur \t Déclinaisons \t\n')
-    for aut in Inventeur_Norm.keys():
-        Ligne = aut + '\t' 
-        for Badaut in Inventeur_Norm [aut]:
-            Ligne+= Badaut +'\t'
-            
-            
-        ficMatch.write(Ligne + '\n')
+
         
-#echantillonga
+#echantillonge. Partie du script qui extrait des corpus un échantillon aléatoire de taille 10% du corpus
+# en séparant les matchés des pas matchés afin de qualifier le process
+# 
 
 # import random
 # from pathlib import Path, PureWindowsPath

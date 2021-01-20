@@ -6,7 +6,7 @@ Created on Wed Sep 16 10:44:06 2020
 """
 from Patent2Net.P2N_Lib import LoadBiblioFile
 from Patent2Net.P2N_Config import LoadConfig
-import os
+import os, pickle
 
 configFile = LoadConfig()
 requete = configFile.requete
@@ -27,7 +27,19 @@ if 'Description'+ndf in os.listdir(ResultPath): # NEW 12/12/15 new gatherer appe
 ResultPath = ResultPath.replace('DATA/', 'DATA/OLD/')
 
 if 'Description'+ndf in os.listdir(ResultPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
-    data2 = LoadBiblioFile(ResultPath, ndf)
+    try:
+        data2 = LoadBiblioFile(ResultPath, ndf)
+    except:
+         with open(ResultPath + '//' + ndf, 'rb') as fic:
+             data2 = dict()
+             data2['brevets'] =[]
+             Ok = True
+             while Ok:
+                 try:
+                     data2['brevets'] .append(pickle.load(fic))
+                 except EOFError:
+                     Ok = False
+                     pass
 
 
 dataB1 =data1['brevets']

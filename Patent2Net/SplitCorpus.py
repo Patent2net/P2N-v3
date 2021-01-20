@@ -11,10 +11,9 @@ import os, sys
 import pickle
 import copy
 from pymed import PubMed
-import shutil
+
 from Patent2Net.P2N_Lib import LoadBiblioFile
 from Patent2Net.P2N_Config import LoadConfig
-from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct, CheckListInclu, CheckListMix, CheckListExclu, UnCheck, Check
 from Patent2Net.P2N_Lib_Acad import IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
 from fuzzywuzzy import fuzz
 
@@ -23,20 +22,39 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from networkx.readwrite import json_graph
 import pandas as pd
-
+import string
+import re
+import unidecode
 
 #table = string.maketrans("","")
-
+regex = re.compile('[%s]' % re.escape(string.punctuation))
 pd.options.display.max_colwidth = 150
 
+def NoPunct(s):  # From Vinko's solution, with fix.
+    temp = regex.sub(' ', s)
+    temp = temp.replace('  ', ' ')
+    temp = temp.replace('  ', ' ')
+    temp = temp.strip()
+    return temp
 
+def Nettoie(Liste):
+    indesirables = ['', u'', None, False, [], ' ', '\t', '\n',  "?", "Empty", "empty"]
+    if isinstance(Liste, list):
+    
+        Liste = [' '.join([truc for truc in nom.split(' ') if truc is not None and truc.strip() not in indesirables]) for nom in Liste if nom is not None] 
+        return list(filter(lambda x: x not in indesirables, Liste))
+    
+    elif Liste in indesirables:
+        return ''
+    else:
+        return [Liste]
     
 # Loading the disctionnary for splitting the corpus
 # if all aplicant are in : Public corpus
 # all out : Indus corpus
 # Mix corpora are created
 
-xlsx = pd.ExcelFile('./Resources/EntitésPubliquesNORM4.xlsx')
+xlsx = pd.ExcelFile('./Resources/EntitésPubliquesNORM.xlsx')
 Public = []
 TypeAppl = dict()
 ApplType = dict() # reverse table
@@ -76,19 +94,22 @@ ResultPathContent= configFile.ResultContentsPath
 ResultAbstractPath = configFile.ResultAbstractPath
 ListBiblioPath = configFile.ResultBiblioPath
 # special path used with AcadPubMed.py
-Auteur = configFile.ResultPath + '/AcadCorpora'
-RepDir = configFile.ResultPath + '/AcadCorpora'
+Auteur = configFile.ResultPath + '//AcadCorpora'
+RepDir = configFile.ResultPath + '//AcadCorpora'
 project = RepDir
 if 'AcadCorpora' not in os.listdir(configFile.ResultPath):
     print ("relancez le script de collecte (AcadPubMed.py 29/06/2019)")
     sys.exit()
-# if 'Description'+ndf in os.listdir(BiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
-#     print( "loading patent biblio data with all fields.")
-#     DataBrevet = LoadBiblioFile(BiblioPath, ndf)
-#     print("Hi this is AcadStatsAcad Corpora splitter processor. Bibliographic data of ", ndf, " patent universe found.")
-# else:
-#     print ("relancez P2n pour collecter les données brevet")
-#     sys.exit()
+if 'Description'+ndf in os.listdir(BiblioPath): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
+    print( "loading patent biblio data with all fields.")
+    DataBrevet = LoadBiblioFile(BiblioPath, ndf)
+    print("Hi this is AcadStatsAcad Corpora splitter processor. Bibliographic data of ", ndf, " patent universe found.")
+else:
+    print ("relancez P2n pour collecter les données brevet")
+    sys.exit()
+
+print("Nice, ", len(DataBrevet["brevets"]), " patents found. Découpage selon le données du tablea EntitésPubliquesNorm.xlsx")
+
 
 # test de consistance
 # with open(Auteur+'//DejaTraites.csv', 'r',) as fic:
@@ -127,10 +148,104 @@ if 'AcadCorpora' not in os.listdir(configFile.ResultPath):
 #             multiAut+=1
 #             pass
 
+Inventeurs = []
+Applicants = []
+# for bre in DataBrevet['brevets']:
+#     temp =Nettoie(bre['inventor'])
+#     Inventeurs.extend(temp)
+#     bre['inventor'] = temp
+#     temp = Nettoie(bre['applicant'])
+#     Applicants.extend(Nettoie(bre['applicant']))
+#     bre['applicant'] = temp
+    
+for fic in [ndf, 'Families'+ndf]:
+    print("\n> Hi! This is Pre Process for normalizing applicant names: used on:", fic)
+    if 'Description' + fic in os.listdir(ListBiblioPath):
+        with open(ListBiblioPath + '//' + fic, 'r') as data:
+            dico = LoadBiblioFile(ListBiblioPath, fic)
+    else:  # Retrocompatibility
+        print("please use Comptatibilizer")
+        sys.exit()
+    LstBrevet = dico['brevets']
 
 
-# test of subfunctions
-# test1 = ['CNRS', 'INSERM', 'CHU Paris'] # tout dans CritFr
+    for bre in LstBrevet:#[:alpha]:
+        memo = copy.copy(bre['inventor'])
+        bre['inventor'] = Nettoie(bre['inventor'])
+        if isinstance(bre['inventor'], list):
+            for inv in bre['inventor']:
+                temp = NoPunct(inv)
+                if len(temp) == 1: # in some cases words are splitted in list of caracters somewhere... ignoring them
+                    print (bre['inventor'])
+                    print (inv, ' --> ', temp)
+                else:
+                    Inventeurs.append(temp)
+        else:
+            Inventeurs.append(NoPunct(bre['inventor']))
+        memo =copy.copy(bre['applicant'])
+        bre['applicant'] = Nettoie(bre['applicant'])
+        if isinstance(bre['applicant'], list):
+            for inv in bre['applicant']:
+                temp = NoPunct(inv)
+                if len(temp) == 1:
+                       print (inv, ' --> ', temp)
+                else:
+                    Applicants.append(temp)
+        else:
+            Applicants.append(NoPunct(bre['applicant']))
+###    
+    
+Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
+Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
+#print ("Nombre d'auteurs identifiés sur PubMed ", len(list(Auteurs.keys())), " et le nombre d'inventeurs ", len(Inventeurs))
+#print ("Les auteurs inventeurs .... mais pour ces stats : Nom Prénom est différent de Prénom Nom" )
+
+def Check(ch, liste):
+    # return True when string ch is in liste (list of strings)
+    for truc in liste:
+        if len(truc) >0 and truc == ch:
+            return True
+    return False
+
+def UnCheck(ch, liste):
+    # return True when string ch is not in liste (list of strings)
+    return not Check(ch, liste)
+    
+
+ 
+
+def CheckListInclu(listeRef, liste):
+    """ Renvoi True si tous les éléments de ListeRef sont dans liste"""
+    if isinstance(listeRef, list):
+        if len(listeRef) >1:
+            temp = [Check(subch, liste) for subch in listeRef]
+            return sum(temp) == len(temp)
+        else:
+            return Check(listeRef, liste)
+    else:
+        return Check(listeRef, liste)
+
+
+def CheckListMix(listeRef, liste):
+    """ Renvoi True si un des éléments de ListeRef sont dans liste"""
+    if not CheckListExclu(listeRef, liste) and not CheckListInclu(listeRef, liste):
+        return True
+    else:
+        return False
+    
+def CheckListExclu(listeRef, liste):
+    """ Renvoi True si Aucun des éléments de ListeRef sont dans liste"""
+    if isinstance(listeRef, list):
+        if len(listeRef) >1:
+            res = UnCheck(listeRef[0], liste) and CheckListExclu(listeRef[1:], liste)
+        else:
+            res = UnCheck(listeRef, liste)
+    else:
+        return UnCheck(listeRef, liste)
+    return res
+
+
+# test1 = ['CNRS', 'INSERM', 'Hôpital de Paris'] # tout dans CritFr
 # test2 = ['CNRS', 'INSERM', 'Meyrieux'] # Mix
 # test3 = ['Truc', 'machin', 'chose'] # rien dans CritFr
 
@@ -147,286 +262,191 @@ if 'AcadCorpora' not in os.listdir(configFile.ResultPath):
 # CheckListInclu(test3, CritFr)
 # CheckListMix(test3, CritFr)
 
-
+Inventeur_Norm = dict()
+Applicant_Norm = dict()
+BadCasApp = dict()
+InvDejaVus = []
+AppDejaVus = []
 import copy
+Inventeurs = set(Inventeurs)
+Applicants = set(Applicants)
+#Applicants = set([app.lower().title() for app in Applicants])
+InventeurSafe = copy.copy(Inventeurs)
+print ("Nombre d'inventeurs :", len(set(Inventeurs)))
 
-# no good: la sélection des brevets à partir des représentants qui certaines fois ne sont que dans les familles, doit se faire sur la liste 
-# des équivalents du corpus initial. Là ce 'nest pas le cas et on a un joyeux mix
-for fic in [ndf, 'Families'+ndf]:
-    print("\n> Hi! This is corpora splitter used on:", fic)
-    if 'Description' + fic in os.listdir(ListBiblioPath):
-        with open(ListBiblioPath + '//' + fic, 'r') as data:
-            DataBrevet = LoadBiblioFile(ListBiblioPath, fic)
-    else:  # Retrocompatibility
-        print("please use Comptatibilizer")
-        sys.exit()
-    LstBrevet = DataBrevet['brevets']
-
-    print("Nice, ", len(DataBrevet["brevets"]), " patents found. Découpage selon le données du tablea EntitésPubliquesNorm.xlsx")
-
-
-    Inventeurs = []
-    Applicants = []
-    for bre in DataBrevet['brevets']:
-#     temp =Nettoie(bre['inventor'])
-         Inventeurs.extend([inv for inv in bre['inventor'] if len(inv.split((' ')))>1])
-#     bre['inventor'] = temp
-#     temp = Nettoie(bre['applicant'])
-         Applicants.extend(bre['applicant'])
-#     bre['applicant'] = temp
+# for inv in Inventeurs:
+#     if inv not in InvDejaVus:
+#         reste = Inventeurs- set([inv]+InvDejaVus)
         
-    Inventeurs = set(Inventeurs)
-    Applicants = set(Applicants)
-
-    Inventeurs1 = [inv for inv in Inventeurs if len(inv.split(' '))<2]
-    Inventeurs2 = [inv for inv in Inventeurs if inv not in Inventeurs1]
-    Inventeur_Norm = dict()
-    Applicant_Norm = dict()
-    BadCasApp = dict()
-    InvDejaVus = []
-    AppDejaVus = []
-
-    #Applicants = set([app.lower().title() for app in Applicants])
-    InventeurSafe = copy.copy(Inventeurs)
-    print ("Nombre d'inventeurs :", len(set(Inventeurs)))
-                 
-    print ("Nombre d'applicants :", len(set(Applicants)))
-    TypeBre = dict()
-    for bre in LstBrevet:
-        # if bre['label'] == 'FR3034554':
-        #     print (bre)
-        bre['applicant'] = [appli for appli in bre['applicant'] if isinstance(appli, str) and len(appli.strip())>0 and appli.replace(' ', '') != 'empty']
-        bre['applicant'] = [appli for appli in bre['applicant'] if appli.title() not in Inventeurs2 and NoPunct(appli.title()) not in Inventeurs2]
-        if isinstance(bre['applicant'], list) and len(bre['applicant'])==1:
-            if bre['applicant'][0].upper() in Public:
-                bre ['type'] = "public"
-                bre['typeCollab'] ="NON" # one applicant, no collaboration
-            else:
-                bre ['type'] = "indus"
-                bre['typeCollab'] = "NON" # one applicant, no collaboration
-        elif isinstance(bre['applicant'], str):
-            if bre['applicant'].upper() in Public:
-                bre ['type'] = "public"
-                bre['typeCollab'] ="NON" # one applicant public, no collaboration
-            else:
-                bre ['type'] = "indus"
-                bre['typeCollab'] = "NON" # one applicant, no collaboration
-        elif isinstance(bre['applicant'], list) and len(bre['applicant'])>1 and CheckListExclu(bre['applicant'], Inventeurs):
-            if CheckListInclu(bre['applicant'], Public):  # one public entity
-                bre ['type'] = "public"
-                bre['c'] = [ApplType[truc] for truc in bre['applicant']]
-            elif CheckListExclu(bre['applicant'], Public):  # no public entity
-                bre ['type'] = "indus"
-                bre['typeCollab'] = "indus"
-
-            else:
-                bre ['type'] = "collab"
-                bre['typeCollab'] = [ApplType[truc] if truc in ApplType.keys() else 'Indus' for truc in bre['applicant'] ]
-                
-        elif isinstance(bre['applicant'], list) and len(bre['applicant'])>1 and CheckListExclu(bre['applicant'], Inventeurs):
-                bre ['type'] = "Inconnu"
-                bre['typeCollab'] = "NON"
-        elif isinstance(bre['applicant'], list) and len([app for app in bre['applicant'] if app not in Inventeurs2]) != len (bre['applicant']):
-            if len([app for app in bre['applicant'] if app not in Inventeurs2]) >= 1:
-                if CheckListInclu([app for app in bre['applicant'] if app not in Inventeurs2], Public):
-                    bre ['type'] = "public"
-                    bre['typeCollab'] = "public-individu"
-                else:
-                    bre ['type'] = "indus"
-                    bre['typeCollab'] = "indus-individu"
-            else: # all applicants are inventors !!
-                    bre ['type'] = "individuels"
-                    bre['typeCollab'] = "Inconnu"
+#         InvDejaVus.append(inv)
+#         for inv2 in reste:
+#             if fuzz.token_sort_ratio(inv, inv2)>89:
+#                 if len(inv) == len(inv2) and inv.split()[0] != inv2.split()[1] and '-' not in inv and '-' not in inv2:
+#                     print ("Suspect traité : ", inv, inv2)
+#                 InvDejaVus.append(inv2)
+#                 if inv in Inventeur_Norm.keys():
+#                     Inventeur_Norm [inv].append(inv2)                    
+#                 else:
+#                     Inventeur_Norm [inv] = [inv2]
                     
-                    
-         # elif len(bre['applicant'])>0: 
-        #     bre ['type'] = "collab"
-        #     bre['typeCollab'] = [ApplType[truc] if truc in ApplType.keys() else 'Indus' for truc in bre['applicant'] ]
-        #     if len(bre['applicant']) ==0 or sum([len(truc)==0 for truc in bre['applicant']]) >0:
-        #         print("aille")
-        else: #len(bre['applicant']) == 0
-            if len(bre['applicant']) != 0:
-                print ('wtf ?')
-            bre ['type'] = "Inconnu"
-            bre['typeCollab'] = "NON"
-        if isinstance(bre['applicant'], list) and len(bre['applicant'])>0:
-            for aut in bre['applicant']:
-                # if 'vetagrosup' in au.lower():t
-                #     print("ARGS")
-                for coAut in bre['applicant']:
-                    if coAut!= aut:
-                        # GraphApplicant.add_edge(aut, coAut)
-                        if bre ['type'] in TypeBre.keys():
-                            TypeBre [bre ['type']]. append((aut, coAut))
-                        else:
-                            TypeBre [bre ['type']]= [(aut, coAut)]
-    
-    print ("saving files")
-    with open(ListBiblioPath + '//tempo' + fic, 'ab') as ndfLstBrev:
-        for pat in LstBrevet:
-            pickle.dump(pat , ndfLstBrev)
-    os.remove(ListBiblioPath+'//'+ fic)
-    os.rename(ListBiblioPath + '//tempo' + fic, ListBiblioPath+'//'+ fic)
-    
-    
-    Mix = [bre for bre in LstBrevet if bre['type'] == 'collab' and bre['typeCollab'] !="NON"]
-    Univ = [bre for bre in LstBrevet if bre['type'] == 'public']
-    Indus = [bre for bre in LstBrevet if bre['type'] == 'indus']
-    AutInvDeposant = [bre for bre in LstBrevet if bre['type'] == 'Inconnu']
-    #check consistance
-    total = len(Mix) + len(Univ) + len(Indus) + len(AutInvDeposant)
-    if total-len(LstBrevet) == 0:
-        print (total -len(LstBrevet), " patents left... GOOD")
+print ("Nombre d'applicants :", len(set(Applicants)))
 
-    projectNameMix=projectName+'Mix'
-    projectNameUniv=projectName+'Public'
-    projectNameIndus=projectName+'Indus'
-    projectNameAutres = projectName + "Autres"
-    ficname =fic
-    
-    ResultBiblioPath = '../DATA/'+projectNameMix+'/'+'PatentBiblios'
-    ResultPath = '../DATA/'+projectNameMix
-    if projectNameMix not in os.listdir('../DATA'):
-        os.makedirs(ResultBiblioPath)
-    
-    # DataBrevet['ficBrevets'] = ficname +'Mix'
-    # DataBrevet['brevets'] = Mix
-    ndf = ficname+'Mix'
-    Data = dict()
-    with open(ResultBiblioPath+'//Description'+ ndf, 'wb') as ficRes:
-        Data['ficBrevets'] = ndf 
-        Data['number'] = len(Mix)
-        Data['requete'] = DataBrevet['requete'] + " " + " brevets ayant plus de deux déposants, l'un public l'autre non"
-        pickle.dump(Data, ficRes)
-    
-    with open(ResultBiblioPath+'/'+ ndf, 'ab') as ndfLstBrev:
-        for pat in Mix:
-            pickle.dump(pat , ndfLstBrev)
-    
-    if "AcadCorpora" not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '')):
-        os.makedirs(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora')  
-    shutil.copy(RepDir + '/'+"AuteursAffil.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"AuteursPAsMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"AuteursMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    if 'Fr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
-        shutil.copytree(RepDir + '/Fr', 
-                        ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/Fr')
-    if 'NoFr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
-  
-        shutil.copytree(RepDir + '/NoFr', 
-                    ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/NoFr')
-    if "InventeurNormes.pkl" in os.listdir(BiblioPath):
-        shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)
-        shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath)                                    
-    ResultBiblioPath = '../DATA/'+projectNameUniv+'/'+'PatentBiblios'
-    ResultPath = '../DATA/'+projectNameUniv
-    
 
-    if projectNameUniv not in os.listdir('../DATA'):
-        os.makedirs(ResultBiblioPath)
-     
-    # DataBrevet['ficBrevets'] = ficname +'Univ'
-    # DataBrevet['brevets'] = Univ
-    ndf = ficname+'Public'
-    Data = dict()
-    with open(ResultBiblioPath+'/Description'+ ndf, 'wb') as ficRes:
-        Data['ficBrevets'] = ndf
-        Data['number'] = len(Univ)
-        Data['requete'] = DataBrevet['requete']  + " demandes émanant d'entités publiques"
-        pickle.dump(Data, ficRes)
-    
-    with open(ResultBiblioPath+'/'+ ndf, 'ab') as ndfLstBrev:
-        for pat in Univ:
-            pickle.dump(pat , ndfLstBrev)
+#Estrangers = [inv for inv in Inventeurs2 if inv not in Auteurs.keys() and inv.split(' ')[1] + inv.split(' ')[0] not in Auteurs.keys()]
+#Estrangers += [inv for inv in Inventeurs1 if inv not in Auteurs.keys()]
+# print ("nombre d'inventeurs non affiliés FR", len(Estrangers))
+#distFonct = lambda x: { cle: max([fuzz.token_set_ratio( x, aut) for aut in Inventeurs]) for cle in Auteurs}
+print ("Nouvelles stats")
+# BadCasInv = dict()
+# for inv in Inventeur_Norm.keys():
+#     if isinstance(Inventeur_Norm [inv], list):
+#         for inv2 in Inventeur_Norm [inv]:
+#             BadCasInv [inv2] = inv
+#     else:
+#         BadCasInv [Inventeur_Norm [inv]] = inv
+        
+print ("Nombre d'inventeurs rectifiants les erreurs de saisie :", len(set(Inventeurs))-len(BadCasInv.keys()))
+
+
+
+
+# AuteursFr = {cle for cle, val in Auteurs.items() if Check(val, Public)}
+# AuteursNotFr = {cle for cle, val in Auteurs.items() if not Check(val, Public)}
+
+
+# normalisation du jeu de brevets sur les noms d'inventeurs
+BrevNorm = []
+for bre in DataBrevet  ['brevets']:
+    tempoAut = []
+    for aut in bre['inventor']:
+        if aut in bre ['applicant']: # sometimes author is also in applicant name
+            bre ['applicant'].remove (aut)
             
-    if "AcadCorpora" not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '')):
-        os.makedirs(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora')  
-    shutil.copy(RepDir + '/'+"AuteursAffil.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"AuteursPAsMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"AuteursMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    if 'Fr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
-        shutil.copytree(RepDir + '/Fr', 
-                        ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/Fr')
-    if 'NoFr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
-  
-        shutil.copytree(RepDir + '/NoFr', 
-                    ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/NoFr')
-    if "InventeurNormes.pkl" in os.listdir(BiblioPath):
-        shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)  
-        shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath)  
+        normAut = aut.upper()
+        normAut = normAut.title()
+        if normAut in BadCasInv.keys():
+            tempoAut.append(BadCasInv [normAut])
+        elif normAut.upper() in BadCasInv.keys():
+            tempoAut.append(BadCasInv [normAut.upper()])
+        else:
+            tempoAut.append(normAut)
+            
+        if aut in bre ['applicant']:
+            bre ['applicant'].remove (aut)
+    bre['inventor'] = tempoAut
+    tempoApp = []
+    # for app in bre['applicant']:
+    #     normApp = app.upper()
+    #     #normApp = normApp.title()
+    #     if normApp in BadCasApp.keys():
+    #         tempoApp.append(BadCasApp [normApp])
+    #     else:
+    #         tempoApp.append(normApp)
+    # bre['applicant'] = tempoApp
+GraphAuteurs = nx.Graph()
+GraphApplicant = nx.Graph()
+TypeBre = dict()
+for bre in DataBrevet  ['brevets']:
+    for aut in bre['inventor']:
+        for coAut in bre['inventor']:
+            if coAut!= aut:
+                GraphAuteurs.add_edge(aut, coAut)        
     
-    
-    
-    ResultBiblioPath = '../DATA/'+projectNameIndus+'/'+'PatentBiblios'
-    ResultPath = '../DATA/'+projectNameIndus
-    # DataBrevet['brevets'] = Indus
-    if projectNameIndus not in os.listdir('../DATA'):
-        os.makedirs(ResultBiblioPath)
-    ndf = ficname+'Indus'
-    Data = dict()
-    with open(ResultBiblioPath+'/Description'+ ndf, 'wb') as ficRes:
-        Data['ficBrevets'] = ndf 
-        Data['number'] = len(Indus)
-        Data['requete'] = DataBrevet['requete'] + " déposants hors dictionnaire d'entités publiques"
-        pickle.dump(Data, ficRes)
-    
-    with open(ResultBiblioPath+'/'+ ndf, 'ab') as ndfLstBrev:
-        for pat in Indus:
-            pickle.dump(pat , ndfLstBrev)
-    if "AcadCorpora" not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '')):
-        os.makedirs(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora')  
-    #copy of author affiliation in each directory of splitted corpora
-    shutil.copy(RepDir + '/'+"AuteursAffil.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"AuteursPAsMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"AuteursMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    if 'Fr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
-        shutil.copytree(RepDir + '/Fr', 
-                        ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/Fr')
-    if 'NoFr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
-  
-        shutil.copytree(RepDir + '/NoFr', 
-                    ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/NoFr')
-    if "InventeurNormes.pkl" in os.listdir(BiblioPath):
-        shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)   
-        shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath) 
+    if CheckListInclu(bre['applicant'], Public):
+        bre ['type'] = "univ"
+        bre['typeCollab'] = [ApplType[truc] for truc in bre['applicant']]
+    elif CheckListExclu(bre['applicant'], Public):  
+        bre ['type'] = "indus"
+        bre['typeCollab'] = ["indus"]
+        
+    else:
+        bre ['type'] = "collab"
+        bre['typeCollab'] = [ApplType[truc] if truc in ApplType.keys() else 'Indus (ou ETR)' for truc in bre['applicant'] ]
+        if len(bre['applicant']) ==0 or sum([len(truc)==0 for truc in bre['applicant']]) >0:
+            print("aille")
+    for aut in bre['applicant']:
+        for coAut in bre['applicant']:
+            if coAut!= aut:
+                GraphApplicant.add_edge(aut, coAut)
+                if bre ['type'] in TypeBre.keys():
+                    TypeBre [bre ['type']]. append((aut, coAut))
+                else:
+                    TypeBre [bre ['type']]= [(aut, coAut)]
 
 
-    ResultBiblioPath = '../DATA/'+projectNameAutres+'/'+'PatentBiblios'
-    ResultPath = '../DATA/'+projectNameAutres
-    # DataBrevet['brevets'] = Indus
-    if projectNameAutres not in os.listdir('../DATA'):
-        os.makedirs(ResultBiblioPath)
-    ndf = ficname+'Autres'
-    Data = dict()
-    with open(ResultBiblioPath+'/Description'+ ndf, 'wb') as ficRes:
-        Data['ficBrevets'] = ndf 
-        Data['number'] = len(AutInvDeposant)
-        Data['requete'] = DataBrevet['requete'] + " sans déposants (brevets d'inventeurs ) "
-        pickle.dump(Data, ficRes)
-    
-    with open(ResultBiblioPath+'/'+ ndf, 'ab') as ndfLstBrev:
-        for pat in AutInvDeposant:
-            pickle.dump(pat , ndfLstBrev)
-    if "AcadCorpora" not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '')):
-        os.makedirs(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora')  
-    #copy of author affiliation in each directory of splitted corpora
-    shutil.copy(RepDir + '/'+"AuteursAffil.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"traceAuct.csv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"AuteursPAsMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    shutil.copy(RepDir + '/'+"AuteursMatches.tsv", ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/')
-    if 'Fr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
-        shutil.copytree(RepDir + '/Fr', 
-                        ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/Fr')
-    if 'NoFr' not in os.listdir(ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/'):
+Mix = [bre for bre in DataBrevet['brevets'] if bre['type'] == 'collab']
+Univ = [bre for bre in DataBrevet['brevets'] if bre['type'] == 'univ']
+Indus = [bre for bre in DataBrevet['brevets'] if bre['type'] == 'indus']
+#check consistance
+total = len(Mix) + len(Univ) + len(Indus)
+
+print (total -len(DataBrevet['brevets']))
+
+projectNameMix=projectName+'Mix'
+projectNameUniv=projectName+'Univ'
+projectNameIndus=projectName+'Indus'
+ficname =projectName
+
+ResultBiblioPath = '../DATA/'+projectNameMix+'/'+'PatentBiblios'
+ResultPath = '../DATA/'+projectNameMix
+if projectNameMix not in os.listdir('../DATA'):
+    os.makedirs(ResultBiblioPath)
+
+# DataBrevet['ficBrevets'] = ficname +'Mix'
+# DataBrevet['brevets'] = Mix
+ndf = ficname+'Mix'
+Data = dict()
+with open(ResultBiblioPath+'//Description'+ ndf, 'wb') as ficRes:
+    Data['ficBrevets'] = ndf 
+    Data['number'] = len(Mix)
+    Data['requete'] = DataBrevet['requete'] 
+    pickle.dump(Data, ficRes)
+
+with open(ResultBiblioPath+'/'+ ndf, 'ab') as ndfLstBrev:
+    for pat in Mix:
+        pickle.dump(pat , ndfLstBrev)
   
-        shutil.copytree(RepDir + '/NoFr', 
-                    ResultBiblioPath.replace('/PatentBiblios', '') + '/AcadCorpora/NoFr')
-    if "InventeurNormes.pkl" in os.listdir(BiblioPath):
-        shutil.copy(BiblioPath+'/InventeurNormes.pkl', ResultBiblioPath)   
-        shutil.copy(BiblioPath+'/NormInventeurs.pkl', ResultBiblioPath) 
+
+ResultBiblioPath = '../DATA/'+projectNameUniv+'/'+'PatentBiblios'
+ResultPath = '../DATA/'+projectNameUniv
+if projectNameUniv not in os.listdir('../DATA'):
+    os.makedirs(ResultBiblioPath)
+
+# DataBrevet['ficBrevets'] = ficname +'Univ'
+# DataBrevet['brevets'] = Univ
+ndf = ficname+'Univ'
+Data = dict()
+with open(ResultBiblioPath+'/Description'+ ndf, 'wb') as ficRes:
+    Data['ficBrevets'] = ndf
+    Data['number'] = len(Univ)
+    Data['requete'] = DataBrevet['requete'] 
+    pickle.dump(Data, ficRes)
+
+with open(ResultBiblioPath+'/'+ ndf, 'ab') as ndfLstBrev:
+    for pat in Univ:
+        pickle.dump(pat , ndfLstBrev)
+  
+ResultBiblioPath = '../DATA/'+projectNameIndus+'/'+'PatentBiblios'
+ResultPath = '../DATA/'+projectNameIndus
+# DataBrevet['ficBrevets'] = ficname +'Indus'
+# DataBrevet['brevets'] = Indus
+if projectNameIndus not in os.listdir('../DATA'):
+    os.makedirs(ResultBiblioPath)
+    
+ndf = ficname+'Indus'
+Data = dict()
+with open(ResultBiblioPath+'/Description'+ ndf, 'wb') as ficRes:
+    Data['ficBrevets'] = ndf 
+    Data['number'] = len(Indus)
+    Data['requete'] = DataBrevet['requete'] 
+    pickle.dump(Data, ficRes)
+
+with open(ResultBiblioPath+'/'+ ndf, 'ab') as ndfLstBrev:
+    for pat in Indus:
+        pickle.dump(pat , ndfLstBrev)
+  
+
+
 # NoeudAut = list(iter(GraphAuteurs))
 # NoeudApplicant = list(iter(GraphApplicant))
 # EdgesAut = list(iter(GraphAuteurs.edges()))
