@@ -862,7 +862,20 @@ for ndf in PU:
             FicRezo=outputFile,
         )
 
-    
+RenderTemplate(
+    "GraphIndex.html",
+    configFile.ResultPath+"/GraphIndex"+ projectName+ ".html"
+)
+
+# making the js from model
+# maybe we could adjust node size and other parameters here
+RenderTemplate(
+    "GraphUploadModel.html",
+    configFile.ResultPath+"/GraphUpload"+ projectName+ ".html",
+    request=projectName,
+    anglOpt = "{{loadingMessage=='' ? 'LOAD GRAPH' : loadingMessage}}"
+)    
+   
     
     
     
