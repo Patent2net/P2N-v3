@@ -1,0 +1,7 @@
+Make P2N web interface result work with firefox
+1. saisir dans la barre du navigateur "about:config" et dire oui/"je
+prends le risque" au message concernant le danger...
+2. dans la barre rechercher, saisir "privacy.file_unique_origin" et
+inverser la valeur du booléen (clic droit). Celui-ci doit être
+positionné à "false". 
+Attention à ne plus utiliser firefox QUE pour patent2net. Je n'ai aucune idée sur l'incidence que cela peut avoir quant au comportement du navigateur en général sur le Web.

@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>P2N : Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss@^1.4.6/dist/tailwind.min.css" rel="stylesheet">
+
+<!-- Force Html Page refresh -->
+  <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
+  <meta http-equiv="cache-control" content="max-age=0" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+  <meta http-equiv="pragma" content="no-cache" />
+
+	
+    <style>
+        .container2 {
+            width: 612px;
+        }
+        @media screen and (max-width:800px) {
+          .container {
+            width: calc(100% - 128px);
+          }
+        }
+    </style>
+</head>
+
+<body class="bg-orange-100 flex  justify-between clearfix">
+
+	<!--Nav-->
+	<nav class="bg-orange-600 p-2 mt-0 fixed w-full z-10 top-0">
+        <div class="container mx-auto flex flex-wrap items-center">
+		    <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
+				<a class="text-white no-underline hover:text-white hover:no-underline" href="#">
+					<span class="text-2xl pl-2"> Patent2Net</span>
+				</a>
+            </div>
+			<div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
+				<ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+					<li class="mr-3">
+						<a href="/"  class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4">Home</a>
+					</li>
+					
+					<li class="mr-3">
+						<a  href="/get_started" class="inline-block py-2 px-4 text-white no-underline font-medium">Get Started</a>
+					</li>
+					
+					<li class="mr-3">
+						<a href="/form"  class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4">Requests</a>
+					</li>
+					
+					<li class="mr-3">
+						<a href="/index"  class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4" target="_blank">Index</a>
+					</li>
+					
+					<li class="mr-3">
+						<a href="/downloadDat" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Download Data</a>
+					</li>
+				</ul>
+			</div>
+        </div>
+    </nav>
+
+
+
+<div class="flex flex-col mt-12 mb-12  p-8 "></div>
+	
+
+	<div class="flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow container2">
+	<!--Main Container-->
+	<div>
+		<h1 class="text-lg mb-2 text-gray-900">Get Started</h1>
+		<hr>
+		
+		<div class="mt-4">
+
+<h2 class="font-semibold" id="Register" >Register the use of P2N</h2>
+		<hr>
+
+			<div class="mt-4">
+				<p class="text-gray-800 text-sm mb-4 text-justify">You have first to register yourself at Espacenet and get a key to data access. So you must (if you already have it skip this step)
+				</p>	
+				
+				<ol class="list-decimal text-gray-800 text-sm mb-3 text-justify">
+					<li>Go to the Open Patent Services (OPS) by opening the link :</br> 
+					<a class="hover:underline" href="https://www.epo.org/searching-for-patents/technical/espacenet/ops.html#tab1"> https://www.epo.org/searching-for-patents/technical/espacenet/ops.html#tab1</a></li>
+					<li>Click on the “<b>Register</b>” button and fulfill the form</li>
+					<li>Wait until you receive the email confirmation of you register from EPO Developer Portal.</li>
+					<li>Log in the EPO Developer Portal :</br> <a class="hover:underline" href=" https://developers.epo.org/user/login">https://developers.epo.org/user/login</a> </li>
+					<li>Select the option “<b>My apps</b>”</li>
+					<li>Create and register the “<b>Patent2Net</b>” application</li>
+					<li> The system returns the API credentials key and secret, similar to that shown bellow (this one is invalid, of course):</br>
+					<pre class="code border-dashed border-2 border-orange-600 bg-orange-100">vmrr7AaAGIl794E6VunJ6PzjbkfajwLW,KHzH4fGM7opMhDDD</pre>
+					</li>
+					<li>Copy/paste the key in the textbox and click on confirm. It will create a file in your install of Patent2Net who will let you have full use of it. </li>
+				</ol>
+				
+			</div>
+		</div>
+		<div class="mt-4">
+
+			<form action="http://localhost:5000/get_started/stocked" method="post">
+				<div>
+					<label class="font-semibold">cles-epo * :</label>
+					<p class="pt-2 pb-2 text-sm italic text-gray-800">Paste in the textbox the key provided by EPO.</p>
+				</div>
+				<div class="mb-2">
+					<input class="text-sm border px-2 py-1 rounded w-full" type="text" required placeholder="vmrr7AaAGIl794E6VunJ6PzjbkfajwLW,KHzH4fGM7opMhDDD" name="p2n_epo" />
+				</div>
+
+			
+
+				<input class="bg-orange-600 hover:bg-orange-700 cursor-pointer px-2 py-1 text-white rounded mt-4" type="submit" value="confirm" id="pacing"/>
+				<div class="mt-4 italic text-sm text-gray-800">
+					Fields marked with * are mandatory.
+				</div>
+			</form>
+		</div>
+
+		</div>
+		<div class="mt-4">
+<h2 class="font-semibold"Id="Archive_Content" >P2N Docker archive content</h2>
+		<hr>
+		</div>
+		<div class="mt-2">
+			<div>
+				<ul class="list-disc text-gray-800 text-sm mb-3 mt-3 text-justify ">
+					<li> <b>Dockerfile</b> : Mandatory for the install of P2N Docker</li>
+					<li><b>Install_P2N.bat</b> : used to install all the P2N Content in Docker</li>
+					<li><b>Run_P2N.bat</b> : Used to initiate P2N instance in Docker</li>
+					<li><b>Stop_P2N.bat</b> : Used to stop P2N instance</li>
+					<li><b>Copy Docker P2N</b> :
+						<ul>
+							<li>Copy_Docker_P2N.bat : Create a tar file with all the base content of your docker version</li>
+							<li>Load_Docker_P2N.bat : Import the tar file insde docker and create P2N image</li>
+						</ul>
+					</li>
+					<li><b>P2N_Bash.bat</b> : Create a command prompt instance who interact with P2N Docker. <a href="https://docs.ip-tools.org/patent2net/usage/classic.html"target="_blank" class="hover:underline"><i>Click here for more details.</i></a></li>
+				</ul>
+			</div>
+		</div>
+			<div class="mt-4">
+<h2 class="font-semibold" Id="Interface_Directory">P2N Interface directories</h2>
+		<hr>
+		</div>
+		<div class="mt-2">
+			<div>
+				<ul class="list-disc text-gray-800 text-sm mb-3 mt-3 text-justify ">
+					<li> <b> Home</b> : Default page. Explain how PatentNet can help you</li>
+					<li><b>Get Started</b> : Explain how to use P2N Docker</li>
+					<li><b>Requests</b> : form used to execute requests to the EPO database </li>
+					<li><b>Index</b> : Display all the results of P2N </li>
+					<li><b>Download Data</b> : create a zip folder with all the datas contained in Index. Downloaded on your local machine</li>
+				</ul>
+			</div>
+		</div>
+	<!--End Main Container-->
+	</div>
+		<div class="flex flex-col mt-12 mb-12  p-8 "></div>
+</body>
+</html>

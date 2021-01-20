@@ -1,0 +1,19 @@
+Windows :
+	1. Download Anaconda 3 (big installation, https://www.anaconda.com/distribution/) OR Miniconda https://docs.conda.io/en/latest/miniconda.html
+	2. Install it and remember (%YOURPATH) the installation PATH eg. c:\Miniconda3 for instance. Prefer ANSi friendly pathnames (no accent, no windows destop, no space, etc.). 
+2.5 	Launch Anaconda Prompt and "add this to path" if you find how to do it as it is proposed in the graphical interface of the installation
+	3. Download P2N latest https://github.com/Patent2net/P2N-v3
+		Unzip to a temporary directory
+		go to the unzipped P2N directory and edit installP2N.bat to replace d:\Miniconda3 with YOUR current installation directory (from step 2) (c:\Miniconda3?)
+	4. Launch (double click) installP2N.bat 
+	(let it work; do not close windows; that process can be quite long depending on you machine and network access)
+	5. copy or create cles-epo.txt file (be aware must be ANSI encode caracters!)
+	6. formulate the desired *.cql fileS (yes you can have many) in ./REQUESTS/ directory
+	7. double click runP2N.bat
+
+note (October 2019): 
+Since EPO-Client seems to be broken please use the forked version of epo-ops client (adapted from George Song one) in P2N. 
+Follow this procedure AFTER step 4:
+	a. Download the zip file https://github.com/Patent2net/python-epo-ops-client
+	b. unzip to a folder
+	c. launch "InstallForP2N.bat"
