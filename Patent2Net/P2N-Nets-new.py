@@ -31,8 +31,8 @@ from networkx_functs import calculate_degree, calculate_betweenness, calculate_d
 from networkx.drawing.nx_agraph import graphviz_layout                           
 
 
-screenX = 800
-screenY = 600
+screenX = 1500
+screenY = 1000
 
 AnnonceProgres (Appli = 'p2n_network', valMax = 100, valActu = 0)       
 configFile = LoadConfig()
@@ -483,19 +483,22 @@ for ndf in PU:
                          GraphBrevets.add_edge(appl, bre .label)
                          GraphApplicant.add_node(appl)
                          GraphTechnosAppli.add_node(appl)
+                         GraphAuteursAppli.add_node(appl)
                      if len(coAut)>0 and coAut.title() not in Inventeurs and NoPunct(coAut).title() not in Inventeurs and coAut.lower() != 'empty':
                          GraphBrevets.add_node(coAut)
                          GraphBrevets.add_edge(coAut, bre .label)
                          GraphBrevets.add_edge( appl, coAut)
                          GraphApplicant.add_node(coAut)
                          GraphTechnosAppli.add_node(coAut)
-        elif len( bre.applicant)>0:
+                         GraphAuteursAppli.add_node(coAut)
+        elif len( bre.applicant)>0 and isinstance( bre .applicant, list):
             appl= bre.applicant [0].strip()
             if len(appl)>0 and appl.title() not in Inventeurs and NoPunct(appl).title() not in Inventeurs and appl.lower() != 'empty':
                 GraphBrevets.add_node(appl)
                 GraphBrevets.add_edge(appl, bre .label)
                 # GraphApplicant.add_node(appl)
                 GraphTechnosAppli.add_node(appl)
+                GraphAuteursAppli.add_node(appl)
                 if len(joliTecno)>0:
                     for ipc in joliTecno:
                         GraphTechnosAppli .add_edge(appl,ipc)
@@ -575,8 +578,8 @@ for ndf in PU:
                         for aut in bre .inventor:
                             aut= aut.title()
                             GraphAuteursAppli.add_edge( aut, appl, label = 'workfor')
-        elif len( bre.applicant)>1 and bool(bre.applicant.strip()): # only one applicant
-            appl= bre.applicant.upper()
+        elif len( bre.applicant)>0 and bool(bre.applicant[0].strip()): # only one applicant
+            appl= bre.applicant[0].upper()
             regles= [len(appl)>0,
                           appl.title() not in Inventeurs,
                           NoPunct(appl).title() not in Inventeurs, 
@@ -598,9 +601,15 @@ for ndf in PU:
     EdgesAut2 = [orig + ' ' + dest for orig, dest in EdgesAut]
     EdgesApplicant = list(iter(GraphApplicant.edges()))
     EdgesApplicant2 = [orig + ' ' + dest for orig, dest in EdgesApplicant]
-    Autnode_sizes = {aut:sum([truc.count(aut) for truc in EdgesAut2]) for aut in set(NoeudAut)}
-    Applicantnode_sizes = { appl: sum([truc.count(appl) for truc in EdgesApplicant2]) for appl in set(NoeudApplicant)}
-    
+    NoeudApplicantInv = list(iter(GraphAuteursAppli))
+    EdgeApplicantInv = list(iter(GraphAuteursAppli.edges()))
+    EdgeApplicantInv2 = [orig + ' ' + dest for orig, dest in EdgeApplicantInv]
+    Autnode_sizes = {aut:sum([1 for truc in EdgesAut if truc [0] == aut or truc [1] == aut]) for aut in dicoAttrsAut.keys()}
+
+    Applicantnode_sizes = { appl: sum([1 for truc in EdgesApplicant if \
+                                       truc [0] == appl or truc [1] == appl]) for appl in dicoAttrsAppli.keys()}
+        
+    ApplicantInvnode_sizes = { machin: sum([1 for truc in EdgeApplicantInv if truc [0] == machin or truc [1] == machin]) for machin in list(dicoAttrsAppli.keys())+list(dicoAttrsAut.keys())}
     nx.set_node_attributes(GraphApplicant,Applicantnode_sizes, 'size')
     nx.set_node_attributes(GraphAuteurs,Autnode_sizes, 'size')
 
@@ -623,6 +632,8 @@ for ndf in PU:
     nx.set_node_attributes(GraphAuteurs,dicoAttrsAut)
     nx.set_node_attributes(GraphAuteursAppli,dicoAttrsAut)
     nx.set_node_attributes(GraphAuteursAppli,dicoAttrsAppli)
+    nx.set_node_attributes(GraphAuteursAppli,Applicantnode_sizes, 'size')
+    nx.set_node_attributes(GraphAuteursAppli,Autnode_sizes, 'size')
     
     
     nx.write_gexf(GraphAuteurs, ResultGephiPath+"/"+ndf+"_Inventors.gexf") # GraphAuteurs
@@ -757,7 +768,7 @@ for ndf in PU:
                 Visu['color']['g']= int(0)
                 Visu['color']['b']= int(127)
                 Visu['shape'] ="star"
-            elif G.nodes[k]['category'] == 'IPCR1' or G.nodes[k]['category'] == 'IPCR3' or G.nodes[k]['category'] == 'IPCR4' or G.nodes[k]['category'] == 'IPCR7' or G.nodes[k]['category'] == 'IPCR7' or G.nodes[k]['category'] == 'CPC':
+            elif G.nodes[k]['category'] == 'IPCR1' or G.nodes[k]['category'] == 'IPCR3' or G.nodes[k]['category'] == 'IPCR4' or G.nodes[k]['category'] == 'IPCR7' or G.nodes[k]['category'] == 'IPCR11' or G.nodes[k]['category'] == 'CPC':
                 G.nodes[k]['url'] = UrlIPCRBuild(k)[0]
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(127)
@@ -777,6 +788,7 @@ for ndf in PU:
                 Visu['color']['r']= int(254)
                 Visu['color']['g']= int(254)
                 Visu['color']['b']= int(0)
+                Visu['shape'] ="image"
             # if "label" not in mixNet:
             #     mixNet.append('label')
             #factx, facty = 500, 400
