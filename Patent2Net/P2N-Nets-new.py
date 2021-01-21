@@ -483,13 +483,15 @@ for ndf in PU:
                          GraphBrevets.add_edge(appl, bre .label)
                          GraphApplicant.add_node(appl)
                          GraphTechnosAppli.add_node(appl)
+                         GraphAuteursAppli.add_node(appl)
                      if len(coAut)>0 and coAut.title() not in Inventeurs and NoPunct(coAut).title() not in Inventeurs and coAut.lower() != 'empty':
                          GraphBrevets.add_node(coAut)
                          GraphBrevets.add_edge(coAut, bre .label)
                          GraphBrevets.add_edge( appl, coAut)
                          GraphApplicant.add_node(coAut)
                          GraphTechnosAppli.add_node(coAut)
-        elif len( bre.applicant)>0:
+                         GraphAuteursAppli.add_node(coAut)
+        elif len( bre.applicant)>0 and isinstance( bre .applicant, list):
             appl= bre.applicant [0].strip()
             if len(appl)>0 and appl.title() not in Inventeurs and NoPunct(appl).title() not in Inventeurs and appl.lower() != 'empty':
                 GraphBrevets.add_node(appl)

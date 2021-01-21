@@ -4,8 +4,8 @@ var settings = {}
 // Feel free to edit following settings
 
 // WHICH NODE ATTRIBUTE TO ANALYZE?
-settings.attribute = 'type' // This only works for some nets
- // select between        ['IPCDiversity'"category","size",Citations","Famille","NbBrevets",'IPC11-range","IPC7-range","IPC4-range","IPCDiversity" ,"IPCForce"]. Some may not be valid for all networks
+settings.attribute = 'category' // This only works for some nets
+ // select between        ['IPCDiversity',"category","size",Citations","Famille","NbBrevets",'IPC11-range","IPC7-range","IPC4-range","IPCDiversity" ,"IPCForce"]. Some may not be valid for all networks
 settings.save_at_the_end = false
 
 // --- (end of settings)
