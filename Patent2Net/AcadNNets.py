@@ -667,11 +667,12 @@ for aut in Inventeurs:
        if form.replace(' ','') in lstFr:
            typeAut = 'AutFr'
            
-           break
     if typeAut =='':
        for form in set(auteur):
-           typeAut = 'AutEtr'
-           break
+           if form.replace(' ','') not in lstFr and form.replace(' ','') in lstEtr:
+               typeAut = 'AutEtr'
+           
+               
 
     if typeAut =='': #form.replace(' ','') not in lstFr and form.replace(' ','') not in lstEtr:    
            typeAut = 'PasSurPubMed'    
