@@ -13,25 +13,43 @@ var FA2_SETTINGS = {
   slowDown: 1 + Math.log(g.order)
 };
 
-var CATEGORY = null;
+var CATEGORY = "category";
 var COLORS = {
   e: '#c75a93',
   q: '#60a862'
 };
 
+
+var classesIndex = {}
+var cl
+g.nodes().forEach(function(nid){
+	classesIndex[g.getNodeAttribute(nid, CATEGORY)] = true
+})
+var colors = ["#00cccc", "#ff6633", "#119933", "#cc0066","#091ba1","#ecd3cb","#0f1110", "#e066a3","#b0c39c","#5f93bc","#d27533","#b05edc","#67a43a","#da50a5","#599a75","#de4e55","#867bd3","#a3884c","#bc7590"]
+var count = 0
+for (cl in classesIndex) {
+	if (count < colors.length) {
+		classesIndex[cl] = colors[count]
+	} else {
+		classesIndex[cl] = '#AAA'
+	}
+	count++
+}
+
+
 // NOTE: use `true` if you don't want to "pollute" your graph with
 // visual attributes.
 var CLONE = true;
-
+//let classesIndex = new Set();
 // Cloning & decorating
 var graph = CLONE ? g.copy() : g;
 
 graph.nodes().forEach(function(node) {
-
+//  classesIndex .add(graph.getNodeAttribute(node, 'color'))
   // Color
   graph.updateNodeAttribute(node, 'color', function(color) {
     if (CATEGORY)
-      return COLORS[graph.getNodeAttribute(node, CATEGORY)] || DEFAULT_NODE_COLOR;
+      return classesIndex[graph.getNodeAttribute(node, CATEGORY)] || DEFAULT_NODE_COLOR;
 
     return color || DEFAULT_NODE_COLOR;
   });
@@ -127,3 +145,33 @@ var rescaleButton = document.getElementById('rescale-button');
 rescaleButton.onclick = function() {
   camera.animatedReset();
 };
+
+// Display legend
+var legend = d3.select('#playground').append('div')
+  .style('width', '500px')
+  .style('font-family', '"Raleway", sans-serif')
+  .style('background-color', '#FFF')
+  .style('margin', '12px')
+  .style('border', '1px solid #AAA')
+  .style('padding', '12px')
+legend.append('h3')
+  .text('Legend')
+  .style('margin-top', '0')
+legend.append('h4')
+  .text('Color by ' + CATEGORY)
+for (cl in classesIndex) {
+  var color = classesIndex [cl]
+  var div = legend.append('div')
+    .style('margin-bottom', '6px')
+  div.append('div')
+    .style('display', 'inline-flex')
+    .style('width', '18px')
+    .style('height', '18px')
+    .style('border-radius', '9px')
+    .style('background-color', color)
+  div.append('div')
+    .style('display', 'inline-flex')
+    .style('padding-left', '6px')
+    .style('vertical-align', 'top')
+    .text(cl)
+}
