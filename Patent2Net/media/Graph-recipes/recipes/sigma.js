@@ -148,7 +148,7 @@ rescaleButton.onclick = function() {
 
 // Display legend
 var legend = d3.select('#playground').append('div')
-  .style('width', '500px')
+  .style('width', '150px')
   .style('font-family', '"Raleway", sans-serif')
   .style('background-color', '#FFF')
   .style('margin', '12px')
