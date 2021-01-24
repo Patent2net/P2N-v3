@@ -13,7 +13,7 @@ import sys
 import shutil
 import pickle
 import matplotlib.cm
-from pymed import PubMed
+#from pymed import PubMed
 
 from Patent2Net.P2N_Lib import LoadBiblioFile,  UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize, RenderTemplate
 from Patent2Net.P2N_Config import LoadConfig
