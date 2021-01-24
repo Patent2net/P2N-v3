@@ -145,6 +145,7 @@ RenderTemplate(
     request = requete
 )
         
+print ('updating js file')
 # updating index.js for server side and local menu
 inFile = []  # memorize content
 with open('../dex.js') as FicRes:
@@ -152,7 +153,7 @@ with open('../dex.js') as FicRes:
     for lig in data[2:]:
         if '</ul>' not in lig and "');" not in lig:
             inFile.append(lig)
-
+print (inFile)
 with open('../dex.js', 'w') as ficRes:
     ficRes.write("document.write('\ ".strip())
     ficRes.write("\n")
@@ -164,10 +165,11 @@ with open('../dex.js', 'w') as ficRes:
         """<li><a href="DATA/***request***.html" target="_blank">***request***</a></li>\ """.replace('***request***', ndf).strip())
     ficRes.write("\n")
     for exist in inFile:
-        if ndf not in exist:
+        if ndf+'.html' not in exist:
             ficRes.write(exist.strip().replace('</ul>\ ', ''))
             ficRes.write("\n")
-
+        else:
+            print(ndf)
     ficRes.write(" </ul>\ ".strip())
     ficRes.write("\n")
     ficRes.write("');")
