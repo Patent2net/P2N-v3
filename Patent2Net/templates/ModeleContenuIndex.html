@@ -116,8 +116,9 @@
         {% endif %}
         {% if InventorNetwork or ApplicantNetwork or CrossTechNetwork %}
         <li>
-		<a href="#" onclick="{{wo('GraphIndex*CollectName*.html')}} return false;">New Networks analyser tool</a>
+		<h3><a href="#" onclick="{{wo('GraphIndex*CollectName*.html')}} return false;">New Networks analyser tool</a></h3> </li>
 		<br>
+		<li>
             <a href="#" onclick="{{wo('GephiFiles/*CollectName*_InventorsJS.html')}} {{wo('GephiFiles/*CollectName*_ApplicantsJS.html')}} {{wo('GephiFiles/*CollectName*_CrossTechJS.html')}} return false;">Networks (Inventor, Applicant, Technology)</a>
         </li>
         {% endif %}
