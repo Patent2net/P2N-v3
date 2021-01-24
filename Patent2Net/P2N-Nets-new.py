@@ -280,9 +280,6 @@ for ndf in [projectName,  "Families"+ projectName]:
             if bre.IPCR7 not in Exclus:   
                 if ''.join(bre.IPCR7).strip().lower() != 'empty':
                     if bre.IPCR7.strip() not in Exclus:
-                        if len(bre.IPCR7)<5:
-                            print("7")
-                        else:
                             df.at [bre.Index, 'IPCR7' ] = [bre.IPCR7]
                 else:
                     df.at [bre.Index, 'IPCR7' ] = []
@@ -294,20 +291,13 @@ for ndf in [projectName,  "Families"+ projectName]:
             for inv in bre.IPCR7:
                 if ''.join(inv).strip().lower() != 'empty':
                     if inv not in Exclus:
-                        if inv not in Exclus:
-                            if len(inv)<5:
-                                print("5")
-                            else:
-                                tempoinv.append(inv.upper())
+                        tempoinv.append(inv.upper())
             df.at [bre.Index, 'IPCR7' ] = tempoinv
         
         if not isinstance(bre.IPCR4, list):
             if bre.IPCR4 not in Exclus:   
                 if ''.join(bre.IPCR4).strip().lower() != 'empty':
                     if bre.IPCR4.strip() not in Exclus:
-                        if len(bre.IPCR4)<4:
-                            print("4")
-                        else:
                             df.at [bre.Index, 'IPCR4' ] = [bre.IPCR4]
                 else:
                     df.at [bre.Index, 'IPCR4' ] = []
@@ -340,17 +330,15 @@ for ndf in [projectName,  "Families"+ projectName]:
             for inv in bre.IPCR3:
                 if inv.strip() not in Exclus:
                     if ''.join(inv).strip().lower() != 'empty':
-                        if len(inv)<3:
-                            print()
-                        else:
-                            tempoinv.append(inv.upper())
+                        tempoinv.append(inv.upper())
             df.at [bre.Index, 'IPCR3' ] = tempoinv
         
         if not isinstance(bre.IPCR1, list):
             
             if bre.IPCR1 not in Exclus:   
                 if ''.join(bre.IPCR1).strip().lower() != 'empty':
-                    df.at [bre.Index, 'IPCR1' ] = [bre.IPCR1]
+                    if bre.IPCR1 not in Exclus:
+                        df.at [bre.Index, 'IPCR1' ] = [bre.IPCR1]
                 else:
                     df.at [bre.Index, 'IPCR1' ] = []
             else:
@@ -360,7 +348,8 @@ for ndf in [projectName,  "Families"+ projectName]:
             tempoinv = []
             for inv in bre.IPCR1:
                 if ''.join(inv).strip().lower() != 'empty':
-                    tempoinv.append(inv.upper())
+                    if inv not in Exclus:
+                        tempoinv.append(inv.upper())
             df.at [bre.Index, 'IPCR1' ] = tempoinv
         
         if not isinstance(bre.equivalents, list):
