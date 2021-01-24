@@ -674,6 +674,7 @@ for ndf in [projectName,  "Families"+ projectName]:
                 GraphTechnosAppli.add_node(ipc)
                 GraphTechnosAuthor.add_node(ipc)
             
+
         for ipc in joliTecno:
             if bool(ipc.strip()):
                 for ipcUp in bre.IPCR7:
@@ -686,26 +687,26 @@ for ndf in [projectName,  "Families"+ projectName]:
              #   if bool(ipc.strip()):
                     for ipcUpUp in bre.IPCR4:
                             if ipcUp.startswith (ipcUpUp) and  bool(ipcUpUp.strip()):
-                                GraphTechnos .add_edge(ipcUp, ipcUpUp)
-                                GraphTechnosAppli .add_edge(ipcUp, ipcUpUp)
-                                GraphTechnosAuthor .add_edge(ipcUp, ipcUpUp)
+                                GraphTechnos .add_edge(ipcUpUp, ipcUp)
+                                GraphTechnosAppli .add_edge(ipcUpUp, ipcUp)
+                                GraphTechnosAuthor .add_edge(ipcUpUp, ipcUp)
             
                 # for ipc in bre.IPCR4:
                 #     if bool(ipc.strip()):
                             for ipcUpUpUp in bre.IPCR1:
                                     if ipcUpUp.startswith (ipcUpUpUp) and  bool(ipcUpUpUp.strip()):
-                                        GraphTechnos .add_edge(ipcUpUp, ipcUpUpUp)
+                                        GraphTechnos .add_edge( ipcUpUpUp, ipcUpUp)
                                         GraphTechnos .add_edge(bre .label,ipcUpUpUp)  
-                                        GraphTechnosAppli .add_edge(ipcUpUp, ipcUpUpUp)
-                                        GraphTechnosAuthor .add_edge(ipcUpUp, ipcUpUpUp)
-    
-        if len(joliTecno) ==0 or sum([bool(ipc.strip()) for ipc in joliTecno]):
+                                        GraphTechnosAppli .add_edge(ipcUpUpUp, ipcUpUp)
+                                        GraphTechnosAuthor .add_edge(ipcUpUpUp, ipcUpUp)    
+                                        
+        if len(joliTecno) ==0  or sum([bool(ipc.strip()) for ipc in joliTecno]):
             for ipcUp in bre.IPCR7:
                     
-                    if bool(ipcUp.strip()):
-                        GraphTechnos .add_edge(ipcUp, ipc)
-                        GraphTechnosAppli .add_edge(ipcUp, ipc)
-                        GraphTechnosAuthor .add_edge(ipcUp, ipc)
+                    # if bool(ipcUp.strip()):
+                    #     GraphTechnos .add_edge(ipcUp, ipc)
+                    #     GraphTechnosAppli .add_edge(ipcUp, ipc)
+                    #     GraphTechnosAuthor .add_edge(ipcUp, ipc)
         #for ipc in bre.IPCR7:
              #   if bool(ipc.strip()):
                     for ipcUpUp in bre.IPCR4:
@@ -717,25 +718,20 @@ for ndf in [projectName,  "Families"+ projectName]:
                 #     if bool(ipc.strip()):
                             for ipcUpUpUp in bre.IPCR1:
                                     if ipcUpUp.startswith (ipcUpUpUp) and  bool(ipcUpUpUp.strip()):
-                                        GraphTechnos .add_edge(ipcUpUp, ipcUpUpUp)
+                                        GraphTechnos .add_edge(ipcUpUpUp, ipcUpUp)
                                         GraphTechnos .add_edge(bre .label,ipcUpUpUp)  
-                                        GraphTechnosAppli .add_edge(ipcUpUp, ipcUpUpUp)
-                                        GraphTechnosAuthor .add_edge(ipcUpUp, ipcUpUpUp)
+                                        GraphTechnosAppli .add_edge(ipcUpUpUp, ipcUpUp)
+                                        GraphTechnosAuthor .add_edge(ipcUpUpUp, ipcUpUp)
         if len(bre.IPCR7) == 0 or sum([bool(ipc.strip()) for ipc in bre.IPCR7]):
             for ipcUpUp in bre.IPCR4:
-                            if bool(ipcUpUp.strip()):
-                                GraphTechnos .add_edge(ipcUp, ipcUpUp)
-                                GraphTechnosAppli .add_edge(ipcUp, ipcUpUp)
-                                GraphTechnosAuthor .add_edge(ipcUp, ipcUpUp)
-                # for ipc in bre.IPCR4:
-                #     if bool(ipc.strip()):
+
                             for ipcUpUpUp in bre.IPCR1:
                                     if ipcUpUp.startswith (ipcUpUpUp) and  bool(ipcUpUpUp.strip()):
-                                        GraphTechnos .add_edge(ipcUpUp, ipcUpUpUp)
-                                        GraphTechnosAppli .add_edge(ipcUpUp, ipcUpUpUp)
-                                        GraphTechnosAuthor .add_edge(ipcUpUp, ipcUpUpUp)
+                                        GraphTechnos .add_edge(ipcUpUpUp, ipcUpUp)
+                                        GraphTechnosAppli .add_edge(ipcUpUpUp, ipcUpUp)
+                                        GraphTechnosAuthor .add_edge(ipcUpUpUp, ipcUpUp)
                                         GraphTechnos .add_edge(bre .label,ipcUpUpUp)  
-        
+
         # for ipc in bre.IPCR1 + bre.IPCR4 + bre.IPCR7 + joliTecno:
         #     if bool(ipc.strip()):
         #         if ipc in dicoAttrsTechno:
