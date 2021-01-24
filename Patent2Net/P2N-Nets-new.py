@@ -260,6 +260,7 @@ for ndf in [projectName,  "Families"+ projectName]:
     
             if bre.IPCR11 not in Exclus:   
                 if ''.join(bre.IPCR11).strip().lower() != 'empty':
+                    
                     df.at [bre.Index, 'IPCR11' ] = [bre.IPCR11.replace('/', '-')]
                 else:
                     df.at [bre.Index, 'IPCR11' ] = []
@@ -271,13 +272,18 @@ for ndf in [projectName,  "Families"+ projectName]:
             for inv in bre.IPCR11:
                 inv = inv.replace('/', '-')
                 if ''.join(inv).strip().lower() != 'empty':
-                    tempoinv.append(inv.upper())
+                    if inv not in Exclus:
+                        tempoinv.append(inv.upper())
             df.at [bre.Index, 'IPCR11' ] = tempoinv
     
         if not isinstance(bre.IPCR7, list):
             if bre.IPCR7 not in Exclus:   
                 if ''.join(bre.IPCR7).strip().lower() != 'empty':
-                    df.at [bre.Index, 'IPCR7' ] = [bre.IPCR7]
+                    if bre.IPCR7.strip() not in Exclus:
+                        if len(bre.IPCR7)<5:
+                            print("7")
+                        else:
+                            df.at [bre.Index, 'IPCR7' ] = [bre.IPCR7]
                 else:
                     df.at [bre.Index, 'IPCR7' ] = []
             else:
@@ -287,13 +293,22 @@ for ndf in [projectName,  "Families"+ projectName]:
             tempoinv = []
             for inv in bre.IPCR7:
                 if ''.join(inv).strip().lower() != 'empty':
-                    tempoinv.append(inv.upper())
+                    if inv not in Exclus:
+                        if inv not in Exclus:
+                            if len(inv)<5:
+                                print("5")
+                            else:
+                                tempoinv.append(inv.upper())
             df.at [bre.Index, 'IPCR7' ] = tempoinv
         
         if not isinstance(bre.IPCR4, list):
             if bre.IPCR4 not in Exclus:   
                 if ''.join(bre.IPCR4).strip().lower() != 'empty':
-                    df.at [bre.Index, 'IPCR4' ] = [bre.IPCR4]
+                    if bre.IPCR4.strip() not in Exclus:
+                        if len(bre.IPCR4)<4:
+                            print("4")
+                        else:
+                            df.at [bre.Index, 'IPCR4' ] = [bre.IPCR4]
                 else:
                     df.at [bre.Index, 'IPCR4' ] = []
             else:
@@ -303,13 +318,18 @@ for ndf in [projectName,  "Families"+ projectName]:
             tempoinv = []
             for inv in bre.IPCR4:
                 if ''.join(inv).strip().lower() != 'empty':
-                    tempoinv.append(inv.upper())
+                    if inv not in Exclus:
+                        if len(inv)<4:
+                            print("3")
+                        else:
+                            tempoinv.append(inv.upper())
             df.at [bre.Index, 'IPCR4' ] = tempoinv
         
         if not isinstance(bre.IPCR3, list):
             if bre.IPCR3 not in Exclus:   
                 if ''.join(bre.IPCR3).strip().lower() != 'empty':
-                    df.at [bre.Index, 'IPCR3' ] = [bre.IPCR3]
+                    if bre.IPCR3.strip() not in Exclus:
+                        df.at [bre.Index, 'IPCR3' ] = [bre.IPCR3]
                 else:
                     df.at [bre.Index, 'IPCR3' ] = []
             else:
@@ -318,8 +338,12 @@ for ndf in [projectName,  "Families"+ projectName]:
         else:
             tempoinv = []
             for inv in bre.IPCR3:
-                if ''.join(inv).strip().lower() != 'empty':
-                    tempoinv.append(inv.upper())
+                if inv.strip() not in Exclus:
+                    if ''.join(inv).strip().lower() != 'empty':
+                        if len(inv)<3:
+                            print()
+                        else:
+                            tempoinv.append(inv.upper())
             df.at [bre.Index, 'IPCR3' ] = tempoinv
         
         if not isinstance(bre.IPCR1, list):
@@ -359,12 +383,18 @@ for ndf in [projectName,  "Families"+ projectName]:
                 df.at [bre.Index, 'CitO' ] = [bre.CitO]
         else:
             df.at [bre.Index, 'CitO' ] = list (set([ipc for ipc in bre.CitO if ipc.lower() not in Exclus]))     
-        
-        df.at [bre.Index, 'IPCR1' ] = [truc for truc in bre.IPCR1 if truc.strip() not in Exclus] 
-        df.at [bre.Index, 'IPCR3' ] = [truc for truc in bre.IPCR3 if truc.strip() not in Exclus] 
-        df.at [bre.Index, 'IPCR4' ] = [truc for truc in bre.IPCR4 if truc.strip() not in Exclus] 
-        df.at [bre.Index, 'IPCR7' ] = [truc for truc in bre.IPCR7 if truc.strip() not in Exclus] 
-        df.at [bre.Index, 'IPCR11' ] = [truc for truc in bre.IPCR11 if truc.strip() not in Exclus] 
+
+        assert(isinstance(df.at [bre.Index, 'IPCR1' ], list))
+
+        assert(isinstance(df.at [bre.Index, 'IPCR11' ], list))
+        assert(isinstance(df.at [bre.Index, 'IPCR3' ], list))
+        assert(isinstance(df.at [bre.Index, 'IPCR7' ], list))
+        assert(isinstance(df.at [bre.Index, 'IPCR4' ], list))
+        # df.at [bre.Index, 'IPCR1' ] = [truc for truc in bre.IPCR1 if truc.strip() not in Exclus] 
+        # df.at [bre.Index, 'IPCR3' ] = [truc for truc in bre.IPCR3 if truc.strip() not in Exclus] 
+        # df.at [bre.Index, 'IPCR4' ] = [truc for truc in bre.IPCR4 if truc.strip() not in Exclus] 
+        # df.at [bre.Index, 'IPCR7' ] = [truc for truc in bre.IPCR7 if truc.strip() not in Exclus] 
+        # df.at [bre.Index, 'IPCR11' ] = [truc for truc in bre.IPCR11 if truc.strip() not in Exclus] 
     # c'est parti !
     # On parcours le jeu de brevet pour stocker les noms et trucs
     # Inventeurs = set() # la liste des inventeurs
