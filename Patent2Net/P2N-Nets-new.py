@@ -693,13 +693,13 @@ for ndf in [projectName,  "Families"+ projectName]:
                 # for ipc in bre.IPCR4:
                 #     if bool(ipc.strip()):
                             for ipcUpUpUp in bre.IPCR1:
-                                    if ipcUpUp.startswith (ipcUpUp) and  bool(ipcUpUpUp.strip()):
+                                    if ipcUpUp.startswith (ipcUpUpUp) and  bool(ipcUpUpUp.strip()):
                                         GraphTechnos .add_edge(ipcUpUp, ipcUpUpUp)
                                         GraphTechnos .add_edge(bre .label,ipcUpUpUp)  
                                         GraphTechnosAppli .add_edge(ipcUpUp, ipcUpUpUp)
                                         GraphTechnosAuthor .add_edge(ipcUpUp, ipcUpUpUp)
     
-        if len(joliTecno) ==0:
+        if len(joliTecno) ==0 or sum([bool(ipc.strip()) for ipc in joliTecno]):
             for ipcUp in bre.IPCR7:
                     
                     if bool(ipcUp.strip()):
@@ -721,7 +721,7 @@ for ndf in [projectName,  "Families"+ projectName]:
                                         GraphTechnos .add_edge(bre .label,ipcUpUpUp)  
                                         GraphTechnosAppli .add_edge(ipcUpUp, ipcUpUpUp)
                                         GraphTechnosAuthor .add_edge(ipcUpUp, ipcUpUpUp)
-        if len(bre.IPCR7) == 0:
+        if len(bre.IPCR7) == 0 or sum([bool(ipc.strip()) for ipc in bre.IPCR7]):
             for ipcUpUp in bre.IPCR4:
                             if bool(ipcUpUp.strip()):
                                 GraphTechnos .add_edge(ipcUp, ipcUpUp)
