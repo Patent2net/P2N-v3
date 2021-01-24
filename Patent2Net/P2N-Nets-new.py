@@ -367,22 +367,22 @@ for ndf in [projectName,  "Families"+ projectName]:
             if bre.equivalents.strip() not in Exclus:
                 df.at [bre.Index, 'equivalents' ] = [bre.equivalents]
         else:
-            df.at [bre.Index, 'equivalents' ] = list (set([ipc for ipc in bre.equivalents if ipc.lower() not in Exclus]))
+            df.at [bre.Index, 'equivalents' ] = list (set([ipc for ipc in bre.equivalents if ipc.lower().strip() not in Exclus]))
         if not isinstance(bre.CitedBy, list):
             if bre.CitedBy.strip() not in Exclus:
                 df.at [bre.Index, 'CitedBy' ] = [bre.CitedBy]
         else:
-            df.at [bre.Index, 'CitedBy' ] = list (set([ipc for ipc in bre.CitedBy if ipc.lower() not in Exclus]))            
+            df.at [bre.Index, 'CitedBy' ] = list (set([ipc for ipc in bre.CitedBy if ipc.lower().strip() not in Exclus]))            
         if not isinstance(bre.CitP, list):
             if bre.CitP.strip() not in Exclus:
                 df.at [bre.Index, 'CitP' ] = [bre.CitP]
         else:
-            df.at [bre.Index, 'CitP' ] = list (set([ipc for ipc in bre.CitP if ipc.lower() not in Exclus]))            
+            df.at [bre.Index, 'CitP' ] = list (set([ipc for ipc in bre.CitP if ipc.lower().strip() not in Exclus]))            
         if not isinstance(bre.CitO, list):
             if bre.CitO.strip() not in Exclus:
                 df.at [bre.Index, 'CitO' ] = [bre.CitO]
         else:
-            df.at [bre.Index, 'CitO' ] = list (set([ipc for ipc in bre.CitO if ipc.lower() not in Exclus]))     
+            df.at [bre.Index, 'CitO' ] = list (set([ipc for ipc in bre.CitO if ipc.lower().strip() not in Exclus]))     
 
         assert(isinstance(df.at [bre.Index, 'IPCR1' ], list))
 
