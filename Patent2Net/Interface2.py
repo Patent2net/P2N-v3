@@ -153,7 +153,7 @@ with open('../dex.js') as FicRes:
     for lig in data[2:]:
         if '</ul>' not in lig and "');" not in lig:
             inFile.append(lig)
-print (inFile)
+#print (inFile)
 with open('../dex.js', 'w') as ficRes:
     ficRes.write("document.write('\ ".strip())
     ficRes.write("\n")
@@ -169,7 +169,8 @@ with open('../dex.js', 'w') as ficRes:
             ficRes.write(exist.strip().replace('</ul>\ ', ''))
             ficRes.write("\n")
         else:
-            print(ndf)
+            pass
+            #print(ndf)
     ficRes.write(" </ul>\ ".strip())
     ficRes.write("\n")
     ficRes.write("');")
