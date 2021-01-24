@@ -106,7 +106,7 @@ for ndf in [projectName,  "Families"+ projectName]:
         print("Hi this is AcadStats processor. Bibliographic data of ", ndf, " patent universe found.")
     
     
-    print("Nice, ", len(DataBrevet["brevets"]), " patents found. On calcule les auteurs identifiés...")
+    print("Nice, ", len(DataBrevet["brevets"]), u" patents found. On calcule les auteurs identifiés...")
     
     
     # loading file from preProcessNormalisationNames
