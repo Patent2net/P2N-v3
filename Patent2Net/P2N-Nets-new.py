@@ -58,22 +58,22 @@ Exclus = ['', ' ', 'empty', None, "none"]
 ##############
 
 
-xlsx = pd.ExcelFile('./Resources/EntitésPubliquesNORM4.xlsx')
-Public = []
-TypeAppl = dict()
+# xlsx = pd.ExcelFile('./Resources/EntitésPubliquesNORM4.xlsx')
+# Public = []
+# TypeAppl = dict()
 # df = pd.read_csv('../Patent2Net/Resources/STANNorm.csv', dtype=str, sep=';', encoding='utf-8')
 
 
-for sheet in xlsx.sheet_names:
-   dicotemp = xlsx.parse(sheet).to_dict(orient='list')
+# for sheet in xlsx.sheet_names:
+#    dicotemp = xlsx.parse(sheet).to_dict(orient='list')
    
-   for cle, val in dicotemp.items():
-        tempoRes = []
-        for appli in val:
-            sav = appli
-            tempoRes.append(appli)
-        TypeAppl [cle] = tempoRes
-        Public.extend(tempoRes)
+#    for cle, val in dicotemp.items():
+#         tempoRes = []
+#         for appli in val:
+#             sav = appli
+#             tempoRes.append(appli)
+#         TypeAppl [cle] = tempoRes
+#         Public.extend(tempoRes)
 
 # =============================================================================
 # 
