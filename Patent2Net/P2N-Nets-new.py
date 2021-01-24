@@ -352,6 +352,7 @@ for ndf in [projectName,  "Families"+ projectName]:
                         tempoinv.append(inv.upper())
             df.at [bre.Index, 'IPCR1' ] = tempoinv
         
+
         if not isinstance(bre.equivalents, list):
             if bre.equivalents.strip() not in Exclus:
                 df.at [bre.Index, 'equivalents' ] = [bre.equivalents]
@@ -389,6 +390,46 @@ for ndf in [projectName,  "Families"+ projectName]:
     # Inventeurs = set() # la liste des inventeurs
     # Applicants = set()
     # Techno = dict()
+    for bre in df.itertuples():
+        tempoIpc7 = []
+        tempoIpc4 = []
+        tempoIpc3  = []
+        tempoIpc1 = []
+        if len(bre.IPCR11)>0:
+            for ipc in bre.IPCR11:
+                tempoIpc7 .append(ipc[0:7])
+                tempoIpc3 .append(ipc[0:3])                
+                tempoIpc4 .append(ipc[0:4])
+                tempoIpc1 .append(ipc[0:1])
+                df.at [bre.Index, 'IPCR7'] = list(set(tempoIpc7 + bre.IPCR7))
+                df.at [bre.Index, 'IPCR4'] = list(set(tempoIpc4 + bre.IPCR4))
+                df.at [bre.Index, 'IPCR3'] = list(set(tempoIpc3 + bre.IPCR3))
+                df.at [bre.Index, 'IPCR1'] = list(set(tempoIpc7 + bre.IPCR1))
+        elif len(bre.IPCR7)>0:
+            for ipc in bre.IPCR7:
+                tempoIpc3 .append(ipc[0:3])
+                tempoIpc4 .append(ipc[0:4])
+                tempoIpc1 .append(ipc[0:1])
+                df.at [bre.Index, 'IPCR3'] = list(set(tempoIpc3 + bre.IPCR3))                
+                df.at [bre.Index, 'IPCR4'] = list(set(tempoIpc4 + bre.IPCR4))
+                df.at [bre.Index, 'IPCR1'] = list(set(tempoIpc7 + bre.IPCR1))
+        elif len(bre.IPCR4)>0:
+            for ipc in bre.IPCR4:
+                tempoIpc3 .append(ipc[0:3])
+                tempoIpc1 .append(ipc[0:1])
+
+                df.at [bre.Index, 'IPCR3'] = list(set(tempoIpc3 + bre.IPCR3))
+                df.at [bre.Index, 'IPCR1'] = list(set(tempoIpc7 + bre.IPCR1))
+        elif  len(bre.IPCR3)>0:
+            for ipc in bre.IPCR3:
+
+                tempoIpc1 .append(ipc[0:1])
+
+                df.at [bre.Index, 'IPCR1'] = list(set(tempoIpc7 + bre.IPCR1))
+        else:
+            pass
+            # can't do better
+
     for bre in df.itertuples():
 
                 
@@ -670,9 +711,9 @@ for ndf in [projectName,  "Families"+ projectName]:
                         dicoAttrsTechno [ipc] ['size'] +=1
                     else:
                         dicoAttrsTechno [ipc] ['size'] = 1
-                GraphTechnos .add_node(ipc)
-                GraphTechnosAppli.add_node(ipc)
-                GraphTechnosAuthor.add_node(ipc)
+                # GraphTechnos .add_node(ipc)
+                # GraphTechnosAppli.add_node(ipc)
+                # GraphTechnosAuthor.add_node(ipc)
             
 
         for ipc in joliTecno:
@@ -711,9 +752,9 @@ for ndf in [projectName,  "Families"+ projectName]:
              #   if bool(ipc.strip()):
                     for ipcUpUp in bre.IPCR4:
                             if ipcUp.startswith (ipcUpUp) and  bool(ipcUpUp.strip()):
-                                GraphTechnos .add_edge(ipcUp, ipcUpUp)
-                                GraphTechnosAppli .add_edge(ipcUp, ipcUpUp)
-                                GraphTechnosAuthor .add_edge(ipcUp, ipcUpUp)
+                                GraphTechnos .add_edge(ipcUpUp, ipcUp)
+                                GraphTechnosAppli .add_edge(ipcUpUp, ipcUp)
+                                GraphTechnosAuthor .add_edge(ipcUpUp, ipcUp)
                 # for ipc in bre.IPCR4:
                 #     if bool(ipc.strip()):
                             for ipcUpUpUp in bre.IPCR1:
