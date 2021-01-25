@@ -184,7 +184,7 @@ for ndf in [projectName,  "Families"+ projectName]:
     #        print (df_Fam['family lenght'].loc[df_Fam.index[df_Fam['label'] == bre]])
 
     
-    #cleaning df. These steps should be place in preProcessNames
+    #cleaning df. These steps should be placed in preProcessNames
     
     for bre in df.itertuples():
         if isinstance(bre.label, list):
@@ -272,7 +272,7 @@ for ndf in [projectName,  "Families"+ projectName]:
             for inv in bre.IPCR11:
                 inv = inv.replace('/', '-')
                 if ''.join(inv).strip().lower() != 'empty':
-                    if inv not in Exclus:
+                    if inv.strip() not in Exclus:
                         tempoinv.append(inv.upper())
             df.at [bre.Index, 'IPCR11' ] = tempoinv
     
@@ -280,7 +280,7 @@ for ndf in [projectName,  "Families"+ projectName]:
             if bre.IPCR7 not in Exclus:   
                 if ''.join(bre.IPCR7).strip().lower() != 'empty':
                     if bre.IPCR7.strip() not in Exclus:
-                            df.at [bre.Index, 'IPCR7' ] = [bre.IPCR7]
+                            df.at [bre.Index, 'IPCR7' ] = [bre.IPCR7.upper()]
                 else:
                     df.at [bre.Index, 'IPCR7' ] = []
             else:
@@ -290,7 +290,7 @@ for ndf in [projectName,  "Families"+ projectName]:
             tempoinv = []
             for inv in bre.IPCR7:
                 if ''.join(inv).strip().lower() != 'empty':
-                    if inv not in Exclus:
+                    if inv.strip() not in Exclus:
                         tempoinv.append(inv.upper())
             df.at [bre.Index, 'IPCR7' ] = tempoinv
         
@@ -298,7 +298,7 @@ for ndf in [projectName,  "Families"+ projectName]:
             if bre.IPCR4 not in Exclus:   
                 if ''.join(bre.IPCR4).strip().lower() != 'empty':
                     if bre.IPCR4.strip() not in Exclus:
-                            df.at [bre.Index, 'IPCR4' ] = [bre.IPCR4]
+                            df.at [bre.Index, 'IPCR4' ] = [bre.IPCR4.upper()]
                 else:
                     df.at [bre.Index, 'IPCR4' ] = []
             else:
@@ -308,10 +308,7 @@ for ndf in [projectName,  "Families"+ projectName]:
             tempoinv = []
             for inv in bre.IPCR4:
                 if ''.join(inv).strip().lower() != 'empty':
-                    if inv not in Exclus:
-                        if len(inv)<4:
-                            print("3")
-                        else:
+                    if inv.strip() not in Exclus:
                             tempoinv.append(inv.upper())
             df.at [bre.Index, 'IPCR4' ] = tempoinv
         
@@ -319,7 +316,7 @@ for ndf in [projectName,  "Families"+ projectName]:
             if bre.IPCR3 not in Exclus:   
                 if ''.join(bre.IPCR3).strip().lower() != 'empty':
                     if bre.IPCR3.strip() not in Exclus:
-                        df.at [bre.Index, 'IPCR3' ] = [bre.IPCR3]
+                        df.at [bre.Index, 'IPCR3' ] = [bre.IPCR3.upper()]
                 else:
                     df.at [bre.Index, 'IPCR3' ] = []
             else:
@@ -337,8 +334,8 @@ for ndf in [projectName,  "Families"+ projectName]:
             
             if bre.IPCR1 not in Exclus:   
                 if ''.join(bre.IPCR1).strip().lower() != 'empty':
-                    if bre.IPCR1 not in Exclus:
-                        df.at [bre.Index, 'IPCR1' ] = [bre.IPCR1]
+                    if bre.IPCR1.strip() not in Exclus:
+                        df.at [bre.Index, 'IPCR1' ] = [bre.IPCR1.upper()]
                 else:
                     df.at [bre.Index, 'IPCR1' ] = []
             else:
@@ -348,7 +345,7 @@ for ndf in [projectName,  "Families"+ projectName]:
             tempoinv = []
             for inv in bre.IPCR1:
                 if ''.join(inv).strip().lower() != 'empty':
-                    if inv not in Exclus:
+                    if inv.strip() not in Exclus:
                         tempoinv.append(inv.upper())
             df.at [bre.Index, 'IPCR1' ] = tempoinv
         
