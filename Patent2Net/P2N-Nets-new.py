@@ -912,10 +912,6 @@ for ndf in [projectName,  "Families"+ projectName]:
             for aut, coAut in cycle(bre .applicant):
                 aut = aut.strip()
                 coAut = coAut.strip()
-                if len(aut) ==1:
-                    print (aut)
-                if len(coAut) == 1:
-                    print(coAut)
                 regles = [len(aut)>0, 
                           len(coAut) >0,
                           aut.title() not in Inventeurs,
