@@ -715,6 +715,7 @@ for ndf in [projectName,  "Families"+ projectName]:
 
         for ipc in joliTecno:
             if bool(ipc.strip()):
+                GraphTechnos .add_edge(bre .label,ipc) 
                 for ipcUp in bre.IPCR7:
                     
                     if ipc.startswith (ipcUp) and  bool(ipcUp.strip()):
@@ -734,13 +735,13 @@ for ndf in [projectName,  "Families"+ projectName]:
                             for ipcUpUpUp in bre.IPCR1:
                                     if ipcUpUp.startswith (ipcUpUpUp) and  bool(ipcUpUpUp.strip()):
                                         GraphTechnos .add_edge( ipcUpUpUp, ipcUpUp)
-                                        GraphTechnos .add_edge(bre .label,ipcUpUpUp)  
+                                         
                                         GraphTechnosAppli .add_edge(ipcUpUpUp, ipcUpUp)
                                         GraphTechnosAuthor .add_edge(ipcUpUpUp, ipcUpUp)    
                                         
-        if len(joliTecno) ==0  or sum([bool(ipc.strip()) for ipc in joliTecno]):
+        if len(joliTecno) ==0  or sum([bool(ipc.strip()) for ipc in joliTecno])==0:
             for ipcUp in bre.IPCR7:
-                    
+                    GraphTechnos .add_edge(bre .label,ipcUp)  
                     # if bool(ipcUp.strip()):
                     #     GraphTechnos .add_edge(ipcUp, ipc)
                     #     GraphTechnosAppli .add_edge(ipcUp, ipc)
@@ -757,18 +758,27 @@ for ndf in [projectName,  "Families"+ projectName]:
                             for ipcUpUpUp in bre.IPCR1:
                                     if ipcUpUp.startswith (ipcUpUpUp) and  bool(ipcUpUpUp.strip()):
                                         GraphTechnos .add_edge(ipcUpUpUp, ipcUpUp)
-                                        GraphTechnos .add_edge(bre .label,ipcUpUpUp)  
+
                                         GraphTechnosAppli .add_edge(ipcUpUpUp, ipcUpUp)
                                         GraphTechnosAuthor .add_edge(ipcUpUpUp, ipcUpUp)
-        if len(bre.IPCR7) == 0 or sum([bool(ipc.strip()) for ipc in bre.IPCR7]):
+        if len(joliTecno) ==0 and len(bre.IPCR7) == 0 or sum([bool(ipc.strip()) for ipc in bre.IPCR7]) ==0:
             for ipcUpUp in bre.IPCR4:
-
-                            for ipcUpUpUp in bre.IPCR1:
+                GraphTechnos .add_edge(bre .label,ipcUpUp)  
+                for ipcUpUpUp in bre.IPCR1:
                                     if ipcUpUp.startswith (ipcUpUpUp) and  bool(ipcUpUpUp.strip()):
                                         GraphTechnos .add_edge(ipcUpUpUp, ipcUpUp)
                                         GraphTechnosAppli .add_edge(ipcUpUpUp, ipcUpUp)
                                         GraphTechnosAuthor .add_edge(ipcUpUpUp, ipcUpUp)
-                                        GraphTechnos .add_edge(bre .label,ipcUpUpUp)  
+
+        if len(joliTecno) ==0 and len(bre.IPCR7) == 0 and len(bre.IPCR4) == 0 or sum([bool(ipc.strip()) for ipc in bre.IPCR4] )==0:
+            for ipcUpUp in bre.IPCR3:
+                GraphTechnos .add_edge(bre .label,ipcUpUp)  
+                for ipcUpUpUp in bre.IPCR1:
+                                    if ipcUpUp.startswith (ipcUpUpUp) and  bool(ipcUpUpUp.strip()):
+                                        GraphTechnos .add_edge(ipcUpUpUp, ipcUpUp)
+                                        GraphTechnosAppli .add_edge(ipcUpUpUp, ipcUpUp)
+                                        GraphTechnosAuthor .add_edge(ipcUpUpUp, ipcUpUp)
+
 
         # for ipc in bre.IPCR1 + bre.IPCR4 + bre.IPCR7 + joliTecno:
         #     if bool(ipc.strip()):
@@ -854,26 +864,26 @@ for ndf in [projectName,  "Families"+ projectName]:
                          GraphApplicant.add_node(coAut)
                          #GraphTechnosAppli.add_node(coAut)
                          GraphAuteursAppli.add_node(coAut)
-        # elif len( bre.applicant)>0 and isinstance( bre .applicant, list):
-        #     appl= bre.applicant [0].strip()
-        #     if len(appl)>0 and appl.title() not in Inventeurs and NoPunct(appl).title() not in Inventeurs and appl.lower() != 'empty':
-        #         GraphBrevets.add_node(appl)
-        #         GraphBrevets.add_edge(appl, bre .label)
-        #         # GraphApplicant.add_node(appl)
-        #         GraphTechnosAppli.add_node(appl)
-        #         GraphAuteursAppli.add_node(appl)
-        #         if len(joliTecno)>0:
-        #             for ipc in joliTecno:
-        #                 GraphTechnosAppli .add_edge(appl,ipc)
-        #         elif len(bre.IPCR7) >0:
-        #             for ipc in bre.IPCR7:
-        #                 GraphTechnosAppli .add_edge(appl,ipc)
-        #         elif len(bre.IPCR4) >0:
-        #             for ipc in bre.IPCR4:
-        #                 GraphTechnosAppli .add_edge(appl,ipc) 
-        #         else:
-        #             for ipc in bre.IPCR1:
-        #                 GraphTechnosAppli .add_edge(appl,ipc) 
+        elif len( bre.applicant)>0 and isinstance( bre .applicant, list):
+            appl= bre.applicant [0].strip()
+            if len(appl)>0 and appl.title() not in Inventeurs and NoPunct(appl).title() not in Inventeurs and appl.lower() != 'empty':
+                GraphBrevets.add_node(appl)
+                GraphBrevets.add_edge(appl, bre .label)
+                GraphApplicant.add_node(appl)
+                GraphTechnosAppli.add_node(appl)
+                GraphAuteursAppli.add_node(appl)
+                if len(joliTecno)>0:
+                    for ipc in joliTecno:
+                        GraphTechnosAppli .add_edge(appl,ipc)
+                elif len(bre.IPCR7) >0:
+                    for ipc in bre.IPCR7:
+                        GraphTechnosAppli .add_edge(appl,ipc)
+                elif len(bre.IPCR4) >0:
+                    for ipc in bre.IPCR4:
+                        GraphTechnosAppli .add_edge(appl,ipc) 
+                else:
+                    for ipc in bre.IPCR1:
+                        GraphTechnosAppli .add_edge(appl,ipc) 
         else:
             pass
     
@@ -995,6 +1005,21 @@ for ndf in [projectName,  "Families"+ projectName]:
     nx.set_node_attributes(GraphAuteursAppli,Autnode_sizes, 'size')
     
     
+    # nx.set_node_attributes(GraphFull, dicoAttrs) # IPC graphs
+    # nx.set_node_attributes(GraphFull, dicoAttrsTechno) # IPC graphs
+    # nx.set_node_attributes(GraphFull, dicoAttrsTechno)
+    # nx.set_node_attributes(GraphFull, dicoAttrsAppli)
+    # nx.set_node_attributes(GraphFull, dicoAttrsTechno)
+    # nx.set_node_attributes(GraphFull, dicoAttrsAut)
+    # nx.set_node_attributes(GraphFull,dicoAttrs)
+    # nx.set_node_attributes(GraphFull,dicoAttrsAppli)
+    # nx.set_node_attributes(GraphFull,dicoAttrsAppli)
+    # nx.set_node_attributes(GraphFull,dicoAttrsAut)
+    # nx.set_node_attributes(GraphFull,dicoAttrsAut)
+    # nx.set_node_attributes(GraphFull,dicoAttrsAppli)
+    # nx.set_node_attributes(GraphFull,Applicantnode_sizes, 'size')
+    # nx.set_node_attributes(GraphFull,Autnode_sizes, 'size')
+    
     # nx.write_gexf(GraphAuteurs, ResultGephiPath+"/"+ndf+"_Inventors.gexf") # GraphAuteurs
     # nx.write_gexf(GraphApplicant, ResultGephiPath+"/"+ndf+"_Applicant.gexf") # 
     # nx.write_gexf(GraphBrevets, ResultGephiPath+"/"+ndf+"-GraphBrevets.gexf")
@@ -1016,7 +1041,9 @@ for ndf in [projectName,  "Families"+ projectName]:
               (GraphBrevetsCitations, "_Citations"),
               (GraphTechnos,  "_CrossTech"),
               (GraphTechnosAppli, "_Applicants_CrossTech"),
-              (GraphTechnosAuthor, "_Inventors_CrossTech")  ]:
+              (GraphTechnosAuthor, "_Inventors_CrossTech"),
+           #   (GraphFull, "_Full")  
+              ]:
         if len(G) == 0:
             continue
         # Maxdegs = max([G.degree[node] for node in G.nodes()])
