@@ -676,29 +676,43 @@ for ndf in [projectName,  "Families"+ projectName]:
     
     
         GraphBrevets.add_node(bre .label)
-        GraphBrevetsCitations.add_node(bre .label)
-        GraphBrevetsReferences.add_node(bre .label)
-        GraphBrevetsEquivalents.add_node(bre .label)
+        # followind are added if citation or ref or equivalents exists for curent node
+        # GraphBrevetsReferences.add_node(bre .label)
+        # GraphBrevetsEquivalents.add_node(bre .label)
         GraphTechnos .add_node(bre .label)
+        count =0
         for lab in bre.CitedBy:
+            
             if len(lab)>0 and bool(lab.strip()):
+                if count == 0:
+                    GraphBrevetsCitations.add_node(bre .label)
+                    count +=1
                 GraphBrevetsCitations.add_node(lab)
                 GraphBrevetsCitations.add_edge(lab, bre.label)
         
-                
+        count =0        
         for lab in bre.CitP:
-            if len(lab)>0 and bool(lab.strip()):
             
+            if len(lab)>0 and bool(lab.strip()):
+                if count == 0:
+                    GraphBrevetsReferences.add_node(bre .label)
+                    count +=1
                 GraphBrevetsReferences.add_node(lab)
                 GraphBrevetsReferences.add_edge(bre.label, lab)
+
         for lab in bre.CitO:
             if len(lab)>0 and bool(lab.strip()):
-            
+                if count == 0:
+                    GraphBrevetsReferences.add_node(bre .label)
+                    count +=1
                 GraphBrevetsReferences.add_node(lab)
                 GraphBrevetsReferences.add_edge(bre.label, lab)
+        count =0
         for lab in bre.equivalents :
             if len(lab)>0 and bool(lab.strip()):
-            
+                if count == 0:
+                    GraphBrevetsEquivalents.add_node(bre .label)
+                    count +=1
                 GraphBrevetsEquivalents.add_node(lab)
                 GraphBrevetsEquivalents.add_edge(bre.label, lab)
         joliTecno = list(set([ipc.replace('/', '-') for ipc in bre.IPCR11]))
