@@ -536,7 +536,8 @@ for ndf in [projectName,  "Families"+ projectName]:
     IPCForce = []
     for appl in set(Applicants):
         Techno [appl] = list(filter(lambda x: x !='', Techno [appl]))
-        dicoAttrsAppli [appl] = {"category" : dicoAttrsAppli [appl]["category"] ,
+        if len(appl) >0:
+            dicoAttrsAppli [appl] = {"category" : 'Applicant',
                             'Famille': dicoAttrsAppli [appl]['Famille'],
                             'IPC11-range': dicoAttrsAppli [appl]['IPC11-range'],
                             'IPC7-range': dicoAttrsAppli [appl]['IPC7-range'],
@@ -934,7 +935,7 @@ for ndf in [projectName,  "Families"+ projectName]:
                     aut= aut.upper()
                     coAut= coAut.upper()
                     GraphAuteursAppli.add_edge(aut, coAut, label = 'ApplicantCollaboration')
-                    GraphApplicant.add_edge(aut, coAut)
+                    GraphApplicant.add_edge(aut, coAut, label = 'ApplicantCollaboration')
             #chaining authors
             for appl in bre.applicant:
                 if bool(appl.strip()):            
@@ -1148,22 +1149,22 @@ for ndf in [projectName,  "Families"+ projectName]:
                 G.nodes[k]['url'] =UrlPatent(k)[0]
             elif G.nodes[k]['category'] == 'Applicant':
                 #G.node[k]['category'] = 'Applicant'# for readable facility
-                if 'type' in G.nodes[k].keys():
-                    if  G.nodes[k]['type'] == "Public":
+                # if 'type' in G.nodes[k].keys():
+                #     if  G.nodes[k]['type'] == "Public":
                         
-                        Visu['color']['a'] = 1
-                        Visu['color']['r']= int(254)
-                        Visu['color']['g']= int(60)
-                        Visu['color']['b']= int(60)
-                        Visu['shape'] ="star"
-                    if  G.nodes[k]['type'] == "Private":
+                #         Visu['color']['a'] = 1
+                #         Visu['color']['r']= int(254)
+                #         Visu['color']['g']= int(60)
+                #         Visu['color']['b']= int(60)
+                #         Visu['shape'] ="star"
+                #     if  G.nodes[k]['type'] == "Private":
                         
-                        Visu['color']['a'] = 1
-                        Visu['color']['r']= int(60)
-                        Visu['color']['g']= int(60)
-                        Visu['color']['b']= int(254)
-                        Visu['shape'] ="star"   
-                else:
+                #         Visu['color']['a'] = 1
+                #         Visu['color']['r']= int(60)
+                #         Visu['color']['g']= int(60)
+                #         Visu['color']['b']= int(254)
+                #         Visu['shape'] ="star"   
+                # else:
                     G.nodes[k]['url'] = UrlApplicantBuild(k)[0]
                     Visu['color']['a'] = 1
                     Visu['color']['r']= int(127)
