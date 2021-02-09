@@ -221,8 +221,11 @@ print("Checking and/or gathering bibliographic data")
 if GatherBiblio:
     for brevet in lstBrevets:
         # nameOfPatent for file system save (abstract, claims...)
-        ndb = brevet['document-id']['country']['$'] + brevet['document-id']['doc-number']['$']
-        listeLabel.append(ndb)
+        if 'country' in brevet['document-id'].keys():
+            ndb = brevet['document-id']['country']['$'] + brevet['document-id']['doc-number']['$']
+            listeLabel.append(ndb)
+        else:
+            pass
 
 AnnonceLog(Appli = 'p2n_gather_biblio', texte= "Found almost" + str(len(lstBrevets)) + " patents. Saving list")
 AnnonceLog(Appli = 'p2n_gather_biblio', texte="Within " + str(len(set(listeLabel))) + " unique patents")
