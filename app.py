@@ -70,7 +70,6 @@ def AnnonceProgres(Appli, valActu, valMax):
             pass
     else:
         pass # must be a error
-#☻    print ('annnonce envoyée: ', pipo)
 
 def AnnonceLog(Appli, texte):
 
