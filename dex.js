@@ -1,4 +1,4 @@
-document.write('\
+document.write('\ 
 <ul>\
 </ul>\
 ');
