@@ -3,6 +3,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 .idea
+*.py.bak
 
 #Special P2N
 Cles-epo.txt

@@ -8,6 +8,8 @@
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
 
 
 <!-- Force Html Page refresh -->
@@ -205,6 +207,82 @@
 
 	<!--End Main Container-->
 	</div>
-		<div class="flex flex-col mt-12 mb-12  p-8 "></div>
+	<div class=" flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow ">
+		<h3 class="mb-2">Requetes en cours</h3>
+    	<hr class="mb-4">
+		<div id="request"></div>
+		<div class="ProgressElement">
+			<div class="ProgressElement__infos">
+				
+			</div>
+			<div class="relative pt-1">
+				<div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-orange-200">
+				  <div style="width:30%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-orange-500"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+	<script src="/js/Request.js"></script>
+
+	<script>
+
+		console.log("Opening the SSE connection")
+		var source = new EventSource("/listen");
+		source.onmessage = function(event) {
+			sent_data = JSON.parse(event.data)
+			console.log(sent_data)
+			var done = true
+			var somme = 0
+			for (i in sent_data) {
+				console.log(i, sent_data[i])
+				
+				if (sent_data[i].includes("LOG")) {
+					qi = "#progLog_"+i
+						const newElement = document.createElement("li");
+						const eventList = document.getElementById("info_"+i);
+						console.log(i)
+						newElement.innerHTML = sent_data[i].replace("LOG", ":") 
+						eventList.appendChild(newElement);
+						var done = false;
+				}
+				else {
+				// data received is in the form : {'appli1':value}
+					somme = somme + sent_data[i]
+					qi = "#prog_"+i
+					if (sent_data [i]>90) {
+						$(qi).css({background:'green'});
+					}	
+					if (sent_data [i]>99) {
+						$(qi).css({background:'green'});
+						$(qi).css('width', '100%').attr('aria-valuenow', 100);
+						$(qi).finish().animate(
+							{
+								width:'100%'
+							},
+							{}
+						)}
+					else
+						{
+							$(qi).css('width', sent_data[i]+'%').attr('aria-valuenow', sent_data[i]);
+						}
+		
+					lqi = qi+"_label"
+					$(lqi).text(sent_data[i]+'%');
+					if (somme < 999)
+					done = false
+			}
+			
+			if(done){
+				console.log("Closing the SSE connection")
+				source.close()
+			}
+		}
+	}		
+	</script>
+
 </body>
 </html>

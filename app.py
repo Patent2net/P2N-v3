@@ -6,7 +6,7 @@ Created on Mon Jun 15 13:58:37 2020
 """
 import os
 #import glob
-from flask import Flask, render_template, request, send_file, Response
+from flask import Flask, render_template, request, send_file, Response, send_from_directory
 from flask_cors import CORS
 
 #import time
@@ -18,10 +18,12 @@ import queue
 #from urllib import parse
 import requests
 
+from Patent2Net.app.process_list import processList
+
 # static_folder call the emplacement of all the content who will work with the HTML. template_folder the emplacement of the HTML. \
 #    In theory they don't have to be at Root.
 
-app = Flask(__name__, static_url_path='', static_folder='.', template_folder='.') 
+app = Flask(__name__, static_url_path='', static_folder='./Patent2Net/static/', template_folder='./Patent2Net/templates_flask') 
 
 CORS(app)
 
@@ -39,44 +41,9 @@ app_cfg = Config
 
 import logging
 from logging.handlers import RotatingFileHandler
-
-
-class MessageAnnouncer:
-
-    def __init__(self):
-        self.listeners = []
-
-    def listen(self):
-        self.listeners.append(queue.Queue(maxsize=5))
-        return self.listeners[-1]
-
-    def announce(self, msg):
-        # We go in reverse order because we might have to delete an element, which will shift the
-        # indices backward
-        for i in reversed(range(len(self.listeners))):
-            try:
-                self.listeners[i].put_nowait(msg)
-            except queue.Full:
-                del self.listeners[i]
-
+from Patent2Net.app.message_announcer import MessageAnnouncer
 
 announcer = MessageAnnouncer()
-def AnnonceProgres(Appli, valActu, valMax):
-    if valActu and valMax:
-        valActu = "%.2f" % valActu 
-        try:
-            requests.get('http://localhost:5000/announce?appli=%s&ValActu=%s&valMax=%s' %(Appli, valActu, valMax) )
-        except:
-            pass
-    else:
-        pass # must be a error
-
-def AnnonceLog(Appli, texte):
-
-    try:
-        requests.get('http://localhost:5000/announce?appli=%s&log=%s' %(Appli+'Log', texte) )
-    except:
-        pass
 
 def format_sse(data: str, event=None) -> str:
     """Formats a string and an event name in order to follow the event stream convention.
@@ -150,7 +117,7 @@ labels = { 'p2n_req' : "Gathering patent list",
 @app.route('/home' , methods=['GET','POST'])
 @app.route('/' , methods=['GET','POST'])
 def home():
-    return render_template("Patent2Net/templates/Request_Form/P2N.html" , num_bars = 1)
+    return render_template("P2N.html" , num_bars = 1)
 
 
 
@@ -162,7 +129,7 @@ def progress():
         form_result =  request.args
         AppLab = [lab for lab in lstAppl if lab not in ['p2n_dir', 'cql-files', 'p2n_indexer'] and  form_result [lab]]
         app_cfg.num_bars = len(AppLab)
-        return render_template('Patent2Net/templates/Request_Form/progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
+        return render_template('progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
 #    return render_template("Patent2Net/templates/Request_Form/Progress.html" , num_bars = 1)
 
@@ -173,24 +140,20 @@ def progress():
 @app.route('/form' , methods=['GET','POST'])
 def form():
     #open the page P2N.html as default page
-    return render_template("Patent2Net/templates/Request_Form/Request.html", num_bars = 1, label =[''])
+    return render_template("Request.html", num_bars = 1, label =[''])
 
 
 #Single Request form confirmation route
 @app.route('/confirmation', methods=['GET'])
 def confirmation():
-    # print (request.url)
-    form_result =  request.args#dict(parse.parse_qsl(parse.urlsplit(request).query))
+    form_result =  request.args
 
-  # ['p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content','p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster', ]
+    # ['p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content','p2n_image','p2n_network','p2n_tables','p2n_carrot','p2n_iramuteq','p2n_cluster', ]
 
-  
     AppLab = [labels [lab] for lab in lstAppl if lab not in ['p2n_dir', 'cql-files', 'p2n_indexer'] and  form_result [lab]]
     
-
-    
     app_cfg.num_bars = len(AppLab) - len([truc for truc in labels.keys() if truc not in ['p2n_dir', 'cql-files', 'p2n_indexer'] and not form_result [truc]] )
-    return render_template('Patent2Net/templates/Request_Form/Progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
+    return render_template('Progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
 @app.route('/confirmation', methods=['POST'])    
 def CqlCreator():
@@ -207,19 +170,19 @@ def CqlCreator():
     #read the values given in the form and replace the corresponding string in the output
     for name in f_in:
     	f_out.write(name.replace('RequestName', form_result['p2n_req'] ) \
-                 .replace('RequestDirectory', form_result['p2n_dir']) \
-                 .replace('RequestFamily', form_result['p2n_family']) \
-                     .replace('RequestImage',form_result['p2n_image']) \
-                    .replace('RequestNetwork',form_result['p2n_network']) \
-                    .replace('RequestFreeplane',form_result['p2n_freeplane']) \
-                    .replace('RequestBibfile',form_result['p2n_bibfile']) \
-                    .replace('RequestMap',form_result['p2n_map']) \
-                    .replace('RequestTable',form_result['p2n_tables']) \
-                    .replace('RequestCarrot',form_result['p2n_carrot']) \
-                    .replace('RequestIramuteq',form_result['p2n_iramuteq'])\
-                    .replace('RequestCluster',form_result['p2n_cluster'])\
-                    )
-           
+                .replace('RequestDirectory', form_result['p2n_dir']) \
+                .replace('RequestFamily', form_result['p2n_family']) \
+                .replace('RequestImage',form_result['p2n_image']) \
+                .replace('RequestNetwork',form_result['p2n_network']) \
+                .replace('RequestFreeplane',form_result['p2n_freeplane']) \
+                .replace('RequestBibfile',form_result['p2n_bibfile']) \
+                .replace('RequestMap',form_result['p2n_map']) \
+                .replace('RequestTable',form_result['p2n_tables']) \
+                .replace('RequestCarrot',form_result['p2n_carrot']) \
+                .replace('RequestIramuteq',form_result['p2n_iramuteq'])\
+                .replace('RequestCluster',form_result['p2n_cluster'])\
+                )
+        
     # if form_result['p2n_iramuteq'] or form_result['p2n_cluster'] or form_result['p2n_carrot']:
     #     form_result['p2n_content'] = True
     #     form_result['p2n_gather_biblio'] = True
@@ -249,7 +212,7 @@ def CqlCreator():
     AppLab = [lab for lab in lstAppl if lab not in ['p2n_dir', 'p2n_filtering', 'p2n_indexer'] and form_result [lab]]
         
     app_cfg.num_bars = len(AppLab) - len([truc for truc in AppLab if  truc not in ['p2n_dir', 'cql-files', 'p2n_indexer'] and not form_result [truc]] )
-    return render_template('Patent2Net/templates/Request_Form/Request.html', num_bars = app_cfg.num_bars, label = AppLab)
+    return render_template('Request.html', num_bars = app_cfg.num_bars, label = AppLab)
 
 # @app.route('/progressBar' , methods=['GET','POST'])
 
@@ -308,7 +271,7 @@ def listen():
 
 @app.route('/get_started', methods=['GET','POST'])
 def started():
-    return render_template("Patent2Net/templates/Request_Form/Get_Started.html")
+    return render_template("Get_Started.html")
 
 
 # Get started page form interaction
@@ -322,7 +285,7 @@ def EpoCreator():
     W_epo.write(epo_result['p2n_epo'])
     W_epo.close()
     
-    return render_template("Patent2Net/templates/Request_Form/Get_Started.html")
+    return render_template("Get_Started.html")
 
 
 
@@ -373,7 +336,7 @@ def gitupdater():
     # os.system("python setup.py install")
     os.chdir("/home/p2n/P2N-V3/")
     os.system("./update.sh")
-    return render_template("Patent2Net/templates/Request_Form/P2N.html" ,variable_vers= version)
+    return render_template("P2N.html" ,variable_vers= version)
 
 
 # @app.route('/mass', methods=['GET','POST'])
@@ -388,63 +351,26 @@ def gitupdater():
 def cqlList(): 
     if request.method == 'GET':
         app_cfg.num_bars = 12
-        return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
+        return render_template('Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
     if request.method == 'POST':
-
-        processList()
-
+        processList(app_cfg, AnnonceProgres)
         return "done"
 
-    return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
-def processList():  
-  #  import sys
-    # try:
-    #     sys.path.index('/home/p2n/P2N-V3/') # Or os.getcwd() for this directory
-    # except ValueError:
-    #     sys.path.append('/home/p2n/P2N-V3/')
-    app_cfg.num_bars = 12
-    os.chdir("/home/p2n/P2N-V3/")
-    cpt = 0
-    lstReq = [fi for fi in os.listdir("./RequestsAuto") if fi.endswith(".cql")]
-    os.chdir("/home/p2n/P2N-V3/Patent2Net")
-    # try:
-    #     sys.path.index('/home/p2n/P2N-V3/Patent2Net/') # Or os.getcwd() for this directory
-    # except ValueError:
-    #     sys.path.append('/home/p2n/P2N-V3/Patent2Net/')
-   
-    
-    lstScripts1 = ["OPSGatherPatentsv2.py", "PatentListFiltering.py", "OPSGatherAugment-Families.py", "PatentListFiltering.py", "preProcessNormalisationNames.py",
-                   "OPSGatherContentsV2-Iramuteq.py", "OPSGatherContentsV2-Images.py"]
-    
-                   
-                          
-    lstScripts2 = ["FormateExportCountryCartography.py", "FormateExportAttractivityCartography.py",
-                          "FormateExportBiblio.py", "FormateExportDataTableFamilies.py", "FormateExportDataTable.py",
-                          "FormateExportPivotTable.py", "P2N-Nets-new.py", "P2N-FreePlane.py"] 
-    lstScripts3 = [ "FusionIramuteq2.py", "FusionCarrot2.py", "FusionImages.py",
-                           "P2N-Indexer.py", 
-                          "IPC-WS-metrics.py", "ClusterPreProcess.py", "P2N-Cluster.py", "Interface2.py"]
-    for file in lstReq:
-
-            cpt +=1
-            AnnonceProgres (Appli = 'cql-files', valMax = 100, valActu = cpt*100/len(lstReq))
-            for cmd in lstScripts1:
-                command="python " + cmd + " ../RequestsAuto/%s"%(file)               
-                
-                test = os.system(command)
-            for cmd in lstScripts2:
-                command="python " + cmd + " ../RequestsAuto/%s"%(file)               
-                #♥ can be launched in parallel
-                os.system(command)
-            for cmd in lstScripts3:
-                command="python " + cmd + " ../RequestsAuto/%s"%(file)               
-                
-                os.system(command)
-                
-    return render_template('Patent2Net/templates/Request_Form/Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
+    return render_template('Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
 
+@app.route('/DATA/<path:filename>')
+def data_static(filename):
+    return send_from_directory("DATA", filename)
+
+@app.route('/Patent2Net/media/<path:filename>')
+def media_static(filename):
+    return send_from_directory("Patent2Net/media", filename)
+
+@app.route('/dex.js')
+def dex():
+    return send_file("dex.js")
 
 
 #Authorize the app to be accessed in a different environment (localhost in our case)
