@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <title>Request App</title>
+
+    <link href="https://unpkg.com/tailwindcss@^1.4.6/dist/tailwind.min.css" rel="stylesheet">
+  </head>
+  <body class="w-max">
+    <nav class="bg-orange-600 p-2 mt-0 fixed w-full z-10 top-0">
+      <div class="container mx-auto flex flex-wrap items-center">
+        <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
+          <a class="text-white no-underline hover:text-white hover:no-underline" href="#">
+            <span class="text-2xl pl-2"> Patent2Net</span>
+          </a>
+        </div>
+        <div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
+          <ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+            <li class="mr-3">
+              <a href="/"  class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4">Home</a>
+            </li>
+            
+            <li class="mr-3">
+              <a  href="/get_started" class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4">Get Started</a>
+            </li>
+            
+            <li class="mr-3">
+              <a href="/form"  class="inline-block py-2 px-4 text-white no-underline font-medium">Requests</a>
+            </li>
+            
+            <li class="mr-3">
+              <a href="/index"  class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4" target="_blank">Index</a>
+            </li>
+            
+            <li class="mr-3">
+              <a href="/downloadDat" class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4">Download Data</a>
+            </li>
+            <li class="mr-3">
+              <a href="/doc/_build/html/index.html" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Documentation</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root" class="w-max"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+</html>

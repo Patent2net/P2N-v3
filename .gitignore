@@ -8,11 +8,12 @@ __pycache__/
 #Special P2N
 Cles-epo.txt
 cles-epo.txt
-dex.js
 DATA/
 DATA-OLD/*
 REQUESTS/*
 dex.js
+dex.txt
+dex.json
 LogInstallP2N.txt
 LogInstallP2N.txt
 RequestsSets/*

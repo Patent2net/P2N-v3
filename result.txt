@@ -1,14 +1,3 @@
+p2n_dir:lentille151
 p2n_req:TA=lentille
-p2n_dir:lentille3
-p2n_family:True
-p2n_content:True
-p2n_gather_biblio:True
-p2n_image:True
-p2n_network:True
-p2n_freeplane:True
-p2n_bibfile:True
-p2n_map:True
-p2n_tables:True
-p2n_carrot:True
-p2n_iramuteq:True
-p2n_cluster:True
+p2n_options:p2n_family,p2n_image,p2n_bibfile

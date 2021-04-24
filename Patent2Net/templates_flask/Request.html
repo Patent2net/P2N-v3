@@ -31,16 +31,16 @@
     </style>
 </head>
 
-<body class="bg-orange-100 flex  justify-between">
+<body class="bg-orange-100 flex justify-between">
 
 	<!--Nav-->
 	<nav class="bg-orange-600 p-2 mt-0 fixed w-full z-10 top-0">
-        <div class="container mx-auto flex flex-wrap items-center">
-		    <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
+		<div class="container mx-auto flex flex-wrap items-center">
+			<div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
 				<a class="text-white no-underline hover:text-white hover:no-underline" href="#">
 					<span class="text-2xl pl-2"> Patent2Net</span>
 				</a>
-            </div>
+			</div>
 			<div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
 				<ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
 					<li class="mr-3">
@@ -67,8 +67,8 @@
 					</li>
 				</ul>
 			</div>
-        </div>
-    </nav>
+		</div>
+	</nav>
 
 
 
@@ -184,22 +184,22 @@
 				</div>
 			</form>
 			<form action="/confirmation" method="get">
-			 <input type="hidden" name="p2n_req" value=True /> 
-			  <input type="hidden" name="p2n_filtering" value=True /> 
-			 <input type="hidden" name="p2n_gather_biblio" value=True /> 
-			 <input type="hidden" name="p2n_content" value=True /> 
-			 <input type="hidden" name="p2n_family" value=True /> 
-			 <input type="hidden" name="p2n_image" value=True /> 
-			  <input type="hidden" name="p2n_network" value=True /> 
-			  <input type="hidden" name="p2n_tables" value=True /> 
-			   <input type="hidden" name="p2n_carrot" value=True />
-			   <input type="hidden" name="p2n_iramuteq" value=True /> 
-			   <input type="hidden" name="p2n_cluster" value=True /> 
-			  <input type="hidden" name="p2n_map" value=document.getElementById("p2n_mapBtn").value /> 
-              <input type="hidden" name="p2n_req" value=document.getElementById("p2n_reqBtn").value /> 
-              <input type="hidden" name="p2n_family" value=document.getElementById("p2n_familyBtn").value /> 
+				<input type="hidden" name="p2n_req" value=True /> 
+				<input type="hidden" name="p2n_filtering" value=True /> 
+				<input type="hidden" name="p2n_gather_biblio" value=True /> 
+				<input type="hidden" name="p2n_content" value=True /> 
+				<input type="hidden" name="p2n_family" value=True /> 
+				<input type="hidden" name="p2n_image" value=True /> 
+				<input type="hidden" name="p2n_network" value=True /> 
+				<input type="hidden" name="p2n_tables" value=True /> 
+				<input type="hidden" name="p2n_carrot" value=True />
+				<input type="hidden" name="p2n_iramuteq" value=True /> 
+				<input type="hidden" name="p2n_cluster" value=True /> 
+				<input type="hidden" name="p2n_map" value=document.getElementById("p2n_mapBtn").value /> 
+				<input type="hidden" name="p2n_req" value=document.getElementById("p2n_reqBtn").value /> 
+				<input type="hidden" name="p2n_family" value=document.getElementById("p2n_familyBtn").value /> 
 
-			<input class="bg-blue-600 hover:bg-blue-700 cursor-pointer px-2 py-1 text-white rounded mt-4" type="submit" value="See progress" id="pacing"/>
+				<input class="bg-blue-600 hover:bg-blue-700 cursor-pointer px-2 py-1 text-white rounded mt-4" type="submit" value="See progress" id="pacing"/>
 
 			</form>
 			
@@ -226,7 +226,7 @@
     <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
     <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
 
-	<script src="/js/Request.js"></script>
+	<script src="/js/react/Request/index.js"></script>
 
 	<script>
 

@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>P2N : Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://unpkg.com/tailwindcss@^1.4.6/dist/tailwind.min.css" rel="stylesheet">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+	<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+
+<!-- Force Html Page refresh -->
+  <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
+  <meta http-equiv="cache-control" content="max-age=0" />
+  <meta http-equiv="expires" content="0" />
+  <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+  <meta http-equiv="pragma" content="no-cache" />
+
+    <style>
+        .container2 {
+            width: 612px;
+        }
+        @media screen and (max-width:800px) {
+          .container {
+            width: calc(100% - 128px);
+          }
+        }
+    </style>
+</head>
+
+<body class="bg-orange-100 flex items-center justify-center">
+
+	<!--Nav-->
+	<nav class="bg-orange-600 p-2 mt-0 fixed w-full z-10 top-0">
+        <div class="container mx-auto flex flex-wrap items-center">
+		    <div class="flex w-full md:w-1/2 justify-center md:justify-start text-white font-extrabold">
+				<a class="text-white no-underline hover:text-white hover:no-underline" href="#">
+					<span class="text-2xl pl-2"> Patent2Net</span>
+				</a>
+            </div>
+			<div class="flex w-full pt-2 content-center justify-between md:w-1/2 md:justify-end">
+				<ul class="list-reset flex justify-between flex-1 md:flex-none items-center">
+					<li class="mr-3">
+						<a href="/"  class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4">Home</a>
+					</li>
+					
+					<li class="mr-3">
+						<a  href="/get_started" class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4">Get Started</a>
+					</li>
+					
+					<li class="mr-3">
+						<a href="/form"  class="inline-block py-2 px-4 text-white no-underline font-medium">Requests</a>
+					</li>
+					
+					<li class="mr-3">
+						<a href="/index"  class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4" target="_blank">Index</a>
+					</li>
+					
+					<li class="mr-3">
+						<a href="/downloadDat" class="inline-block text-orange-200 no-underline hover:text-white hover:underline py-2 px-4">Download Data</a>
+					</li>
+					<li class="mr-3">
+						<a href="/doc/_build/html/index.html" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Documentation</a>
+					</li>
+				</ul>
+			</div>
+        </div>
+    </nav>
+    
+
+	<div class="flex flex-col mt-24 mb-12 bg-white p-8 rounded shadow container2">
+		{% for key, value in progress_directory.items() %}
+			<div>
+				<div class="ProgressElement">
+					<div class="ProgressElement__infos">
+						<p>{{ key }}</p>
+						<p>{{ value.value }} / {{ value.max_value }}</p>
+					</div>
+					<div class="relative pt-1">
+						<div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-orange-200">
+						  <div style="width:30%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-orange-500"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+
+	<script src="/js/react/Request_Show/index.js"></script>
+		
+	<script>
+
+		console.log("Opening the SSE connection")
+		var source = new EventSource("/listen");
+		source.onmessage = function(event) {
+			sent_data = JSON.parse(event.data)
+			console.log(sent_data)
+			var done = true
+			var somme = 0
+			for (i in sent_data) {
+				console.log(i, sent_data[i])
+				
+				if (sent_data[i].includes("LOG")) {
+					qi = "#progLog_"+i
+						const newElement = document.createElement("li");
+						const eventList = document.getElementById("info_"+i);
+						console.log(i)
+						newElement.innerHTML = sent_data[i].replace("LOG", ":") 
+						eventList.appendChild(newElement);
+						var done = false;
+				}
+				else {
+				// data received is in the form : {'appli1':value}
+					somme = somme + sent_data[i]
+					qi = "#prog_"+i
+					if (sent_data [i]>90) {
+						$(qi).css({background:'green'});
+					}	
+					if (sent_data [i]>99) {
+						$(qi).css({background:'green'});
+						$(qi).css('width', '100%').attr('aria-valuenow', 100);
+						$(qi).finish().animate(
+							{
+								width:'100%'
+							},
+							{}
+						)}
+					else
+						{
+							$(qi).css('width', sent_data[i]+'%').attr('aria-valuenow', sent_data[i]);
+						}
+		
+					lqi = qi+"_label"
+					$(lqi).text(sent_data[i]+'%');
+					if (somme < 999)
+					done = false
+			}
+			
+			if(done){
+				console.log("Closing the SSE connection")
+				source.close()
+			}
+		}
+	}		
+	</script>
+
+</body>
+</html>

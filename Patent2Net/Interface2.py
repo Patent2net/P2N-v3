@@ -7,6 +7,7 @@ Created on Sun Feb 15 09:12:25 2015
 
 from Patent2Net.P2N_Lib import LoadBiblioFile, RenderTemplate
 from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.app.dex import done_progress
 import codecs
 import os
 import pickle
@@ -174,3 +175,5 @@ with open('../dex.js', 'w') as ficRes:
     ficRes.write(" </ul>\ ".strip())
     ficRes.write("\n")
     ficRes.write("');")
+
+done_progress(ndf) # Done request with new dex systeme
