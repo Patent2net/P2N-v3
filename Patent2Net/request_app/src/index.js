@@ -1,12 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import Requests from './pages/Requests';
+import Request from './pages/Request';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+        {/* A <Switch> looks through its children <Route>s and
+            renders the first one that matches the current URL. */}
+        <Switch>
+          <Route path="/requests/:dir">
+            <Request />
+          </Route>
+          <Route path="/requests">
+            <Requests />
+          </Route>
+        </Switch>
+
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

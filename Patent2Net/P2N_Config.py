@@ -3,10 +3,11 @@ import sys
 
 
 class P2NConfig:
-    def __init__(self):
+    def __init__(self, file):
 
         # Global path for results
         self.GlobalPath = '..//DATA'
+        self.file = file
 
         # Initiate all empty attributes
         self.requete = ""
@@ -106,6 +107,11 @@ class P2NConfig:
             for arg in sys.argv:
                 if ".cql" in arg.lower():
                     return open(arg, "r").readlines()
+        if self.file != None:
+            if ".cql" in self.file.lower():
+                file_path = os.path.dirname(os.path.realpath(__file__)) + '/../RequestsSets/' + self.file
+                return open(file_path, "r").readlines()
+
         return open("..//requete.cql", "r").readlines()
 
     def generatePaths(self):
@@ -145,5 +151,5 @@ class P2NConfig:
             return False
 
 
-def LoadConfig():
-    return P2NConfig()
+def LoadConfig(file = None):
+    return P2NConfig(file)

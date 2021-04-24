@@ -20,6 +20,7 @@ import requests
 
 from Patent2Net.app.process_list import processList
 from Patent2Net.app.dex import get_current_dex, read_dex, done_progress, start_progress, set_progress_key
+from Patent2Net.P2N_Config import LoadConfig
 from subprocess import Popen
 
 # static_folder call the emplacement of all the content who will work with the HTML. template_folder the emplacement of the HTML. \
@@ -270,7 +271,7 @@ def post_request():
     #Pleaceholder file who give the model of the file
     f_in = open("placeholder.cql", "rt")
     
-    #create an output file with the name requested in the form by the user
+    # #create an output file with the name requested in the form by the user
     f_out = open("./RequestsSets/%s.cql" %form_result['p2n_dir'] ,"wt")
 
     def get_option_value(name):
@@ -324,8 +325,24 @@ def post_request():
 @app.route('/api/v1/requests/<p2n_dir>', methods=['GET'])
 def get_one_request(p2n_dir):
     dex = get_current_dex()
+
+    configFile = LoadConfig(p2n_dir + ".cql")
+
     if p2n_dir in dex["progress"]:
-        return json.dumps(dex["progress"][p2n_dir])
+        return get_success_response("", {
+            "progress": dex["progress"][p2n_dir],
+            "directory": p2n_dir,
+            "cql": {
+                "requete": configFile.requete,
+                "ndf": configFile.ndf,
+                "options": {
+                    "GatherContent": configFile.GatherContent,
+                    "GatherBiblio": configFile.GatherBiblio,
+                    "GatherPatent": configFile.GatherPatent,
+                    "GatherFamilly": configFile.GatherFamilly
+                }
+            }
+        })
     else:
         return get_error_response("This directory does't exist")
 
@@ -364,10 +381,21 @@ def annonce():
         Appli = lstAppl.index(appli)
         ValActu = request.args.get("ValActu")
         valMax = request.args.get("valMax")
+
+
+        dex = get_current_dex()
+        for element in dex["in_progress"]:
+            set_progress_key(element, appli, ValActu, valMax)
     
     #msg = format_sse(data=json.dumps({"0":ValActu, "1":valMax}), event =Appli )
         dico = dict()
         dico[Appli] = ValActu
+        dico["data"] = {}
+        dico["data"][appli] = {
+            "value": ValActu,
+            "max_value": valMax
+        }
+
         msg="data:" + json.dumps(dico) + "\n\n"
     else:
         Appli =  lstAppl.index(appli.replace('Log', ''))#.replace('Log', '')
