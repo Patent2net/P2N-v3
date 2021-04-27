@@ -145,7 +145,9 @@ RenderTemplate(
     dataDir=ndf.replace('"', '').lower(),
     request = requete
 )
-        
+
+done_progress(ndf) # Done request with new dex systeme
+
 print ('updating js file')
 # updating index.js for server side and local menu
 inFile = []  # memorize content
@@ -175,5 +177,3 @@ with open('../dex.js', 'w') as ficRes:
     ficRes.write(" </ul>\ ".strip())
     ficRes.write("\n")
     ficRes.write("');")
-
-done_progress(ndf) # Done request with new dex systeme

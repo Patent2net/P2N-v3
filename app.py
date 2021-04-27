@@ -356,16 +356,21 @@ def get_success_response(message, data):
     return json.dumps(response)
 
 
-# Redirection vers l'app Request
 
-@app.route('/requests', methods=['GET'])
-def request_app():
-    return send_file("Patent2Net/request_app/build/index.html")
 
 @app.route('/requests/static/<path:filename>', methods=['GET'])
 def request_app_static(filename):
     return send_from_directory("Patent2Net/request_app/build/static", filename)
 
+# Redirection vers l'app Request
+
+@app.route('/requests/', methods=['GET'])
+def request_app():
+    return send_file("Patent2Net/request_app/build/index.html")
+
+@app.route('/requests/<path:path>', methods=['GET'])
+def request_app_other(path):
+    return send_file("Patent2Net/request_app/build/index.html")
 
 @app.route('/announce')
 def annonce():
