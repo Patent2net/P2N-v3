@@ -49,7 +49,20 @@ function App() {
 
   const [ request, setRequest ] = React.useState("");
   const [ directory, setDirectory ] = React.useState("");
-  const [ options, setOptions ] = React.useState(["p2n_content", "p2n_gather_biblio"]);
+  const [ options, setOptions ] = React.useState([
+    "p2n_content",
+    "p2n_gather_biblio",
+    "p2n_family",
+    "p2n_image",
+    "p2n_network",
+    "p2n_freeplane",
+    "p2n_bibfile",
+    "p2n_map",
+    "p2n_tables",
+    "p2n_carrot",
+    "p2n_iramuteq",
+    "p2n_cluster",
+  ]);
   const [ requests, setRequests ] = React.useState({});
 
   const history = useHistory();
@@ -99,11 +112,10 @@ function App() {
     <div className="bg-orange-100 flex justify-between">
       <div className=" flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow ">
         <h3 className="mb-2">Previous request(s)</h3>
-        <ul>
-          { requests.done && requests.done.map((name) => (
-            <li>{name}</li>
-          ))}
-        </ul>
+
+        { requests.done && requests.done.map((name) => (
+          <Link to={"/requests/" + name } key={name}>{name}</Link>
+        ))}
       </div>
         
       <div className="flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow ">
@@ -181,11 +193,22 @@ function App() {
         <div className="">
           <div className="relative pt-1">
             { requests.in_progress && requests.in_progress.map((name) => (
-              <Link to={"/requests/" + name}>
+              <Link to={"/requests/" + name} key={name}>
                 <p>{ name }</p>
-                <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-orange-200">
-                  <div style={{"width": "30%"}} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-orange-500"></div>
-                </div>
+                {
+                  requests.global_progress && requests.global_progress[name] && (
+                    <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-orange-200">
+                      <div 
+                        style={{"width": (requests.global_progress[name].done_step_count / requests.global_progress[name].total_step_count * 100) + "%"}} 
+                        className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-orange-500"
+                      ></div>
+                      <div 
+                        style={{"width": (requests.global_progress[name].progress_step_count / requests.global_progress[name].total_step_count * 100) + "%"}} 
+                        className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-orange-300"
+                      ></div>
+                    </div>
+                  )
+                }
               </Link>
             ))}
           </div>
