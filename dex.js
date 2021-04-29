@@ -1,9 +1,9 @@
 document.write('\
 <ul>\
 <li><a href="DATA/oui.html" target="_blank">oui</a></li>\
+<li><a href="DATA/lentille80.html" target="_blank">lentille80</a></li>\
 <li><a href="DATA/non.html" target="_blank">non</a></li>\
 <li><a href="DATA/lentille.html" target="_blank">lentille</a></li>\
-<li><a href="DATA/lentille80.html" target="_blank">lentille80</a></li>\
 <li><a href="DATA/lentilleloading.html" target="_blank">lentilleloading</a></li>\
 <li><a href="DATA/lentillefinal.html" target="_blank">lentillefinal</a></li>\
 <li><a href="DATA/lentilleprogresswork.html" target="_blank">lentilleprogresswork</a></li>\
