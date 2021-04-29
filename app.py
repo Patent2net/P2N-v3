@@ -250,7 +250,8 @@ def get_requests():
         "",
         {
             "done": dex["done"],
-            "in_progress": dex["in_progress"]
+            "in_progress": dex["in_progress"],
+            "global_progress": dex["global_progress"]
         }
     )
 
@@ -328,26 +329,36 @@ def get_one_request(p2n_dir):
 
     configFile = LoadConfig(p2n_dir + ".cql")
 
-    if p2n_dir in dex["progress"]:
-        return get_success_response("", {
-            "progress": dex["progress"][p2n_dir],
-            "directory": p2n_dir,
-            "cql": {
-                "requete": configFile.requete,
-                "ndf": configFile.ndf,
-                "options": {
-                    "GatherContent": configFile.GatherContent,
-                    "GatherBiblio": configFile.GatherBiblio,
-                    "GatherPatent": configFile.GatherPatent,
-                    "GatherFamilly": configFile.GatherFamilly
-                }
+    return get_success_response("", {
+        "done": p2n_dir in dex["done"],
+        "progress": (dex["progress"][p2n_dir] if p2n_dir in dex["progress"] else None),
+        "directory": p2n_dir,
+        "cql": {
+            "requete": configFile.requete,
+            "ndf": configFile.ndf,
+            "options": {
+                "GatherContent": configFile.GatherContent,
+                "GatherBiblio": configFile.GatherBiblio,
+                "GatherPatent": configFile.GatherPatent,
+                "GatherFamilly": configFile.GatherFamilly
             }
-        })
-    else:
-        return get_error_response("This directory does't exist")
+        }
+    })
 
 
+@app.route('/api/v1/requests/<p2n_dir>/interface', methods=['POST'])
+def update_one_request_interface(p2n_dir):
+    print(p2n_dir)
+    os.chdir("/home/p2n/P2N-V3/")
+    os.chdir("/home/p2n/P2N-V3/Patent2Net")
 
+    command="python Interface2.py ../RequestsSets/%s"%(p2n_dir) + ".cql"           
+    os.system(command)
+
+    return get_success_response("OK", {
+        "directory": p2n_dir
+    })
+    
 def get_error_response(message, code = 400):
     return json.dumps({ "code": code, "message": message })
 

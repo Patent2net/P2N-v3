@@ -32,6 +32,7 @@ def write_dex():
 
 def get_current_dex():
     global dex
+    read_dex()
     normalize()
     return dex
 
@@ -43,6 +44,8 @@ def normalize():
         dex["done"] = []
     if "progress" not in dex:
         dex["progress"] = {}
+    if "global_progress" not in dex:
+        dex["global_progress"] = {}
 
     write_dex()
 
@@ -70,8 +73,38 @@ def set_progress_key(directory, key, value, max_value):
 
         progress_directory[key]["value"] = value
         progress_directory[key]["max_value"] = max_value
-        
+
+        update_global_progress(directory)
+
         write_dex()
+
+def update_global_progress(directory):
+    global dex
+    normalize()
+
+    progress = dex["progress"]
+    if directory in progress:
+        progress_directory = progress[directory]
+
+        done_step_count = 0
+        progress_step_count = 0
+        total_step_count = len(progress_directory)
+
+        for step_key in progress_directory:
+            step = progress_directory[step_key]
+            print(step_key, step)
+            if step["value"] != None and step["max_value"] != None:
+                print(step["value"], step["max_value"])
+                if float(step["value"]) >= float(step["max_value"]):
+                    done_step_count += 1
+                else:
+                    progress_step_count += 1
+        
+        dex["global_progress"][directory] = {
+            "done_step_count": done_step_count,
+            "progress_step_count": progress_step_count,
+            "total_step_count": total_step_count
+        }
 
 def done_progress(directory):
     global dex
@@ -88,11 +121,3 @@ def done_progress(directory):
     write_dex()
 
 read_dex()
-
-start_progress("test")
-set_progress_key("test", "prepare", 0, 100)
-
-set_progress_key("test", "get", 20, 100)
-
-
-set_progress_key("test", "final", 70, 100)

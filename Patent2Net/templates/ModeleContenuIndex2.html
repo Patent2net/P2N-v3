@@ -1,0 +1,676 @@
+<html class="" lang="en">
+
+<head>
+    <title>{{ CollectName }}</title>
+    <meta charset="utf-8">
+
+    <script charset="utf-8" src="../../Patent2Net/media/js/d3.js"></script>
+    <script charset="utf-8" src="../../Patent2Net/media/js/topojson.js"></script>
+    <script charset="utf-8" src="../../Patent2Net/media/js/d3plus.js"></script>
+
+    <script charset="utf-8" type="text/javascript" src="../../Patent2Net/media/js/jquery.js"></script>
+
+    <link href="https://unpkg.com/tailwindcss@^1.4.6/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="flex flex-col items-center py-8 bg-gray-100">
+
+    <div class="container">
+
+        <header class="mb-8">
+            <h1 class="text-5xl font-semibold leading-10">{{ CollectName }}</h1>
+            <p class="text-xl">{{ Request }}</p>
+            <p class="italic text-xs">{{ Date }}</p>
+
+            <div class="grid grid-cols-2 gap-4 my-4 text-white">
+                <div class="bg-indigo-600 rounded p-4">
+                    <div class="flex flex-row justify-between">
+                        <p class="text-xl font-bold">Number of patents retrieved</p>
+                        <p class="text-xl font-light">{{ TotalPatents }}</p>
+                    </div>
+                    <div class="grid grid-cols-1 gap-2 my-4 text-black">
+                        {% for obj in TotalsPerType %}
+                        <div class="rounded shadow bg-gray-100 p-2">
+                            <div class="flex flex-row">
+                                <p class="text-sm font-bold mr-2">{{obj.type}}:</p>
+                                <p class="text-sm font-light">
+                                    {% for lang, total in obj.languages.items() %}
+                                        {{lang.upper()}}: {{total}}  &nbsp;
+                                    {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {% if TotalFamily %}
+                    <div class="bg-indigo-600 rounded p-4">
+                        <div class="flex flex-row justify-between">
+                            <p class="text-xl font-bold">Number of family patents retrieved</p>
+                            <p class="text-xl font-light">{{ TotalFamily }}</p>
+                        </div>
+                        <div class="grid grid-cols-1 gap-2 my-4 text-black">
+                            {% for obj in TotalsPerFamilyType %}
+                                <div class="rounded shadow bg-gray-100 p-2">
+                                    <div class="flex flex-row">
+                                        <p class="text-sm font-bold mr-2">{{obj.type}}:</p>
+                                        <p class="text-sm font-light">
+                                            {% for lang, total in obj.languages.items() %}
+                                                {{lang.upper()}}: {{total}}  &nbsp;
+                                            {% endfor %}
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </header>
+
+        <h2 class="text-4xl font-semibold leading-10">On-line analysis tools</h2>
+
+        <section class="mb-20">
+            <h3 class="text-3xl">Patents</h3>
+
+            <div class="grid grid-cols-3 gap-2 my-4 text-white">
+                {% if FormateExportDataTable %}
+                <a class="bg-orange-600 rounded p-4 shadow" href="./{{CollectName}}/{{CollectName}}.html" target="_blank">
+                    <p class="text-xl font-bold flex items-center">
+                        <span class="mr-2">Patents datatable</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </p>
+                    <p class="text-sm">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae interdum turpis, non aliquet nisi. Aliquam vel feugiat mi, non fringilla eros.
+                    </p>
+                </a>
+                {% endif %}
+                {% if FormateExportPivotTable %}
+                <a class="bg-orange-600 rounded p-4 shadow"href="./{{CollectName}}/{{CollectName}}Pivot.html" target="_blank">
+                    <p class="text-xl font-bold flex items-center">
+                        <span class="mr-2">Pivot table</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </p>
+                    <p class="text-sm">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod nesciunt obcaecati nisi facilis magni quo. Eius, delectus ipsa dicta corrupti natus, incidunt totam recusandae quam eaque eveniet atque qui. Minima.
+                    </p>
+                </a>
+                {% endif %}
+                {% if Images %}
+                <a class="bg-red-600 rounded p-4 shadow" href="./{{CollectName}}/PatentImages/index.html">
+                    <p class="text-xl font-bold flex items-center">
+                        <span class="mr-2">Images disponibles</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </p>
+                </a>
+                {% endif %}
+            </div>
+
+
+            <div class="grid grid-cols-2 gap-2 my-4 text-white">
+                {% if InventorNetwork or ApplicantNetwork or CrossTechNetwork %}
+                <a class="bg-indigo-600 rounded p-4 shadow" href="./{{CollectName}}/GraphIndex{{CollectName}}.html" target="_blank">
+                    <p class="text-xl font-bold flex items-center">
+                        <span class="mr-2">New Networks analyser tool</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </p>
+                    <p class="text-sm">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae interdum turpis, non aliquet nisi. Aliquam vel feugiat mi, non fringilla eros.
+                    </p>
+                </a>
+                {% endif %}
+                {% if FusionCarrot2 %}
+                <a class="bg-orange-600 rounded p-4 shadow" href="./{{CollectName}}/{{CollectName}}Carrot.html" target="_blank">
+                    <p class="text-xl font-bold flex items-center">
+                        <span class="mr-2">Carrot ES Plugin</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </p>
+                    <p class="text-sm">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae interdum turpis, non aliquet nisi. Aliquam vel feugiat mi, non fringilla eros.
+                    </p>
+                </a>
+                {% endif %}
+            </div>
+    
+            {% if FormateExportCountryCartography %}
+            <div class="my-8">
+                <h4 class="font-bold mb-2">Attractivity</h4>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="grid grid-cols-1 gap-2 bg-white rounded p-4 shadow" href="#">
+                        <div class="flex flex-row justify-between">
+                            <p class="text-lg font-bold">Country cover</p>
+                            <a target="_blank" href="./{{CollectName}}/{{CollectName}}Carto.html" class="rounded bg-gray-200 flex flex-row py-1 px-2 flex justify-center items-center">
+                                <p class="text-sm mr-1">Afficher</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div style="height: 250px">
+                            <div id="carto"></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 gap-2 bg-white rounded p-4 shadow" href="#">
+                        <div class="flex flex-row justify-between">
+                            <p class="text-lg font-bold">Country Applicant's origin</p>
+                            <a target="_blank" href="./{{CollectName}}/{{CollectName}}CartoApplicant.html" class="rounded bg-gray-200 flex flex-row py-1 px-2 flex justify-center items-center">
+                                <p class="text-sm mr-1">Afficher</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div style="height: 250px">
+                            <div id="cartoApplicant"></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 gap-2 bg-white rounded p-4 shadow" href="#">
+                        <div class="flex flex-row justify-between">
+                            <p class="text-lg font-bold">Country Inventor's origin</p>
+                            <a target="_blank" href="./{{CollectName}}/{{CollectName}}CartoInventor.html" class="rounded bg-gray-200 flex flex-row py-1 px-2 flex justify-center items-center">
+                                <p class="text-sm mr-1">Afficher</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div style="height: 250px">
+                            <div id="cartoInventor"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <script>	
+                d3.json('./{{CollectName}}/{{CollectName}}CountryMap.json', function(error, data) {
+                    if (error) return console.warn(error);
+    
+                    var visualization  = d3plus.viz()
+                        .container("#carto")
+                        .data(data["data"])
+                        .type("geo_map")
+                        .coords({ "value": "non/countries.json",
+                        "solo": ['naatg', 'afdza', 'asaze', 'eualb', 'asarm', 'afago', 'ocasm', 'saarg', 'ocaus', 'asbhr', 'nabrb', 'nabmu', 'nabhs', 'asbgd', 'nablz', 'eubih', 'sabol', 'asmmr', 'afben', 'ocslb', 'sabra', 'eubgr', 'asbrn', 'nacan', 'askhm', 'aslka', 'afcog', 'afcod', 'afbdi', 'aschn', 'asafg', 'asbtn', 'sachl', 'nacym', 'afcmr', 'aftcd', 'afcom', 'sacol', 'nacri', 'afcaf', 'nacub', 'afcpv', 'occok', 'eucyp', 'eudnk', 'afdji', 'nadma', 'nadom', 'saecu', 'afegy', 'euirl', 'afgnq', 'euest', 'aferi', 'naslv', 'afeth', 'euaut', 'eucze', 'saguf', 'eufin', 'ocfji', 'saflk', 'ocfsm', 'ocpyf', 'eufra', 'afgmb', 'afgab', 'asgeo', 'afgha', 'nagrd', 'nagrl', 'eudeu', 'ocgum', 'eugrc', 'nagtm', 'afgin', 'saguy', 'nahti', 'nahnd', 'euhrv', 'euhun', 'euisl', 'asind', 'asirn', 'asisr', 'euita', 'afciv', 'asirq', 'asjpn', 'najam', 'asjor', 'afken', 'askgz', 'asprk', 'ockir', 'askor', 'askwt', 'askaz', 'aslao', 'aslbn', 'eulva', 'eublr', 'eultu', 'aflbr', 'eusvk', 'eulie', 'aflby', 'afmdg', 'namtq', 'asmng', 'namsr', 'eumkd', 'afmli', 'afmar', 'afmus', 'afmrt', 'eumlt', 'asomn', 'asmdv', 'namex', 'asmys', 'afmoz', 'afmwi', 'ocncl', 'ocniu', 'afner', 'naabw', 'naaia', 'eubel', 'ashkg', 'ocmnp', 'eufro', 'euand', 'eugib', 'euimn', 'eulux', 'asmac', 'eumco', 'aspse', 'eumne', 'afmyt', 'ocnfk', 'occck', 'afiot', 'occxr', 'naumi', 'ocvut', 'afnga', 'eunld', 'eunor', 'asnpl', 'ocnru', 'sasur', 'nanic', 'ocnzl', 'sapry', 'saper', 'aspak', 'eupol', 'napan', 'euprt', 'ocpng', 'afgnb', 'asqat', 'afreu', 'eurou', 'eumda', 'asphl', 'napri', 'asrus', 'afrwa', 'assau', 'nakna', 'afsyc', 'afzaf', 'aflso', 'afbwa', 'afsen', 'eusvn', 'afsle', 'assgp', 'afsom', 'euesp', 'nalca', 'afsdn', 'euswe', 'assyr', 'euche', 'natto', 'astha', 'astjk', 'octkl', 'octon', 'aftgo', 'afstp', 'aftun', 'astur', 'octuv', 'astkm', 'aftza', 'afuga', 'eugbr', 'euukr', 'nausa', 'afbfa', 'saury', 'asuzb', 'navct', 'saven', 'navgb', 'asvnm', 'navir', 'afnam', 'ocwlf', 'ocwsm', 'afswz', 'asyem', 'afzmb', 'afzwe', 'asidn', 'naglp', 'asare', 'astls', 'ocpcn', 'ocplw', 'ocmhl', 'naspm', 'afshn', 'eusmr', 'natca', 'afesh', 'eusrb', 'eusjm', 'namaf', 'sasgs', 'astwn']
+                        })
+                        .id("country")
+                        .text("name")
+                        .color("value")
+                        .tooltip("value")
+                        .draw()
+                })
+    
+                d3.json('./{{CollectName}}/{{CollectName}}MapApplicant.json', function(error, data) {
+                    if (error) return console.warn(error);
+    
+                    var visualization  = d3plus.viz()
+                    .container("#cartoApplicant")
+                    .data(data["data"])
+                    .type("geo_map")
+                    .coords({ "value": "non/countries.json",
+                    "solo": ['naatg', 'afdza', 'asaze', 'eualb', 'asarm', 'afago', 'ocasm', 'saarg', 'ocaus', 'asbhr', 'nabrb', 'nabmu', 'nabhs', 'asbgd', 'nablz', 'eubih', 'sabol', 'asmmr', 'afben', 'ocslb', 'sabra', 'eubgr', 'asbrn', 'nacan', 'askhm', 'aslka', 'afcog', 'afcod', 'afbdi', 'aschn', 'asafg', 'asbtn', 'sachl', 'nacym', 'afcmr', 'aftcd', 'afcom', 'sacol', 'nacri', 'afcaf', 'nacub', 'afcpv', 'occok', 'eucyp', 'eudnk', 'afdji', 'nadma', 'nadom', 'saecu', 'afegy', 'euirl', 'afgnq', 'euest', 'aferi', 'naslv', 'afeth', 'euaut', 'eucze', 'saguf', 'eufin', 'ocfji', 'saflk', 'ocfsm', 'ocpyf', 'eufra', 'afgmb', 'afgab', 'asgeo', 'afgha', 'nagrd', 'nagrl', 'eudeu', 'ocgum', 'eugrc', 'nagtm', 'afgin', 'saguy', 'nahti', 'nahnd', 'euhrv', 'euhun', 'euisl', 'asind', 'asirn', 'asisr', 'euita', 'afciv', 'asirq', 'asjpn', 'najam', 'asjor', 'afken', 'askgz', 'asprk', 'ockir', 'askor', 'askwt', 'askaz', 'aslao', 'aslbn', 'eulva', 'eublr', 'eultu', 'aflbr', 'eusvk', 'eulie', 'aflby', 'afmdg', 'namtq', 'asmng', 'namsr', 'eumkd', 'afmli', 'afmar', 'afmus', 'afmrt', 'eumlt', 'asomn', 'asmdv', 'namex', 'asmys', 'afmoz', 'afmwi', 'ocncl', 'ocniu', 'afner', 'naabw', 'naaia', 'eubel', 'ashkg', 'ocmnp', 'eufro', 'euand', 'eugib', 'euimn', 'eulux', 'asmac', 'eumco', 'aspse', 'eumne', 'afmyt', 'ocnfk', 'occck', 'afiot', 'occxr', 'naumi', 'ocvut', 'afnga', 'eunld', 'eunor', 'asnpl', 'ocnru', 'sasur', 'nanic', 'ocnzl', 'sapry', 'saper', 'aspak', 'eupol', 'napan', 'euprt', 'ocpng', 'afgnb', 'asqat', 'afreu', 'eurou', 'eumda', 'asphl', 'napri', 'asrus', 'afrwa', 'assau', 'nakna', 'afsyc', 'afzaf', 'aflso', 'afbwa', 'afsen', 'eusvn', 'afsle', 'assgp', 'afsom', 'euesp', 'nalca', 'afsdn', 'euswe', 'assyr', 'euche', 'natto', 'astha', 'astjk', 'octkl', 'octon', 'aftgo', 'afstp', 'aftun', 'astur', 'octuv', 'astkm', 'aftza', 'afuga', 'eugbr', 'euukr', 'nausa', 'afbfa', 'saury', 'asuzb', 'navct', 'saven', 'navgb', 'asvnm', 'navir', 'afnam', 'ocwlf', 'ocwsm', 'afswz', 'asyem', 'afzmb', 'afzwe', 'asidn', 'naglp', 'asare', 'astls', 'ocpcn', 'ocplw', 'ocmhl', 'naspm', 'afshn', 'eusmr', 'natca', 'afesh', 'eusrb', 'eusjm', 'namaf', 'sasgs', 'astwn']
+                    })
+                    .id("country")
+                    .text("name")
+                    .color("value")
+                    .tooltip("value")
+                    .draw()
+                })
+    
+                d3.json('./{{CollectName}}/{{CollectName}}MapInventor.json', function(error, data) {
+                    if (error) return console.warn(error);
+    
+                    var visualization  = d3plus.viz()
+                    .container("#cartoInventor")
+                    .data(data["data"])
+                    .type("geo_map")
+                    .coords({ "value": "non/countries.json",
+                    "solo": ['naatg', 'afdza', 'asaze', 'eualb', 'asarm', 'afago', 'ocasm', 'saarg', 'ocaus', 'asbhr', 'nabrb', 'nabmu', 'nabhs', 'asbgd', 'nablz', 'eubih', 'sabol', 'asmmr', 'afben', 'ocslb', 'sabra', 'eubgr', 'asbrn', 'nacan', 'askhm', 'aslka', 'afcog', 'afcod', 'afbdi', 'aschn', 'asafg', 'asbtn', 'sachl', 'nacym', 'afcmr', 'aftcd', 'afcom', 'sacol', 'nacri', 'afcaf', 'nacub', 'afcpv', 'occok', 'eucyp', 'eudnk', 'afdji', 'nadma', 'nadom', 'saecu', 'afegy', 'euirl', 'afgnq', 'euest', 'aferi', 'naslv', 'afeth', 'euaut', 'eucze', 'saguf', 'eufin', 'ocfji', 'saflk', 'ocfsm', 'ocpyf', 'eufra', 'afgmb', 'afgab', 'asgeo', 'afgha', 'nagrd', 'nagrl', 'eudeu', 'ocgum', 'eugrc', 'nagtm', 'afgin', 'saguy', 'nahti', 'nahnd', 'euhrv', 'euhun', 'euisl', 'asind', 'asirn', 'asisr', 'euita', 'afciv', 'asirq', 'asjpn', 'najam', 'asjor', 'afken', 'askgz', 'asprk', 'ockir', 'askor', 'askwt', 'askaz', 'aslao', 'aslbn', 'eulva', 'eublr', 'eultu', 'aflbr', 'eusvk', 'eulie', 'aflby', 'afmdg', 'namtq', 'asmng', 'namsr', 'eumkd', 'afmli', 'afmar', 'afmus', 'afmrt', 'eumlt', 'asomn', 'asmdv', 'namex', 'asmys', 'afmoz', 'afmwi', 'ocncl', 'ocniu', 'afner', 'naabw', 'naaia', 'eubel', 'ashkg', 'ocmnp', 'eufro', 'euand', 'eugib', 'euimn', 'eulux', 'asmac', 'eumco', 'aspse', 'eumne', 'afmyt', 'ocnfk', 'occck', 'afiot', 'occxr', 'naumi', 'ocvut', 'afnga', 'eunld', 'eunor', 'asnpl', 'ocnru', 'sasur', 'nanic', 'ocnzl', 'sapry', 'saper', 'aspak', 'eupol', 'napan', 'euprt', 'ocpng', 'afgnb', 'asqat', 'afreu', 'eurou', 'eumda', 'asphl', 'napri', 'asrus', 'afrwa', 'assau', 'nakna', 'afsyc', 'afzaf', 'aflso', 'afbwa', 'afsen', 'eusvn', 'afsle', 'assgp', 'afsom', 'euesp', 'nalca', 'afsdn', 'euswe', 'assyr', 'euche', 'natto', 'astha', 'astjk', 'octkl', 'octon', 'aftgo', 'afstp', 'aftun', 'astur', 'octuv', 'astkm', 'aftza', 'afuga', 'eugbr', 'euukr', 'nausa', 'afbfa', 'saury', 'asuzb', 'navct', 'saven', 'navgb', 'asvnm', 'navir', 'afnam', 'ocwlf', 'ocwsm', 'afswz', 'asyem', 'afzmb', 'afzwe', 'asidn', 'naglp', 'asare', 'astls', 'ocpcn', 'ocplw', 'ocmhl', 'naspm', 'afshn', 'eusmr', 'natca', 'afesh', 'eusrb', 'eusjm', 'namaf', 'sasgs', 'astwn']
+                    })
+                    .id("country")
+                    .text("name")
+                    .color("value")
+                    .tooltip("value")
+                    .draw()
+                })
+    
+            </script>
+
+            {% endif %}
+
+        </section>
+
+        {% if HasFamily %}
+        <section class="mb-20">
+            <h3 class="text-3xl">Familles</h3>
+
+            <div class="grid grid-cols-3 gap-2 my-4 text-white">
+                {% if FormateExportDataTable %}
+                <a class="bg-orange-600 rounded p-4 shadow" href="./{{CollectName}}/Families{{CollectName}}.html">
+                    <p class="text-xl font-bold flex items-center">
+                        <span class="mr-2">Patents datatable</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </p>
+                    <p class="text-sm">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae interdum turpis, non aliquet nisi. Aliquam vel feugiat mi, non fringilla eros.
+                    </p>
+                </a>
+                {% endif %}
+                {% if FormateExportPivotTable %}
+                <a class="bg-orange-600 rounded p-4 shadow" href="./{{CollectName}}/Families{{CollectName}}Pivot.html">
+                    <p class="text-xl font-bold flex items-center">
+                        <span class="mr-2">Pivot table</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </p>
+                    <p class="text-sm">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod nesciunt obcaecati nisi facilis magni quo. Eius, delectus ipsa dicta corrupti natus, incidunt totam recusandae quam eaque eveniet atque qui. Minima.
+                    </p>
+                </a>
+                {% endif %}
+                {% if Images %}
+                <a class="bg-red-600 rounded p-4 shadow" href="./{{CollectName}}/PatentImages/indexFamilies.html">
+                    <p class="text-xl font-bold flex items-center">
+                        <span class="mr-2">Images disponibles</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </p>
+                </a>
+                {% endif %}
+            </div>
+    
+            {% if FormateExportCountryCartography %}
+            <div class="my-8">
+                <h4 class="font-bold mb-2">Attractivity</h4>
+                <div class="grid grid-cols-3 gap-2">
+                    <div class="grid grid-cols-1 gap-2 bg-white rounded p-4 shadow" href="#">
+                        <div class="flex flex-row justify-between">
+                            <p class="text-lg font-bold">Country cover</p>
+                            <a target="_blank" href="non/FamiliesnonCarto.html" class="rounded bg-gray-200 flex flex-row py-1 px-2 flex justify-center items-center">
+                                <p class="text-sm mr-1">Afficher</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div style="height: 250px">
+                            <div id="familiesCarto"></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 gap-2 bg-white rounded p-4 shadow" href="#">
+                        <div class="flex flex-row justify-between">
+                            <p class="text-lg font-bold">Country Applicant's origin</p>
+                            <a target="_blank" href="non/FamiliesnonCartoApplicant.html" class="rounded bg-gray-200 flex flex-row py-1 px-2 flex justify-center items-center">
+                                <p class="text-sm mr-1">Afficher</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div style="height: 250px">
+                            <div id="familiesCartoApplicant"></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 gap-2 bg-white rounded p-4 shadow" href="#">
+                        <div class="flex flex-row justify-between">
+                            <p class="text-lg font-bold">Country Inventor's origin</p>
+                            <a target="_blank" href="non/FamiliesnonCartoInventor.html" class="rounded bg-gray-200 flex flex-row py-1 px-2 flex justify-center items-center">
+                                <p class="text-sm mr-1">Afficher</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div style="height: 250px">
+                            <div id="familiesCartoInventor"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <script>	
+                d3.json('non/FamiliesnonCountryMap.json', function(error, data) {
+                    if (error) return console.warn(error);
+    
+                    var visualization  = d3plus.viz()
+                        .container("#familiesCarto")
+                        .data(data["data"])
+                        .type("geo_map")
+                        .coords({ "value": "non/countries.json",
+                        "solo": ['naatg', 'afdza', 'asaze', 'eualb', 'asarm', 'afago', 'ocasm', 'saarg', 'ocaus', 'asbhr', 'nabrb', 'nabmu', 'nabhs', 'asbgd', 'nablz', 'eubih', 'sabol', 'asmmr', 'afben', 'ocslb', 'sabra', 'eubgr', 'asbrn', 'nacan', 'askhm', 'aslka', 'afcog', 'afcod', 'afbdi', 'aschn', 'asafg', 'asbtn', 'sachl', 'nacym', 'afcmr', 'aftcd', 'afcom', 'sacol', 'nacri', 'afcaf', 'nacub', 'afcpv', 'occok', 'eucyp', 'eudnk', 'afdji', 'nadma', 'nadom', 'saecu', 'afegy', 'euirl', 'afgnq', 'euest', 'aferi', 'naslv', 'afeth', 'euaut', 'eucze', 'saguf', 'eufin', 'ocfji', 'saflk', 'ocfsm', 'ocpyf', 'eufra', 'afgmb', 'afgab', 'asgeo', 'afgha', 'nagrd', 'nagrl', 'eudeu', 'ocgum', 'eugrc', 'nagtm', 'afgin', 'saguy', 'nahti', 'nahnd', 'euhrv', 'euhun', 'euisl', 'asind', 'asirn', 'asisr', 'euita', 'afciv', 'asirq', 'asjpn', 'najam', 'asjor', 'afken', 'askgz', 'asprk', 'ockir', 'askor', 'askwt', 'askaz', 'aslao', 'aslbn', 'eulva', 'eublr', 'eultu', 'aflbr', 'eusvk', 'eulie', 'aflby', 'afmdg', 'namtq', 'asmng', 'namsr', 'eumkd', 'afmli', 'afmar', 'afmus', 'afmrt', 'eumlt', 'asomn', 'asmdv', 'namex', 'asmys', 'afmoz', 'afmwi', 'ocncl', 'ocniu', 'afner', 'naabw', 'naaia', 'eubel', 'ashkg', 'ocmnp', 'eufro', 'euand', 'eugib', 'euimn', 'eulux', 'asmac', 'eumco', 'aspse', 'eumne', 'afmyt', 'ocnfk', 'occck', 'afiot', 'occxr', 'naumi', 'ocvut', 'afnga', 'eunld', 'eunor', 'asnpl', 'ocnru', 'sasur', 'nanic', 'ocnzl', 'sapry', 'saper', 'aspak', 'eupol', 'napan', 'euprt', 'ocpng', 'afgnb', 'asqat', 'afreu', 'eurou', 'eumda', 'asphl', 'napri', 'asrus', 'afrwa', 'assau', 'nakna', 'afsyc', 'afzaf', 'aflso', 'afbwa', 'afsen', 'eusvn', 'afsle', 'assgp', 'afsom', 'euesp', 'nalca', 'afsdn', 'euswe', 'assyr', 'euche', 'natto', 'astha', 'astjk', 'octkl', 'octon', 'aftgo', 'afstp', 'aftun', 'astur', 'octuv', 'astkm', 'aftza', 'afuga', 'eugbr', 'euukr', 'nausa', 'afbfa', 'saury', 'asuzb', 'navct', 'saven', 'navgb', 'asvnm', 'navir', 'afnam', 'ocwlf', 'ocwsm', 'afswz', 'asyem', 'afzmb', 'afzwe', 'asidn', 'naglp', 'asare', 'astls', 'ocpcn', 'ocplw', 'ocmhl', 'naspm', 'afshn', 'eusmr', 'natca', 'afesh', 'eusrb', 'eusjm', 'namaf', 'sasgs', 'astwn']
+                        })
+                        .id("country")
+                        .text("name")
+                        .color("value")
+                        .tooltip("value")
+                        .draw()
+                })
+    
+                d3.json('non/FamiliesnonMapApplicant.json', function(error, data) {
+                    if (error) return console.warn(error);
+    
+                    var visualization  = d3plus.viz()
+                    .container("#familiesCartoApplicant")
+                    .data(data["data"])
+                    .type("geo_map")
+                    .coords({ "value": "non/countries.json",
+                    "solo": ['naatg', 'afdza', 'asaze', 'eualb', 'asarm', 'afago', 'ocasm', 'saarg', 'ocaus', 'asbhr', 'nabrb', 'nabmu', 'nabhs', 'asbgd', 'nablz', 'eubih', 'sabol', 'asmmr', 'afben', 'ocslb', 'sabra', 'eubgr', 'asbrn', 'nacan', 'askhm', 'aslka', 'afcog', 'afcod', 'afbdi', 'aschn', 'asafg', 'asbtn', 'sachl', 'nacym', 'afcmr', 'aftcd', 'afcom', 'sacol', 'nacri', 'afcaf', 'nacub', 'afcpv', 'occok', 'eucyp', 'eudnk', 'afdji', 'nadma', 'nadom', 'saecu', 'afegy', 'euirl', 'afgnq', 'euest', 'aferi', 'naslv', 'afeth', 'euaut', 'eucze', 'saguf', 'eufin', 'ocfji', 'saflk', 'ocfsm', 'ocpyf', 'eufra', 'afgmb', 'afgab', 'asgeo', 'afgha', 'nagrd', 'nagrl', 'eudeu', 'ocgum', 'eugrc', 'nagtm', 'afgin', 'saguy', 'nahti', 'nahnd', 'euhrv', 'euhun', 'euisl', 'asind', 'asirn', 'asisr', 'euita', 'afciv', 'asirq', 'asjpn', 'najam', 'asjor', 'afken', 'askgz', 'asprk', 'ockir', 'askor', 'askwt', 'askaz', 'aslao', 'aslbn', 'eulva', 'eublr', 'eultu', 'aflbr', 'eusvk', 'eulie', 'aflby', 'afmdg', 'namtq', 'asmng', 'namsr', 'eumkd', 'afmli', 'afmar', 'afmus', 'afmrt', 'eumlt', 'asomn', 'asmdv', 'namex', 'asmys', 'afmoz', 'afmwi', 'ocncl', 'ocniu', 'afner', 'naabw', 'naaia', 'eubel', 'ashkg', 'ocmnp', 'eufro', 'euand', 'eugib', 'euimn', 'eulux', 'asmac', 'eumco', 'aspse', 'eumne', 'afmyt', 'ocnfk', 'occck', 'afiot', 'occxr', 'naumi', 'ocvut', 'afnga', 'eunld', 'eunor', 'asnpl', 'ocnru', 'sasur', 'nanic', 'ocnzl', 'sapry', 'saper', 'aspak', 'eupol', 'napan', 'euprt', 'ocpng', 'afgnb', 'asqat', 'afreu', 'eurou', 'eumda', 'asphl', 'napri', 'asrus', 'afrwa', 'assau', 'nakna', 'afsyc', 'afzaf', 'aflso', 'afbwa', 'afsen', 'eusvn', 'afsle', 'assgp', 'afsom', 'euesp', 'nalca', 'afsdn', 'euswe', 'assyr', 'euche', 'natto', 'astha', 'astjk', 'octkl', 'octon', 'aftgo', 'afstp', 'aftun', 'astur', 'octuv', 'astkm', 'aftza', 'afuga', 'eugbr', 'euukr', 'nausa', 'afbfa', 'saury', 'asuzb', 'navct', 'saven', 'navgb', 'asvnm', 'navir', 'afnam', 'ocwlf', 'ocwsm', 'afswz', 'asyem', 'afzmb', 'afzwe', 'asidn', 'naglp', 'asare', 'astls', 'ocpcn', 'ocplw', 'ocmhl', 'naspm', 'afshn', 'eusmr', 'natca', 'afesh', 'eusrb', 'eusjm', 'namaf', 'sasgs', 'astwn']
+                    })
+                    .id("country")
+                    .text("name")
+                    .color("value")
+                    .tooltip("value")
+                    .draw()
+                })
+    
+                d3.json('non/FamiliesnonMapInventor.json', function(error, data) {
+                    if (error) return console.warn(error);
+    
+                    var visualization  = d3plus.viz()
+                    .container("#familiesCartoInventor")
+                    .data(data["data"])
+                    .type("geo_map")
+                    .coords({ "value": "non/countries.json",
+                    "solo": ['naatg', 'afdza', 'asaze', 'eualb', 'asarm', 'afago', 'ocasm', 'saarg', 'ocaus', 'asbhr', 'nabrb', 'nabmu', 'nabhs', 'asbgd', 'nablz', 'eubih', 'sabol', 'asmmr', 'afben', 'ocslb', 'sabra', 'eubgr', 'asbrn', 'nacan', 'askhm', 'aslka', 'afcog', 'afcod', 'afbdi', 'aschn', 'asafg', 'asbtn', 'sachl', 'nacym', 'afcmr', 'aftcd', 'afcom', 'sacol', 'nacri', 'afcaf', 'nacub', 'afcpv', 'occok', 'eucyp', 'eudnk', 'afdji', 'nadma', 'nadom', 'saecu', 'afegy', 'euirl', 'afgnq', 'euest', 'aferi', 'naslv', 'afeth', 'euaut', 'eucze', 'saguf', 'eufin', 'ocfji', 'saflk', 'ocfsm', 'ocpyf', 'eufra', 'afgmb', 'afgab', 'asgeo', 'afgha', 'nagrd', 'nagrl', 'eudeu', 'ocgum', 'eugrc', 'nagtm', 'afgin', 'saguy', 'nahti', 'nahnd', 'euhrv', 'euhun', 'euisl', 'asind', 'asirn', 'asisr', 'euita', 'afciv', 'asirq', 'asjpn', 'najam', 'asjor', 'afken', 'askgz', 'asprk', 'ockir', 'askor', 'askwt', 'askaz', 'aslao', 'aslbn', 'eulva', 'eublr', 'eultu', 'aflbr', 'eusvk', 'eulie', 'aflby', 'afmdg', 'namtq', 'asmng', 'namsr', 'eumkd', 'afmli', 'afmar', 'afmus', 'afmrt', 'eumlt', 'asomn', 'asmdv', 'namex', 'asmys', 'afmoz', 'afmwi', 'ocncl', 'ocniu', 'afner', 'naabw', 'naaia', 'eubel', 'ashkg', 'ocmnp', 'eufro', 'euand', 'eugib', 'euimn', 'eulux', 'asmac', 'eumco', 'aspse', 'eumne', 'afmyt', 'ocnfk', 'occck', 'afiot', 'occxr', 'naumi', 'ocvut', 'afnga', 'eunld', 'eunor', 'asnpl', 'ocnru', 'sasur', 'nanic', 'ocnzl', 'sapry', 'saper', 'aspak', 'eupol', 'napan', 'euprt', 'ocpng', 'afgnb', 'asqat', 'afreu', 'eurou', 'eumda', 'asphl', 'napri', 'asrus', 'afrwa', 'assau', 'nakna', 'afsyc', 'afzaf', 'aflso', 'afbwa', 'afsen', 'eusvn', 'afsle', 'assgp', 'afsom', 'euesp', 'nalca', 'afsdn', 'euswe', 'assyr', 'euche', 'natto', 'astha', 'astjk', 'octkl', 'octon', 'aftgo', 'afstp', 'aftun', 'astur', 'octuv', 'astkm', 'aftza', 'afuga', 'eugbr', 'euukr', 'nausa', 'afbfa', 'saury', 'asuzb', 'navct', 'saven', 'navgb', 'asvnm', 'navir', 'afnam', 'ocwlf', 'ocwsm', 'afswz', 'asyem', 'afzmb', 'afzwe', 'asidn', 'naglp', 'asare', 'astls', 'ocpcn', 'ocplw', 'ocmhl', 'naspm', 'afshn', 'eusmr', 'natca', 'afesh', 'eusrb', 'eusjm', 'namaf', 'sasgs', 'astwn']
+                    })
+                    .id("country")
+                    .text("name")
+                    .color("value")
+                    .tooltip("value")
+                    .draw()
+                })
+    
+            </script>
+            {% endif %}
+
+        </section>
+        {% endif %}
+
+        <h2 class="text-4xl font-semibold leading-10">Download data</h2>
+
+        <h3 class="text-3xl">Patents</h3>
+        <section class="mb-20">
+            <h4 class="text-xl font-bold mt-4"><a href="http://www.gephi.org" target="_blank">Gephi</a> compatible network files (gexf format):</h4>
+            <table style="width:100%">
+                <tr>
+                    <td>
+                        <a href="" download>Applicants </a> </td>
+                    <td>
+                        <a href="" download>Inventors </a> </td>
+                    <td>
+                        <a href="" download>Technologies (IPC7) </a> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="" download>Citations</a> </td>
+                    <td>
+                        <a href="" download>References</a> </td>
+                    <td>
+                        <a href="" download>Equivalents</a> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="" download>Countries and technologies</a> </td>
+                    <td>
+                        <a href="" download>Inventors and applicants</a> </td>
+                    <td>
+                        <a href="" download>Inventors and technologies</a>                    </td>
+                    <td>
+                        <a href="" download>Applicants and technologies</a>                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="" download>Full Net</a>                    </td>
+    
+            </table>
+            <h4 class="text-xl font-bold mt-4"><a href="http://freeplane.sourceforge.net"  target="_blank">FreePlane compatible file</a> </h4>
+            <ul>
+                <li> <a href="non/non.html_files/nonFP.mm" download> IPC'c Mindmap </a> </li>
+            </ul>
+            <!-- <ul style="list-style-type:square"> Next are not working right now (11/2015)
+                <li> <a href="non/GephiFiles/non.gexf" onclick="window.open('non/GephiFiles/non.gexf', '_blank'); return false;">complete, </a> </li>
+                 <li> <a href="non/GephiFiles/nonFamilies.gexf" onclick="window.open('non/GephiFiles/nonFamilies.gexf', '_blank');return false;">families, </a></li>
+                 <li>  <a href="non/GephiFiles/nonFamiliesHierarc.gexf" onclick="window.open('non/GephiFiles/nonFamiliesHierarc.gexf', '_blank');return false;">families hierarchical; </a> </li>
+                </ul> -->
+            <h4 class="text-xl font-bold mt-4"><a href="http://www.iramuteq.org/"  target="_blank">Iramuteq</a> tagged abstracts (unicode UTF-8 encoding):</h4>
+            <table style="width:100%">
+                <tr>
+                    <td> <a href="non/PatentContents/EN_Abstract_non.txt" download>Abstracts (EN) </a></td>
+                    <td> <a href="non/PatentContents/EN_Claims_non.txt" download>Claims (EN)</a></td>
+                    <td> <a href="non/PatentContents/EN_Description_non.txt" download>Descriptions (EN)</a></td>
+                    <td> <a href="non/PatentContents/Consistent/Iram_EN_non.txt" download>Consistent subset (Abstracts+ Description+Claims) (EN)</a> &nbsp;
+                    <a href="non/PatentContents/Consistent/Iram_EN_non.zip" download>Zipped version </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <a href="non/PatentContents/FR_Abstract_non.txt" download>Abstracts (FR)</a></td>
+                    <td> <a href="non/PatentContents/FR_Claims_non.txt" download>Claims (FR)</a></td>
+                    <td> <a href="non/PatentContents/FR_Description_non.txt" download>Descriptions (FR)</a></td>
+                    <td> <a href="non/PatentContents/Consistent/Iram_FR_non.txt" download>Consistent subset (Abstracts+ Description+Claims) (FR)</a>&nbsp;
+                    <a href="non/PatentContents/Consistent/Iram_FR_non.zip" download> Zipped version </a></td>
+                </tr>
+    
+            </table>
+    
+            <h4 class="text-xl font-bold mt-4"><a href="http://project.carrot2.org/"  target="_blank">Carrot2</a> clustering engine XML compatible files:</h4>
+            <table style="width:100%">
+                <tr>
+                    <td> <a href="non/PatentContents/Carrot2/EN_Abstract_non.xml" download> Abstract XML (english only) </a>
+                    <a href="non/PatentContents/Carrot2/EN_Abstract_non.json" download> Abstract JSON </a>
+                    </td>
+                    <td> <a href="non/PatentContents/Carrot2/EN_Claims_non.xml" download> Claims XML </a>
+                    <a href="non/PatentContents/Carrot2/EN_Claims_non.json" download> JSON  </a>
+                    </td>
+                    <td> <a href="non/PatentContents/Carrot2/EN_Description_non.xml" download> Descriptions XML</a>
+                    <a href="non/PatentContents/Carrot2/EN_Description_non.json" download> Descriptions JSON</a>
+                    </td>
+                    <td> <a href="non/PatentContents/Consistent/Carrot2_EN_Abstract_non.xml" download> Consistent Abstracts Set XML  </a>
+                    <a href="non/PatentContents/Consistent/Carrot2_EN_Abstract_non.json" download> Consistent Abstracts Set JSON </a>
+                    </td>
+                    <td> <a href="non/PatentContents/Consistent/Carrot2_EN_Claims_non.xml" download> Consistent Claims Set XML </a>
+                    <a href="non/PatentContents/Consistent/Carrot2_EN_Claims_non.json" download> Consistent Claims Set JSON </a>
+                    </td>
+                    <td> <a href="non/PatentContents/Consistent/Carrot2_EN_Description_non.xml" download> Consistent Description Set XML </a>
+                     <a href="non/PatentContents/Consistent/Carrot2_EN_Description_non.xml" download> Consistent Description Set JSON </a>
+                    </td>
+                 </tr>
+                <tr>
+                    <td> <a href="non/PatentContents/Carrot2/FR_Abstract_non.xml" download> Abstract XML (french only) </a>
+                    <a href="non/PatentContents/Carrot2/FR_Abstract_non.json" download> Abstract JSON</a>
+                    </td>
+                    <td> <a href="non/PatentContents/Carrot2/FR_Claims_non.xml" download> Claims XML (french only) </a>
+                    <a href="non/PatentContents/Carrot2/FR_Claims_non.json" download> Claims JSON </a>
+                    </td>
+                    <td> <a href="non/PatentContents/Carrot2/FR_Description_non.xml" download> Descriptions XML (french only) </a>
+                    <a href="non/PatentContents/Carrot2/FR_Description_non.json" download> Descriptions JSON </a>
+                    </td>
+                    <td> <a href="non/PatentContents/Consistent/Carrot2_FR_Abstract_non.xml" download> Consistent Abstracts Set XML (french only) </a>
+                    <a href="non/PatentContents/Consistent/Carrot2_FR_Abstract_non.json" download> Consistent Abstracts Set JSON</a>
+                    </td>
+                    <td> <a href="non/PatentContents/Consistent/Carrot2_FR_Claims_non.xml" download> Consistent Claims Set XML (french only) </a>
+                    <a href="non/PatentContents/Consistent/Carrot2_FR_Claims_non.json" download> Consistent Claims Set JSON</a>
+                    </td>
+                    <td> <a href="non/PatentContents/Consistent/Carrot2_FR_Description_non.xml" download> Consistent Description Set XML </a>
+                     <a href="non/PatentContents/Consistent/Carrot2_FR_Description_non.xml" download> Consistent Description Set JSON</a>
+                    </td>
+                 </tr>
+                <tr>
+                    <td> <a href="non/PatentContents/Carrot2/UNK_Abstract_non.xml" download> Abstract XML (all others language: unknown) </a></li>
+                    <td> <a href="non/PatentContents/Consistent/Carrot2_UNK_Abstract_non.xml" download> Consistent Abstracts Set XML (others) </a></td>
+                    <td> <a href="non/PatentContents/Consistent/Carrot2_UNK_Claims_non.xml" download> Consistent Claims Set XML (others) </a></td>
+                    <td> <a href="non/PatentContents/Consistent/Carrot2_UNK_Description_non.xml" download> Consistent Description Set XML (others) </a></td>
+                 </tr>
+            </table>
+            <h4 class="text-xl font-bold mt-4">Download bibliographic format </h4>
+            <ul>
+                <li> <a href="non/non.bib" download>Biblatex format, Zotero compatible (only A,B, C statuses)</a></li>
+            </ul>
+        </section>
+        
+        {% if HasFamily %}
+        <h3 class="text-3xl">Families</h3>
+        <section class="mb-20">
+            <h4 class="text-xl font-bold mt-4"><a href="http://www.gephi.org" target="_blank">Gephi</a> compatible network files (gexf format):</h4>
+            <table style="width:100%">
+                <tr>
+                    <td>
+                        <a href="" download>Applicants </a> </td>
+                    <td>
+                        <a href="" download>Inventors </a> </td>
+                    <td>
+                        <a href="" download>Technologies (IPC7) </a> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="" download>Citations</a> </td>
+                    <td>
+                        <a href="" download>References</a> </td>
+                    <td>
+                        <a href="" download>Equivalents</a> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="" download>Countries and technologies</a> </td>
+                    <td>
+                        <a href="" download>Inventors and applicants</a> </td>
+                    <td>
+                        <a href="" download>Inventors and technologies</a>                    </td>
+    
+                    <td>
+                        <a href="" download>Applicants and technologies</a>                    </td>
+            </tr>
+            <tr>
+             <td>
+                <a href="">Full family network</a>
+            </td>
+            </tr>
+    
+    
+            </table>
+            <h4 class="text-xl font-bold mt-4"><a href="http://freeplane.sourceforge.net"  target="_blank">FreePlane compatible file</a> </h4>
+            <ul>
+                <li> <a href="non/non.html_files/FamiliesnonFP.mm" download> IPC'c Mindmap </a> </li>
+            </ul>
+            <!-- <ul style="list-style-type:square"> Next are not working right now (11/2015)
+                <li> <a href="non/GephiFiles/non.gexf" onclick="window.open('non/GephiFiles/non.gexf', '_blank'); return false;">complete, </a> </li>
+                 <li> <a href="non/GephiFiles/nonFamilies.gexf" onclick="window.open('non/GephiFiles/nonFamilies.gexf', '_blank');return false;">families, </a></li>
+                 <li>  <a href="non/GephiFiles/nonFamiliesHierarc.gexf" onclick="window.open('non/GephiFiles/nonFamiliesHierarc.gexf', '_blank');return false;">families hierarchical; </a> </li>
+                </ul> -->
+            <h4 class="text-xl font-bold mt-4"><a href="http://www.iramuteq.org/"  target="_blank">Iramuteq</a> tagged abstracts (unicode UTF-8 encoding):</h4>
+            <table style="width:100%">
+                <tr>
+                    <td> <a href="non/PatentContents/EN_FamiliesAbstract_non.txt" download>Abstracts (EN) </a></td>
+                    <td> <a href="non/PatentContents/EN_FamiliesClaims_non.txt" download>Claims (EN)</a></td>
+                    <td> <a href="non/PatentContents/EN_FamiliesDescription_non.txt" download>Descriptions (EN)</a></td>
+                </tr>
+                <tr>
+                    <td> <a href="non/PatentContents/FR_FamiliesAbstract_non.txt" download>Abstracts (FR)</a></td>
+                    <td> <a href="non/PatentContents/FR_FamiliesClaims_non.txt" download>Claims (FR)</a></td>
+                    <td> <a href="non/PatentContents/FR_FamiliesDescription_non.txt" download>Descriptions (FR)</a></td>
+                </tr>
+            </table>
+    
+            <h4 class="text-xl font-bold mt-4"><a href="http://project.carrot2.org/"  target="_blank">Carrot2</a> clustering engine XML compatible files:</h4>
+            <ul class="list-none">
+                <li> <a href="non/PatentContents/Carrot2/EN_Abstract_Familiesnon.xml" download> Abstract XML (english only) </a></li>
+                <li> <a href="non/PatentContents/Carrot2/FR_Abstract_Familiesnon.xml" download> Abstract XML (french only) </a></li>
+                <li> <a href="non/PatentContents/Carrot2/UNK_Abstract_Familiesnon.xml" download> Abstract XML (all others language: unknown) </a></li>
+            </ul>
+            <h4 class="text-xl font-bold mt-4">Download bibliographic format </h4>
+            <ul>
+                <li> <a href="non/Familiesnon.bib" download>Biblatex format, Zotero compatible (only A,B, C statuses)</a></li>
+            </ul>
+        </section>
+        {% endif %}
+
+        <h2 class="text-4xl font-semibold leading-10">Logiciels externe</h2>
+
+        <section class="mb-20">
+            <div class="grid grid-cols-4 gap-2 my-4 text-white">
+                <a class="bg-red-600 rounded p-4 shadow" href="http://www.gephi.org" target="_blank">
+                    <p class="text-xl font-bold flex items-center">
+                        <span class="mr-2">Gephi</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </p>
+                    <p class="text-sm">
+                        Gephi est le principal logiciel de visualisation et d'exploration pour tous les types de graphes et de réseaux. Gephi est un logiciel libre et gratuit.
+                    </p>
+                </a>
+                <a class="bg-green-600 rounded p-4 shadow" href="http://freeplane.sourceforge.net" target="_blank">
+                    <p class="text-xl font-bold flex items-center">
+                        <span class="mr-2">FreePlane</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </p>
+                    <p class="text-sm">
+                        Freeplane est un logiciel libre qui permet de créer des cartes heuristiques, diagrammes représentant les connexions sémantiques entre différentes idées.
+                    </p>
+                </a>
+                <a class="bg-blue-600 rounded p-4 shadow" href="http://www.iramuteq.org/" target="_blank">
+                    <p class="text-xl font-bold flex items-center">
+                        <span class="mr-2">Iramuteq</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </p>
+                    <p class="text-sm">
+                        IRaMuTeQ est un logiciel libre et ouvert d'analyse de données textuelles ou de statistique textuelle.
+                    </p>
+                </a>
+                <a class="bg-orange-600 rounded p-4 shadow" href="http://project.carrot2.org/" target="_blank">
+                    <p class="text-xl font-bold flex items-center">
+                        <span class="mr-2">Carrot2</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                    </p>
+                    <p class="text-sm">
+                        Permet de regrouper automatiquement de petites collections de documents, par exemple résultats de recherche ou résumés de documents, en catégories thématiques.
+                    </p>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // scripts helpers for not showing empty elements
+        // first for empty htmls / onclicks
+        $('a[href=#]').each(function(i, a){
+            var k = $(a).attr('onclick');
+            k = k.trim().replace('return false;', '');
+            if (k.length === 0) {
+                $(a).addClass('stroked').attr('title', 'Not available')
+            }
+        });
+        $('a[href=""]').each(function(i, a){
+            $(a).addClass('stroked').attr('title', 'Not available')
+        })
+    </script>
+
+    <style>
+        .stroked {
+            text-decoration: line-through;
+            color: #CCC;
+            pointer-events: none;
+        }
+    </style>
+</body>
+
+</html>

@@ -99,7 +99,7 @@ outfile = GlobalPath + '//' + ndf + '.html'
 print('Writing "{outfile}"'.format(outfile=outfile))
 
 RenderTemplate(
-    "ModeleContenuIndex.html",
+    "ModeleContenuIndex2.html",
     outfile,
     GlobalPath=GlobalPath,
     CollectName=ndf,
