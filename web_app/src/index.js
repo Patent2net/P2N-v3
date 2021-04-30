@@ -42,10 +42,10 @@ ReactDOM.render(
               </li>
               
               <li className="mr-3">
-                <Link to="/downloadDat" className="inline-block no-underline hover:underline py-2 px-4">Download Data</Link>
+                <a href="/downloadDat" className="inline-block no-underline hover:underline py-2 px-4">Download Data</a>
               </li>
               <li className="mr-3">
-                <Link to="/doc/_build/html/index.html" className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Documentation</Link>
+                <a href="/doc/_build/html/index.html" className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Documentation</a>
               </li>
             </ul>
           </div>
