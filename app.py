@@ -117,10 +117,10 @@ labels = { 'p2n_req' : "Gathering patent list",
 #---------------------------------------
 # App Routes
 #---------------------------------------
-@app.route('/home' , methods=['GET','POST'])
-@app.route('/' , methods=['GET','POST'])
-def home():
-    return render_template("P2N.html" , num_bars = 1)
+# @app.route('/home' , methods=['GET','POST'])
+# @app.route('/' , methods=['GET','POST'])
+# def home():
+#     return render_template("P2N.html" , num_bars = 1)
 
 
 
@@ -367,22 +367,6 @@ def get_success_response(message, data):
     return json.dumps(response)
 
 
-
-
-@app.route('/requests/static/<path:filename>', methods=['GET'])
-def request_app_static(filename):
-    return send_from_directory("Patent2Net/request_app/build/static", filename)
-
-# Redirection vers l'app Request
-
-@app.route('/requests/', methods=['GET'])
-def request_app():
-    return send_file("Patent2Net/request_app/build/index.html")
-
-@app.route('/requests/<path:path>', methods=['GET'])
-def request_app_other(path):
-    return send_file("Patent2Net/request_app/build/index.html")
-
 @app.route('/announce')
 def annonce():
     # expects a requests.get('http://localhost:5000/annonce?appli=0&ValActu='+str(random.randint(0,101))+'&valMax=30') 
@@ -438,9 +422,9 @@ def listen():
 
 
 
-@app.route('/get_started', methods=['GET','POST'])
-def started():
-    return render_template("Get_Started.html")
+# @app.route('/get_started', methods=['GET','POST'])
+# def started():
+#     return render_template("Get_Started.html")
 
 
 # Get started page form interaction
@@ -540,6 +524,20 @@ def media_static(filename):
 @app.route('/dex.js')
 def dex():
     return send_file("dex.js")
+
+
+@app.route('/app/static/<path:filename>', methods=['GET'])
+def request_app_static(filename):
+    return send_from_directory("web_app/build/static", filename)
+
+# Redirection vers l'app Request
+
+@app.route('/', defaults={'path': None})
+@app.route('/app', defaults={'path': None})
+@app.route('/app/', defaults={'path': None})
+@app.route('/app/<path:path>', methods=['GET'])
+def request_app(path):
+    return send_file("web_app/build/index.html")
 
 
 #Authorize the app to be accessed in a different environment (localhost in our case)

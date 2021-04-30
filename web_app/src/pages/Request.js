@@ -67,14 +67,14 @@ const Show = () => {
     return (
         <div className="container mx-auto">
             <div className="flex justify-center items-center">
-                <div className="flex flex-col w-3/5 mt-24 mb-12 bg-white p-8 rounded shadow">
+                <div className="flex flex-col w-3/5 mb-12 bg-white p-8 rounded shadow">
                     {
                         data.cql ? (
                             <>
                                 <div className="pb-4 flex justify-between">
                                     <div className="flex items-center">
                                         <Link 
-                                            to={"/requests" }
+                                            to={"/app/requests" }
                                             className="focus:outline-none p-2 rounded-md font-semibold text-white bg-gray-600"
                                         >
                                             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

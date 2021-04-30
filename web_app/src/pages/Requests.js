@@ -109,17 +109,66 @@ function App() {
   }, [request, directory, options, history])
 
   return (
-    <div className="bg-orange-100 flex justify-between">
-      <div className=" flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow ">
-        <h3 className="mb-2">Previous request(s)</h3>
+    <div className="container mx-auto grid grid-cols-4 gap-4 items-start">
+      <div className="col-start-1 bg-white p-8 rounded shadow">
+        
+        <div className="mb-6 flex flex-col">
+          <h3 className="text-lg mb-2 font-bold">Requêtes précédentes</h3>
 
-        { requests.done && requests.done.map((name) => (
-          <Link to={"/requests/" + name } key={name}>{name}</Link>
-        ))}
+          { requests.done && requests.done.map((name) => (
+            <Link to={"/app/requests/" + name } key={name}>{name}</Link>
+          ))}
+
+          { !requests.done && (
+            <div className="grid grid-cols-1 gap-2">
+              <span className="skeleton-box h-5 w-3/5 inline-block"></span>
+              <span className="skeleton-box h-5 w-1/2 inline-block"></span>
+              <span className="skeleton-box h-5 w-2/5 inline-block"></span>
+            </div>
+          ) }
+        </div>
+        
+        <hr class="mb-3"/>
+
+        <div class="mb-6 flex flex-col">
+          <h3 className="text-lg mb-2 font-bold">Requêtes en cours</h3>
+          <div className="">
+            <div className="relative pt-1">
+              { requests.in_progress && requests.in_progress.map((name) => (
+                <Link to={"/requests/" + name} key={name}>
+                  <p class="mb-1">{ name }</p>
+                  {
+                    requests.global_progress && requests.global_progress[name] && (
+                      <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-orange-200">
+                        <div 
+                          style={{"width": (requests.global_progress[name].done_step_count / requests.global_progress[name].total_step_count * 100) + "%"}} 
+                          className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500"
+                        ></div>
+                        <div 
+                          style={{"width": (requests.global_progress[name].progress_step_count / requests.global_progress[name].total_step_count * 100) + "%"}} 
+                          className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-orange-300"
+                        ></div>
+                      </div>
+                    )
+                  }
+                </Link>
+              ))}
+
+              { !requests.in_progress && (
+                  <div className="grid grid-cols-1 gap-2">
+                    <span className="skeleton-box h-5 w-3/5 inline-block"></span>
+                    <span className="skeleton-box h-5 w-1/2 inline-block"></span>
+                    <span className="skeleton-box h-5 w-2/5 inline-block"></span>
+                  </div>
+                ) }
+            </div>
+          </div>
+        </div>
       </div>
         
-      <div className="flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow ">
-        <h1 className="text-lg mb-2 text-gray-900">Patent2Net toolkit</h1>
+      <div className="col-span-3 flex flex-col mb-12 bg-white p-8 rounded shadow ">
+        <h1 className="text-3xl font-semibold mb-2 text-gray-900">Patent2Net toolkit</h1>
+        <hr />
         <div className="mt-4">
 
           <form onSubmit={onSubmit}>
@@ -131,7 +180,7 @@ function App() {
               <input
                 value={request} 
                 onChange={(e) => setRequest(e.target.value)}
-                className="text-sm border px-2 py-1 rounded w-full"
+                className="px-3 py-4 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-base border border-blueGray-300 outline-none focus:outline-none focus:ring w-full"
                 type="text"
                 required
                 placeholder="TA=lentille"
@@ -148,7 +197,7 @@ function App() {
               <input 
                 value={directory} 
                 onChange={(e) => setDirectory(e.target.value)}
-                className="text-sm border px-2 py-1 rounded w-full" 
+                className="px-3 py-4 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-base border border-blueGray-300 outline-none focus:outline-none focus:ring w-full" 
                 type="text" 
                 required 
                 placeholder="lentille" 
@@ -170,48 +219,22 @@ function App() {
                       id={key}
                       name={key} 
                       checked={options.includes(key)} 
-                      onChange={() => toggleCheckbox(key) } 
+                      onChange={() => toggleCheckbox(key) }
                     />
                     <label htmlFor={key} className="text-gray-800 text-sm mb-4 text-justify"><b>{ option["name"] }</b>: { option["description"] } </label>
                   </p>
                 )
               })}
             </div>
-            <input 
-              className="bg-orange-600 hover:bg-orange-700 cursor-pointer px-2 py-1 text-white rounded mt-4"
-              type="submit"
-              value="Submit"
-            />
             <div className="mt-4 italic text-sm text-gray-800">
               Fields marked with * are mandatory.
             </div>
+            <input 
+              className="w-64 focus:outline-none px-8 py-2 rounded-md font-semibold text-white bg-indigo-500 cursor-pointer mt-4"
+              type="submit"
+              value="Submit"
+            />
           </form>
-        </div>
-      </div>
-      <div className=" flex flex-col mt-12 mb-12 bg-white p-8 rounded shadow ">
-        <h3 className="mb-2">Requetes en cours</h3>
-        <div className="">
-          <div className="relative pt-1">
-            { requests.in_progress && requests.in_progress.map((name) => (
-              <Link to={"/requests/" + name} key={name}>
-                <p>{ name }</p>
-                {
-                  requests.global_progress && requests.global_progress[name] && (
-                    <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-orange-200">
-                      <div 
-                        style={{"width": (requests.global_progress[name].done_step_count / requests.global_progress[name].total_step_count * 100) + "%"}} 
-                        className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-orange-500"
-                      ></div>
-                      <div 
-                        style={{"width": (requests.global_progress[name].progress_step_count / requests.global_progress[name].total_step_count * 100) + "%"}} 
-                        className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-orange-300"
-                      ></div>
-                    </div>
-                  )
-                }
-              </Link>
-            ))}
-          </div>
         </div>
       </div>
     </div>

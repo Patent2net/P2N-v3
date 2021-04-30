@@ -14,7 +14,7 @@ const ProgressBar = ({ name, value, max_value }) => {
             </div>
             <div class="relative pt-1">
                 <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-orange-200">
-                <div style={{"width": percent + "%" }} class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-orange-500"></div>
+                    <div style={{"width": percent + "%" }} class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-indigo-500"></div>
                 </div>
             </div>
         </div>
