@@ -64,6 +64,7 @@ function App() {
     "p2n_cluster",
   ]);
   const [ requests, setRequests ] = React.useState({});
+  const [ p2nAuto, setP2nAuto ] = React.useState({});
 
   const history = useHistory();
 
@@ -91,6 +92,7 @@ function App() {
     data.append("p2n_req", request);
     data.append("p2n_dir", directory);
     data.append("p2n_options", options.join(','));
+    data.append("p2n_auto", p2nAuto)
 
     console.log(data)
 
@@ -102,7 +104,7 @@ function App() {
       return response.json();
     })
     .then(function(json) {
-      history.push("/requests/" + json.data.p2n_dir );
+      history.push("/app/requests/" + json.data.p2n_dir );
     });
     
 
@@ -135,7 +137,7 @@ function App() {
           <div className="">
             <div className="relative pt-1">
               { requests.in_progress && requests.in_progress.map((name) => (
-                <Link to={"/requests/" + name} key={name}>
+                <Link to={"/app/requests/" + name} key={name}>
                   <p class="mb-1">{ name }</p>
                   {
                     requests.global_progress && requests.global_progress[name] && (
@@ -226,6 +228,17 @@ function App() {
                 )
               })}
             </div>
+            <div className="mt-4">
+              <label className="font-semibold">Use auto request splitter:</label>
+              <input 
+                type="checkbox"
+                name={"p2n_auto"} 
+                checked={p2nAuto} 
+                onChange={() => setP2nAuto }
+              />
+            </div>
+
+
             <div className="mt-4 italic text-sm text-gray-800">
               Fields marked with * are mandatory.
             </div>

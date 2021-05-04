@@ -2,12 +2,12 @@
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: ***requete***
+request: (TA="neural net" OR TA="machine learning" OR CPC=G06N) AND PN=WO AND PD=202001
 
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: ***dataDir***
+DataDirectory: Autom/segments/Autom202001
 
 ###############################
 #Patent2Net options : Set to *True* or False

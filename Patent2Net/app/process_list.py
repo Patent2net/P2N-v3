@@ -6,8 +6,10 @@ import pathlib
 import queue
 import requests
 
-def processList(app_cfg, AnnonceProgres):  
-    app_cfg.num_bars = 12
+from Patent2Net.app.message_announcer import AnnonceProgres 
+from subprocess import Popen
+
+def processListv1():  
     os.chdir("/home/p2n/P2N-V3/")
     cpt = 0
     lstReq = [fi for fi in os.listdir("./RequestsAuto") if fi.endswith(".cql")]
@@ -57,3 +59,38 @@ def processList(app_cfg, AnnonceProgres):
         for cmd in lstScripts3:
             command="python " + cmd + " ../RequestsAuto/%s"%(file)               
             os.system(command)
+
+
+os.environ['PYTHONPATH'] = os.getcwd()
+
+
+async def process_list_v2(autoDirectory):
+    os.chdir("/home/p2n/P2N-V3/")
+    lstReq = [fi for fi in os.listdir("./RequestsAuto/" + autoDirectory) if fi.endswith(".cql")]
+    
+    for file in lstReq:
+        print("Start process for " + file)
+
+        command="p2n run --config=../RequestsAuto/%s"%(file)
+        os.system(command) 
+
+    return True
+
+
+if __name__ == "__main__":
+    os.chdir("/home/p2n/P2N-V3/")
+    cpt = 0
+    lstReq = [fi for fi in os.listdir("./RequestsAuto") if fi.endswith(".cql")]
+    
+    for file in lstReq:
+        # command="python OPSGatherPatentsv2.py ../RequestsAuto/%s"%(file)
+        # os.system(command)
+
+        print("Start process for " + file)
+
+        
+        command="p2n run --config=../RequestsAuto/%s"%(file)
+        os.system(command) 
+        # config = "--config=../RequestsAuto/%s"%(file)
+        # p = Popen(['p2n', 'run', config])
+

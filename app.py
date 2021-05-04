@@ -17,11 +17,16 @@ import pathlib
 import queue
 #from urllib import parse
 import requests
+import asyncio
 
-from Patent2Net.app.process_list import processList
 from Patent2Net.app.dex import get_current_dex, read_dex, done_progress, start_progress, set_progress_key
+from Patent2Net.app.process_list import process_list_v2
+from Patent2Net.app.request_spliter import autom_request_is_needed, run_autom_request
 from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.AutomRequestSpliterTime import autom_request_spliter_time
 from subprocess import Popen
+
+from p2n.util import run_script
 
 # static_folder call the emplacement of all the content who will work with the HTML. template_folder the emplacement of the HTML. \
 #    In theory they don't have to be at Root.
@@ -268,6 +273,7 @@ def post_request():
     p2n_dir = form_result['p2n_dir']
     p2n_req = form_result['p2n_req']
     p2n_options = form_result['p2n_options'].split(',')
+    p2n_auto = 'p2n_auto' in form_result
 
     #Pleaceholder file who give the model of the file
     f_in = open("placeholder.cql", "rt")
@@ -303,25 +309,50 @@ def post_request():
     #close input and output files
     f_in.close()
     f_out.close()
-    
-    # #Launch the P2N research
-    # command="p2n run --config=../RequestsSets/%s.cql"%(form_result['p2n_dir'])
-    # os.system(command)
 
     config = "--config=../RequestsSets/%s.cql"%(form_result['p2n_dir'])
-    p = Popen(['p2n', 'run', config])
+
+    def process_single():
+        # p = Popen(['p2n', 'run', config])
+        
+        # print ('starting')
+        
+        labels_keys = labels.keys()
+        active_labels_keys = [label_key for label_key in labels_keys if label_key not in ['p2n_dir', 'p2n_filtering', 'p2n_indexer'] and label_key in p2n_options]
+
+        # start_progress(p2n_dir)
+
+        # for label_key in active_labels_keys:
+        #     set_progress_key(p2n_dir, label_key, None, None)
+
+        print("PROGRESS SINGLE")
+        return get_success_response("Request send", { "p2n_dir": p2n_dir, "active_labels_keys": active_labels_keys })
     
-    print ('starting')
+    def process_multi():
+        Need, lstFicOk = autom_request_is_needed('(TA="neural net" OR TA="machine learning" OR CPC=G06N) AND PN=WO', 'Autom')
+
+        if Need:
+            autoDirectory = run_autom_request('(TA="neural net" OR TA="machine learning" OR CPC=G06N) AND PN=WO', 'Autom', 2020, lstFicOk)
+
+            return get_success_response("Auto directory generate", { "autoDirectory": autoDirectory })
+        else:
+            return process_single()
+        
     
-    labels_keys = labels.keys()
-    active_labels_keys = [label_key for label_key in labels_keys if label_key not in ['p2n_dir', 'p2n_filtering', 'p2n_indexer'] and label_key in p2n_options]
+        # if autoDirectory != None:
+        #     if process_list_v2(autoDirectory):
+        #         return True
+        #     else:
+        #         return process_single()
 
-    start_progress(p2n_dir)
+        # 
 
-    for label_key in active_labels_keys:
-        set_progress_key(p2n_dir, label_key, None, None)
+    print("p2n_auto: " + str(p2n_auto))
 
-    return get_success_response("Request send", { "p2n_dir": p2n_dir, "active_labels_keys": active_labels_keys })
+    if (not p2n_auto):
+        return process_single()
+    else:
+        return process_multi()
 
 @app.route('/api/v1/requests/<p2n_dir>', methods=['GET'])
 def get_one_request(p2n_dir):
@@ -507,7 +538,7 @@ def cqlList():
         return render_template('Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
     if request.method == 'POST':
-        processList(app_cfg, AnnonceProgres)
+        # processList(app_cfg)
         return "done"
 
     return render_template('Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
@@ -525,10 +556,13 @@ def media_static(filename):
 def dex():
     return send_file("dex.js")
 
+@app.route('/doc/<path:path>')
+def doc_static(path):
+    return send_from_directory("doc/", path)
 
 @app.route('/app/static/<path:filename>', methods=['GET'])
 def request_app_static(filename):
-    return send_from_directory("web_app/build/static", filename)
+    return send_from_directory("web_app/build/static/", filename)
 
 # Redirection vers l'app Request
 

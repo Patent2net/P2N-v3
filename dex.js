@@ -1,6 +1,25 @@
 document.write('\
 <ul>\
+<li><a href="DATA/Autom202104.html" target="_blank">Autom202104</a></li>\
+<li><a href="DATA/Autom202103.html" target="_blank">Autom202103</a></li>\
+<li><a href="DATA/Autom202102.html" target="_blank">Autom202102</a></li>\
+<li><a href="DATA/Autom202101.html" target="_blank">Autom202101</a></li>\
+<li><a href="DATA/Autom202012.html" target="_blank">Autom202012</a></li>\
+<li><a href="DATA/Autom202011.html" target="_blank">Autom202011</a></li>\
+<li><a href="DATA/Autom202010.html" target="_blank">Autom202010</a></li>\
+<li><a href="DATA/Autom202009.html" target="_blank">Autom202009</a></li>\
+<li><a href="DATA/Autom202008.html" target="_blank">Autom202008</a></li>\
+<li><a href="DATA/Autom202007.html" target="_blank">Autom202007</a></li>\
+<li><a href="DATA/Autom202006.html" target="_blank">Autom202006</a></li>\
+<li><a href="DATA/Autom202005.html" target="_blank">Autom202005</a></li>\
+<li><a href="DATA/Autom202004.html" target="_blank">Autom202004</a></li>\
+<li><a href="DATA/Autom202003.html" target="_blank">Autom202003</a></li>\
+<li><a href="DATA/Autom202002.html" target="_blank">Autom202002</a></li>\
+<li><a href="DATA/Autom202001.html" target="_blank">Autom202001</a></li>\
+<li><a href="DATA/Fusion.html" target="_blank">Fusion</a></li>\
 <li><a href="DATA/lentille.html" target="_blank">lentille</a></li>\
+<li><a href="DATA/lentillelistcql.html" target="_blank">lentillelistcql</a></li>\
+<li><a href="DATA/lentilleeee.html" target="_blank">lentilleeee</a></li>\
 <li><a href="DATA/lentilledesign.html" target="_blank">lentilledesign</a></li>\
 <li><a href="DATA/lentilleloading.html" target="_blank">lentilleloading</a></li>\
 <li><a href="DATA/testwithtemplate.html" target="_blank">testwithtemplate</a></li>\
