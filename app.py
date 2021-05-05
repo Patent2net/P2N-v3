@@ -19,9 +19,9 @@ import queue
 import requests
 import asyncio
 
-from Patent2Net.app.dex import get_current_dex, read_dex, done_progress, start_progress, set_progress_key
+from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_done, set_data_progress, get_data_progress, get_global_progress, set_state
 from Patent2Net.app.process_list import process_list_v2
-from Patent2Net.app.request_spliter import autom_request_is_needed, run_autom_request
+from Patent2Net.app.hooks.progress_hook import ProgressHook
 from Patent2Net.P2N_Config import LoadConfig
 from Patent2Net.AutomRequestSpliterTime import autom_request_spliter_time
 from subprocess import Popen
@@ -256,7 +256,7 @@ def get_requests():
         {
             "done": dex["done"],
             "in_progress": dex["in_progress"],
-            "global_progress": dex["global_progress"]
+            "global_progress": get_global_progress()
         }
     )
 
@@ -273,13 +273,16 @@ def post_request():
     p2n_dir = form_result['p2n_dir']
     p2n_req = form_result['p2n_req']
     p2n_options = form_result['p2n_options'].split(',')
-    p2n_auto = 'p2n_auto' in form_result
+
+    print(form_result['p2n_auto'])
+    p2n_auto = 'p2n_auto' in form_result and form_result['p2n_auto'] == "true"
 
     #Pleaceholder file who give the model of the file
     f_in = open("placeholder.cql", "rt")
     
     # #create an output file with the name requested in the form by the user
-    f_out = open("./RequestsSets/%s.cql" %form_result['p2n_dir'] ,"wt")
+    target_path = "./RequestsSets/%s.cql" %form_result['p2n_dir']
+    f_out = open(target_path ,"wt")
 
     def get_option_value(name):
         return 'True' if name in p2n_options else 'False'
@@ -311,48 +314,34 @@ def post_request():
     f_out.close()
 
     config = "--config=../RequestsSets/%s.cql"%(form_result['p2n_dir'])
-
+    
     def process_single():
-        # p = Popen(['p2n', 'run', config])
+        p = Popen(['p2n', 'run', config])
         
-        # print ('starting')
+        print ('starting')
+        print(str(p))
         
         labels_keys = labels.keys()
         active_labels_keys = [label_key for label_key in labels_keys if label_key not in ['p2n_dir', 'p2n_filtering', 'p2n_indexer'] and label_key in p2n_options]
 
-        # start_progress(p2n_dir)
+        set_state(p2n_dir, "P2N_RUN")
 
-        # for label_key in active_labels_keys:
-        #     set_progress_key(p2n_dir, label_key, None, None)
+        for label_key in active_labels_keys:
+            set_data_progress(p2n_dir, label_key, None, None)
 
         print("PROGRESS SINGLE")
         return get_success_response("Request send", { "p2n_dir": p2n_dir, "active_labels_keys": active_labels_keys })
     
     def process_multi():
-        Need, lstFicOk = autom_request_is_needed('(TA="neural net" OR TA="machine learning" OR CPC=G06N) AND PN=WO', 'Autom')
-
-        if Need:
-            autoDirectory = run_autom_request('(TA="neural net" OR TA="machine learning" OR CPC=G06N) AND PN=WO', 'Autom', 2020, lstFicOk)
-
-            return get_success_response("Auto directory generate", { "autoDirectory": autoDirectory })
-        else:
-            return process_single()
-        
-    
-        # if autoDirectory != None:
-        #     if process_list_v2(autoDirectory):
-        #         return True
-        #     else:
-        #         return process_single()
-
-        # 
+        p = Popen(['python', 'Patent2Net/scripts/request_spliter.py', target_path])
 
     print("p2n_auto: " + str(p2n_auto))
 
-    if (not p2n_auto):
-        return process_single()
-    else:
+    if (p2n_auto == True):
         return process_multi()
+    else:
+        return process_single()
+       
 
 @app.route('/api/v1/requests/<p2n_dir>', methods=['GET'])
 def get_one_request(p2n_dir):
@@ -362,7 +351,7 @@ def get_one_request(p2n_dir):
 
     return get_success_response("", {
         "done": p2n_dir in dex["done"],
-        "progress": (dex["progress"][p2n_dir] if p2n_dir in dex["progress"] else None),
+        "progress": get_data_progress(p2n_dir),
         "directory": p2n_dir,
         "cql": {
             "requete": configFile.requete,
@@ -389,7 +378,37 @@ def update_one_request_interface(p2n_dir):
     return get_success_response("OK", {
         "directory": p2n_dir
     })
-    
+
+@app.route('/api/v1/hook', methods=['POST'])
+def hook():
+    json = request.json
+
+    if json.name == ProgressHook.NAME:
+        hook = ProgressHook.deserialize(json)
+
+        appli = hook.service
+        directory = hook.directory
+        if appli in lstAppl:
+            set_data_progress(directory, appli, hook.value, hook.max_value)
+            msg="data:" + json.dumps(hook) + "\n\n"
+            announcer.announce(msg=msg)
+
+    return json.dumps({"data": request.json})
+
+@app.route('/api/v1/listen', methods=['POST'])
+def listen_hook():
+
+    def stream():
+        messages = announcer.listen()  # returns a queue.Queue
+        while True:
+            msg = messages.get()  # blocks until a new message arrives
+            yield msg
+            
+    res = Response(stream(), mimetype='text/event-stream')
+
+    return res
+
+
 def get_error_response(message, code = 400):
     return json.dumps({ "code": code, "message": message })
 
@@ -416,7 +435,7 @@ def annonce():
 
         dex = get_current_dex()
         for element in dex["in_progress"]:
-            set_progress_key(element, appli, ValActu, valMax)
+            set_data_progress(element, appli, ValActu, valMax)
     
     #msg = format_sse(data=json.dumps({"0":ValActu, "1":valMax}), event =Appli )
         dico = dict()

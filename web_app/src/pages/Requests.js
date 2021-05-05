@@ -64,7 +64,7 @@ function App() {
     "p2n_cluster",
   ]);
   const [ requests, setRequests ] = React.useState({});
-  const [ p2nAuto, setP2nAuto ] = React.useState({});
+  const [ p2nAuto, setP2nAuto ] = React.useState(false);
 
   const history = useHistory();
 
@@ -104,11 +104,12 @@ function App() {
       return response.json();
     })
     .then(function(json) {
+      console.log(json)
       history.push("/app/requests/" + json.data.p2n_dir );
     });
     
 
-  }, [request, directory, options, history])
+  }, [request, directory, options, history, p2nAuto])
 
   return (
     <div className="container mx-auto grid grid-cols-4 gap-4 items-start">
@@ -234,7 +235,7 @@ function App() {
                 type="checkbox"
                 name={"p2n_auto"} 
                 checked={p2nAuto} 
-                onChange={() => setP2nAuto }
+                onChange={() => setP2nAuto(!p2nAuto) }
               />
             </div>
 

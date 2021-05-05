@@ -1,6 +1,7 @@
 
 from p2n.config import OPSCredentials
 from Patent2Net.P2N_Lib import PatentSearch
+from Patent2Net.P2N_Config import LoadConfig
 import os
 import epo_ops
 import datetime
@@ -39,16 +40,14 @@ def autom_request_is_needed(RequestOrig, directory):
 
     toBeFound= checkRequest(RequestOrig)
 
-    print(toBeFound)
-
     if toBeFound>2000:
-        print ('wow ', toBeFound, ' (or more) patents to retreive... A good reason to use this script')
         Need = True
+        print ('wow ', toBeFound, ' (or more) patents to retreive... A good reason to use this script')
     else:
-        print ("no need to split, gather directly your request '", RequestOrig, "' with p2n" )
         Need = False
+        print ("no need to split, gather directly your request '", requete, "' with p2n" )
 
-    return Need, lstFicOk
+    return Need, lstFicOk, toBeFound
 
 def run_autom_request(RequestOrig, directory, dateDeb, lstFicOk):
     today = datetime.datetime.today()
@@ -56,6 +55,8 @@ def run_autom_request(RequestOrig, directory, dateDeb, lstFicOk):
     targetDirectory = REQUEST_AUTO_FOLDER + directory
     Request = RequestOrig + ' AND PD=date' 
     DataDir = directory + '/segments/' + directory
+
+    jourOk, moisOk, ipcOk = False, False, False
 
     Total =0
     nbFiles = 0
@@ -169,8 +170,21 @@ def run_autom_request(RequestOrig, directory, dateDeb, lstFicOk):
                                     nbFiles +=1
                                     print (ficRes.name, 'file written, ', Trouves,' patents expected and ', Total, ' cumulative.' )
                             
-    print ("request splitted in ", nbFiles, " files")
+    print ("[request_spliter] request splitted in ", nbFiles, " files")
                 
-    print ("Gathering with P2N all this request should lead to ", Total, " patents")
+    print ("[request_spliter] Gathering with P2N all this request should lead to ", Total, " patents")
 
     return targetDirectory
+
+if __name__ == "__main__":
+    configFile = LoadConfig()
+
+    requete = configFile.requete
+    ndf = configFile.ndf
+
+    Need, lstFicOk, toBeFound = autom_request_is_needed(requete, ndf)
+
+    if Need:
+        dateDeb = int(input ("[request_spliter] Please enter the stardate year for gathering you request: "))
+
+        run_autom_request(requete, ndf, dateDeb, lstFicOk)
