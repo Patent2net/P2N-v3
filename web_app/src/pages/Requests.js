@@ -92,7 +92,7 @@ function App() {
     data.append("p2n_req", request);
     data.append("p2n_dir", directory);
     data.append("p2n_options", options.join(','));
-    data.append("p2n_auto", p2nAuto)
+    data.append("p2n_auto", p2nAuto ? "true" : "false")
 
     console.log(data)
 

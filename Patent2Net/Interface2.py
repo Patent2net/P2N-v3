@@ -7,7 +7,7 @@ Created on Sun Feb 15 09:12:25 2015
 
 from Patent2Net.P2N_Lib import LoadBiblioFile, RenderTemplate
 from Patent2Net.P2N_Config import LoadConfig
-from Patent2Net.app.dex import done_progress
+from Patent2Net.app.dex import set_done
 import codecs
 import os
 import pickle
@@ -146,7 +146,7 @@ RenderTemplate(
     request = requete
 )
 
-done_progress(ndf) # Done request with new dex systeme
+set_done(ndf) # Done request with new dex systeme
 
 print ('updating js file')
 # updating index.js for server side and local menu

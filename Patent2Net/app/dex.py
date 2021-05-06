@@ -1,6 +1,8 @@
 import json
 import sys, os
-
+from Patent2Net.app.event import send_new_event 
+from Patent2Net.app.events.progress_value_change import ProgressValueChange
+from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
 # ---------------------------- #
 # NEW DEX SYSTEME - 23/04/2021 #
 # ---------------------------- #
@@ -27,7 +29,6 @@ def read_dex():
 
             normalize()
             for in_progress_elmt in dex["in_progress"]:
-                print(in_progress_elmt)
                 update_global_progress(in_progress_elmt)
 
     except IOError:
@@ -70,10 +71,17 @@ def normalize_request_directory(directory):
 
 # STATES
 
-# state: "P2N_RUN" | "SPLITER_NEED_RUN" | "SPLITER_RUN" | "SPILTER_YEAR_INPUT" 
+# state: "P2N_RUN" | "SPLITER_RUN"
 def set_state(directory, state):
+    print("STATE HAS CHANGE: " + directory + " - " + state)
     request_directory = normalize_request_directory(directory)
     request_directory["state"] = state
+
+    write_dex()
+
+def get_state(directory):
+    request_directory = normalize_request_directory(directory)
+    return request_directory["state"]
 
 def set_in_progress(directory):
     global dex
@@ -119,6 +127,18 @@ def get_directory_request_data(directory, key, default = None):
 
     return request_directory["data"][key]
 
+def get_directory_request_data_all(directory):
+    request_directory = normalize_request_directory(directory)
+    return request_directory["data"]
+
+def delete_directory_request_data(directory, key):
+    normalize()
+    request_directory = normalize_request_directory(directory)
+    
+    if key in request_directory["data"]:
+        del [key]
+        write_dex()
+
 
 # GLOBAL PROGRESS
 
@@ -128,17 +148,13 @@ def update_global_progress(directory):
 
     progress_directory = get_directory_request_data(directory, "progress", {})
 
-    print("progress_directory: " + str(progress_directory))
-
     done_step_count = 0
     progress_step_count = 0
     total_step_count = len(progress_directory)
 
     for step_key in progress_directory:
         step = progress_directory[step_key]
-        print(step_key, step)
         if step["value"] != None and step["max_value"] != None:
-            print(step["value"], step["max_value"])
             if float(step["value"]) >= float(step["max_value"]):
                 done_step_count += 1
             else:
@@ -173,7 +189,37 @@ def set_data_progress(directory, key, value, max_value):
     set_directory_request_data(directory, "progress", progress_directory)
     update_global_progress(directory)
 
+    send_new_event(
+        ProgressValueChange(directory, key, value, max_value) 
+    )
+
+
 def get_data_progress(directory):
     return get_directory_request_data(directory, "progress", None)
+
+def set_data_to_be_found(directory, need_spliter, amount, lstFicOk):    
+    set_directory_request_data(directory, "to_be_found", {
+        "need_spliter": need_spliter,
+        "amount": amount,
+        "lstFicOk": lstFicOk
+    })
+
+    send_new_event(
+        ToBeFoundChange(directory, need_spliter, amount) 
+    )
+
+def get_data_to_be_found(directory):
+    return get_directory_request_data(directory, "to_be_found", None)
+
+def delete_data_to_be_found(directory):
+    delete_directory_request_data(directory, "to_be_found")
+    
+
+def set_data_spliter_start_date(directory, date):
+    if type(date) == int:
+        set_directory_request_data(directory, "spliter_start_date", date)
+
+def get_data_spliter_start_date(directory):
+    return get_directory_request_data(directory, "spliter_start_date", None)
 
 read_dex()

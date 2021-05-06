@@ -1,7 +1,7 @@
 
-class ProgressHook:
+class ProgressValueChange:
     
-    NAME = "PROGRESS"
+    NAME = "PROGRESS_VALUE_CHANGE"
 
     def __init__(self, directory, service, value, max_value):
         self.directory = directory
@@ -23,16 +23,13 @@ class ProgressHook:
     @staticmethod
     def deserialize(serializedHook):
 
-        if "name" in serializedHook and serializedHook["name"] == ProgressHook.NAME and "data" in serializedHook:
+        if "name" in serializedHook and serializedHook["name"] == ProgressValueChange.NAME and "data" in serializedHook:
             data = serializedHook["data"]
             directory = data["directory"] if "directory" in data else None
             service = data["service"] if "service" in data else None
             value = data["value"] if "value" in data else None
             max_value = data["max_value"] if "max_value" in data else None
 
-            return ProgressHook(directory, service, value, max_value)
+            return ProgressValueChange(directory, service, value, max_value)
             
         return None
-
-def test():
-    print("test")

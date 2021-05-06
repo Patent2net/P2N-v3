@@ -1,7 +1,7 @@
-
 from p2n.config import OPSCredentials
 from Patent2Net.P2N_Lib import PatentSearch
 from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.app.dex import get_data_to_be_found, get_data_spliter_start_date
 import os
 import epo_ops
 import datetime
@@ -19,6 +19,7 @@ global secret
 c = OPSCredentials(credentials_file='cles-epo.txt')
 key, secret = c.read()
 
+
 def checkRequest(req):
     ops_client = epo_ops.Client(key, secret)
     #  data = ops_client.family('publication', , 'biblio')
@@ -29,28 +30,32 @@ def checkRequest(req):
     except:
         return 0
 
-def autom_request_is_needed(RequestOrig, directory):
-    targetDirectory = REQUEST_AUTO_FOLDER + directory
+def main():
+    configFile = LoadConfig()
 
-    if not os.path.exists(targetDirectory):
-        os.makedirs(targetDirectory)
-        lstFicOk = []
-    else:
-        lstFicOk = os.listdir(targetDirectory)
+    RequestOrig = configFile.requete
+    directory = configFile.ndf
 
-    toBeFound= checkRequest(RequestOrig)
-
-    if toBeFound>2000:
-        Need = True
-        print ('wow ', toBeFound, ' (or more) patents to retreive... A good reason to use this script')
-    else:
-        Need = False
-        print ("no need to split, gather directly your request '", requete, "' with p2n" )
-
-    return Need, lstFicOk, toBeFound
-
-def run_autom_request(RequestOrig, directory, dateDeb, lstFicOk):
     today = datetime.datetime.today()
+
+    to_be_found = get_data_to_be_found(directory)
+
+    if to_be_found == None:
+        print("Vous devez d'abord verifier si la requete doit être découpé")
+        return None
+
+    need_spliter = to_be_found["need_spliter"]
+    lstFicOk = to_be_found["lstFicOk"]
+
+    if need_spliter != False:
+        print("Cette requete n'a pas besoin d'etre découpé")
+        return None
+
+    dateDeb = get_data_spliter_start_date(directory)
+
+    if dateDeb == None:
+        print("Vous devez préciser la date de début pour découper la requete")
+        return None
 
     targetDirectory = REQUEST_AUTO_FOLDER + directory
     Request = RequestOrig + ' AND PD=date' 
@@ -174,17 +179,5 @@ def run_autom_request(RequestOrig, directory, dateDeb, lstFicOk):
                 
     print ("[request_spliter] Gathering with P2N all this request should lead to ", Total, " patents")
 
-    return targetDirectory
-
 if __name__ == "__main__":
-    configFile = LoadConfig()
-
-    requete = configFile.requete
-    ndf = configFile.ndf
-
-    Need, lstFicOk, toBeFound = autom_request_is_needed(requete, ndf)
-
-    if Need:
-        dateDeb = int(input ("[request_spliter] Please enter the stardate year for gathering you request: "))
-
-        run_autom_request(requete, ndf, dateDeb, lstFicOk)
+    main()

@@ -1,4 +1,4 @@
 p2n_req:(TA="neural net" OR TA="machine learning" OR CPC=G06N) AND PN=WO
 p2n_dir:Autom
 p2n_options:p2n_content,p2n_gather_biblio,p2n_family,p2n_image,p2n_network,p2n_freeplane,p2n_bibfile,p2n_map,p2n_tables,p2n_carrot,p2n_iramuteq,p2n_cluster
-p2n_auto:[object Object]
+p2n_auto:true

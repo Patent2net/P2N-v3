@@ -18,12 +18,16 @@ import queue
 #from urllib import parse
 import requests
 import asyncio
+import epo_ops
 
-from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_done, set_data_progress, get_data_progress, get_global_progress, set_state
+from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_done, set_data_progress, get_data_progress, get_global_progress, set_state, get_state, get_directory_request_data_all, delete_data_to_be_found, get_data_to_be_found, set_data_spliter_start_date
 from Patent2Net.app.process_list import process_list_v2
-from Patent2Net.app.hooks.progress_hook import ProgressHook
+from Patent2Net.app.events.progress_value_change import ProgressValueChange
+from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
 from Patent2Net.P2N_Config import LoadConfig
 from Patent2Net.AutomRequestSpliterTime import autom_request_spliter_time
+from Patent2Net.P2N_Lib import PatentSearch
+from p2n.config import OPSCredentials
 from subprocess import Popen
 
 from p2n.util import run_script
@@ -36,7 +40,7 @@ app = Flask(__name__, static_url_path='', static_folder='./Patent2Net/static/', 
 CORS(app)
 
 os.environ['PYTHONPATH'] = os.getcwd()
-
+os.environ['REQUESTS_CA_BUNDLE'] = 'Patent2Net/cacert.pem'
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 class Config:
@@ -315,33 +319,37 @@ def post_request():
 
     config = "--config=../RequestsSets/%s.cql"%(form_result['p2n_dir'])
     
-    def process_single():
-        p = Popen(['p2n', 'run', config])
-        
-        print ('starting')
-        print(str(p))
-        
-        labels_keys = labels.keys()
-        active_labels_keys = [label_key for label_key in labels_keys if label_key not in ['p2n_dir', 'p2n_filtering', 'p2n_indexer'] and label_key in p2n_options]
+    labels_keys = labels.keys()
+    active_labels_keys = [label_key for label_key in labels_keys if label_key not in ['p2n_dir', 'p2n_filtering', 'p2n_indexer'] and label_key in p2n_options]
 
-        set_state(p2n_dir, "P2N_RUN")
+    for label_key in active_labels_keys:
+        set_data_progress(p2n_dir, label_key, None, None)
 
-        for label_key in active_labels_keys:
-            set_data_progress(p2n_dir, label_key, None, None)
-
-        print("PROGRESS SINGLE")
-        return get_success_response("Request send", { "p2n_dir": p2n_dir, "active_labels_keys": active_labels_keys })
-    
-    def process_multi():
-        p = Popen(['python', 'Patent2Net/scripts/request_spliter.py', target_path])
-
-    print("p2n_auto: " + str(p2n_auto))
 
     if (p2n_auto == True):
-        return process_multi()
+        process_multi(p2n_dir, target_path)
+        return get_success_response("Request send", { "p2n_dir": p2n_dir })
     else:
-        return process_single()
-       
+        process_single(p2n_dir, config)
+        return get_success_response("Spliter start", { "p2n_dir": p2n_dir })
+
+   
+def process_single(p2n_dir, config):
+    print("PROGRESS SINGLE: " + p2n_dir)
+
+    set_in_progress(p2n_dir)
+    set_state(p2n_dir, "P2N_RUN")
+    p = Popen(['p2n', 'run', config])
+    
+def process_multi(p2n_dir, target_path):
+    print("PROGRESS MULTI: " + p2n_dir)
+
+    set_in_progress(p2n_dir)
+    set_state(p2n_dir, "SPLITER_RUN")
+    delete_data_to_be_found(p2n_dir)
+    p = Popen(['python', 'Patent2Net/scripts/update_to_be_found.py', target_path])
+
+
 
 @app.route('/api/v1/requests/<p2n_dir>', methods=['GET'])
 def get_one_request(p2n_dir):
@@ -351,6 +359,8 @@ def get_one_request(p2n_dir):
 
     return get_success_response("", {
         "done": p2n_dir in dex["done"],
+        "state": get_state(p2n_dir),
+        "data": get_directory_request_data_all(p2n_dir),
         "progress": get_data_progress(p2n_dir),
         "directory": p2n_dir,
         "cql": {
@@ -365,6 +375,25 @@ def get_one_request(p2n_dir):
         }
     })
 
+@app.route('/api/v1/requests/<p2n_dir>/split', methods=['POST'])
+def split_request(p2n_dir):
+    form_result = request.form
+
+    to_be_found = get_data_to_be_found(p2n_dir)
+
+    if "date" not in form_result:
+        return get_error_response("date parameter is required")
+
+    date = form_result["date"]
+    target_path = "./RequestsSets/%s.cql" %p2n_dir
+
+    if to_be_found["need_spliter"]:
+        set_data_spliter_start_date(p2n_dir, date)
+        p = Popen(['python', 'Patent2Net/scripts/run_spliter.py', target_path])
+
+        return get_success_response("Spliter running", {})
+
+    return get_error_response("Spliter not needed for this directory")
 
 @app.route('/api/v1/requests/<p2n_dir>/interface', methods=['POST'])
 def update_one_request_interface(p2n_dir):
@@ -379,21 +408,23 @@ def update_one_request_interface(p2n_dir):
         "directory": p2n_dir
     })
 
-@app.route('/api/v1/hook', methods=['POST'])
-def hook():
-    json = request.json
+@app.route('/api/v1/events', methods=['POST'])
+def events():
+    data = request.json
+    print(data)
+    if data["name"] == ProgressValueChange.NAME:
+        event = ProgressValueChange.deserialize(data)
+        # print(event)
 
-    if json.name == ProgressHook.NAME:
-        hook = ProgressHook.deserialize(json)
+    if data["name"] == ToBeFoundChange.NAME:
+        event = ToBeFoundChange.deserialize(data)
 
-        appli = hook.service
-        directory = hook.directory
-        if appli in lstAppl:
-            set_data_progress(directory, appli, hook.value, hook.max_value)
-            msg="data:" + json.dumps(hook) + "\n\n"
-            announcer.announce(msg=msg)
+        if event.need_spliter == False:
+            config = "--config=../RequestsSets/%s.cql"%(event.directory)
+            process_single(event.directory, config)
 
-    return json.dumps({"data": request.json})
+
+    return json.dumps({})
 
 @app.route('/api/v1/listen', methods=['POST'])
 def listen_hook():
