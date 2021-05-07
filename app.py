@@ -20,10 +20,12 @@ import requests
 import asyncio
 import epo_ops
 
-from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_done, set_data_progress, get_data_progress, get_global_progress, set_state, get_state, get_directory_request_data_all, delete_data_to_be_found, get_data_to_be_found, set_data_spliter_start_date
+from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_done, set_data_progress, get_data_progress, get_global_progress, set_state, get_state, get_directory_request_data_all, delete_data_to_be_found, get_data_to_be_found, set_data_spliter_start_date, delete_data_spliter
 from Patent2Net.app.process_list import process_list_v2
 from Patent2Net.app.events.progress_value_change import ProgressValueChange
 from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
+from Patent2Net.app.events.split_end import SplitEnd
+from Patent2Net.app.event import EventListener
 from Patent2Net.P2N_Config import LoadConfig
 from Patent2Net.AutomRequestSpliterTime import autom_request_spliter_time
 from Patent2Net.P2N_Lib import PatentSearch
@@ -57,6 +59,7 @@ from logging.handlers import RotatingFileHandler
 from Patent2Net.app.message_announcer import MessageAnnouncer
 
 announcer = MessageAnnouncer()
+eventListener = EventListener()
 
 def format_sse(data: str, event=None) -> str:
     """Formats a string and an event name in order to follow the event stream convention.
@@ -379,6 +382,7 @@ def get_one_request(p2n_dir):
 def split_request(p2n_dir):
     form_result = request.form
 
+    read_dex()
     to_be_found = get_data_to_be_found(p2n_dir)
 
     if "date" not in form_result:
@@ -388,7 +392,7 @@ def split_request(p2n_dir):
     target_path = "./RequestsSets/%s.cql" %p2n_dir
 
     if to_be_found["need_spliter"]:
-        set_data_spliter_start_date(p2n_dir, date)
+        set_data_spliter_start_date(p2n_dir, int(date))
         p = Popen(['python', 'Patent2Net/scripts/run_spliter.py', target_path])
 
         return get_success_response("Spliter running", {})
@@ -411,28 +415,37 @@ def update_one_request_interface(p2n_dir):
 @app.route('/api/v1/events', methods=['POST'])
 def events():
     data = request.json
+    name = data["name"]
     print(data)
-    if data["name"] == ProgressValueChange.NAME:
+    if name == ProgressValueChange.NAME:
         event = ProgressValueChange.deserialize(data)
-        # print(event)
 
-    if data["name"] == ToBeFoundChange.NAME:
+    if name == ToBeFoundChange.NAME:
         event = ToBeFoundChange.deserialize(data)
 
         if event.need_spliter == False:
             config = "--config=../RequestsSets/%s.cql"%(event.directory)
             process_single(event.directory, config)
 
+    if name == SplitEnd.NAME:
+        event = SplitEnd.deserialize(data)
+        target_path = "./RequestsSets/%s.cql" %(event.directory)
+        Popen(['python', 'Patent2Net/scripts/process_list.py', target_path])
 
-    return json.dumps({})
 
-@app.route('/api/v1/listen', methods=['POST'])
+    eventListener.push_event(data)
+
+    return get_success_response("ok", {})
+
+@app.route('/api/v1/listen', methods=['GET'])
 def listen_hook():
 
     def stream():
-        messages = announcer.listen()  # returns a queue.Queue
+        events = eventListener.listen()  # returns a queue.Queue
         while True:
-            msg = messages.get()  # blocks until a new message arrives
+            event = events.get()  # blocks until a new message arrives
+            print(event)
+            msg = msg="data:" + json.dumps(event) + "\n\n"
             yield msg
             
     res = Response(stream(), mimetype='text/event-stream')

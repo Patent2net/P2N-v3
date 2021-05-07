@@ -3,6 +3,9 @@ import sys, os
 from Patent2Net.app.event import send_new_event 
 from Patent2Net.app.events.progress_value_change import ProgressValueChange
 from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
+from Patent2Net.app.events.split_result_added import SplitResultAdded
+from Patent2Net.app.events.split_start import SplitStart
+from Patent2Net.app.events.split_end import SplitEnd
 # ---------------------------- #
 # NEW DEX SYSTEME - 23/04/2021 #
 # ---------------------------- #
@@ -136,7 +139,7 @@ def delete_directory_request_data(directory, key):
     request_directory = normalize_request_directory(directory)
     
     if key in request_directory["data"]:
-        del [key]
+        del request_directory["data"][key]
         write_dex()
 
 
@@ -175,9 +178,6 @@ def get_global_progress():
 # UTILS
 
 def set_data_progress(directory, key, value, max_value):
-    global dex
-    normalize()
-    
     progress_directory = get_directory_request_data(directory, "progress", {})
 
     if key not in progress_directory:
@@ -189,9 +189,7 @@ def set_data_progress(directory, key, value, max_value):
     set_directory_request_data(directory, "progress", progress_directory)
     update_global_progress(directory)
 
-    send_new_event(
-        ProgressValueChange(directory, key, value, max_value) 
-    )
+    send_new_event( ProgressValueChange(directory, key, value, max_value) )
 
 
 def get_data_progress(directory):
@@ -204,9 +202,7 @@ def set_data_to_be_found(directory, need_spliter, amount, lstFicOk):
         "lstFicOk": lstFicOk
     })
 
-    send_new_event(
-        ToBeFoundChange(directory, need_spliter, amount) 
-    )
+    send_new_event( ToBeFoundChange(directory, need_spliter, amount) )
 
 def get_data_to_be_found(directory):
     return get_directory_request_data(directory, "to_be_found", None)
@@ -216,10 +212,47 @@ def delete_data_to_be_found(directory):
     
 
 def set_data_spliter_start_date(directory, date):
-    if type(date) == int:
-        set_directory_request_data(directory, "spliter_start_date", date)
+    set_directory_request_data(directory, "spliter_start_date", date)
 
 def get_data_spliter_start_date(directory):
     return get_directory_request_data(directory, "spliter_start_date", None)
 
+
+def add_spliter_result(directory, name, date, find):
+    spliter_result = get_directory_request_data(directory, "spliter_result", {})
+
+    if "requests" not in spliter_result:
+        spliter_result["requests"] = []
+    spliter_result["requests"].append({
+        "name": name,
+        "date": date,
+        "find": find
+    })
+
+    set_directory_request_data(directory, "spliter_result", spliter_result)
+
+    send_new_event( SplitResultAdded(directory, name, date, find) )
+
+def set_spliter_cumulative(directory, cumulative):
+    spliter_result = get_directory_request_data(directory, "spliter_result", {})
+    spliter_result["cumulative"] = cumulative
+    set_directory_request_data(directory, "spliter_result", spliter_result)
+
+def set_spliter_result_start(directory):
+    spliter_result = get_directory_request_data(directory, "spliter_result", {})
+    spliter_result["start"] = True
+    set_directory_request_data(directory, "spliter_result", spliter_result)
+
+    send_new_event( SplitStart(directory) )
+
+def set_spliter_result_end(directory):
+    spliter_result = get_directory_request_data(directory, "spliter_result", {})
+    spliter_result["end"] = True
+    set_directory_request_data(directory, "spliter_result", spliter_result)
+
+    send_new_event( SplitEnd(directory) )
+
+def delete_data_spliter(directory):
+    delete_directory_request_data(directory, "spliter_result")
+        
 read_dex()

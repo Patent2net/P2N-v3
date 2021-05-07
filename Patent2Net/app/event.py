@@ -2,7 +2,7 @@ import requests
 import queue
 import json
 
-class HookListener:
+class EventListener:
 
     def __init__(self):
         self.listeners = []

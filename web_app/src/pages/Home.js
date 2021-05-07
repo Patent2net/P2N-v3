@@ -2,7 +2,7 @@
 const Home = ({version}) => (
     <div className="container mx-auto">
         <div className="flex justify-center items-center">
-            <div className="flex flex-col w-3/5 mb-12 bg-white p-8 rounded shadow">
+            <div className="flex flex-col w-full lg:w-3/5 mb-12 bg-white p-8 rounded shadow">
                 <h1 className="text-3xl font-semibold mb-2 text-gray-900">Patent2Net Docker Version : <span class="font-normal">{version}</span> </h1>
                 <hr />
                 <div className="mt-4">

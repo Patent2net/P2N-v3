@@ -8,7 +8,7 @@ import {
   Redirect
 } from "react-router-dom";
 import Requests from './pages/Requests';
-import Request from './pages/Request';
+import Request from './pages/Request/index';
 import GetStarted from './pages/GetStarted';
 import './index.css'
 import Home from './pages/Home';

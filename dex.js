@@ -1,5 +1,13 @@
 document.write('\
 <ul>\
+<li><a href="DATA/Autom4_segments_202104.html" target="_blank">Autom4_segments_202104</a></li>\
+<li><a href="DATA/Autom4_segments_202103.html" target="_blank">Autom4_segments_202103</a></li>\
+<li><a href="DATA/Autom4_segments_202102.html" target="_blank">Autom4_segments_202102</a></li>\
+<li><a href="DATA/Autom4_segments_202101.html" target="_blank">Autom4_segments_202101</a></li>\
+<li><a href="DATA/Autom4202102.html" target="_blank">Autom4202102</a></li>\
+<li><a href="DATA/Autom4202101.html" target="_blank">Autom4202101</a></li>\
+<li><a href="DATA/lentille2.html" target="_blank">lentille2</a></li>\
+<li><a href="DATA/lentille01.html" target="_blank">lentille01</a></li>\
 <li><a href="DATA/Autom202104.html" target="_blank">Autom202104</a></li>\
 <li><a href="DATA/Autom202103.html" target="_blank">Autom202103</a></li>\
 <li><a href="DATA/Autom202102.html" target="_blank">Autom202102</a></li>\
@@ -35,6 +43,5 @@ document.write('\
 <li><a href="DATA/lentille4.html" target="_blank">lentille4</a></li>\
 <li><a href="DATA/lentile5.html" target="_blank">lentile5</a></li>\
 <li><a href="DATA/lentille3.html" target="_blank">lentille3</a></li>\
-<li><a href="DATA/lentille2.html" target="_blank">lentille2</a></li>\
 </ul>\
 ');

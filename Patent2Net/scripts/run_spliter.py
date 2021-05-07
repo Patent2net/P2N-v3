@@ -1,7 +1,7 @@
 from p2n.config import OPSCredentials
 from Patent2Net.P2N_Lib import PatentSearch
 from Patent2Net.P2N_Config import LoadConfig
-from Patent2Net.app.dex import get_data_to_be_found, get_data_spliter_start_date
+from Patent2Net.app.dex import delete_data_spliter, get_data_to_be_found, get_data_spliter_start_date, read_dex, add_spliter_result, set_spliter_cumulative, set_spliter_result_start, set_spliter_result_end
 import os
 import epo_ops
 import datetime
@@ -38,6 +38,7 @@ def main():
 
     today = datetime.datetime.today()
 
+    read_dex()
     to_be_found = get_data_to_be_found(directory)
 
     if to_be_found == None:
@@ -47,10 +48,10 @@ def main():
     need_spliter = to_be_found["need_spliter"]
     lstFicOk = to_be_found["lstFicOk"]
 
-    if need_spliter != False:
+    if need_spliter != True:
         print("Cette requete n'a pas besoin d'etre découpé")
         return None
-
+    
     dateDeb = get_data_spliter_start_date(directory)
 
     if dateDeb == None:
@@ -58,8 +59,14 @@ def main():
         return None
 
     targetDirectory = REQUEST_AUTO_FOLDER + directory
+    if not os.path.exists(targetDirectory):
+        os.makedirs(targetDirectory)
+
     Request = RequestOrig + ' AND PD=date' 
-    DataDir = directory + '/segments/' + directory
+    DataDir = directory + '_segments_'
+    
+    delete_data_spliter(directory)
+    set_spliter_result_start(directory)
 
     jourOk, moisOk, ipcOk = False, False, False
 
@@ -71,7 +78,9 @@ def main():
     data = fic.read()
     fic.close()
 
+    print("Start for")
     for AN in range(dateDeb, today.year+1,1):  
+        print(AN)
         Trouves = checkRequest(Request.replace('=date', '='+str(AN)))
         if 2000>Trouves>0:
             Total += Trouves
@@ -88,6 +97,8 @@ def main():
                     ficRes.write(data2)
                 nbFiles +=1
                 print (ficRes.name, 'file written, ', Trouves,' patents expected and ', Total, ' cumulative.' )
+                add_spliter_result(directory, ficRes.name, str(AN), Trouves)
+                set_spliter_cumulative(directory, Total)
         if Trouves == 0:
             monthOk = False
             ipcOk = False
@@ -122,6 +133,8 @@ def main():
                             ficRes.write(data2)
                         nbFiles +=1
                         print (ficRes.name, 'file written, ', Trouves,' patents expected and ', Total, ' cumulative.' )
+                        add_spliter_result(directory, ficRes.name, str(AN), Trouves)
+                        set_spliter_cumulative(directory, Total)
                 if Trouves == 0:
                     ipcOk = False
                     jourOk = False
@@ -150,6 +163,8 @@ def main():
                                         ficRes.write(data2)
                                 nbFiles +=1
                                 print (ficRes.name, 'file written, ', Trouves,' patents expected and ', Total, ' cumulative.' )
+                                add_spliter_result(directory, ficRes.name, str(AN), Trouves)
+                                set_spliter_cumulative(directory, Total)
                         if Trouves == 0:
                             ipcOk = False
                             jourOk = False
@@ -174,7 +189,10 @@ def main():
                                             ficRes.write(data2)
                                     nbFiles +=1
                                     print (ficRes.name, 'file written, ', Trouves,' patents expected and ', Total, ' cumulative.' )
-                            
+                                    add_spliter_result(directory, ficRes.name, str(AN), Trouves)
+                                    set_spliter_cumulative(directory, Total)
+
+    set_spliter_result_end(directory)                        
     print ("[request_spliter] request splitted in ", nbFiles, " files")
                 
     print ("[request_spliter] Gathering with P2N all this request should lead to ", Total, " patents")

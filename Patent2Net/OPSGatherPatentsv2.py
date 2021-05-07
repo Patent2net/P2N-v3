@@ -180,7 +180,8 @@ if not ficOk and GatherPatent:
     while len(lstBrevets) < nbTrouves and not STOP:
         if len(lstBrevets) + 25 < 2000:
             temp,  nbTrouves = PatentSearch(
-                ops_client, requete, len(lstBrevets) + 1, len(lstBrevets) + 25)
+                ops_client, requete, len(lstBrevets) + 1, len(lstBrevets) + 25
+            )
             
         else:
             temp,  nbTrouves = PatentSearch(ops_client, requete, len(
