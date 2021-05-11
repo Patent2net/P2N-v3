@@ -21,7 +21,6 @@ import asyncio
 import epo_ops
 
 from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_done, set_data_progress, get_data_progress, get_global_progress, set_state, get_state, get_directory_request_data_all, delete_data_to_be_found, get_data_to_be_found, set_data_spliter_start_date, delete_data_spliter
-from Patent2Net.app.process_list import process_list_v2
 from Patent2Net.app.events.progress_value_change import ProgressValueChange
 from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
 from Patent2Net.app.events.split_end import SplitEnd
@@ -30,6 +29,8 @@ from Patent2Net.P2N_Config import LoadConfig
 from Patent2Net.AutomRequestSpliterTime import autom_request_spliter_time
 from Patent2Net.P2N_Lib import PatentSearch
 from p2n.config import OPSCredentials
+import threading
+import subprocess
 from subprocess import Popen
 
 from p2n.util import run_script
@@ -156,7 +157,8 @@ def progress():
 @app.route('/single_request' , methods=['GET','POST']) # ancienne url
 @app.route('/form' , methods=['GET','POST']) # ancienne url
 def form():
-    return render_template("Request.html", num_bars = 1, label =[''], dex = dex)
+    # return render_template("Request.html", num_bars = 1, label =[''], dex = dex)
+    return redirect("/app/requests", code=301)
 
 # POST requests : Créer une requete
 
@@ -393,7 +395,9 @@ def split_request(p2n_dir):
 
     if to_be_found["need_spliter"]:
         set_data_spliter_start_date(p2n_dir, int(date))
-        p = Popen(['python', 'Patent2Net/scripts/run_spliter.py', target_path])
+        # p = Popen(['python', 'Patent2Net/scripts/run_spliter.py', target_path])
+
+        Popen(['python', 'Patent2Net/scripts/start_auto.py', target_path])
 
         return get_success_response("Spliter running", {})
 
@@ -414,11 +418,13 @@ def update_one_request_interface(p2n_dir):
 
 @app.route('/api/v1/events', methods=['POST'])
 def events():
+    """
+    The events received allow to inform about a change of state already active
+    The list of events can be found in /Patent2Net/app/events/
+    """
     data = request.json
     name = data["name"]
     print(data)
-    if name == ProgressValueChange.NAME:
-        event = ProgressValueChange.deserialize(data)
 
     if name == ToBeFoundChange.NAME:
         event = ToBeFoundChange.deserialize(data)
@@ -426,12 +432,6 @@ def events():
         if event.need_spliter == False:
             config = "--config=../RequestsSets/%s.cql"%(event.directory)
             process_single(event.directory, config)
-
-    if name == SplitEnd.NAME:
-        event = SplitEnd.deserialize(data)
-        target_path = "./RequestsSets/%s.cql" %(event.directory)
-        Popen(['python', 'Patent2Net/scripts/process_list.py', target_path])
-
 
     eventListener.push_event(data)
 
@@ -645,3 +645,22 @@ if __name__ == "__main__":
     # app.logger.addHandler(handler)
 
     app.run(debug=False, host='0.0.0.0', port=5000) 
+
+
+
+def popen_and_call(on_exit, popen_args):
+    """
+    Runs the given args in a subprocess.Popen, and then calls the function
+    on_exit when the subprocess completes.
+    on_exit is a callable object, and popen_args is a list/tuple of args that 
+    would give to subprocess.Popen.
+    """
+    def run_in_thread(on_exit, popen_args):
+        proc = subprocess.Popen(popen_args)
+        proc.wait()
+        on_exit()
+        return
+    thread = threading.Thread(target=run_in_thread, args=(on_exit, popen_args))
+    thread.start()
+    # returns immediately after the thread starts
+    return thread

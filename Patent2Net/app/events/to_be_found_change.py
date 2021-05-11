@@ -1,6 +1,7 @@
 
 class ToBeFoundChange:
-    
+    """Event used when the number of resources available for a request has been retrieved and recorded"""
+
     NAME = "TO_BE_FOUND_CHANGE"
 
     def __init__(self, directory, need_spliter, amount):

@@ -1,6 +1,7 @@
 
 class SplitResultAdded:
-    
+    """Event used when a new query file has been created during the separation of a query file"""
+
     NAME = "SPLIT_RESULT_ADDED"
 
     def __init__(self, directory, name, date, find):

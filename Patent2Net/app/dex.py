@@ -10,6 +10,21 @@ from Patent2Net.app.events.split_end import SplitEnd
 # NEW DEX SYSTEME - 23/04/2021 #
 # ---------------------------- #
 
+"""
+This file is used to update the dex.json file.
+The dex.json file records the local state of the application, including the status of the requests
+
+3 fields are available in the dex.json:
+- in_progress: List of current requests
+- done: List of completed queries
+- requests: Status of requests done or in progress
+
+Each status of a request is composed of:
+- a state that is defined when the query is created (P2N_RUN or SPLITER_RUN)
+- data that is an object or any type of data can be recorded in relation to the current query
+
+"""
+
 dex = {
     "in_progress": [],
     "done": []
@@ -74,8 +89,9 @@ def normalize_request_directory(directory):
 
 # STATES
 
-# state: "P2N_RUN" | "SPLITER_RUN"
 def set_state(directory, state):
+    """Allows you to define the status of the request (P2N_RUN or SPLITER_RUN)"""
+
     print("STATE HAS CHANGE: " + directory + " - " + state)
     request_directory = normalize_request_directory(directory)
     request_directory["state"] = state
@@ -87,6 +103,8 @@ def get_state(directory):
     return request_directory["state"]
 
 def set_in_progress(directory):
+    """Allows you to define a request as in progress"""
+
     global dex
     normalize()
 
@@ -97,6 +115,8 @@ def set_in_progress(directory):
     write_dex()
 
 def set_done(directory):
+    """Allows you to define a request as done"""
+
     global dex
     normalize()
 
@@ -113,6 +133,7 @@ def set_done(directory):
 # DATA
 
 def set_directory_request_data(directory, key, value):
+    """Allows to associate a value to a key on the data object of a request"""
     normalize()
     request_directory = normalize_request_directory(directory)
 
@@ -122,6 +143,7 @@ def set_directory_request_data(directory, key, value):
 
 
 def get_directory_request_data(directory, key, default = None):
+    """"Allows to get a value associated to a key on the data object of a query"""
     normalize()
     request_directory = normalize_request_directory(directory)
 
@@ -146,6 +168,10 @@ def delete_directory_request_data(directory, key):
 # GLOBAL PROGRESS
 
 def update_global_progress(directory):
+    """"
+    Allows to calculate the global progress of a request and to save it in the cache for future retrieval. 
+    This value is not written in the text 
+    """
     global dex, global_progress
     normalize()
 
@@ -170,12 +196,20 @@ def update_global_progress(directory):
     }
 
 def get_global_progress():
+    """Allows you to retrieve the global progress of a request saved in the cache"""
     global global_progress
 
     return global_progress
 
 
 # UTILS
+
+"""
+These functions make it easier to update the data of the requests
+
+Future functions are available in Patent2Net/app/data/
+They are grouped by object and by key of the modified data
+"""
 
 def set_data_progress(directory, key, value, max_value):
     progress_directory = get_directory_request_data(directory, "progress", {})
@@ -255,4 +289,5 @@ def set_spliter_result_end(directory):
 def delete_data_spliter(directory):
     delete_directory_request_data(directory, "spliter_result")
         
+
 read_dex()

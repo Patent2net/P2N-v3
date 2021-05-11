@@ -8,6 +8,7 @@ import requests
 
 from Patent2Net.app.message_announcer import AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.app.data.process_list import ProcessList
 from subprocess import Popen
 
 if __name__ == "__main__":
@@ -22,6 +23,9 @@ if __name__ == "__main__":
     cpt = 0
     lstReq = [fi for fi in os.listdir(auto_directory) if fi.endswith(".cql")]
     
+    progress_list = ProcessList(directory)
+    progress_list.start(lstReq, [])
+
     for file in lstReq:
         # command="python OPSGatherPatentsv2.py ../RequestsAuto/%s"%(file)
         # os.system(command)
@@ -34,3 +38,6 @@ if __name__ == "__main__":
         # config = "--config=../RequestsAuto/%s"%(file)
         # p = Popen(['p2n', 'run', config])
 
+        progress_list.add_done(file)
+
+    progress_list.end()

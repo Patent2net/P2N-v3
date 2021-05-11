@@ -1,5 +1,5 @@
-
 class SplitStart:
+    """Event used when the separation of a request starts"""
     
     NAME = "SPLIT_START"
 

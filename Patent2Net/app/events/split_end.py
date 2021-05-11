@@ -1,5 +1,6 @@
 
 class SplitEnd:
+    """Event used when the separation of a request into several files is completed"""
     
     NAME = "SPLIT_END"
 

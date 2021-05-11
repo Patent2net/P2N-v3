@@ -1,5 +1,6 @@
 
 class ProgressValueChange:
+    """Event used when the progress value of a p2n service changes"""
     
     NAME = "PROGRESS_VALUE_CHANGE"
 

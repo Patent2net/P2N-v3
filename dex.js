@@ -1,5 +1,6 @@
 document.write('\
 <ul>\
+<li><a href="DATA/lentille.html" target="_blank">lentille</a></li>\
 <li><a href="DATA/Autom4_segments_202104.html" target="_blank">Autom4_segments_202104</a></li>\
 <li><a href="DATA/Autom4_segments_202103.html" target="_blank">Autom4_segments_202103</a></li>\
 <li><a href="DATA/Autom4_segments_202102.html" target="_blank">Autom4_segments_202102</a></li>\
@@ -25,7 +26,6 @@ document.write('\
 <li><a href="DATA/Autom202002.html" target="_blank">Autom202002</a></li>\
 <li><a href="DATA/Autom202001.html" target="_blank">Autom202001</a></li>\
 <li><a href="DATA/Fusion.html" target="_blank">Fusion</a></li>\
-<li><a href="DATA/lentille.html" target="_blank">lentille</a></li>\
 <li><a href="DATA/lentillelistcql.html" target="_blank">lentillelistcql</a></li>\
 <li><a href="DATA/lentilleeee.html" target="_blank">lentilleeee</a></li>\
 <li><a href="DATA/lentilledesign.html" target="_blank">lentilledesign</a></li>\

@@ -12,6 +12,7 @@ import Request from './pages/Request/index';
 import GetStarted from './pages/GetStarted';
 import './index.css'
 import Home from './pages/Home';
+import DataIndex from './pages/DataIndex';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -38,7 +39,7 @@ ReactDOM.render(
               </li>
               
               <li className="mr-3">
-                <Link to="/app/index"  className="inline-block no-underline hover:underline py-2 px-4">Index</Link>
+                <Link to="/app/index" className="inline-block no-underline hover:underline py-2 px-4">Index</Link>
               </li>
               
               <li className="mr-3">
@@ -63,6 +64,9 @@ ReactDOM.render(
           </Route>
           <Route path="/app/requests">
             <Requests />
+          </Route>
+          <Route path="/app/index">
+            <DataIndex />
           </Route>
           <Route exact path="/app/">
             <Home />
