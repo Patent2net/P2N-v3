@@ -255,7 +255,8 @@ if ndf in os.listdir(ResultBiblioPath):
         print(len(listeLabel)-len(BibliDataBrevets['brevets']), " patent misssing... processing")
  
         GatherBibli = True
-        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100 * len(BibliDataBrevets['brevets'])/len(listeLabel))
+        if len(listeLabel) > 0:
+            AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100 * len(BibliDataBrevets['brevets'])/len(listeLabel))
 #                for brevet in lstBrevets:
 #                    # nameOfPatent for file system save (abstract, claims...)
 #                    ndb = brevet['document-id']['country']['$'] + \
@@ -265,7 +266,8 @@ else:
     ficOk = False
     print(str(abs(len(listeLabel) - len(BibliDataBrevets['brevets']))), " patents data missing. Gathering.")
     GatherBibli = True
-    AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100 * len(BibliDataBrevets['brevets'])/len(listeLabel))
+    if len(listeLabel) > 0:
+        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100 * len(BibliDataBrevets['brevets'])/len(listeLabel))
 #    except:    #new data model
 #        DataBrevets = dict()
 #        DataBrevets['brevets'] = []
@@ -312,7 +314,8 @@ if Fusion or (GatherBibli and GatherBiblio):
         AnnonceLog(Appli = 'p2n_gather_biblio', texte= str(len(YetGathered)) + " patent bibliographic data gathered.")
         BibliDataBrevets["YetGathered"] = YetGathered
 
-        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = len(YetGathered)*100/len(listeLabel))
+        if len(listeLabel) > 0:
+            AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = len(YetGathered)*100/len(listeLabel))
     else:
         YetGathered = []
 
@@ -388,7 +391,8 @@ if Fusion or (GatherBibli and GatherBiblio):
                         pickle.dump(BiblioPatents[0], ficRes)
                         YetGathered.append(BiblioPatents[0]["label"])
                         print(len(YetGathered), " patent bibliographic data already gathered.")
-                        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100*len(YetGathered)/len(listeLabel))
+                        if len(listeLabel) > 0:
+                            AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100*len(YetGathered)/len(listeLabel))
                 else:
                     # may should put current ndb in YetGathered...
                     # print
@@ -405,7 +409,8 @@ if Fusion or (GatherBibli and GatherBiblio):
                         pickle.dump(brevet, ficRes)
                         YetGathered.append(brevet["label"])
                         print(len(YetGathered), " patent bibliographic data gathered.")
-                        AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100*len(YetGathered)/len(listeLabel))
+                        if len(listeLabel) > 0:
+                            AnnonceProgres (Appli = 'p2n_gather_biblio', valMax = 100, valActu = 100*len(YetGathered)/len(listeLabel))
                 else:
                     pass  # bad OPS entry
     with open(ResultBiblioPath + '//Description' + ndf, 'wb') as ficRes:

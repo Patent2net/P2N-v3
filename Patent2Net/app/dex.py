@@ -1,6 +1,7 @@
 import json
 import sys, os
 from Patent2Net.app.event import send_new_event 
+from Patent2Net.app.events.dex_change_event import DexChangeEvent
 from Patent2Net.app.events.progress_value_change import ProgressValueChange
 from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
 from Patent2Net.app.events.split_result_added import SplitResultAdded
