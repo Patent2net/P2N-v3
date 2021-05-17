@@ -282,8 +282,6 @@ def post_request():
     p2n_dir = form_result['p2n_dir']
     p2n_req = form_result['p2n_req']
     p2n_options = form_result['p2n_options'].split(',')
-
-    print(form_result['p2n_auto'])
     p2n_auto = 'p2n_auto' in form_result and form_result['p2n_auto'] == "true"
 
     #Pleaceholder file who give the model of the file
@@ -333,10 +331,10 @@ def post_request():
 
     if (p2n_auto == True):
         process_multi(p2n_dir, target_path)
-        return get_success_response("Request send", { "p2n_dir": p2n_dir })
+        return get_success_response("Spliter start", { "p2n_dir": p2n_dir })
     else:
         process_single(p2n_dir, config)
-        return get_success_response("Spliter start", { "p2n_dir": p2n_dir })
+        return get_success_response("Request send", { "p2n_dir": p2n_dir })
 
    
 def process_single(p2n_dir, config):
@@ -387,6 +385,9 @@ def split_request(p2n_dir):
     read_dex()
     to_be_found = get_data_to_be_found(p2n_dir)
 
+    if not to_be_found:
+        return get_error_response("Patent amount for this request not found")
+
     if "date" not in form_result:
         return get_error_response("date parameter is required")
 
@@ -397,7 +398,7 @@ def split_request(p2n_dir):
         set_data_spliter_start_date(p2n_dir, int(date))
         # p = Popen(['python', 'Patent2Net/scripts/run_spliter.py', target_path])
 
-        Popen(['python', 'Patent2Net/scripts/start_auto.py', target_path])
+        # Popen(['python', 'Patent2Net/scripts/start_auto.py', target_path])
 
         return get_success_response("Spliter running", {})
 
@@ -454,11 +455,11 @@ def listen_hook():
 
 
 def get_error_response(message, code = 400):
-    return json.dumps({ "code": code, "message": message })
+    return Response(response=json.dumps({ "code": code, "message": message }), status=code, mimetype="application/json")
 
 def get_success_response(message, data):
     response = ({ "code": 200, "message": message, "data": data })
-    return json.dumps(response)
+    return Response(response=json.dumps(response), status=200, mimetype="application/json")
 
 
 @app.route('/announce')

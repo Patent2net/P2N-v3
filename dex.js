@@ -1,8 +1,8 @@
 document.write('\
 <ul>\
+<li><a href="DATA/lentille.html" target="_blank">lentille</a></li>\
 <li><a href="DATA/autom8.html" target="_blank">autom8</a></li>\
 <li><a href="DATA/lentille12.html" target="_blank">lentille12</a></li>\
-<li><a href="DATA/lentille.html" target="_blank">lentille</a></li>\
 <li><a href="DATA/Autom4_segments_202104.html" target="_blank">Autom4_segments_202104</a></li>\
 <li><a href="DATA/Autom4_segments_202103.html" target="_blank">Autom4_segments_202103</a></li>\
 <li><a href="DATA/Autom4_segments_202102.html" target="_blank">Autom4_segments_202102</a></li>\
