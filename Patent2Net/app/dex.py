@@ -62,6 +62,11 @@ def write_dex():
     f.close()
 
 def get_current_dex():
+    """Recover the current state of the application
+    
+    :returns: a dictionary with all value of current dex
+    :rtype: dict
+    """
     global dex
     read_dex()
     return dex
@@ -91,7 +96,15 @@ def normalize_request_directory(directory):
 # STATES
 
 def set_state(directory, state):
-    """Allows you to define the status of the request (P2N_RUN or SPLITER_RUN)"""
+    """Allows you to define the state of one request in progress  
+    
+
+    :param directory: The name of the directory of the request
+    :type directory: str
+    :param state: The new state for this request
+    :type state: str
+        (P2N_RUN | SPLITER_RUN)
+    """
 
     print("STATE HAS CHANGE: " + directory + " - " + state)
     request_directory = normalize_request_directory(directory)
@@ -100,11 +113,22 @@ def set_state(directory, state):
     write_dex()
 
 def get_state(directory):
+    """Allows you to retrieve the current state of a directory
+
+    :param directory: The name of the directory of the request
+    :type directory: str
+    :returns: the current state of a directory
+    :rtype: str
+    """
     request_directory = normalize_request_directory(directory)
     return request_directory["state"]
 
 def set_in_progress(directory):
-    """Allows you to define a request as in progress"""
+    """Allows you to define a request as in progress
+    
+    :param directory: The name of the directory of the request to set in progress
+    :type directory: str
+    """
 
     global dex
     normalize()
@@ -116,7 +140,11 @@ def set_in_progress(directory):
     write_dex()
 
 def set_done(directory):
-    """Allows you to define a request as done"""
+    """Allows you to define a request as done
+    
+    :param directory: The name of the directory of the request to set done
+    :type directory: str
+    """
 
     global dex
     normalize()
@@ -134,7 +162,15 @@ def set_done(directory):
 # DATA
 
 def set_directory_request_data(directory, key, value):
-    """Allows to associate a value to a key on the data object of a request"""
+    """Allows to associate a value to a key on the data object of a request
+    
+    :param directory: The name of the directory of the request to which the data will be associated
+    :type directory: str
+    :param key: The key to which the data will be associated
+    :type key: str
+    :param value: The value returned if the data does not exist
+    :type value: str
+    """
     normalize()
     request_directory = normalize_request_directory(directory)
 
@@ -144,7 +180,18 @@ def set_directory_request_data(directory, key, value):
 
 
 def get_directory_request_data(directory, key, default = None):
-    """"Allows to get a value associated to a key on the data object of a query"""
+    """Allows to get a value associated to a key on the data object of a query
+
+    :param directory: The name of the query directory to which the data is associated
+    :type directory: str
+    :param key: The key to which the data is associated
+    :type key: str
+    :param default: The data to be saved
+    :type default: str 
+        (default is None)
+    :returns: the data
+    :rtype: dict
+    """
     normalize()
     request_directory = normalize_request_directory(directory)
 
@@ -154,10 +201,24 @@ def get_directory_request_data(directory, key, default = None):
     return request_directory["data"][key]
 
 def get_directory_request_data_all(directory):
+    """Retrieves all data associated with a directory 
+    
+    :param directory: The name of the directory
+    :type directory: str
+    :returns: the data
+    :rtype: dict
+    """
     request_directory = normalize_request_directory(directory)
     return request_directory["data"]
 
 def delete_directory_request_data(directory, key):
+    """Delete the data 
+    
+    :param directory: The name of the directory
+    :type directory: str
+    :param key: The key of the data to be deleted
+    :type key: str
+    """
     normalize()
     request_directory = normalize_request_directory(directory)
     

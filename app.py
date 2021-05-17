@@ -516,9 +516,10 @@ def listen():
 
 
 
-# @app.route('/get_started', methods=['GET','POST'])
-# def started():
-#     return render_template("Get_Started.html")
+@app.route('/get_started', methods=['GET','POST'])
+def started():
+    # return render_template("Get_Started.html")
+    return redirect("/app/get_started", code=301)
 
 
 # Get started page form interaction
@@ -540,7 +541,7 @@ def EpoCreator():
 @app.route('/index' , methods=['GET','POST'])
 @app.route('/results' , methods=['GET','POST'])
 def index():
-    return render_template("index.html")
+    return redirect("/app/index", code=301)
 
 
 # Download def for when clicking on "Download Data"

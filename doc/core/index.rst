@@ -10,3 +10,5 @@ Global architecture and data model
     system
     dataModel
     exports
+    dex
+    web
