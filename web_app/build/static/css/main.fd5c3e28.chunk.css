@@ -1,0 +1,2 @@
+.skeleton-box{position:relative;overflow:hidden;background-color:#e2e8f0}.skeleton-box:after{position:absolute;top:0;right:0;bottom:0;left:0;transform:translateX(-100%);background-image:linear-gradient(90deg,hsla(0,0%,100%,0),hsla(0,0%,100%,.2) 20%,hsla(0,0%,100%,.5) 60%,hsla(0,0%,100%,0));animation:shimmer 3s infinite;content:""}@keyframes shimmer{to{transform:translateX(100%)}}
+/*# sourceMappingURL=main.fd5c3e28.chunk.css.map */

@@ -1,3 +1,0 @@
-p2n_dir:lentille
-p2n_req:TA=lentille
-p2n_options:p2n_family,p2n_image,p2n_network,p2n_bibfile

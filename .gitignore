@@ -11,9 +11,12 @@ cles-epo.txt
 DATA/
 DATA-OLD/*
 REQUESTS/*
+RequestsSets/*
+RequestsAuto/*
 dex.js
 dex.txt
 dex.json
+result.txt
 LogInstallP2N.txt
 LogInstallP2N.txt
 RequestsSets/*

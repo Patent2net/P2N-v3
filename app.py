@@ -534,7 +534,8 @@ def EpoCreator():
     W_epo.write(epo_result['p2n_epo'])
     W_epo.close()
     
-    return render_template("Get_Started.html")
+    # return render_template("Get_Started.html")
+    redirect("/app/get_started", code=301)
 
 
 
