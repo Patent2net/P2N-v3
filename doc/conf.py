@@ -31,6 +31,8 @@ sys.path.insert(0, os.path.abspath('../'))
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 import alabaster
+import jsonschema
+
 
 html_theme_path = [alabaster.get_path()]
 #extensions = ['alabaster']
