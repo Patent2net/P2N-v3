@@ -1,2 +1,13 @@
 Sphinx==1.6.5
 sphinx_rtd_theme==0.2.5b1
+sphinx-jsonschema==1.16.8
+sphinxcontrib-applehelp==1.0.2
+sphinxcontrib-devhelp==1.0.2
+sphinxcontrib-htmlhelp==1.0.3
+sphinxcontrib-httpdomain==1.7.0
+sphinxcontrib-httpexample==0.11.0
+sphinxcontrib-jsmath==1.0.1
+sphinxcontrib-qthelp==1.0.3
+sphinxcontrib-serializinghtml==1.1.4
+urllib3==1.26.4
+Werkzeug==2.0.0
