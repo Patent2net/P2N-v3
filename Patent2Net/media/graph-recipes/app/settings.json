@@ -1,0 +1,12 @@
+{
+    "files": [
+        {
+            "name": "Fichier 1",
+            "path": "../../../DATA"
+        }
+    ],
+    "oui": [
+        "ze"
+    ],
+    "root": "."
+}
