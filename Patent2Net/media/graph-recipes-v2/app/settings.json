@@ -1,12 +1,24 @@
 {
     "files": [
         {
-            "name": "Fichier 1",
-            "path": "../../../DATA"
+            "name": "test",
+            "path": "sample rio+20.gexf"
+        },
+        {
+            "name": "Applicant network",
+            "path": "../../../../DATA/lentille/GephiFiles/lentille_ApplicantsJS.gexf"
+        },
+        {
+            "name": "Families Applicant network",
+            "path": "../../../../DATA/lentille/GephiFiles/Familieslentille_ApplicantsJS.gexf"
+        },
+        {
+            "name": "Inventor network",
+            "path": "../../../../DATA/lentille/GephiFiles/lentille_InventorsJS.gexf"
         }
     ],
     "oui": [
         "ze"
     ],
-    "root": "."
+    "root": "./"
 }

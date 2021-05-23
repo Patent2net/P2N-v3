@@ -40,10 +40,9 @@
         Enjoy the outcome: processed network, image, or anything javascript can produce.
         <br><br>
         
-      
         <ul>
           <li ng-repeat="file in settings.files">
-            <a href ng-click="loadExample('{{file.path}}')" class="text-indigo-600">{{file.name}}</a>
+            <a href ng-click="loadExample(file.path)" class="text-indigo-600">{{file.name}}</a>
           </li>
         </ul>
       </p>
