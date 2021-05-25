@@ -1,47 +1,58 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import Icon from "./icon";
 
 const all_options = {
   "p2n_family": {
     name: "p2n family",
-    description: "run family data acquisition"
+    description: "run family data acquisition",
+    icon: "family"
   },
   "p2n_image": {
     name: "p2n images",
-    description: "Fetch images"
+    description: "Fetch images",
+    icon: "image"
   },
   "p2n_network": {
     name: "p2n networks",
-    description: "Build various artefacts for data exploration based on network graphs"
+    description: "Build various artefacts for data exploration based on network graphs",
+    icon: "network"
   },
   "p2n_freeplane": {
     name: "p2n freeplane",
-    description: "Build mind map for Freeplane"
+    description: "Build mind map for Freeplane",
+    icon: "nodes"
   },
   "p2n_bibfile": {
     name: "p2n bibfile",
-    description: "Export data in bibfile format"
+    description: "Export data in bibfile format",
+    icon: "archive"
   },
   "p2n_map": {
     name: "p2n maps",
-    description: "Build maps of country coverage of patents, as well as applicants and inventors"
+    description: "Build maps of country coverage of patents, as well as applicants and inventors",
+    icon: "map"
   },
   "p2n_tables": {
     name: "p2n tables",
-    description: "Export various artefacts for tabular data exploration"
+    description: "Export various artefacts for tabular data exploration",
+    icon: "table"
   },
   "p2n_carrot": {
     name: "p2n carrot",
-    description: "Export data to XML suitable for using in Carro"
+    description: "Export data to XML suitable for using in Carro",
+    icon: "carrot"
   },
   "p2n_iramuteq": {
     name: "p2n iramuteq",
-    description: "Fetch more data and export it to suitable format for using in Iramuteq"
+    description: "Fetch more data and export it to suitable format for using in Iramuteq",
+    icon: "chart-pie"
   },
   "p2n_cluster": {
     name: "p2n cluster",
-    description: "Double clustering system based on non so trivial words"
+    description: "Double clustering system based on non so trivial words",
+    icon: "cluster"
   },
 }
 
@@ -213,33 +224,60 @@ function App() {
             <label className="font-semibold">Request Options :</label>
               <p className="pt-2 pb-2 text-sm italic text-gray-800">Click on the checkbox to specify the elements you need in your research:</p>
               
-              {Object.keys(all_options).map((key, index) => {
-                let option = all_options[key]
-                return (
-                  <p key={key}>
-                    <input 
-                      type="checkbox"
-                      id={key}
-                      name={key} 
-                      checked={options.includes(key)} 
-                      onChange={() => toggleCheckbox(key) }
-                    />
-                    <label htmlFor={key} className="text-gray-800 text-sm mb-4 text-justify"><b>{ option["name"] }</b>: { option["description"] } </label>
-                  </p>
-                )
-              })}
+              <div className="grid grid-flow-row grid-cols-3 gap-2">
+                {Object.keys(all_options).map((key, index) => {
+                  let option = all_options[key]
+                  return (
+                    <div 
+                      class={
+                        options.includes(key) ? 
+                          "cursor-pointer box-border flex flex-col justify-center items-center rounded p-3 text-center border-2 border-indigo-600 text-indigo-600" :
+                          "cursor-pointer box-border flex flex-col justify-center items-center border rounded p-3 text-center opacity-30"
+                      }
+                      onClick={() => toggleCheckbox(key)}
+                    >
+                      <div className="icon text-black">
+                        <Icon name={option.icon} />
+                      </div>
+                      <p class="text-sm font-semibold pt-2">{option["name"]}</p>
+                      <p class="text-xs pt-1">{option["description"]}</p>
+                    </div>
+                    // <p key={key}>
+                    //   <input 
+                    //     type="checkbox"
+                    //     class="hidden"
+                    //     id={key}
+                    //     name={key} 
+                    //     checked={options.includes(key)} 
+                    //     onChange={() => toggleCheckbox(key) }
+                    //   />
+                    //   <label htmlFor={key} className="text-gray-800 text-sm mb-4 text-justify"><b>{ option["name"] }</b>: { option["description"] } </label>
+                    // </p>
+                  )
+                })}
+              </div>
             </div>
             <div className="mt-4">
-              <label className="font-semibold">Use auto request splitter:</label>
-              <input 
-                type="checkbox"
-                name={"p2n_auto"} 
-                checked={p2nAuto} 
-                onChange={() => setP2nAuto(!p2nAuto) }
-              />
+              <label className="font-semibold">Request splitter:</label>
+              <div class="w-1/2 pt-2">
+                <div 
+                  class={
+                    p2nAuto ? 
+                      "cursor-pointer box-border flex flex-col justify-center items-center rounded p-3 text-center border-2 border-indigo-600 text-indigo-600" :
+                      "cursor-pointer box-border flex flex-col justify-center items-center border rounded p-3 text-center opacity-30"
+                  }
+                  onClick={() => setP2nAuto(!p2nAuto)}
+                >
+                  <div className="icon text-black">
+                    <Icon name="split" />
+                  </div>
+                  <p class="text-sm font-semibold pt-2">Use auto request spliter</p>
+                  <p class="text-xs pt-1">
+                    It allows to exceed the limit of 2000 patents per request by splitting it into several sub-request
+                  </p>
+                </div>
+              </div>
             </div>
-
-
             <div className="mt-4 italic text-sm text-gray-800">
               Fields marked with * are mandatory.
             </div>
