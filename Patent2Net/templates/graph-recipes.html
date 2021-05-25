@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="rerere" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="rerere" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="rerere" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="graphrecipes" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Graph Recipes</title>
+  <meta name="description" content="">
+
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+  <link href="https://unpkg.com/tailwindcss@^1.4.6/dist/tailwind.min.css" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700|Lobster|Open+Sans+Condensed:300" rel="stylesheet">
+
+</head>
+<body>
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <div ng-view layout="column" layout-fill class="bg-gray-100"></div>
+
+  <div id="dummy-font-div" ng-show="false">-</div>
+
+  <script src="../../Patent2Net/media/graph-recipes-v2/app/assets/ace/ace.js"></script>
+  <script src="../../Patent2Net/media/graph-recipes-v2/app/assets/gexf.min.js"></script>
+  <script src="../../Patent2Net/media/graph-recipes-v2/app/assets/FileSaver.min.js"></script>
+
+  <script src="../../Patent2Net/media/graph-recipes-v2/app/bundle.js"></script>
+  <script>
+
+    app(
+      {
+        "files": [
+            {
+                "name": "Applicant network",
+                "path": "./GephiFiles/{{request}}_ApplicantsJS.gexf"
+            },
+            {
+                "name": "Families Applicant network",
+                "path": "./GephiFiles/Families{{request}}_ApplicantsJS.gexf"
+            },
+            {
+                "name": "Inventor network",
+                "path": "./GephiFiles/{{request}}_InventorsJS.gexf"
+            },
+            {
+                "name": "Families Inventor network",
+                "path": "./GephiFiles/Families{{request}}_InventorsJS.gexf"
+            },
+            {
+                "name": "Applicants &amp; Inventors network",
+                "path": "./GephiFiles/{{request}}_ApplicantInventorJS.gexf"
+            },
+            {
+                "name": "FamiliesApplicants &amp; Inventors network",
+                "path": "./GephiFiles/Families{{request}}_ApplicantInventorJS.gexf"
+            },
+            {
+                "name": "Applicants and patent labels networks",
+                "path": "./GephiFiles/{{request}}_LabelApplicantsJS.gexf"
+            },
+            {
+                "name": "FamiliesApplicants and patent labels networks",
+                "path": "./GephiFiles/Families{{request}}_LabelApplicantsJS.gexf"
+            },
+            {
+                "name": "Technologies networks",
+                "path": "./GephiFiles/{{request}}_CrossTechJS.gexf"
+            },
+            {
+                "name": "Families Technologies networks",
+                "path": "./GephiFiles/Families{{request}}_CrossTechJS.gexf"
+            },
+            {
+                "name": "Inventors Technologies (CIB) network",
+                "path": "./GephiFiles/{{request}}_Inventors_CrossTechJS.gexf"
+            },
+            {
+                "name": "Families Inventors Technologies (CIB) network",
+                "path": "./GephiFiles/Families{{request}}_Inventors_CrossTechJS.gexf"
+            },
+            {
+                "name": "Applicants Technologies (CIB) network",
+                "path": "./GephiFiles/{{request}}_Applicants_CrossTechJS.gexf"
+            },
+            {
+                "name": "Families Applicants Technologies (CIB) network",
+                "path": "./GephiFiles/Families{{request}}_Applicants_CrossTechJS.gexf"
+            },
+            {
+                "name": "Citations network",
+                "path": "./GephiFiles/{{request}}_CitationsJS.gexf"
+            },
+            {
+                "name": "Families Citations network",
+                "path": "./GephiFiles/Families{{request}}_CitationsJS.gexf"
+            },
+            {
+                "name": "Equivalents network",
+                "path": "./GephiFiles/{{request}}_EquivalentsJS.gexf"
+            },
+            {
+                "name": "Families Equivalents network",
+                "path": "./GephiFiles/{{request}}_EquivalentsJS.gexf"
+            },
+            {
+                "name": "References network",
+                "path": "./GephiFiles/{{request}}_ReferencesJS.gexf"
+            },
+            {
+                "name": "Families References network",
+                "path": "./GephiFiles/{{request}}_ReferencesJS.gexf"
+            }
+        ],
+        "root": "../../Patent2Net/media/graph-recipes-v2/app"
+      }
+    )
+
+  </script>
+  
+</body>
+</html>
