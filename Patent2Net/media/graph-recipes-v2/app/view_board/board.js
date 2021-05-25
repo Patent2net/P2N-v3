@@ -98,6 +98,12 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
     }, 4000)
   }
 
+  $scope.backToUpload = function() {
+    $timeout(function(){
+      $location.url('/upload')
+    }, 0)
+  }
+
   // Init
   $scope.filename = store.get('graphname')
   $scope.originalGraph = store.get('graph')

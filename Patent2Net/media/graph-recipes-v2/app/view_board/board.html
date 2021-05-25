@@ -1,5 +1,9 @@
-<div class="container mx-auto grid grid-cols-4 gap-4 items-start min-h-screen py-10">
-
+<div class="container mx-auto py-4">
+  <div class="flex justify-start my-4" ng-click="backToUpload()">
+    <md-icon class="ml-0 mr-2">arrow_back</md-icon>
+    <p>Retour à la selection du fichier</p>
+  </div>
+  <div class="grid grid-cols-4 gap-4 items-start min-h-screen ">
     <div layout="column" id="sidecol" class="col-start-1 bg-white p-8 rounded shadow">
       <div layout flex>
         <div layout="column" layout-fill class="command-zone">
@@ -14,41 +18,37 @@
           <hr class="">
           <div class="divide-y divide-light-blue-400">
             <div>
-              <button
-                ng-click="refreshGraph()"
-                title="Reload"
-                class="my-2 flex flex-row justify-start uppercase text-sm text-left"
-              ><md-icon class="mr-2">refresh</md-icon> RELOAD ORIGINAL GRAPH</button>
+              <button ng-click="refreshGraph()" title="Reload"
+                class="my-2 flex flex-row justify-start uppercase text-sm text-left">
+                <md-icon class="mr-2">refresh</md-icon> RELOAD ORIGINAL GRAPH
+              </button>
             </div>
             <div>
-              <button
-                ng-click="downloadOutput()"
-                title="Download"
-                class="my-2 flex flex-row justify-start uppercase text-sm text-left"
-              ><md-icon class="mr-2">save</md-icon> SAVE GEXF</button>
+              <button ng-click="downloadOutput()" title="Download"
+                class="my-2 flex flex-row justify-start uppercase text-sm text-left">
+                <md-icon class="mr-2">save</md-icon> SAVE GEXF
+              </button>
             </div>
             <div ng-if="status=='end'">
-              <button
-                ng-click="backToRecipe()"
-                title="Edit"
-                class="my-2 flex flex-row justify-start uppercase text-sm text-left"
-              ><md-icon class="mr-2">arrow_back</md-icon> Return to recipe</button>
+              <button ng-click="backToRecipe()" title="Edit"
+                class="my-2 flex flex-row justify-start uppercase text-sm text-left">
+                <md-icon class="mr-2">arrow_back</md-icon> Return to recipe
+              </button>
             </div>
             <div ng-if="status=='end' || status=='edit'">
-              <button
-                ng-click="closeRecipe()"
-                title="Back to list"
-                class="my-2 flex flex-row justify-start uppercase text-sm text-left"
-              ><md-icon class="mr-2">menu</md-icon> Pick another recipe</button>
+              <button ng-click="closeRecipe()" title="Back to list"
+                class="my-2 flex flex-row justify-start uppercase text-sm text-left">
+                <md-icon class="mr-2">menu</md-icon> Pick another recipe
+              </button>
             </div>
-                        
+
           </div>
         </div>
       </div>
     </div>
 
-    <div layout layout-fill class="col-span-3 flex flex-col mb-12 bg-white p-8 rounded shadow" >
-      <div layout="column" layout-fill class="fancy-text" ng-if="status=='list'">
+    <div layout="column" layout-fill class="col-span-3 flex flex-col mb-12 bg-white rounded shadow overflow-hidden">
+      <div layout="column" layout-fill class="fancy-text p-8" ng-if="status=='list'">
         <div class="menu-container">
           <h1 class="text-2xl font-bold">Recipes</h1>
 
@@ -61,38 +61,65 @@
         </div>
       </div>
 
-      <div layout="column" layout-fill class="fancy-text" ng-if="status=='edit'">
-        <div layout="row" ng-if="status=='edit'">
-          <div layout="column" layout-padding flex>
-            <h3 class="script-title">{{recipe.name}}</h3>
-            {{recipe.desc}}
+ 
+      <div ng-if="status=='edit' || status=='run' || status=='end'" class="bg-indigo-600 rounded p-8 text-white">
+        <div class="flex justify-between items-center">
+          <div class="flex flex-col flex-1">
+            <h3 class="text-2xl font-bold">{{recipe.name}}</h3>
+            <p>{{recipe.desc}}</p>
           </div>
-          <div class="close-recipe">
-            <md-button class="md-icon-button" aria-label="Close" ng-click="closeRecipe()">
-              <md-icon>close</md-icon>
-            </md-button>
+          <div>
+            <div class="flex flex-row">
+              <button 
+                ng-if="status=='end'" 
+                ng-click="backToRecipe()" 
+                title="Edit"
+                class="focus:outline-none p-2 rounded-md text-black bg-gray-100 mr-2 px-4"
+              >
+                <md-icon class="mr-2">arrow_back</md-icon> Return to recipe
+              </button>
+              <button
+                ng-show="status=='edit'"
+                ng-click="executeScript()" 
+                title="Execute recipe" 
+                class="focus:outline-none p-2 rounded-md text-black bg-gray-100 mr-2 px-4">
+                <md-icon>play_arrow</md-icon> Execute recipe
+              </button>
+              <div
+                ng-show="status=='run'"
+                class="focus:outline-none px-4 py-2 rounded-md font-semibold text-white bg-indigo-400 flex justify-center items-center mr-2"
+              >
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Chargements
+              </div>
+              <button class="focus:outline-none p-2 rounded-md font-semibold text-white bg-red-500" aria-label="Close" ng-click="closeRecipe()" title="Back to list">
+                <md-icon class="text-white">close</md-icon>
+              </button>
+            </div>
           </div>
         </div>
 
-        <div class="exec-button-row" ng-show="status=='edit'">
-          <md-button
-            ng-click="executeScript()"
-            title="Execute recipe"
-            class="md-raised"
-          ><md-icon>play_arrow</md-icon> Execute recipe</md-button>
-          <span class="shortcut-info">or hit [CTRL] + [ENTER] from the panel</span>
-        </div>
+        <!-- <div class="text-white" ng-show="status=='edit'">
+
+          <p class="text-xs">or hit [CTRL] + [ENTER] from the panel</p>
+        </div> -->
 
         <!-- <div ng-show="status=='run'" flex layout="column" layout-align="center center">
           <h3 class="script-title">{{recipe.name}}</h3>
           is being processed<br><br><br>
         </div> -->
 
-        <div js-editor file="settings.root+'/recipes/'+recipe.file" remind="remindRecipe" flex ng-if="status=='edit'"></div>
       </div>
 
-      <div layout="column" layout-fill layout-padding ng-if="status=='run' || status=='end'" id="playground">
+      <div layout="column" layout-fill js-editor file="settings.root+'/recipes/'+recipe.file" remind="remindRecipe" flex ng-if="status=='edit'" >
       </div>
+
+      <div layout="column" layout-fill class="p-8" ng-if="status=='run' || status=='end'" id="playground">
+      </div>
+  
 
     </div>
 
