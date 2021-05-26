@@ -18,6 +18,7 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
 
   // Scope variables
   $scope.filename
+  $scope.filetitle
   $scope.originalGraph
   $scope.nodesCount
   $scope.edgesCount
@@ -106,6 +107,11 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
 
   // Init
   $scope.filename = store.get('graphname')
+  if (window.settings && window.settings.files) {
+    const file = window.settings.files.find((file) => file.path.replace(/\.[^\.]*$/, '') == $scope.filename)
+    if (file) $scope.filetitle = file.name
+  }
+
   $scope.originalGraph = store.get('graph')
   $scope.refreshGraph()
 

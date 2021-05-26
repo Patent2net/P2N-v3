@@ -3,8 +3,7 @@
 window.app = (settings) => {
 
   window.settings = settings || {}
-  console.log(settings)
-
+  
   // Requiring module's CSS
   require('angular-material/angular-material.min.css');
 
