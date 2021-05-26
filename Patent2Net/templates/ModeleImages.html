@@ -11,32 +11,31 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script charset="utf-8" type="text/javascript" language="javascript" src="../../../Patent2Net/media/p2ngallery.js"></script>
 
-
+    <link href="https://unpkg.com/tailwindcss@^1.4.6/dist/tailwind.min.css" rel="stylesheet">
+    
     <link rel="stylesheet" type="text/css" href="../../../Patent2Net/extensions/MagnificPopup/dist/magnific-popup.css">
     <link rel="stylesheet" type="text/css" href="../../../Patent2Net/extensions/bootstrap/css/bootstrap.min.css">
     </script>
-    <link rel="stylesheet" type="text/css" href="../../../Patent2Net/P2N.css">
     <link rel="stylesheet" type="text/css" href="../../../Patent2Net/media/css/animate.css">
-    <link rel="stylesheet" type="text/css" href="../../../Patent2Net/media/css/main.css">
     <link rel="stylesheet" type="text/css" href="../../../Patent2Net/media/p2ngallery.css">
 </head>
 
-<body>
+<body class="bg-gray-100">
 
-    <header class="wrapper dark">
-        <a href="../../index.html"><img class="logo" src="../../../Patent2Net/media/img/logo_dark.png" alt=""/></a>
-
-        <section>
-            <h1>Universe of OPS Patent Request: </h1>"{{request}}"</section>
+    <header class="bg-white py-10">
+        <section class="container">
+            <h1>Universe of OPS Patent Request: </h1>
+            <span>"{{request}}"</span>
+        </section>
     </header>
 
     <div id="galleryApp">
         {% raw %}
-        <nav class="navbar navbar-expand navbar-dark bg-dark">
+        <nav class="navbar navbar-expand navbar-dark bg-indigo-600">
             <div class="container">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
-                      </button>
+                        </button>
 
                 <div class="collapse navbar-collapse" id="navbarsExample02">
                     <ul class="navbar-nav my-2 my-md-0">
@@ -52,7 +51,7 @@
                                     <option>48</option>
                                     <option>96</option>
                                     <option>192</option>
-                                 </select>
+                                    </select>
                             </form>
                         </li>
                         <li class="nav-item">
@@ -64,20 +63,21 @@
             </div>
         </nav>
 
-        <div class="container gallery">
-            <div class="popup-gallery row">
-                <div class="col-3 col-md-3 col-sm-6 gallery-obj" v-for="img in images">
+        <div class="container gallery my-10">
+            <div class="popup-gallery grid grid-cols-3 md:grid-cols-4 gap-4">
+                <div class="bg-white p-8 rounded shadow relative" v-for="img in images">
                     <a :href="img.orig" :title="img.label" :data-tiff="img.tiff" :data-code="img.code">
-                            <img :src="img.thumb" width="128" height="128">
-                            <p>{{img.code}}</p>
-                        </a>
+                        <img :src="img.thumb" width="128" height="128" class="mx-auto">
+                        <p class="absolute bottom-0 left-0 right-0 mx-auto text-center">{{img.code}}</p>
+                    </a>
                 </div>
             </div>
         </div>
         {% endraw %}
+        
     </div>
 
-    <footer>
+    <footer class="container">
         <a href="http://patent2netv2.vlab4u.info/dokuwiki/doku.php?id=page">Patent2net documentation</a>
     </footer>
 

@@ -609,7 +609,6 @@ def cqlList():
 
     return render_template('Mass2.html', num_bars = app_cfg.num_bars, label = labels.values())
 
-
 @app.route('/DATA/<path:filename>')
 def data_static(filename):
     return send_from_directory("DATA", filename)
@@ -617,6 +616,10 @@ def data_static(filename):
 @app.route('/Patent2Net/media/<path:filename>')
 def media_static(filename):
     return send_from_directory("Patent2Net/media", filename)
+
+@app.route('/Patent2Net/extensions/<path:filename>')
+def extensions_static(filename):
+    return send_from_directory("Patent2Net/extensions", filename)
 
 @app.route('/dex.js')
 def dex():
