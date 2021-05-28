@@ -9,6 +9,28 @@ const context = {
     size: 'size'
 }
 
+const contextv2 = {
+    variables: {
+        node: {
+            type: 'object',
+            name: 'node',
+            title: 'Noeud'
+        },
+        size: {
+            type: 'number',
+            name: 'size',
+            title: 'Taille initial'
+        }
+    },
+    methodes: {
+        getNodeAttribute: {
+            returnType: 'unknown',
+            name: 'graph.getNodeAttribute',
+            title: 'Récuperer l\'attribut d\'un noeud'
+        }
+    }
+}
+
 const getNodeAttribute = new Method(
     'getNodeAttribute', 
     { attribute: new Value('size', true) }, 
@@ -25,7 +47,7 @@ const addition = new Math(
 const data = {
     'type': 'math',
     'value': {
-        'name': 'add',
+        'name': 'div',
         'values': [
             {
                 'type': 'method',
@@ -44,8 +66,7 @@ const data = {
                             'value': {
                                 'type': 'value',
                                 'value': {
-                                    'value': 'size',
-                                    'useContext': true
+                                    'value': 20
                                 }
                             }
                         }
@@ -57,6 +78,9 @@ const data = {
     }
 }
 
+const test = easyscript(data)
+const restructured = test.write()
+
 console.log(
-    easyscript(data).build(context)
+    easyscript(restructured).build(context)
 )

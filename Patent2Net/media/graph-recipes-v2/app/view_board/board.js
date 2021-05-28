@@ -1,5 +1,8 @@
 'use strict';
 
+const Math = require('../easyscript/blocks/math')
+const Value = require('../easyscript/blocks/value')
+
 var isNumeric = require('../utils.js').isNumeric;
 
 angular.module('graphrecipes.view_board', ['ngRoute'])
@@ -27,7 +30,24 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
   $scope.lcdStatus = 'choose-recipe'
   $scope.status = 'list' // list | edit | run | end
   $scope.settings = window.settings
+  $scope.easyscript = false
 
+  // $scope.easyscriptdata = {
+  //   'sizes': new Math(
+  //     new Value(20),
+  //     'add',
+  //     new Value(20)
+  //   )
+  // }
+  $scope.easyscriptdata = {
+    'sizes': new Value(20)
+  }
+
+  $scope.test = {
+    name: 'Spawn'
+  };
+
+  
   // Scope functions
   $scope.refreshGraph = function () {
     window.g = $scope.originalGraph
@@ -97,6 +117,15 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
         })
       }
     }, 4000)
+  }
+
+  $scope.toggleEasyscript = function() {
+    console.log($scope.easyscript)
+    $scope.easyscript = !$scope.easyscript
+  }
+
+  $scope.completeCode = function() {
+    
   }
 
   $scope.backToUpload = function() {

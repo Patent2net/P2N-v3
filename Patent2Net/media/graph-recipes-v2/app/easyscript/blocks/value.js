@@ -26,10 +26,20 @@ class Value extends Block {
         return 'unknown'
     }
 
+    write() {
+        return {
+            'type': TYPE,
+            'value': {
+                'value': this.value,
+                'useContext': this.useContext
+            }
+        }
+    }
+
     static read({ type, value }) {
         if (type !== TYPE) return
 
-        return new Value(value.value, value.useContext)
+        return new Value(value.value, !!value.useContext)
     }
 }
 

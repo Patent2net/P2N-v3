@@ -16,7 +16,7 @@ class Method extends Block {
         const { graph, node } = context
 
         const s_param = ((node, params) => {
-            if (params && params.length) {
+            if (params && Object.values(params).length) {
                 console.log(params)
                 return `${node}, ${Object.values(params).map((val) => val.build(context)).join(', ')}`
             }
@@ -28,6 +28,30 @@ class Method extends Block {
 
     return() {
         return this.returnType
+    }
+
+    write() {
+        const params = this.params
+        const paramsArray = []
+
+        for ( const key in params) {
+            const param = params[key]
+
+            paramsArray.push({
+                'name': key,
+                'value': param.write()
+            })
+        }
+
+        const value = {}
+        value['name'] = this.name
+        if (paramsArray.length > 0) value['params'] = paramsArray
+        value['return'] = this.returnType
+
+        return {
+            'type': TYPE,
+            'value': value
+        }
     }
 
     static read({ type, value }) {

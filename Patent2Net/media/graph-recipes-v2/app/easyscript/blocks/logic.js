@@ -4,25 +4,38 @@ const TYPE = 'logic'
 
 class Logic extends Block {
 
-    constructor(block1, logic, block2) {
+    constructor(block1, logicName, block2) {
         super(TYPE)
 
         this.block1 = block1
         this.block2 = block2
-        this.logic = logic
+        this.logicName = logicName
     }
 
     build(context) {
-        return this.block1.build(context) + ` ${this.logic} ` + this.block2.build(context)
+        return this.block1.build(context) + ` ${Logic.getLogic(this.logicName)} ` + this.block2.build(context)
     }
 
     return() {
         return 'unknown'
     }
 
-    static getLogic(type) {
-        if (type === 'AND') return '&&'
-        if (type === 'OR') return '||'
+    write() {
+        return {
+            'type': TYPE,
+            'value': {
+                'name': this.logicName,
+                'values': [
+                    this.block1.write(),
+                    this.block2.write()
+                ]
+            }
+        }
+    }
+
+    static getLogic(logicName) {
+        if (logicName === 'AND') return '&&'
+        if (logicName === 'OR') return '||'
     }
 
     static read({ type, value }) {
@@ -30,11 +43,11 @@ class Logic extends Block {
 
         const easyscript = require("../easyscript")
 
-        const logic = Logic.getLogic(value.name)
+        const logicName = value.name
         const block1 = easyscript(value.values[0])
         const block2 = easyscript(value.values[1])
 
-        return new Logic(block1, logic, block2)
+        return new Logic(block1, logicName, block2)
     }
 }
 

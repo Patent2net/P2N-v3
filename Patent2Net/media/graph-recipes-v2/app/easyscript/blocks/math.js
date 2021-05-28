@@ -4,16 +4,16 @@ const TYPE = "math"
 
 class Math extends Block {
 
-    constructor(block1, sign, block2) {
+    constructor(block1, signName, block2) {
         super(TYPE)
 
         this.block1 = block1
         this.block2 = block2
-        this.sign = sign
+        this.signName = signName
     }
 
     build(context) {
-        return this.block1.build(context) + ` ${this.sign} ` + this.block2.build(context)
+        return this.block1.build(context) + ` ${Math.getSign(this.signName)} ` + this.block2.build(context)
     }
 
     return() {
@@ -23,11 +23,24 @@ class Math extends Block {
         return 'unknown'
     }
 
-    static getSign(type) {
-        if (type === 'add') return '+'
-        if (type === 'sub') return '-'
-        if (type === 'mpy') return '*'
-        if (type === 'div') return '/'
+    write() {
+        return {
+            'type': TYPE,
+            'value': {
+                'name': this.signName,
+                'values': [
+                    this.block1.write(),
+                    this.block2.write()
+                ]
+            }
+        }
+    }
+
+    static getSign(signName) {
+        if (signName === 'add') return '+'
+        if (signName === 'sub') return '-'
+        if (signName === 'mpy') return '*'
+        if (signName === 'div') return '/'
     }
 
     static read({ type, value }) {
@@ -35,11 +48,11 @@ class Math extends Block {
 
         const easyscript = require("./../easyscript.js")
 
-        const sign = Math.getSign(value.name)
+        const signName = value.name
         const block1 = easyscript(value.values[0])
         const block2 = easyscript(value.values[1])
 
-        return new Math(block1, sign, block2)
+        return new Math(block1, signName, block2)
     }
 }
 

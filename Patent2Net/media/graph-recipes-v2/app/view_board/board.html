@@ -70,6 +70,9 @@
           </div>
           <div>
             <div class="flex flex-row">
+              <button class="focus:outline-none p-2 rounded-md font-semibold text-black bg-gray-100 mr-2 opacity-50 duration-75" ng-class="!easyscript && 'opacity-100'" ng-click="toggleEasyscript()" >
+                <md-icon>code</md-icon>
+              </button>
               <button 
                 ng-if="status=='end'" 
                 ng-click="backToRecipe()" 
@@ -114,12 +117,22 @@
 
       </div>
 
-      <div layout="column" layout-fill js-editor file="settings.root+'/recipes/'+recipe.file" remind="remindRecipe" flex ng-if="status=='edit'" >
+      <div layout="column" class="p-8" id="easyscript" ng-if="status=='edit' && easyscript">
+        <div>
+          <p class="text-md font-semibold pb-2">Tailles des noeuds</p>
+          <div class="border rounded p-4">
+            <p>zez</p>
+          </div>
+          
+          <easy-script data="easyscriptdata.sizes"></easy-script>
+        </div>
+      </div>
+
+      <div layout="column" layout-fill js-editor file="settings.root+'/recipes/'+recipe.file" remind="remindRecipe" flex ng-if="status=='edit' && !easyscript" >
       </div>
 
       <div layout="column" layout-fill class="p-8" ng-if="status=='run' || status=='end'" id="playground">
       </div>
-  
 
     </div>
 
