@@ -8,6 +8,15 @@ module.exports = (function(angular) {
         controller: function EastScriptController($scope) {
             console.log(("Easyscript"))
             console.log($scope)
+
+            $scope.modal = false
+            $scope.showChildModal = function() {
+                $scope.modal = true
+            }
+
+            $scope.hideChildModal = function() {
+                $scope.modal = false
+            }
         }
     });
 

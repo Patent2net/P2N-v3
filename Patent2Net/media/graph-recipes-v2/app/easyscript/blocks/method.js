@@ -4,49 +4,45 @@ const TYPE = 'method'
 
 class Method extends Block {
 
-    constructor(name, params, returnType) {
+    constructor(name, params) {
         super(TYPE)
         
         this.name = name
         this.params = params
-        this.returnType = returnType
     }
 
     build(context) {
-        const { graph, node } = context
+        const method = context.methods[this.name]
 
-        const s_param = ((node, params) => {
-            if (params && Object.values(params).length) {
-                console.log(params)
-                return `${node}, ${Object.values(params).map((val) => val.build(context)).join(', ')}`
+
+        const s_param = ((method, params) => {
+            if (method.params) {
+                return `${Object.values(method.params).map((param) => params[param.name].build(context)).join(', ')}`
             }
-            return node
-        })(node, this.params)
+            return ''
+        })(method, this.params)
 
-        return `${graph}.${this.name}(${s_param})`
+        return `${method.name}(${s_param})`
     }
 
-    return() {
-        return this.returnType
+    return(context) {
+        const method = context.methods[this.name]
+        if (!method) return 'unknows'
+        return method.returnType
     }
 
     write() {
         const params = this.params
-        const paramsArray = []
+        const paramsWrite = {}
 
         for ( const key in params) {
             const param = params[key]
-
-            paramsArray.push({
-                'name': key,
-                'value': param.write()
-            })
+            paramsWrite[key] = param.write()
         }
 
         const value = {}
         value['name'] = this.name
-        if (paramsArray.length > 0) value['params'] = paramsArray
-        value['return'] = this.returnType
+        value['params'] = paramsWrite
 
         return {
             'type': TYPE,
@@ -58,23 +54,18 @@ class Method extends Block {
         if (type !== TYPE) return
 
         const name = value.name
-        const paramsArray = value.params
-        const params = {}
-        const returnValue = value.return
+        const params = value.params
+        const paramsDecoded = {}
 
-        if (paramsArray) {
-            for (const param of paramsArray) {
-                
+        if (params) {
+            for (const key in params) {
+                const param = params[key]
                 const easyscript = require("../easyscript")
-                
-                const paramName = param.name
-                const paramValue = param.value
-
-                params[paramName] = easyscript(paramValue)
+                paramsDecoded[key] = easyscript(param)
             }
         }
 
-        return new Method(name, params, returnValue)
+        return new Method(name, paramsDecoded)
     }
 }
 

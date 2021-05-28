@@ -1,5 +1,7 @@
 'use strict';
 
+const Value = require("../easyscript/blocks/value");
+
 angular.module('graphrecipes.view_upload', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -14,8 +16,44 @@ angular.module('graphrecipes.view_upload', ['ngRoute'])
   $scope.dropClass
   $scope.loadingMessage = ''
   $scope.settings = window.settings
-
-  console.log(window.settings)
+  $scope.easyscriptdata = {
+    'sizes': {
+      'default': new Value(20),
+      'context': {
+        variables: {
+            'node': {
+                type: 'object',
+                name: 'node',
+                title: 'Noeud'
+            },
+            'size': {
+                type: 'number',
+                name: 'size',
+                title: 'Taille initial'
+            }
+        },
+        methods: {
+            'getNodeAttribute': {
+                returnType: 'unknown',
+                name: 'graph.getNodeAttribute',
+                title: 'Récuperer l\'attribut d\'un noeud',
+                params: [
+                    {
+                        type: 'object',
+                        name: 'node',
+                        title: 'Noeud'
+                    },
+                    {
+                        type: 'text',
+                        name: 'attribute',
+                        tile: 'Nom de l\'attribut'
+                    }
+                ]
+            }
+        }
+      }
+    }
+  }
 
   var gexf = graphology.library.gexf;
 
