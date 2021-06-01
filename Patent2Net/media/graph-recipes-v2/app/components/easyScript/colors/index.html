@@ -1,0 +1,12 @@
+<div class="w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700">
+        
+    <div ng-repeat="(index, colorLabel) in $ctrl.data.meta.colors.labels" class="py-2 flex flex-row justify-between">
+        <span class="mr-6">{{ colorLabel }}</span>
+        <color-picker 
+            ng-model="$ctrl.data.value[index]"
+            options="options"
+        >
+        </color-picker>
+    </div>
+
+</div>

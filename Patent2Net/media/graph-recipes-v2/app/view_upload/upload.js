@@ -1,6 +1,8 @@
 'use strict';
 
+const Method = require("../easyscript/blocks/method");
 const Value = require("../easyscript/blocks/value");
+const Variable = require("../easyscript/blocks/variable");
 
 angular.module('graphrecipes.view_upload', ['ngRoute'])
 
@@ -16,8 +18,42 @@ angular.module('graphrecipes.view_upload', ['ngRoute'])
   $scope.dropClass
   $scope.loadingMessage = ''
   $scope.settings = window.settings
+
+  
+  $scope.easyscriptdatacallback = function(newval){
+    if (newval.type) {
+      $scope.easyscriptdata['sizes']['default'] = newval;
+    }
+  }
+
+  $scope.easyscriptdatacolorscallback = function(newval){
+    if (newval.type) {
+      $scope.easyscriptdata['colors']['default'] = newval;
+    }
+  }
+
+
+  const preAttribute = (name, type, value) => {
+    return {
+      name: name,
+      type: type,
+      new: () => {
+        return new Method(
+          'getNodeAttribute', 
+          { 
+            node: new Variable('node'),
+            attribute: new Value(value) 
+          },
+          { 'preset': { name, type, value } }
+        )
+
+      }
+    }
+  }
+
   $scope.easyscriptdata = {
     'sizes': {
+      'type': 'number',
       'default': new Value(20),
       'context': {
         variables: {
@@ -51,7 +87,15 @@ angular.module('graphrecipes.view_upload', ['ngRoute'])
                 ]
             }
         }
-      }
+      },
+      'presets': [
+        preAttribute('Categorie', 'number', 'Category'),
+        preAttribute('Nom du label', 'string' ,'Label2')
+      ]
+    },
+    'colors': {
+      'type': 'list',
+      'default': new Value(["#00cccc", "#ff6633", "#119933"], { colors: { labels: ['first element', 'second element']}})
     }
   }
 

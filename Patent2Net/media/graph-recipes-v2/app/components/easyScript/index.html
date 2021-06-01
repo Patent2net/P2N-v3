@@ -1,7 +1,23 @@
 <div>
     <div class="bg-indigo-600 border rounded-lg shadow p-4 inline-block">
-        <easy-block data="$ctrl.data.default" show-child-modal="showChildModal()"></easy-block>
-        <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" ng-if="modal">
+        
+        <div ng-if="!$ctrl.data.default.meta.colors">
+          <easy-block 
+            data="$ctrl.data.default"
+            presets="$ctrl.data.presets"
+            callback="$ctrl.callback"   
+            show-child-modal="showChildModal()"
+          ></easy-block>
+        </div>
+
+        <div ng-if="$ctrl.data.default.meta.colors">
+          <easy-colors data="$ctrl.data.default" callback="$ctrl.callback"></easy-colors>
+        </div>
+
+        
+
+
+        <!-- <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true" ng-if="modal">
             <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
               <div ng-class="modal ? 'ease-out duration-300 opacity-100' : 'ease-in duration-200 opacity-0'" class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
               <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
@@ -21,6 +37,6 @@
                 </div>
               </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>

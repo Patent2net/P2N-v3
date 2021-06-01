@@ -13,6 +13,7 @@ window.app = (settings) => {
   require('angular-aria');
   require('angular-material');
   require('angular-route');
+  require('angularjs-color-picker')
 
   // Making some modules global for the custom scripts to consume
   var d3 = require('d3');
@@ -51,6 +52,7 @@ window.app = (settings) => {
   const app = angular.module('graphrecipes', [
     'ngRoute',
     'ngMaterial',
+    'color.picker',
     'graphrecipes.view_upload',
     'graphrecipes.view_board',
     'graphrecipes.recipes_list'
@@ -142,6 +144,8 @@ window.app = (settings) => {
   require('./components/heroDetail/index.js')(app);
   require('./components/easyScript/value/index.js')(app);
   require('./components/easyScript/block/index.js')(app);
+  require('./components/easyScript/preset/index.js')(app);
+  require('./components/easyScript/colors/index.js')(app);
   require('./components/easyScript/index.js')(app);
     
 }

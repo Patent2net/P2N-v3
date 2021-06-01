@@ -3,7 +3,8 @@ module.exports = (function(angular) {
     angular.component('easyScript', {
         templateUrl: './components/easyScript/index.html',
         bindings: {
-            data: '='
+            data: '<',
+            callback: '<'
         },
         controller: function EastScriptController($scope) {
             console.log(("Easyscript"))

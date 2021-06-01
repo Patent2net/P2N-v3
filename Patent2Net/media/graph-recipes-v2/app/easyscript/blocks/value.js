@@ -4,8 +4,8 @@ const TYPE = 'value'
 
 class Value extends Block {
 
-    constructor(value) {
-        super(TYPE)
+    constructor(value, meta = {}) {
+        super(TYPE, meta)
 
         this.value = value
     }

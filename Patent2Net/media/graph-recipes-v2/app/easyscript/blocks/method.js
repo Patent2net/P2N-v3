@@ -4,8 +4,8 @@ const TYPE = 'method'
 
 class Method extends Block {
 
-    constructor(name, params) {
-        super(TYPE)
+    constructor(name, params, meta = {}) {
+        super(TYPE, meta)
         
         this.name = name
         this.params = params

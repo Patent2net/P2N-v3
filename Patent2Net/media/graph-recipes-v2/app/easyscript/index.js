@@ -49,8 +49,7 @@ const getNodeAttribute = new Method(
     { 
         node: new Variable('node'),
         attribute: new Value('Category') 
-    }, 
-    'number'
+    }
 )
 
 const addition = new Math(
