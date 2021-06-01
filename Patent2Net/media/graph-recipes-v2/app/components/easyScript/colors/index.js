@@ -8,14 +8,23 @@ module.exports = (function(angular) {
         },
         controller: function EastValueController($scope) {
             console.log("COLORS")
-            console.log($scope.$ctrl)
-            console.log($scope.$ctrl.data)
             
             $scope.options = {
-                format: ['hex'],
+                format: 'hex',
                 alpha: false,
                 dynamicHue: false,
+                case: 'upper'
             };
+            
+            $scope.$watch('$ctrl.data.value', function() {
+                console.log("CHANGE")
+            })
+
+            $scope.eventApi = {
+                onChange:  function(api, color, $event) {
+                    console.log(api, color, $event)
+                }
+            }
         }
     });
 

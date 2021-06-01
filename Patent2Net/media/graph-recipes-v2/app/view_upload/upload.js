@@ -26,7 +26,7 @@ angular.module('graphrecipes.view_upload', ['ngRoute'])
     }
   }
 
-  $scope.easyscriptdatacolorscallback = function(newval){
+  $scope.easyscriptdatacallback = function(newval){
     if (newval.type) {
       $scope.easyscriptdata['colors']['default'] = newval;
     }
