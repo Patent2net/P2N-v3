@@ -1,4 +1,4 @@
-const Value = require("../../../easyscript/blocks/value");
+const Value = require("../../../easyscript/models/value");
 
 module.exports = (function(angular) {
 

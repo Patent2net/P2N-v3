@@ -1,8 +1,8 @@
 'use strict';
 
-const Method = require("../easyscript/blocks/method");
-const Value = require("../easyscript/blocks/value");
-const Variable = require("../easyscript/blocks/variable");
+const Method = require("../easyscript/models/method");
+const Value = require("../easyscript/models/value");
+const Variable = require("../easyscript/models/variable");
 
 angular.module('graphrecipes.view_upload', ['ngRoute'])
 
@@ -26,7 +26,7 @@ angular.module('graphrecipes.view_upload', ['ngRoute'])
     }
   }
 
-  $scope.easyscriptdatacallback = function(newval){
+  $scope.easyscriptdatacolorscallback = function(newval){
     if (newval.type) {
       $scope.easyscriptdata['colors']['default'] = newval;
     }

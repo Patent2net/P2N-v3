@@ -1,8 +1,8 @@
-const Logic = require("./blocks/logic")
-const Math = require("./blocks/math")
-const Value = require("./blocks/value")
-const Method = require("./blocks/method")
-const Variable = require("./blocks/variable")
+const Logic = require("./models/logic")
+const Math = require("./models/math")
+const Value = require("./models/value")
+const Method = require("./models/method")
+const Variable = require("./models/variable")
 
 function easyscript(data) {
 

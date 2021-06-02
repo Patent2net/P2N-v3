@@ -1,9 +1,9 @@
 'use strict';
 
-const Math = require('../easyscript/blocks/math')
-const Value = require('../easyscript/blocks/value')
-const Method = require('../easyscript/blocks/method')
-const Variable = require('../easyscript/blocks/variable')
+const Math = require('../easyscript/models/math')
+const Value = require('../easyscript/models/value')
+const Method = require('../easyscript/models/method')
+const Variable = require('../easyscript/models/variable')
 
 var isNumeric = require('../utils.js').isNumeric;
 
@@ -64,6 +64,18 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
 
       }
     }
+  }
+
+  $scope.esd = {
+    'sizes': new ValueView({
+      'type': 'number',
+      'default': new Value(20),
+      'context': {},
+      'presets': [
+        preAttribute('Categorie', 'number', 'Category'),
+        preAttribute('Nom du label', 'string' ,'Label2')
+      ]
+    })
   }
 
   $scope.easyscriptdata = {

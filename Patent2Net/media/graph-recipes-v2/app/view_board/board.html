@@ -122,14 +122,18 @@
           <div class="pb-4">
             <p class="text-md font-semibold pb-2">Tailles des noeuds</p>
             <div class="flex flex-row">
-              <easy-script data="easyscriptdata.sizes" callback="sizesCallback"></easy-script>
-              <easy-script data="easyscriptdata.min_size" callback="minSizeCallback"></easy-script>
-              <easy-script data="easyscriptdata.max_size" callback="maxSizeCallback"></easy-script>
+              <div class="bg-indigo-600 border rounded-lg shadow p-4 inline-flex flex-row">
+                <easy-script data="easyscriptdata.sizes" callback="sizesCallback"></easy-script>
+                <easy-script data="easyscriptdata.min_size" callback="minSizeCallback"></easy-script>
+                <easy-script data="easyscriptdata.max_size" callback="maxSizeCallback"></easy-script>
+              </div>
             </div>
           </div>
           <div class="pb-4">
             <p class="text-md font-semibold pb-2">Couleurs des noeuds</p>
-            <easy-script data="easyscriptdata.colors" callback="colorsCallback"></easy-script>
+            <div class="bg-indigo-600 border rounded-lg shadow p-4 inline-block">
+              <easy-script data="easyscriptdata.colors" callback="colorsCallback"></easy-script>
+            </div>
           </div>
         </div>
       </div>
