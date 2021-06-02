@@ -1,21 +1,21 @@
 module.exports = (function(angular) {
 
     angular.component('easyInput', {
-        templateUrl: './components/easyScriptv2/input/index.html',
+        templateUrl: './easyscript/views/input/index.html',
         bindings: {
             input: '<'
         },
-        controller: function EasyController($scope) {
-            $scope.value = $scope.$ctrl.input.getValue()
-            $scope.type = $scope.$ctrl.input.getReturnType()
+        controller: function EasyController($scope, $timeout) {
+            $scope.prevValue = null
 
-            $scope.$watch('value', function(newValue) {
-                let value = Math.floor(newValue) || newValue
-
-                $scope.$ctrl.input.setValue(value)
+            $timeout(function() {
+                $scope.prevValue = $scope.$ctrl.input.block.value;
             })
+
+            $scope.setValue = function(e) {
+                $scope.$ctrl.input.onValueChange($scope.$ctrl.input.block.value, $scope.prevValue);
+                $scope.prevValue = $scope.$ctrl.input.block.value;
+            }
         }
     });
-
-
 });

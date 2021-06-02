@@ -141,11 +141,16 @@ window.app = (settings) => {
     }
   })
 
-  require('./components/heroDetail/index.js')(app);
-  require('./components/easyScript/value/index.js')(app);
-  require('./components/easyScript/block/index.js')(app);
-  require('./components/easyScript/preset/index.js')(app);
-  require('./components/easyScript/colors/index.js')(app);
-  require('./components/easyScript/index.js')(app);
+  // V1
+  // require('./components/heroDetail/index.js')(app);
+  // require('./components/easyScript/value/index.js')(app);
+  // require('./components/easyScript/block/index.js')(app);
+  // require('./components/easyScript/preset/index.js')(app);
+  // require('./components/easyScript/colors/index.js')(app);
+  // require('./components/easyScript/index.js')(app);
+
+  // V2
+  require('./easyscript/views/input/index.js')(app);
+  require('./easyscript/views/rangeNumbers/index.js')(app);
     
 }

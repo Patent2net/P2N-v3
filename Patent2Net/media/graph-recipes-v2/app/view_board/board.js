@@ -34,107 +34,107 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
   $scope.settings = window.settings
   $scope.easyscript = false
 
-  const easyscriptdatacallback = (name) => {
-    return function(newval){
-      if (newval.type) {
-        $scope.easyscriptdata[name]['default'] = newval;
-      }
-    }
-  }
+  // const easyscriptdatacallback = (name) => {
+  //   return function(newval){
+  //     if (newval.type) {
+  //       $scope.easyscriptdata[name]['default'] = newval;
+  //     }
+  //   }
+  // }
 
-  $scope.sizesCallback = easyscriptdatacallback('sizes')
-  $scope.colorsCallback = easyscriptdatacallback('colors')
-  $scope.minSizeCallback = easyscriptdatacallback('min_size')
-  $scope.maxSizeCallback = easyscriptdatacallback('max_size')
+  // $scope.sizesCallback = easyscriptdatacallback('sizes')
+  // $scope.colorsCallback = easyscriptdatacallback('colors')
+  // $scope.minSizeCallback = easyscriptdatacallback('min_size')
+  // $scope.maxSizeCallback = easyscriptdatacallback('max_size')
 
 
-  const preAttribute = (name, type, value) => {
-    return {
-      name: name,
-      type: type,
-      new: () => {
-        return new Method(
-          'getNodeAttribute', 
-          { 
-            node: new Variable('node'),
-            attribute: new Value(value) 
-          },
-          { 'preset': { name, type, value } }
-        )
+  // const preAttribute = (name, type, value) => {
+  //   return {
+  //     name: name,
+  //     type: type,
+  //     new: () => {
+  //       return new Method(
+  //         'getNodeAttribute', 
+  //         { 
+  //           node: new Variable('node'),
+  //           attribute: new Value(value) 
+  //         },
+  //         { 'preset': { name, type, value } }
+  //       )
 
-      }
-    }
-  }
+  //     }
+  //   }
+  // }
 
-  $scope.esd = {
-    'sizes': new ValueView({
-      'type': 'number',
-      'default': new Value(20),
-      'context': {},
-      'presets': [
-        preAttribute('Categorie', 'number', 'Category'),
-        preAttribute('Nom du label', 'string' ,'Label2')
-      ]
-    })
-  }
+  // $scope.esd = {
+  //   'sizes': new ValueView({
+  //     'type': 'number',
+  //     'default': new Value(20),
+  //     'context': {},
+  //     'presets': [
+  //       preAttribute('Categorie', 'number', 'Category'),
+  //       preAttribute('Nom du label', 'string' ,'Label2')
+  //     ]
+  //   })
+  // }
 
-  $scope.easyscriptdata = {
-    'sizes': {
-      'type': 'number',
-      'default': new Value(20),
-      'context': {
-        variables: {
-            'node': {
-                type: 'object',
-                name: 'node',
-                title: 'Noeud'
-            },
-            'size': {
-                type: 'number',
-                name: 'size',
-                title: 'Taille initial'
-            }
-        },
-        methods: {
-            'getNodeAttribute': {
-                returnType: 'unknown',
-                name: 'graph.getNodeAttribute',
-                title: 'Récuperer l\'attribut d\'un noeud',
-                params: [
-                    {
-                        type: 'object',
-                        name: 'node',
-                        title: 'Noeud'
-                    },
-                    {
-                        type: 'text',
-                        name: 'attribute',
-                        tile: 'Nom de l\'attribut'
-                    }
-                ]
-            }
-        }
-      },
-      'presets': [
-        preAttribute('Categorie', 'number', 'Category'),
-        preAttribute('Nom du label', 'string' ,'Label2')
-      ]
-    },
-    'colors': {
-      'type': 'list',
-      'default': new Value(["#00cccc", "#ff6633", "#119933"], { colors: { labels: ['first element', 'second element']}})
-    },
-    'min_size': {
-      'type': 'number',
-      'default': new Value(3),
-      'context': {}
-    },
-    'max_size': {
-      'type': 'number',
-      'default': new Value(12),
-      'context': {}
-    }
-  }
+  // $scope.easyscriptdata = {
+  //   'sizes': {
+  //     'type': 'number',
+  //     'default': new Value(20),
+  //     'context': {
+  //       variables: {
+  //           'node': {
+  //               type: 'object',
+  //               name: 'node',
+  //               title: 'Noeud'
+  //           },
+  //           'size': {
+  //               type: 'number',
+  //               name: 'size',
+  //               title: 'Taille initial'
+  //           }
+  //       },
+  //       methods: {
+  //           'getNodeAttribute': {
+  //               returnType: 'unknown',
+  //               name: 'graph.getNodeAttribute',
+  //               title: 'Récuperer l\'attribut d\'un noeud',
+  //               params: [
+  //                   {
+  //                       type: 'object',
+  //                       name: 'node',
+  //                       title: 'Noeud'
+  //                   },
+  //                   {
+  //                       type: 'text',
+  //                       name: 'attribute',
+  //                       tile: 'Nom de l\'attribut'
+  //                   }
+  //               ]
+  //           }
+  //       }
+  //     },
+  //     'presets': [
+  //       preAttribute('Categorie', 'number', 'Category'),
+  //       preAttribute('Nom du label', 'string' ,'Label2')
+  //     ]
+  //   },
+  //   'colors': {
+  //     'type': 'list',
+  //     'default': new Value(["#00cccc", "#ff6633", "#119933"], { colors: { labels: ['first element', 'second element']}})
+  //   },
+  //   'min_size': {
+  //     'type': 'number',
+  //     'default': new Value(3),
+  //     'context': {}
+  //   },
+  //   'max_size': {
+  //     'type': 'number',
+  //     'default': new Value(12),
+  //     'context': {}
+  //   }
+  // }
   
   // Scope functions
   $scope.refreshGraph = function () {

@@ -1,11 +1,19 @@
+const { floor } = require("numeric");
+const Value = require("../models/value");
 const Controller = require("./controller");
+
+const defaultOptions = { 
+    showType: true,
+    onlyNumber: false
+}
 
 class InputController extends Controller {
 
-    constructor(defaultBlock, context) {
+    constructor(defaultValue, options = defaultOptions, context) {
         super(context);
         
-        this.block = defaultBlock;
+        this.block = new Value(defaultValue);
+        this.options = options
     }
 
     getValue() {
@@ -13,7 +21,19 @@ class InputController extends Controller {
     }
 
     setValue(value) {
+        const prevValue = this.getValue();
         this.block.value = value;
+        this.onValueChange(value, prevValue);
+    }
+
+    onValueChange(newValue, prevValue) {
+        if (this.options.onlyNumber) {
+            if (isNaN(newValue)) {
+                this.block.value = prevValue
+            } else {
+                this.block.value = Number(newValue)
+            }
+        }
     }
     
     getReturnType() {

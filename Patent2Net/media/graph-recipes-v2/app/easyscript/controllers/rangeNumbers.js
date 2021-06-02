@@ -1,24 +1,31 @@
 const Controller = require("./controller");
 const InputController = require("./input");
 
+const inputOptions = { showType: false, onlyNumber: true }
+
 class RangeNumbersController extends Controller {
 
-    constructor(defaultMinBlock, defaultMaxBlock, options, context) {
-        super(props);
+    constructor(defaultMin, defaultMax, options, context) {
+        super(context);
 
-        this.minInputController = new InputController(defaultMinBlock, context)
-        this.maxInputController = new InputController(defaultMaxBlock, context)
+        this.minInputController = new InputController(defaultMin, inputOptions, context)
+        this.maxInputController = new InputController(defaultMax, inputOptions, context)
         this.options = options
 
-        // this.minInputController.setInputValue = this.minInputController.setValue
-        // this.minInputController.setValue = (value) => {
-        //     this.minInputController.setInputValue(value)
-        // }
+        this.minInputController.onInputValueChange = this.minInputController.onValueChange
+        this.minInputController.onValueChange = (newValue, prevValue) => {
+            this.minInputController.onInputValueChange(newValue, prevValue)
 
-        // this.maxInputController.setInputValue = this.maxInputController.setValue
-        // this.maxInputController.setValue = (value) => {
-        //     this.maxInputController.setInputValue(value)
-        // }
+            if (this.maxInputController.block.value < newValue) this.maxInputController.setValue(newValue)
+            
+        }
+
+        this.maxInputController.onInputValueChange = this.maxInputController.onValueChange
+        this.maxInputController.onValueChange = (newValue, prevValue) => {
+            this.maxInputController.onInputValueChange(newValue, prevValue)
+            
+            if (this.minInputController.block.value > newValue) this.minInputController.setValue(newValue)
+        }
     }
 
     getMinBlock() {
