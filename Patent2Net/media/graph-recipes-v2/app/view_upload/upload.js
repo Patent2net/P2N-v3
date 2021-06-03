@@ -1,6 +1,7 @@
 'use strict';
 
 const PresetController = require("../easyscript/controllers/block");
+const ColorsController = require("../easyscript/controllers/colors");
 const RangeNumbersController = require("../easyscript/controllers/rangeNumbers");
 const SelectBlockController = require("../easyscript/controllers/selectBlock");
 const Method = require("../easyscript/models/method");
@@ -40,8 +41,10 @@ angular.module('graphrecipes.view_upload', ['ngRoute'])
         name: 'Choisir une valeur',
         type: 'number',
         value: 10,
-      }
-    ], 0)
+        onlyNumber: true
+      },
+    ], 0),
+    colors: new ColorsController(["Oui", "Non"],["#00cccc", "#ff6633", "#119933"])
   } 
 
   $scope.test = "Hello"

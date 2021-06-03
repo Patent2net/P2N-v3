@@ -1,7 +1,7 @@
 const Controller = require("./controller");
 const InputController = require("./input");
 
-const inputOptions = { showType: false, onlyNumber: true }
+const inputOptions = { showType: false, type: 'px', onlyNumber: true }
 
 class RangeNumbersController extends Controller {
 
@@ -11,6 +11,10 @@ class RangeNumbersController extends Controller {
         this.minInputController = new RangeInputController(defaultMin, inputOptions, context, this, true)
         this.maxInputController = new RangeInputController(defaultMax, inputOptions, context, this, false)
         this.options = options
+    }
+
+    get type() {
+        return this.minInputController.type
     }
 }
 

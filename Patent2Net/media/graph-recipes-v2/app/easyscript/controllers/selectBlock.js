@@ -25,7 +25,7 @@ class SelectBlockController extends Controller {
 
     buildPreset(preset) {
         if (preset.value) {
-            return new InputController(preset.value, { container: false})
+            return new InputController(preset.value, { container: false, onlyNumber: preset.onlyNumber})
         }
         return new BlockController(preset.name, preset.type)
     }

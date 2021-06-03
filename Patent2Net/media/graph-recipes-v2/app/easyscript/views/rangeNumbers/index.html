@@ -1,8 +1,11 @@
 <div class="inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
-    <div class="relative inline-block text-left mr-1">
+    <div class="relative inline-block text-left">
         <easy-input input="$ctrl.rangeNumbers.minInputController"></easy-input>
     </div>
-    <div class="relative inline-block text-left ml-1">
+    <div class="relative inline-block text-left ml-2">
         <easy-input input="$ctrl.rangeNumbers.maxInputController"></easy-input>
+    </div>
+    <div ng-if="$ctrl.rangeNumbers.type" class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-blue-200 text-blue-700 rounded ml-2">
+        {{ $ctrl.rangeNumbers.type }}
     </div>
 </div>
