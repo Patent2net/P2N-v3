@@ -1,6 +1,8 @@
 'use strict';
 
+const PresetController = require("../easyscript/controllers/block");
 const RangeNumbersController = require("../easyscript/controllers/rangeNumbers");
+const SelectBlockController = require("../easyscript/controllers/selectBlock");
 const Method = require("../easyscript/models/method");
 const Value = require("../easyscript/models/value");
 const Variable = require("../easyscript/models/variable");
@@ -21,7 +23,25 @@ angular.module('graphrecipes.view_upload', ['ngRoute'])
   $scope.settings = window.settings
 
   $scope.esc = {
-    rangeSize: new RangeNumbersController(5, 10, {}, {})
+    rangeSize: new RangeNumbersController(5, 10, {}, {}),
+    sizes: new SelectBlockController([
+      {
+        name: 'Identifiant de la categorie',
+        type: 'number',
+        block: new Method(
+          'getNodeAttribute', 
+          { 
+            node: new Variable('node'),
+            attribute: new Value('Category') 
+          }
+        )
+      },
+      {
+        name: 'Choisir une valeur',
+        type: 'number',
+        value: 10,
+      }
+    ], 0)
   } 
 
   $scope.test = "Hello"

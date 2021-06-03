@@ -152,5 +152,7 @@ window.app = (settings) => {
   // V2
   require('./easyscript/views/input/index.js')(app);
   require('./easyscript/views/rangeNumbers/index.js')(app);
+  require('./easyscript/views/block/index.js')(app);
+  require('./easyscript/views/selectBlock/index.js')(app);
     
 }

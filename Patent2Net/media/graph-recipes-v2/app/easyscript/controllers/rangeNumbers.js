@@ -8,43 +8,38 @@ class RangeNumbersController extends Controller {
     constructor(defaultMin, defaultMax, options, context) {
         super(context);
 
-        this.minInputController = new InputController(defaultMin, inputOptions, context)
-        this.maxInputController = new InputController(defaultMax, inputOptions, context)
+        this.minInputController = new RangeInputController(defaultMin, inputOptions, context, this, true)
+        this.maxInputController = new RangeInputController(defaultMax, inputOptions, context, this, false)
         this.options = options
+    }
+}
 
-        this.minInputController.onInputValueChange = this.minInputController.onValueChange
-        this.minInputController.onValueChange = (newValue, prevValue) => {
-            this.minInputController.onInputValueChange(newValue, prevValue)
 
-            if (this.maxInputController.block.value < newValue) this.maxInputController.setValue(newValue)
-            
+class RangeInputController extends InputController {
+
+    constructor(defaultValue, inputOptions, context, rangeNumbersController, min) {
+        super(defaultValue, inputOptions, context)
+
+        this.rangeNumbersController = rangeNumbersController
+        this.min = min
+    }
+
+    get value() {
+        return super.value;
+    }
+
+    set value(value) {
+        value = super.value = value
+        const minCtrlr = this.rangeNumbersController.minInputController
+        const maxCtrlr = this.rangeNumbersController.maxInputController
+
+        if ( this.min && maxCtrlr.value < value ) {
+            maxCtrlr.value = value
         }
-
-        this.maxInputController.onInputValueChange = this.maxInputController.onValueChange
-        this.maxInputController.onValueChange = (newValue, prevValue) => {
-            this.maxInputController.onInputValueChange(newValue, prevValue)
-            
-            if (this.minInputController.block.value > newValue) this.minInputController.setValue(newValue)
+        if ( !this.min && minCtrlr.value > value ) {
+            minCtrlr.value = value
         }
     }
-
-    getMinBlock() {
-        return this.minInputController.getBlock(block)
-    }
-
-    setMinBlock(block) {
-        this.minInputController.setBlock(block)
-    }
-
-
-    getMaxBlock() {
-        return this.maxInputController.getBlock(block)
-    }
-
-    setMaxBlock(block) {
-        this.maxInputController.setBlock(block)
-    }
-
 }
 
 

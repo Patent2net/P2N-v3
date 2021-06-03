@@ -4,7 +4,8 @@ const Controller = require("./controller");
 
 const defaultOptions = { 
     showType: true,
-    onlyNumber: false
+    onlyNumber: false,
+    container: true
 }
 
 class InputController extends Controller {
@@ -13,30 +14,25 @@ class InputController extends Controller {
         super(context);
         
         this.block = new Value(defaultValue);
-        this.options = options
+        this.options = Object.assign({}, defaultOptions)
+        for (var attrname in options) { this.options[attrname] = options[attrname]; }
     }
 
-    getValue() {
-        return this.block.value;
-    }
-
-    setValue(value) {
-        const prevValue = this.getValue();
-        this.block.value = value;
-        this.onValueChange(value, prevValue);
-    }
-
-    onValueChange(newValue, prevValue) {
+    set value(value) {
         if (this.options.onlyNumber) {
-            if (isNaN(newValue)) {
-                this.block.value = prevValue
-            } else {
-                this.block.value = Number(newValue)
+            if (!isNaN(value)) {
+                this.block.value = Number(value)
             }
+        } else {
+            this.block.value = value
         }
     }
-    
-    getReturnType() {
+
+    get value() {
+        return this.block.value
+    }
+
+    get type() {
         return this.block.return(this.context)
     }
 }

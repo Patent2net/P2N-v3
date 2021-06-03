@@ -4,9 +4,6 @@ module.exports = (function(angular) {
         templateUrl: './easyscript/views/rangeNumbers/index.html',
         bindings: {
             rangeNumbers: '<'
-        },
-        controller: function EasyController($scope) {
-            console.log($scope)
         }
     });
 
