@@ -1,7 +1,7 @@
 module.exports = (function(angular) {
 
     angular.component('easyColors', {
-        templateUrl: './easyScript/views/colors/index.html',
+        templateUrl: `${window.settings.root}/easyScript/views/colors/index.html`,
         bindings: {
             colors: '<'
         },

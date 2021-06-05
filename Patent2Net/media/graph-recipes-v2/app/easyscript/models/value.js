@@ -10,12 +10,12 @@ class Value extends Block {
         this.value = value
     }
 
-    build(context) {
+    build() {
         if (isString(this.value)) return `'${this.value}'`
         return this.value
     }
 
-    return(context) {
+    return() {
         if (isString(this.value)) return 'text'
         if (typeof myVar === this.value) return 'boolean'
         return 'number'
@@ -32,6 +32,10 @@ class Value extends Block {
         if (type !== TYPE) return
 
         return new Value(value)
+    }
+
+    run() {
+        return this.value
     }
 }
 

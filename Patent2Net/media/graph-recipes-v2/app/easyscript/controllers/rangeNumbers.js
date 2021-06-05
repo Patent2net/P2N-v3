@@ -1,16 +1,18 @@
 const Controller = require("./controller");
 const InputController = require("./input");
 
-const inputOptions = { showType: false, type: 'px', onlyNumber: true }
+const defaultOptions = { showType: false, onlyNumber: true }
 
 class RangeNumbersController extends Controller {
 
-    constructor(defaultMin, defaultMax, options, context) {
-        super(context);
+    constructor(defaultMin, defaultMax, options) {
+        super('rangeNumbers');
 
-        this.minInputController = new RangeInputController(defaultMin, inputOptions, context, this, true)
-        this.maxInputController = new RangeInputController(defaultMax, inputOptions, context, this, false)
-        this.options = options
+        this.options = Object.assign({}, defaultOptions)
+        for (var attrname in options) { this.options[attrname] = options[attrname]; }
+        
+        this.minInputController = new RangeInputController(defaultMin, this.options, this, true)
+        this.maxInputController = new RangeInputController(defaultMax, this.options, this, false)
     }
 
     get type() {
@@ -21,8 +23,8 @@ class RangeNumbersController extends Controller {
 
 class RangeInputController extends InputController {
 
-    constructor(defaultValue, inputOptions, context, rangeNumbersController, min) {
-        super(defaultValue, inputOptions, context)
+    constructor(defaultValue, inputOptions, rangeNumbersController, min) {
+        super(defaultValue, inputOptions)
 
         this.rangeNumbersController = rangeNumbersController
         this.min = min

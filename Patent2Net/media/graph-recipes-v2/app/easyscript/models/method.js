@@ -11,18 +11,15 @@ class Method extends Block {
         this.params = params
     }
 
-    build(context) {
-        const method = context.methods[this.name]
+    build(renderOptions) {
+        const { name, params_name } = renderOptions[this.name]
 
+        const s_param = params_name ? 
+            `${Object.values(params_name).map((param) => this.params[param.name].build(renderOptions)).join(', ')}`
+            : 
+            ''
 
-        const s_param = ((method, params) => {
-            if (method.params) {
-                return `${Object.values(method.params).map((param) => params[param.name].build(context)).join(', ')}`
-            }
-            return ''
-        })(method, this.params)
-
-        return `${method.name}(${s_param})`
+        return `${name}(${s_param})`
     }
 
     return(context) {
@@ -66,6 +63,14 @@ class Method extends Block {
         }
 
         return new Method(name, paramsDecoded)
+    }
+
+    run(context) {
+        const { method, params_id } = context[this.name]
+        if (method) {
+            const param = params_id.map((param_id) => this.params[param_id] ? this.params[param_id].run(context) : null)
+            method(...param)
+        }
     }
 }
 

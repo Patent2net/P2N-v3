@@ -23,33 +23,6 @@ angular.module('graphrecipes.view_upload', ['ngRoute'])
   $scope.loadingMessage = ''
   $scope.settings = window.settings
 
-  $scope.esc = {
-    rangeSize: new RangeNumbersController(5, 10, {}, {}),
-    sizes: new SelectBlockController([
-      {
-        name: 'Identifiant de la categorie',
-        type: 'number',
-        block: new Method(
-          'getNodeAttribute', 
-          { 
-            node: new Variable('node'),
-            attribute: new Value('Category') 
-          }
-        )
-      },
-      {
-        name: 'Choisir une valeur',
-        type: 'number',
-        value: 10,
-        onlyNumber: true
-      },
-    ], 0),
-    colors: new ColorsController(["Oui", "Non"],["#00cccc", "#ff6633", "#119933"])
-  } 
-
-  $scope.test = "Hello"
-  
-
   var gexf = graphology.library.gexf;
 
   // File loading interactions

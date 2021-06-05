@@ -1,11 +1,17 @@
 'use strict';
 
-const Math = require('../easyscript/models/math')
 const Value = require('../easyscript/models/value')
 const Method = require('../easyscript/models/method')
 const Variable = require('../easyscript/models/variable')
 
 var isNumeric = require('../utils.js').isNumeric;
+const RangeNumbersController = require('../easyscript/controllers/rangeNumbers');
+const SelectBlockController = require("../easyscript/controllers/selectBlock");
+const ColorsController = require('../easyscript/controllers/colors');
+
+const easy_recipes = {
+  sigma: require('../easy_recipes/sigma.js')
+}
 
 angular.module('graphrecipes.view_board', ['ngRoute'])
 
@@ -33,109 +39,8 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
   $scope.status = 'list' // list | edit | run | end
   $scope.settings = window.settings
   $scope.easyscript = false
+  $scope.esc
 
-  // const easyscriptdatacallback = (name) => {
-  //   return function(newval){
-  //     if (newval.type) {
-  //       $scope.easyscriptdata[name]['default'] = newval;
-  //     }
-  //   }
-  // }
-
-  // $scope.sizesCallback = easyscriptdatacallback('sizes')
-  // $scope.colorsCallback = easyscriptdatacallback('colors')
-  // $scope.minSizeCallback = easyscriptdatacallback('min_size')
-  // $scope.maxSizeCallback = easyscriptdatacallback('max_size')
-
-
-  // const preAttribute = (name, type, value) => {
-  //   return {
-  //     name: name,
-  //     type: type,
-  //     new: () => {
-  //       return new Method(
-  //         'getNodeAttribute', 
-  //         { 
-  //           node: new Variable('node'),
-  //           attribute: new Value(value) 
-  //         },
-  //         { 'preset': { name, type, value } }
-  //       )
-
-  //     }
-  //   }
-  // }
-
-  // $scope.esd = {
-  //   'sizes': new ValueView({
-  //     'type': 'number',
-  //     'default': new Value(20),
-  //     'context': {},
-  //     'presets': [
-  //       preAttribute('Categorie', 'number', 'Category'),
-  //       preAttribute('Nom du label', 'string' ,'Label2')
-  //     ]
-  //   })
-  // }
-
-  // $scope.easyscriptdata = {
-  //   'sizes': {
-  //     'type': 'number',
-  //     'default': new Value(20),
-  //     'context': {
-  //       variables: {
-  //           'node': {
-  //               type: 'object',
-  //               name: 'node',
-  //               title: 'Noeud'
-  //           },
-  //           'size': {
-  //               type: 'number',
-  //               name: 'size',
-  //               title: 'Taille initial'
-  //           }
-  //       },
-  //       methods: {
-  //           'getNodeAttribute': {
-  //               returnType: 'unknown',
-  //               name: 'graph.getNodeAttribute',
-  //               title: 'Récuperer l\'attribut d\'un noeud',
-  //               params: [
-  //                   {
-  //                       type: 'object',
-  //                       name: 'node',
-  //                       title: 'Noeud'
-  //                   },
-  //                   {
-  //                       type: 'text',
-  //                       name: 'attribute',
-  //                       tile: 'Nom de l\'attribut'
-  //                   }
-  //               ]
-  //           }
-  //       }
-  //     },
-  //     'presets': [
-  //       preAttribute('Categorie', 'number', 'Category'),
-  //       preAttribute('Nom du label', 'string' ,'Label2')
-  //     ]
-  //   },
-  //   'colors': {
-  //     'type': 'list',
-  //     'default': new Value(["#00cccc", "#ff6633", "#119933"], { colors: { labels: ['first element', 'second element']}})
-  //   },
-  //   'min_size': {
-  //     'type': 'number',
-  //     'default': new Value(3),
-  //     'context': {}
-  //   },
-  //   'max_size': {
-  //     'type': 'number',
-  //     'default': new Value(12),
-  //     'context': {}
-  //   }
-  // }
-  
   // Scope functions
   $scope.refreshGraph = function () {
     window.g = $scope.originalGraph
@@ -166,6 +71,8 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
     $scope.recipe = r
     $scope.status = 'edit'
     $scope.remindRecipe = false
+    $scope.easy_recipe = easy_recipes[r.easy_name]
+    $scope.esc = $scope.easy_recipe.createController(window.g)
   }
 
    $scope.backToRecipe = function() {
@@ -187,7 +94,13 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
       document.querySelector('#playground').innerHTML = ''
       var code = window.editor.getValue()
       try {
-        eval(';(function(){'+code+'})();')
+
+        if ($scope.easyscript) {
+          $scope.easy_recipe.use(window.g, $scope.esc)
+        } else {
+          eval(';(function(){'+code+'})();')
+        }
+
         $scope.lcdStatus = 'service'
         $scope.status = 'end'
 

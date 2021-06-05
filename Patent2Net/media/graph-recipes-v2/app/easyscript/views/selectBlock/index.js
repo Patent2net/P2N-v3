@@ -3,7 +3,7 @@ const Value = require("../../models/value");
 module.exports = (function(angular) {
 
     angular.component('easySelectBlock', {
-        templateUrl: './easyscript/views/selectBlock/index.html',
+        templateUrl: `${window.settings.root}/easyScript/views/selectBlock/index.html`,
         bindings: {
             selectBlock: '<'
         },

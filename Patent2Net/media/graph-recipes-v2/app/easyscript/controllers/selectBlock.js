@@ -17,7 +17,7 @@ class SelectBlockController extends Controller {
      * @param {int} defaultValues
      */
     constructor(presets, defaultIndex = 0) {
-        super();
+        super('selectBlock');
 
         this.presets = presets
         this.blockController = this.buildPreset(this.presets[defaultIndex])
@@ -27,7 +27,7 @@ class SelectBlockController extends Controller {
         if (preset.value) {
             return new InputController(preset.value, { container: false, onlyNumber: preset.onlyNumber})
         }
-        return new BlockController(preset.name, preset.type)
+        return new BlockController(preset.name, preset.type, preset.block)
     }
 
     usePreset(preset) {

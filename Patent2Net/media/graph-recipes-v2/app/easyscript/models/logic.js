@@ -12,8 +12,8 @@ class Logic extends Block {
         this.logicName = logicName
     }
 
-    build(context) {
-        return this.block1.build(context) + ` ${Logic.getLogic(this.logicName)} ` + this.block2.build(context)
+    build(renderOptions) {
+        return this.block1.build(renderOptions) + ` ${Logic.getLogic(this.logicName)} ` + this.block2.build(renderOptions)
     }
 
     return() {
@@ -48,6 +48,14 @@ class Logic extends Block {
         const block2 = easyscript(value.values[1])
 
         return new Logic(block1, logicName, block2)
+    }
+
+    run(context) {
+        result1 = this.block1.run(context) 
+        result2 = this.block2.run(context)
+        
+        if (this.signName === 'AND') return result1 && result2
+        if (this.signName === 'OR') return result1 || result2
     }
 }
 

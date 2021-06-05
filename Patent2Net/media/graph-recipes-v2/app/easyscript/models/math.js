@@ -12,8 +12,8 @@ class Math extends Block {
         this.signName = signName
     }
 
-    build(context) {
-        return this.block1.build(context) + ` ${Math.getSign(this.signName)} ` + this.block2.build(context)
+    build(renderOptions) {
+        return this.block1.build(renderOptions) + ` ${Math.getSign(this.signName)} ` + this.block2.build(renderOptions)
     }
 
     return() {
@@ -53,6 +53,17 @@ class Math extends Block {
         const block2 = easyscript(value.values[1])
 
         return new Math(block1, signName, block2)
+    }
+
+    run(context) {
+        result1 = this.block1.run(context) 
+        result2 = this.block2.run(context)
+        
+        if (this.signName === 'add') return result1 + result2
+        if (this.signName === 'sub') return result1 - result2
+        if (this.signName === 'mpy') return result1 * result2
+        if (this.signName === 'div') return result1 / result2
+
     }
 }
 

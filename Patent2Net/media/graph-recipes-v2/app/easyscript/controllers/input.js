@@ -11,8 +11,8 @@ const defaultOptions = {
 
 class InputController extends Controller {
 
-    constructor(defaultValue, options = defaultOptions, context) {
-        super(context);
+    constructor(defaultValue, options = defaultOptions) {
+        super('input');
         
         this.block = new Value(defaultValue);
         this.options = Object.assign({}, defaultOptions)
@@ -38,7 +38,7 @@ class InputController extends Controller {
     }
 
     get type() {
-        return this.options.type ? this.options.type : this.block.return(this.context)
+        return this.options.type ? this.options.type : this.block.return()
     }
 }
 

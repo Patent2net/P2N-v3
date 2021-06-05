@@ -1,7 +1,7 @@
 module.exports = (function(angular) {
 
     angular.component('easyInput', {
-        templateUrl: './easyscript/views/input/index.html',
+        templateUrl: `${window.settings.root}/easyScript/views/input/index.html`,
         bindings: {
             input: '<'
         }

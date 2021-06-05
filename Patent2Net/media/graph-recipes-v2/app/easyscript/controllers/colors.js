@@ -4,7 +4,7 @@ const Controller = require("./controller");
 class ColorsController extends Controller {
 
     constructor(labels, defaultColorList) {
-        super()
+        super('colors')
         
         this.labels = labels
         this.values = defaultColorList.map((color) => new Value(color))

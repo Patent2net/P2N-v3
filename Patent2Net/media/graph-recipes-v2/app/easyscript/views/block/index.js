@@ -1,7 +1,7 @@
 module.exports = (function(angular) {
 
     angular.component('easyBlock', {
-        templateUrl: './easyscript/views/block/index.html',
+        templateUrl: `${window.settings.root}/easyScript/views/block/index.html`,
         bindings: {
             block: '<'
         },

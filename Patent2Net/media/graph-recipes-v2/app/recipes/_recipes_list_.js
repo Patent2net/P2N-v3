@@ -10,41 +10,7 @@ angular.module('graphrecipes.recipes_list', [])
 		'name': 'Draw graph',
 		'desc': 'Dynamic visualization of your graph',
 		'file': 'sigma.js',
-		'easy_file': './easy/sigma.js',
-		'easy_parameters': {
-			'nodes': {
-				'colors': {
-					
-				},
-				'sizes': {
-					'min': 2,
-					'max': 13,
-					'calc': {
-						'type': 'math',
-						'value': {
-							'name': 'add',
-							'values': [
-								{
-									'type': 'method',
-									'value': {
-										'name': 'degree'
-									}
-								},
-								{
-									'type': 'method',
-									'value': {
-										'name': 'getNodeAttribute',
-										'params': {
-											'name': 'size'
-										}
-									}
-								}
-							]
-						}
-					}
-				}
-			}
-		}
+		'easy_name': 'sigma'
 	},
 	{
 		'name': 'Partition Analysis',

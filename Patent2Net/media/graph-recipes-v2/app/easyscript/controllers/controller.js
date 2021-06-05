@@ -1,8 +1,8 @@
 
 class Controller {
-
-    constructor(context) {
-        this.context = context
+    
+    constructor(name) {
+        this.name = name
     }
 }
 

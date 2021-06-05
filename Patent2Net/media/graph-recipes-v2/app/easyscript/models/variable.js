@@ -10,9 +10,9 @@ class Variable extends Block {
         this.name = name
     }
 
-    build(context) {
-        const variable = context.variables[this.name]
-        if (variable) return variable.name
+    build(renderOptions) {
+        const name = renderOptions[this.name]
+        if (name) return name
         return null
     }
 
@@ -33,6 +33,10 @@ class Variable extends Block {
         if (type !== TYPE) return
 
         return new Variable(name)
+    }
+
+    run(context) {
+        return context[this.name]
     }
 }
 
