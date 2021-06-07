@@ -16,22 +16,25 @@ class SelectBlockController extends Controller {
      * @param {Object[]} presets
      * @param {int} defaultValues
      */
-    constructor(presets, defaultIndex = 0) {
+    constructor(presets, defaultIndex = 0, onChange = () => {}) {
         super('selectBlock');
 
         this.presets = presets
         this.blockController = this.buildPreset(this.presets[defaultIndex])
+        this.onChange = onChange
     }
 
     buildPreset(preset) {
         if (preset.value) {
             return new InputController(preset.value, { container: false, onlyNumber: preset.onlyNumber})
         }
-        return new BlockController(preset.name, preset.type, preset.block)
+        return new BlockController(preset.name, preset.type, preset.block, preset.options)
     }
 
     usePreset(preset) {
         this.blockController = this.buildPreset(preset)
+        console.log('test')
+        this.onChange(preset)
     }
 
     get controllerType() {

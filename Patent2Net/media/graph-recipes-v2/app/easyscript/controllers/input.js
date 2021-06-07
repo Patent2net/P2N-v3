@@ -40,6 +40,11 @@ class InputController extends Controller {
     get type() {
         return this.options.type ? this.options.type : this.block.return()
     }
+
+    
+    blur() {}
+
+    focus () {}
 }
 
 module.exports = InputController

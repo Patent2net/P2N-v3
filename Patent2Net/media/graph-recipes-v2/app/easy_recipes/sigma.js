@@ -7,33 +7,67 @@ const Variable = require("../easyscript/models/variable")
 
 const createController = (g) => {
 
-  console.log("SIGMA" + g)
+  const nodeKeys = {}
+  
+  g.nodes().forEach(function(nid){
+    const nodeAttributes = g.getNodeAttributes(nid)
+    
+    for (const key in nodeAttributes) {
+      const attr = nodeAttributes[key];
+      
+      if(!nodeKeys[key]) nodeKeys[key] = []
 
-  return {
+      if (!nodeKeys[key].some(name => name === attr)) {
+        nodeKeys[key].push(attr)
+      }
+    }
+  })
+
+  const sizeAttrKeys = Object.keys(nodeKeys).filter(key => !isNaN(nodeKeys[key][0]))
+  const defaultColorLabel = 0
+  const colorsKey = Object.keys(nodeKeys).filter(key => nodeKeys[key].length <= 15 && nodeKeys[key].length > 2)
+  const colors = ["00cccc", "ff6633", "119933", "cc0066","091ba1","ecd3cb","0f1110", "e066a3","b0c39c","5f93bc","d27533","b05edc","67a43a","da50a5","599a75","de4e55","867bd3","a3884c","bc7590"]
+
+  const controller = {
     rangeSize: new RangeNumbersController(5, 10, { type: 'px' }),
     sizes: new SelectBlockController([
-      {
-        name: 'Valeur aléatoire',
+      ...sizeAttrKeys.map((key) => ({
+        name: key,
         type: 'number',
         block: new Method(
-          'random', 
-          {}
+          'getNodeAttribute', 
+          {
+            'node': new Variable('node'),
+            'attribute': new Value(key)
+          }
         )
-      },
+      })),
       {
         name: 'Valeur par defaut',
         type: 'number',
         block: new Variable('size')
-      },
-      {
-        name: 'Choisir une valeur',
-        type: 'number',
-        value: 10,
-        onlyNumber: true
-      },
+      }
     ]),
-    colors: new ColorsController(["Oui", "Non"],["#00cccc", "#ff6633", "#119933"])
+    colorBy: new SelectBlockController(
+      colorsKey.map(key => ({
+        name: `${key} (${nodeKeys[key].length})`,
+        type: 'object',
+        block: new Value(key),
+        options: { showType: false }
+      })), 
+      defaultColorLabel, 
+      (preset) => {
+        setColorsLabel(nodeKeys[preset.block.value])
+      }
+    ),
+    colors: new ColorsController(nodeKeys[colorsKey[defaultColorLabel]], colors)
   }
+
+  const setColorsLabel = (colorsLabel) => {
+    controller.colors.labels = colorsLabel
+  }
+
+  return controller;
 }
 
 const use = (g, controllers) => {
@@ -55,7 +89,10 @@ const use = (g, controllers) => {
     slowDown: 1 + Math.log(g.order)
   };
 
-  var CATEGORY = "category";
+  var colorBy = controllers['colorBy']
+
+  var CATEGORY = colorBy.blockController.block.run({});
+  console.log(CATEGORY)
   var COLORS = {
     e: '#c75a93',
     q: '#60a862'
@@ -67,7 +104,8 @@ const use = (g, controllers) => {
   g.nodes().forEach(function(nid){
     classesIndex[g.getNodeAttribute(nid, CATEGORY)] = true
   })
-  var colors = ["#00cccc", "#ff6633", "#119933", "#cc0066","#091ba1","#ecd3cb","#0f1110", "#e066a3","#b0c39c","#5f93bc","#d27533","#b05edc","#67a43a","#da50a5","#599a75","#de4e55","#867bd3","#a3884c","#bc7590"]
+  var colors = controllers['colors'].values.map(value => "#" + value.run())
+  console.log(colors)
   var count = 0
   for (cl in classesIndex) {
     if (count < colors.length) {
@@ -98,10 +136,12 @@ const use = (g, controllers) => {
 
     // Size
     graph.updateNodeAttribute(node, 'size', function(size) {
+      const getNodeAttribute = ((node, attribute) => graph.getNodeAttribute(node, attribute)).bind(this)
+
       return controllers['sizes'].blockController.block.run({
-        "random": {
-          'method': Math.random,
-          'params_id': []
+        "getNodeAttribute": {
+          'method': getNodeAttribute,
+          'params_id': ['node', 'attribute']
         },
         "size": size,
         "node": node

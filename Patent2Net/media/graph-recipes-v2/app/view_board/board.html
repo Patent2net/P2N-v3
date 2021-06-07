@@ -70,7 +70,7 @@
           </div>
           <div>
             <div class="flex flex-row">
-              <button class="focus:outline-none p-2 rounded-md font-semibold text-black bg-gray-100 mr-2 opacity-50 duration-75" ng-class="!easyscript && 'opacity-100'" ng-click="toggleEasyscript()" >
+              <button ng-if="status=='edit' && recipe.easy_name" class="focus:outline-none p-2 rounded-md font-semibold text-black bg-gray-100 mr-2 opacity-50 duration-75" ng-class="!easyscript && 'opacity-100'" ng-click="toggleEasyscript()" >
                 <md-icon>code</md-icon>
               </button>
               <button 

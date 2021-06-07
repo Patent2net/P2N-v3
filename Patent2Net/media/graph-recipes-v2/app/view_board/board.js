@@ -40,6 +40,7 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
   $scope.settings = window.settings
   $scope.easyscript = false
   $scope.esc
+  $scope.directRun
 
   // Scope functions
   $scope.refreshGraph = function () {
@@ -71,14 +72,25 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
     $scope.recipe = r
     $scope.status = 'edit'
     $scope.remindRecipe = false
-    $scope.easy_recipe = easy_recipes[r.easy_name]
-    $scope.esc = $scope.easy_recipe.createController(window.g)
+    if (r.easy_name) {
+      $scope.easy_recipe = easy_recipes[r.easy_name]
+      $scope.esc = $scope.easy_recipe.createController(window.g)
+    } else {
+      $scope.directRun = true
+      $scope.executeScript($scope.settings.root+'/recipes/'+r.file)
+    }
   }
 
    $scope.backToRecipe = function() {
     $scope.lcdStatus = 'edit-script'
     $scope.status = 'edit'
-    $scope.remindRecipe = true
+    if ($scope.directRun) {
+      $scope.directRun = false
+      $scope.remindRecipe = false
+    } else {
+      $scope.remindRecipe = true
+    }
+    
   }
 
   $scope.closeRecipe = function() {
@@ -87,36 +99,54 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
     $scope.status = 'list'
   }
 
-  $scope.executeScript = function() {
+  $scope.executeScript = function(script = null) {
     $scope.lcdStatus = 'cooking'
     $scope.status = 'run'
     $timeout(function(){
+      var codePromise = null
       document.querySelector('#playground').innerHTML = ''
-      var code = window.editor.getValue()
-      try {
-
-        if ($scope.easyscript) {
-          $scope.easy_recipe.use(window.g, $scope.esc)
-        } else {
-          eval(';(function(){'+code+'})();')
-        }
-
-        $scope.lcdStatus = 'service'
-        $scope.status = 'end'
-
-        // Stop after a while
-        $timeout(function(){
-          if ($scope.lcdStatus == 'service')
-            $scope.lcdStatus = 'waiting'
-        }, 10000)
-      } catch(e) {
-        $scope.lcdStatus = 'error'
-        console.error('[Script error]', e)
-        $timeout(function(){
-          alert('Merde :(\nThere is an issue with this script:\n\n' + e)
-          $scope.backToRecipe()
+      if (script) {
+        codePromise = fetch($scope.settings.root+'/recipes/'+$scope.recipe.file).then(res => {
+          return res.text().then(text => {
+            return text
+          })
+        }).then(e => {
+          return e
+        })
+      } else {
+        codePromise = new Promise((resolve, reject) => {
+          resolve(window.editor.getValue())
         })
       }
+
+      codePromise.then(code => {
+        try {
+
+          if ($scope.easyscript) {
+            $scope.easy_recipe.use(window.g, $scope.esc)
+          } else {
+            eval(';(function(){'+code+'})();')
+          }
+
+          $scope.lcdStatus = 'service'
+          $scope.status = 'end'
+
+          // Stop after a while
+          $timeout(function(){
+            if ($scope.lcdStatus == 'service')
+              $scope.lcdStatus = 'waiting'
+          }, 10000)
+        } catch(e) {
+          $scope.lcdStatus = 'error'
+          console.error('[Script error]', e)
+          $timeout(function(){
+            alert('Merde :(\nThere is an issue with this script:\n\n' + e)
+            $scope.backToRecipe()
+          })
+        }
+                
+      })
+
     }, 4000)
   }
 

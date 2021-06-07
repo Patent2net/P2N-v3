@@ -69,6 +69,8 @@ class Method extends Block {
         const { method, params_id } = context[this.name]
         if (method) {
             const param = params_id.map((param_id) => this.params[param_id] ? this.params[param_id].run(context) : null)
+            console.log(param)
+            console.log(method)
             method(...param)
         }
     }

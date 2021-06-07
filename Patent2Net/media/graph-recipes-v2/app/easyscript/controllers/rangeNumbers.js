@@ -30,20 +30,16 @@ class RangeInputController extends InputController {
         this.min = min
     }
 
-    get value() {
-        return super.value;
-    }
-
-    set value(value) {
-        value = super.value = value
+    blur() {
+        super.blur()
         const minCtrlr = this.rangeNumbersController.minInputController
         const maxCtrlr = this.rangeNumbersController.maxInputController
 
-        if ( this.min && maxCtrlr.value < value ) {
-            maxCtrlr.value = value
+        if ( this.min && maxCtrlr.value < minCtrlr.value ) {
+            maxCtrlr.value = minCtrlr.value
         }
-        if ( !this.min && minCtrlr.value > value ) {
-            minCtrlr.value = value
+        if ( !this.min && minCtrlr.value > maxCtrlr.value ) {
+            minCtrlr.value = maxCtrlr.value
         }
     }
 }
