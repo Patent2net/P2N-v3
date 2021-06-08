@@ -15,7 +15,7 @@ function easyscript(data) {
     ]
 
     for ( read of readers ) {
-        const result = read(data, easyscript)
+        const result = read(data)
         if (result) return result
     }
 }

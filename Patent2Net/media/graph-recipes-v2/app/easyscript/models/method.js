@@ -2,24 +2,18 @@ const Block = require("./block")
 
 const TYPE = 'method'
 
+/** Block that represents method block */
 class Method extends Block {
 
-    constructor(name, params, meta = {}) {
-        super(TYPE, meta)
-        
+    /**
+     * Create a method block
+     * @param {string} name name of method, this name was used as unique key in run method to get javascript function in context
+     * @param {Object} params parameter identifier associated with the parameter value, 
+     */
+    constructor(name, params) {
+        super(TYPE)
         this.name = name
         this.params = params
-    }
-
-    build(renderOptions) {
-        const { name, params_name } = renderOptions[this.name]
-
-        const s_param = params_name ? 
-            `${Object.values(params_name).map((param) => this.params[param.name].build(renderOptions)).join(', ')}`
-            : 
-            ''
-
-        return `${name}(${s_param})`
     }
 
     return(context) {
@@ -66,12 +60,10 @@ class Method extends Block {
     }
 
     run(context) {
-        const { method, params_id } = context[this.name]
-        if (method) {
-            const param = params_id.map((param_id) => this.params[param_id] ? this.params[param_id].run(context) : null)
-            console.log(param)
-            console.log(method)
-            method(...param)
+        const { method, params_id } = context[this.name] // Get js method with key in context, get params
+        if (method) { // If js method found in context
+            const param = params_id.map((param_id) => this.params[param_id] ? this.params[param_id].run(context) : null) // Get the value of the parameters used by the js method
+            method(...param) // Run js method with parameter values
         }
     }
 }

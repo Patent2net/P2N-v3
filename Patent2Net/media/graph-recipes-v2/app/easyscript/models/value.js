@@ -2,17 +2,17 @@ const Block = require("./block")
 
 const TYPE = 'value'
 
+/** Block that represents static value block */
 class Value extends Block {
 
-    constructor(value, meta = {}) {
-        super(TYPE, meta)
+    /**
+     * Create value block
+     * @param {*} value any value, this block has no logic and simply allows to control a static value in controllers
+     */
+    constructor(value) {
+        super(TYPE)
 
         this.value = value
-    }
-
-    build() {
-        if (isString(this.value)) return `'${this.value}'`
-        return this.value
     }
 
     return() {
@@ -35,7 +35,7 @@ class Value extends Block {
     }
 
     run() {
-        return this.value
+        return this.value //no logic, just return value edited by controllers
     }
 }
 

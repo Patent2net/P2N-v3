@@ -2,8 +2,15 @@ const Block = require("./block")
 
 const TYPE = 'logic'
 
+/** Block that represents the logic gates */
 class Logic extends Block {
 
+    /**
+     * Create a logic gate block
+     * @param {Block} block1 
+     * @param {string} logicName logic gate used between the 2 blocks (AND/OR)
+     * @param {Block} block2 
+     */
     constructor(block1, logicName, block2) {
         super(TYPE)
 
@@ -12,14 +19,10 @@ class Logic extends Block {
         this.logicName = logicName
     }
 
-    build(renderOptions) {
-        return this.block1.build(renderOptions) + ` ${Logic.getLogic(this.logicName)} ` + this.block2.build(renderOptions)
-    }
-
     return() {
         return 'unknown'
     }
-
+    
     write() {
         return {
             'type': TYPE,

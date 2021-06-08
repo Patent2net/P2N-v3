@@ -2,18 +2,17 @@ const Block = require("./block")
 
 const TYPE = 'variable'
 
+/** Block that represents variable block */
 class Variable extends Block {
 
+    /**
+     * Create variable block
+     * @param {string} name Key used by the variable to retrieve its value in the context
+     */
     constructor(name) {
         super(TYPE)
 
         this.name = name
-    }
-
-    build(renderOptions) {
-        const name = renderOptions[this.name]
-        if (name) return name
-        return null
     }
 
     return(context) {

@@ -2,18 +2,21 @@ const Block = require("./block")
 
 const TYPE = "math"
 
+/** Block that represents math operation */
 class Math extends Block {
 
+    /**
+     * Create a math operation block
+     * @param {Block} block1 
+     * @param {string} signName name of sign operation (add/sub/mpy/div)
+     * @param {Block} block2 
+     */
     constructor(block1, signName, block2) {
         super(TYPE)
 
         this.block1 = block1
         this.block2 = block2
         this.signName = signName
-    }
-
-    build(renderOptions) {
-        return this.block1.build(renderOptions) + ` ${Math.getSign(this.signName)} ` + this.block2.build(renderOptions)
     }
 
     return() {

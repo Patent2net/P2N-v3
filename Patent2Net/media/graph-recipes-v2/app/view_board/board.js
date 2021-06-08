@@ -9,6 +9,7 @@ const RangeNumbersController = require('../easyscript/controllers/rangeNumbers')
 const SelectBlockController = require("../easyscript/controllers/selectBlock");
 const ColorsController = require('../easyscript/controllers/colors');
 
+//Load all easy recipes
 const easy_recipes = {
   sigma: require('../easy_recipes/sigma.js')
 }
@@ -72,10 +73,14 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
     $scope.recipe = r
     $scope.status = 'edit'
     $scope.remindRecipe = false
+    // If easyscript version exist
     if (r.easy_name) {
+      //Show easyscript version
       $scope.easy_recipe = easy_recipes[r.easy_name]
       $scope.esc = $scope.easy_recipe.createController(window.g)
+      $scope.easyscript = true
     } else {
+      //Run default script
       $scope.directRun = true
       $scope.executeScript($scope.settings.root+'/recipes/'+r.file)
     }

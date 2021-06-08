@@ -5,6 +5,11 @@ const Method = require("../easyscript/models/method")
 const Value = require("../easyscript/models/value")
 const Variable = require("../easyscript/models/variable")
 
+/**
+ * Create controllers instance
+ * @param {Object} g
+ * @returns 
+ */
 const createController = (g) => {
 
   const nodeKeys = {}
@@ -70,6 +75,11 @@ const createController = (g) => {
   return controller;
 }
 
+/**
+ * Run scrit with controllers parameters
+ * @param {Object} g 
+ * @param {Object} controllers 
+ */
 const use = (g, controllers) => {
 
   // Parameters
