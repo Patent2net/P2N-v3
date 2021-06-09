@@ -1,25 +1,29 @@
-<div class="flex flex-row items-start">
-    <div class="mr-4 px-4 py-2 bg-indigo-600 rounded inline-block">
-      <p class="text-2xl font-bold text-white">Taille des noeuds</p>
-      <div>
-        <div class="my-2">
-          <p class="text-white font-bold">Faire varier en fonction de</p>
-          <easy-select-block select-block="$ctrl.esc.sizes"></easy-select-block>
-        </div>
-        <div class="my-2">
-          <p class="text-white font-bold">Taille min/max</p>
-          <easy-range-numbers range-numbers="$ctrl.esc.rangeSize"></easy-range-numbers>
+<div class="grid xl:grid-cols-2 gap-4">
+    <div>
+      <div class="mb-6 px-4 py-2 border rounded block">
+        <p class="text-2xl font-bold text-black">Taille des noeuds</p>
+        <div>
+          <div class="my-2">
+            <p class="text-black font-bold">Faire varier en fonction de</p>
+            <easy-select-block select-block="$ctrl.esc.sizes"></easy-select-block>
+          </div>
+          <div class="my-2">
+            <p class="text-black font-bold">Taille min/max</p>
+            <easy-range-numbers range-numbers="$ctrl.esc.rangeSize"></easy-range-numbers>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="mr-4 px-4 py-2 bg-indigo-600 rounded inline-block">
-      <p class="text-2xl font-bold text-white">Couleurs des noeuds</p>
-      <div class="py-2">
-        <easy-select-block select-block="$ctrl.esc.colorBy"></easy-select-block>
-      </div>
-      <div class="py-2">
-        <easy-colors colors="$ctrl.esc.colors" class="flex-1"></easy-colors>
+    <div>
+      <div class="mb-6 px-4 py-2 border rounded block">
+        <p class="text-2xl font-bold text-black">Couleurs des noeuds</p>
+        <div class="py-2">
+          <easy-select-block select-block="$ctrl.esc.colorBy"></easy-select-block>
+        </div>
+        <div class="py-2">
+          <easy-colors colors="$ctrl.esc.colors" class="flex-1"></easy-colors>
+        </div>
       </div>
     </div>
 

@@ -81,6 +81,9 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
       $scope.easyscript = true
     } else {
       //Run default script
+      $scope.easy_recipe = null
+      $scope.esc = null
+      $scope.easyscript = false
       $scope.directRun = true
       $scope.executeScript($scope.settings.root+'/recipes/'+r.file)
     }
@@ -120,7 +123,11 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
         })
       } else {
         codePromise = new Promise((resolve, reject) => {
-          resolve(window.editor.getValue())
+          if (!window.editor) {
+            resolve(null)
+          } else {
+            resolve(window.editor.getValue())
+          }
         })
       }
 
