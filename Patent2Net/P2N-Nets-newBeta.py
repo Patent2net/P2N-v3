@@ -888,10 +888,14 @@ RenderTemplate(
     anglOpt = "{{loadingMessage=='' ? 'LOAD GRAPH' : loadingMessage}}"
 )    
    
+# Graph recupes v2
+RenderTemplate(
+    "graph-recipes.html",
+    configFile.ResultPath+"/graph-recipes-" + projectName + ".html",
+    request=projectName
+)
     
-    
-    
-    
+
 secondes = time.time() - start_time
 
 heures, secondes = divmod(secondes, 3600)

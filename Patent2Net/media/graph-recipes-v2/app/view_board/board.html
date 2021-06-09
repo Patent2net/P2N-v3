@@ -8,7 +8,7 @@
       <div layout flex>
         <div layout="column" layout-fill class="command-zone">
           <div class="network-info mb-4">
-            <span class="text-2xl font-bold">{{filename}}</span>
+            <span class="text-xl font-bold">{{filetitle}}</span>
             <br>
             {{nodesCount}} nodes -
             {{edgesCount}} edges
@@ -70,6 +70,9 @@
           </div>
           <div>
             <div class="flex flex-row">
+              <button ng-if="status=='edit' && recipe.easy_name" class="focus:outline-none p-2 rounded-md font-semibold text-black bg-gray-100 mr-2 opacity-50 duration-75" ng-class="!easyscript && 'opacity-100'" ng-click="toggleEasyscript()" >
+                <md-icon>code</md-icon>
+              </button>
               <button 
                 ng-if="status=='end'" 
                 ng-click="backToRecipe()" 
@@ -114,12 +117,15 @@
 
       </div>
 
-      <div layout="column" layout-fill js-editor file="settings.root+'/recipes/'+recipe.file" remind="remindRecipe" flex ng-if="status=='edit'" >
+      <div layout="column" class="p-8" id="easyscript" ng-if="status=='edit' && easyscript">
+        <easy-render-sigma ng-if="recipe.file == 'sigma.js'" esc="esc"></easy-render-sigma>
+      </div>
+
+      <div layout="column" layout-fill js-editor file="settings.root+'/recipes/'+recipe.file" remind="remindRecipe" flex ng-if="status=='edit' && !easyscript" >
       </div>
 
       <div layout="column" layout-fill class="p-8" ng-if="status=='run' || status=='end'" id="playground">
       </div>
-  
 
     </div>
 

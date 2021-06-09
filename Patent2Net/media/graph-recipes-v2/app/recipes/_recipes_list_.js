@@ -9,7 +9,8 @@ angular.module('graphrecipes.recipes_list', [])
 	{
 		'name': 'Draw graph',
 		'desc': 'Dynamic visualization of your graph',
-		'file': 'sigma.js'
+		'file': 'sigma.js',
+		'easy_name': 'sigma'
 	},
 	{
 		'name': 'Partition Analysis',

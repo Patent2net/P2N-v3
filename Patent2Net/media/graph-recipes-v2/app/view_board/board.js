@@ -1,6 +1,18 @@
 'use strict';
 
+const Value = require('../easyscript/models/value')
+const Method = require('../easyscript/models/method')
+const Variable = require('../easyscript/models/variable')
+
 var isNumeric = require('../utils.js').isNumeric;
+const RangeNumbersController = require('../easyscript/controllers/rangeNumbers');
+const SelectBlockController = require("../easyscript/controllers/selectBlock");
+const ColorsController = require('../easyscript/controllers/colors');
+
+//Load all easy recipes
+const easy_recipes = {
+  sigma: require('../easy_recipes/sigma.js')
+}
 
 angular.module('graphrecipes.view_board', ['ngRoute'])
 
@@ -18,6 +30,7 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
 
   // Scope variables
   $scope.filename
+  $scope.filetitle
   $scope.originalGraph
   $scope.nodesCount
   $scope.edgesCount
@@ -26,6 +39,9 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
   $scope.lcdStatus = 'choose-recipe'
   $scope.status = 'list' // list | edit | run | end
   $scope.settings = window.settings
+  $scope.easyscript = false
+  $scope.esc
+  $scope.directRun
 
   // Scope functions
   $scope.refreshGraph = function () {
@@ -57,12 +73,29 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
     $scope.recipe = r
     $scope.status = 'edit'
     $scope.remindRecipe = false
+    // If easyscript version exist
+    if (r.easy_name) {
+      //Show easyscript version
+      $scope.easy_recipe = easy_recipes[r.easy_name]
+      $scope.esc = $scope.easy_recipe.createController(window.g)
+      $scope.easyscript = true
+    } else {
+      //Run default script
+      $scope.directRun = true
+      $scope.executeScript($scope.settings.root+'/recipes/'+r.file)
+    }
   }
 
    $scope.backToRecipe = function() {
     $scope.lcdStatus = 'edit-script'
     $scope.status = 'edit'
-    $scope.remindRecipe = true
+    if ($scope.directRun) {
+      $scope.directRun = false
+      $scope.remindRecipe = false
+    } else {
+      $scope.remindRecipe = true
+    }
+    
   }
 
   $scope.closeRecipe = function() {
@@ -71,31 +104,64 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
     $scope.status = 'list'
   }
 
-  $scope.executeScript = function() {
+  $scope.executeScript = function(script = null) {
     $scope.lcdStatus = 'cooking'
     $scope.status = 'run'
     $timeout(function(){
+      var codePromise = null
       document.querySelector('#playground').innerHTML = ''
-      var code = window.editor.getValue()
-      try {
-        eval(';(function(){'+code+'})();')
-        $scope.lcdStatus = 'service'
-        $scope.status = 'end'
-
-        // Stop after a while
-        $timeout(function(){
-          if ($scope.lcdStatus == 'service')
-            $scope.lcdStatus = 'waiting'
-        }, 10000)
-      } catch(e) {
-        $scope.lcdStatus = 'error'
-        console.error('[Script error]', e)
-        $timeout(function(){
-          alert('Merde :(\nThere is an issue with this script:\n\n' + e)
-          $scope.backToRecipe()
+      if (script) {
+        codePromise = fetch($scope.settings.root+'/recipes/'+$scope.recipe.file).then(res => {
+          return res.text().then(text => {
+            return text
+          })
+        }).then(e => {
+          return e
+        })
+      } else {
+        codePromise = new Promise((resolve, reject) => {
+          resolve(window.editor.getValue())
         })
       }
+
+      codePromise.then(code => {
+        try {
+
+          if ($scope.easyscript) {
+            $scope.easy_recipe.use(window.g, $scope.esc)
+          } else {
+            eval(';(function(){'+code+'})();')
+          }
+
+          $scope.lcdStatus = 'service'
+          $scope.status = 'end'
+
+          // Stop after a while
+          $timeout(function(){
+            if ($scope.lcdStatus == 'service')
+              $scope.lcdStatus = 'waiting'
+          }, 10000)
+        } catch(e) {
+          $scope.lcdStatus = 'error'
+          console.error('[Script error]', e)
+          $timeout(function(){
+            alert('Merde :(\nThere is an issue with this script:\n\n' + e)
+            $scope.backToRecipe()
+          })
+        }
+                
+      })
+
     }, 4000)
+  }
+
+  $scope.toggleEasyscript = function() {
+    console.log($scope.easyscript)
+    $scope.easyscript = !$scope.easyscript
+  }
+
+  $scope.completeCode = function() {
+    
   }
 
   $scope.backToUpload = function() {
@@ -106,6 +172,11 @@ angular.module('graphrecipes.view_board', ['ngRoute'])
 
   // Init
   $scope.filename = store.get('graphname')
+  if (window.settings && window.settings.files) {
+    const file = window.settings.files.find((file) => file.path.replace(/\.[^\.]*$/, '') == $scope.filename)
+    if (file) $scope.filetitle = file.name
+  }
+
   $scope.originalGraph = store.get('graph')
   $scope.refreshGraph()
 

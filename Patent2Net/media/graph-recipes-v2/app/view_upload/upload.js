@@ -1,5 +1,13 @@
 'use strict';
 
+const PresetController = require("../easyscript/controllers/block");
+const ColorsController = require("../easyscript/controllers/colors");
+const RangeNumbersController = require("../easyscript/controllers/rangeNumbers");
+const SelectBlockController = require("../easyscript/controllers/selectBlock");
+const Method = require("../easyscript/models/method");
+const Value = require("../easyscript/models/value");
+const Variable = require("../easyscript/models/variable");
+
 angular.module('graphrecipes.view_upload', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -14,8 +22,6 @@ angular.module('graphrecipes.view_upload', ['ngRoute'])
   $scope.dropClass
   $scope.loadingMessage = ''
   $scope.settings = window.settings
-
-  console.log(window.settings)
 
   var gexf = graphology.library.gexf;
 

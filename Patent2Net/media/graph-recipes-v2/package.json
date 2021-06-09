@@ -9,12 +9,14 @@
     "angular-aria": "^1.6.1",
     "angular-material": "^1.1.3",
     "angular-route": "^1.6.1",
+    "angularjs-color-picker": "^3.4.8",
     "d3": "^4.13.0",
     "gh-pages": "^2.0.1",
     "graphology": "^0.11.4",
     "graphology-library": "^0.2.0",
     "numeric": "^1.2.6",
-    "sigma": "2.0.0-alpha20"
+    "sigma": "2.0.0-alpha20",
+    "tinycolor2": "^1.4.2"
   },
   "devDependencies": {
     "css-loader": "^0.28.4",
