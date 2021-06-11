@@ -396,9 +396,8 @@ def split_request(p2n_dir):
 
     if to_be_found["need_spliter"]:
         set_data_spliter_start_date(p2n_dir, int(date))
-        # p = Popen(['python', 'Patent2Net/scripts/run_spliter.py', target_path])
 
-        # Popen(['python', 'Patent2Net/scripts/start_auto.py', target_path])
+        Popen(['python', 'Patent2Net/scripts/start_auto.py', target_path])
 
         return get_success_response("Spliter running", {})
 
