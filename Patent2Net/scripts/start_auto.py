@@ -5,6 +5,11 @@ from Patent2Net.app.data.fusion_list import FusionList
 from Patent2Net.app.data.process_list import ProcessList
 from Patent2Net.P2N_Config import LoadConfig
 
+
+# 
+# Script chargé du lancement de auto split depuis l'interface
+# 
+
 def main():
     
     config = LoadConfig()
