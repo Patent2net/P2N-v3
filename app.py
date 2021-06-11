@@ -534,7 +534,7 @@ def EpoCreator():
     W_epo.close()
     
     # return render_template("Get_Started.html")
-    redirect("/app/get_started", code=301)
+    return redirect("/app/get_started", code=301)
 
 
 
