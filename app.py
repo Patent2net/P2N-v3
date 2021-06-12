@@ -20,7 +20,7 @@ import requests
 import asyncio
 import epo_ops
 
-from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_done, set_data_progress, get_data_progress, get_global_progress, set_state, get_state, get_directory_request_data_all, delete_data_to_be_found, get_data_to_be_found, set_data_spliter_start_date, delete_data_spliter
+from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_done, set_data_progress, get_data_progress, get_global_progress, set_state, get_state, get_directory_request_data_all, delete_data_to_be_found, get_data_to_be_found, set_data_spliter_start_date, delete_data_spliter, delete_request
 from Patent2Net.app.events.progress_value_change import ProgressValueChange
 from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
 from Patent2Net.app.events.split_end import SplitEnd
@@ -284,6 +284,11 @@ def post_request():
     p2n_options = form_result['p2n_options'].split(',')
     p2n_auto = 'p2n_auto' in form_result and form_result['p2n_auto'] == "true"
 
+    dex = get_current_dex()
+
+    if p2n_dir in dex['in_progress'] or p2n_dir in dex['done']:
+        return get_error_response(p2n_dir + " is already use")
+
     #Pleaceholder file who give the model of the file
     f_in = open("placeholder.cql", "rt")
     
@@ -415,6 +420,31 @@ def update_one_request_interface(p2n_dir):
     return get_success_response("OK", {
         "directory": p2n_dir
     })
+
+@app.route('/api/v1/requests/<p2n_dir>', methods=['DELETE'])
+def delete_one_request_result(p2n_dir):
+    print(p2n_dir)
+
+    import os
+    data = [(int(p), c) for p, c in [x.rstrip('\n').split(' ', 1) \
+        for x in os.popen('ps h -eo pid:1,command')]]
+
+    for d in data:
+        print(str(d[0]) +  ' - ' + d[1])
+        if ('RequestsSets/' + p2n_dir + '.cql') in d[1] or ('RequestsAuto/' + p2n_dir + '/') in d[1]:
+           print('kill')
+           os.popen('kill -9 ' + str(d[0]))
+ 
+    if os.path.exists("RequestsSets/" + p2n_dir + ".cql"):
+        os.remove("RequestsSets/" + p2n_dir + ".cql")
+
+    delete_request(p2n_dir)
+
+    return get_success_response("OK", {})
+
+
+
+
 
 @app.route('/api/v1/events', methods=['POST'])
 def events():

@@ -13,6 +13,7 @@ import RequestSplit from "./RequestSplit";
 const Request = () => {
     let { dir } = useParams();
 
+    const history = useHistory();
     const [data, setData] = React.useState({});
 
     const updateData = React.useCallback(() => {
@@ -25,8 +26,10 @@ const Request = () => {
                 console.log(json.data)
                 setData(json.data)
             }
+        }).catch(() => {
+            history.push('/app/requests')
         });
-    }, [dir])
+    }, [dir, history])
     
     React.useEffect(() => {
         updateData()

@@ -159,6 +159,21 @@ def set_done(directory):
 
     write_dex()
 
+
+def delete_request(directory):
+    in_progress = dex["in_progress"]
+    done = dex["done"]
+    requests = dex["requests"]
+
+    if directory in in_progress:
+        in_progress.remove(directory)
+    if directory in in_progress:
+        done.remove(directory)
+    if directory in requests:
+        del requests[directory]
+
+    write_dex()
+
 # DATA
 
 def set_directory_request_data(directory, key, value):
