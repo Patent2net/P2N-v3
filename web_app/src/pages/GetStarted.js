@@ -6,12 +6,12 @@ const GetStarted = () => {
             <div className="flex justify-center items-center">
                 <div className="flex flex-col w-full lg:w-3/5 mb-12 bg-white p-8 rounded shadow">
                     <div>
-                        <h1 className="text-3xl font-semibold mb-2 text-gray-900">Get Started</h1>
+                        <h1 className="text-4xl font-semibold mb-2 text-gray-900">Get Started</h1>
                         <hr/>
                         
                         <div className="mt-4">
 
-                            <h2 className="font-semibold" id="Register" >Register the use of P2N</h2>
+                            <h2 className="text-lg mb-2 font-bold" id="Register" >Register the use of P2N</h2>
                             <hr/>
 
                             <div className="mt-4">
@@ -53,7 +53,7 @@ const GetStarted = () => {
                         </div>
                     </div>
                     <div className="mt-4">
-                        <h2 className="font-semibold"Id="Archive_Content" >P2N Docker archive content</h2>
+                        <h2 className="text-lg mb-2 font-bold"Id="Archive_Content" >P2N Docker archive content</h2>
                         <hr/>
                     </div>
                     <div className="mt-2">
@@ -74,7 +74,7 @@ const GetStarted = () => {
                         </div>
                     </div>
                     <div className="mt-4">
-                        <h2 className="font-semibold" Id="Interface_Directory">P2N Interface directories</h2>
+                        <h2 className="text-lg mb-2 font-bold" Id="Interface_Directory">P2N Interface directories</h2>
                         <hr/>
                     </div>
                     <div className="mt-2">

@@ -7,12 +7,13 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
-import Requests from './pages/Requests';
+import Requests from './pages/Requests/index';
 import Request from './pages/Request/index';
 import GetStarted from './pages/GetStarted';
 import './index.css'
 import Home from './pages/Home';
 import DataIndex from './pages/DataIndex';
+import Fusions from './pages/Fusions';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -37,14 +38,15 @@ ReactDOM.render(
               <li className="mr-3">
                 <Link to="/app/requests"  className="inline-block py-2 px-4 no-underline font-medium">Requests</Link>
               </li>
-              
+
+              <li className="mr-3">
+                <Link to="/app/fusions" className="inline-block no-underline hover:underline py-2 px-4">Fusion</Link>
+              </li>
+
               <li className="mr-3">
                 <Link to="/app/index" className="inline-block no-underline hover:underline py-2 px-4">Index</Link>
               </li>
-              
-              <li className="mr-3">
-                <a href="/downloadDat" className="inline-block no-underline hover:underline py-2 px-4">Download Data</a>
-              </li>
+
               <li className="mr-3">
                 <a href="/doc/_build/html/index.html" className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-orange-500 hover:bg-white mt-4 lg:mt-0">Documentation</a>
               </li>
@@ -64,6 +66,9 @@ ReactDOM.render(
           </Route>
           <Route path="/app/requests">
             <Requests />
+          </Route>
+          <Route path="/app/fusions">
+            <Fusions />
           </Route>
           <Route path="/app/index">
             <DataIndex />

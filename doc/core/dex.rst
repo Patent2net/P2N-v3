@@ -23,7 +23,7 @@ Dex format
         ],
         "requests":{
         "machinelearning":{
-            "state":"SPLITER_RUN",
+            "state":"SINGLE_REQ_WITH_SPLIT",
             "data":{
                 "progress":{
                     "p2n_gather_biblio":{
@@ -93,7 +93,7 @@ Dex format
             }
         },
         "lentille":{
-            "state":"P2N_RUN",
+            "state":"SINGLE_REQ_WITHOUT_SPLIT",
             "data":{
                 "progress":{
                     "p2n_gather_biblio":{

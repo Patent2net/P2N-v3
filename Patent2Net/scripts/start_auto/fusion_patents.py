@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Jan 10 07:50:48 2015
+Created on May 2020
 
-@author: dreymond
+@author: Romaric Gauzi
+
+Merge script for date split requests.
+Pass the request file before the separation as a script parameter
 """
 
 import sys, os

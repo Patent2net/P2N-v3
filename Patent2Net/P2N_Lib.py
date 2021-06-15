@@ -44,6 +44,7 @@ import os
 from jinja2 import Environment, FileSystemLoader
 import requests
 
+# OUTDATED ==> replace by dex.set_data_progress()
 def AnnonceProgres(Appli, valActu, valMax):
     if valActu and valMax:
         valActu = "%.2f" % valActu 
@@ -55,6 +56,7 @@ def AnnonceProgres(Appli, valActu, valMax):
         pass # must be a error
 #☻    print ('annnonce envoyée: ', pipo)
 
+# OUTDATED ==> is not used anymore for the moment
 def AnnonceLog(Appli, texte):
 
     try:

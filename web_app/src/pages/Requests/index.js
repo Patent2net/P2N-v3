@@ -1,7 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import Icon from "./icon";
+import Entries from './Entries/index'
+import Icon from "../icon";
 
 const all_options = {
   "p2n_family": {
@@ -56,9 +57,16 @@ const all_options = {
   },
 }
 
-function App() {
+const entryTypes = {
+  REQUEST: 'REQUEST',
+  REQUESTS: 'REQUESTS',
+  CSV: 'CSV'
+}
 
-  const [ request, setRequest ] = React.useState("");
+function Requests() {
+
+  const [ entryType, setEntryType ] = React.useState(entryTypes.REQUEST);
+  const [ entry, setEntry ] = React.useState("");
   const [ directory, setDirectory ] = React.useState("");
   const [ options, setOptions ] = React.useState([
     "p2n_content",
@@ -100,7 +108,8 @@ function App() {
     event.preventDefault()
 
     const data = new FormData();
-    data.append("p2n_req", request);
+    data.append("p2n_req", entry);// en corus de changement pour entry
+    data.append("p2n_entry", entry)
     data.append("p2n_dir", directory);
     data.append("p2n_options", options.join(','));
     data.append("p2n_auto", p2nAuto ? "true" : "false")
@@ -120,7 +129,7 @@ function App() {
     });
     
 
-  }, [request, directory, options, history, p2nAuto])
+  }, [entry, directory, options, history, p2nAuto])
 
   return (
     <div className="container mx-auto grid grid-cols-4 gap-4 items-start">
@@ -181,31 +190,31 @@ function App() {
       </div>
         
       <div className="col-span-3 flex flex-col mb-12 bg-white p-8 rounded shadow ">
-        <h1 className="text-3xl font-semibold mb-2 text-gray-900">Patent2Net toolkit</h1>
+        <div className="flex justify-between items-center pb-2 flex-wrap">
+          <h1 className="text-4xl font-semibold mb-2 text-gray-900">Patent2Net toolkit</h1>      
+          <div className='border-bottom flex'>
+            <ul className='flex cursor-pointer bg-gray-200 rounded-lg'>
+                <li onClick={() => setEntryType(entryTypes.REQUEST)} className={'py-2 px-6 rounded-lg' + ((entryType === entryTypes.REQUEST) ? ' bg-indigo-600 text-white' : ' text-gray-500 bg-gray-200')}>One request</li>
+                <li onClick={() => setEntryType(entryTypes.REQUESTS)} className={'py-2 px-6 rounded-lg' + ((entryType === entryTypes.REQUESTS) ? ' bg-indigo-600 text-white' : ' text-gray-500 bg-gray-200')}>Multiple request</li>
+                <li onClick={() => setEntryType(entryTypes.CSV)} className={'py-2 px-6 rounded-lg' + ((entryType === entryTypes.CSV) ? ' bg-indigo-600 text-white' : ' text-gray-500 bg-gray-200')}>CSV</li>
+            </ul>
+          </div>
+        </div>
+       
         <hr />
         <div className="mt-4">
 
           <form onSubmit={onSubmit}>
-            <div>
-              <label className="font-semibold">Request in CQL format * :</label>
-              <p className="pt-2 pb-2 text-sm italic text-gray-800">Enter in the textbox a valid espacenet smart search query for your patent research.</p>
-            </div>
-            <div className="mb-2">
-              <input
-                value={request} 
-                onChange={(e) => setRequest(e.target.value)}
-                className="px-3 py-4 placeholder-blueGray-300 text-blueGray-600 relative bg-white bg-white rounded text-base border border-blueGray-300 outline-none focus:outline-none focus:ring w-full"
-                type="text"
-                required
-                placeholder="TA=lentille"
-                name="p2n_req"
-                id="p2n_reqBtn"
-              />
-            </div>
 
-            <div>
-              <label className="font-semibold">Request Location * :</label>
-              <p className="pt-2 pb-2 text-sm italic text-gray-800">Enter in the textbox where your patent research will be stocked.</p>
+            <Entries 
+              entry={entry}
+              entryType={entryType}
+              setEntry={setEntry}
+            ></Entries>
+
+            <div class="mt-4">
+              <label className="text-lg mb-2 font-bold">Request Location</label>
+              <p className="pb-2 text-sm italic text-gray-800">Enter in the textbox where your patent research will be stocked.</p>
             </div>
             <div className="mb-2">
               <input 
@@ -221,8 +230,8 @@ function App() {
             </div>				
 
             <div className="mt-4">
-            <label className="font-semibold">Request Options :</label>
-              <p className="pt-2 pb-2 text-sm italic text-gray-800">Click on the checkbox to specify the elements you need in your research:</p>
+            <label className="text-lg mb-2 font-bold">Request Options</label>
+              <p className="pb-2 text-sm italic text-gray-800">Click on the checkbox to specify the elements you need in your research:</p>
               
               <div className="grid grid-flow-row grid-cols-3 gap-2">
                 {Object.keys(all_options).map((key, index) => {
@@ -242,23 +251,12 @@ function App() {
                       <p class="text-sm font-semibold pt-2">{option["name"]}</p>
                       <p class="text-xs pt-1">{option["description"]}</p>
                     </div>
-                    // <p key={key}>
-                    //   <input 
-                    //     type="checkbox"
-                    //     class="hidden"
-                    //     id={key}
-                    //     name={key} 
-                    //     checked={options.includes(key)} 
-                    //     onChange={() => toggleCheckbox(key) }
-                    //   />
-                    //   <label htmlFor={key} className="text-gray-800 text-sm mb-4 text-justify"><b>{ option["name"] }</b>: { option["description"] } </label>
-                    // </p>
                   )
                 })}
               </div>
             </div>
             <div className="mt-4">
-              <label className="font-semibold">Request splitter:</label>
+              <label className="text-lg mb-2 font-bold">Request splitter</label>
               <div class="w-1/2 pt-2">
                 <div 
                   class={
@@ -293,4 +291,4 @@ function App() {
   );
 }
 
-export default App;
+export default Requests;

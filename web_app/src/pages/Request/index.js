@@ -51,7 +51,7 @@ const Request = () => {
     }, [updateData, dir])
     
     const isSpliterRun = React.useMemo(() => (
-        data.state === "SPLITER_RUN"
+        data.state === "SINGLE_REQ_WITH_SPLIT"
     ), [data])
 
     const showPatentCount = React.useMemo(() => (

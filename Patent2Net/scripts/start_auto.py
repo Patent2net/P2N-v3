@@ -18,12 +18,14 @@ def main():
     ProcessList(config.ndf).reset()
     FusionList(config.ndf).reset()
 
-    
-    run_spliter = Popen(['python', 'Patent2Net/scripts/run_spliter.py', target_path])
+    # Split request file by date
+    run_spliter = Popen(['python', 'Patent2Net/scripts/start_auto/run_spliter.py', target_path])
     run_spliter.wait()
-    process_list = Popen(['python', 'Patent2Net/scripts/process_list.py', target_path])
+    # Get date for each splited file
+    process_list = Popen(['python', 'Patent2Net/scripts/start_auto/process_list.py', target_path])
     process_list.wait()
-    fusion_patents = Popen(['python', 'Patent2Net/scripts/fusion_patents.py', target_path])
+    # Fusion each splited file
+    fusion_patents = Popen(['python', 'Patent2Net/scripts/start_auto/fusion_patents.py', target_path])
     fusion_patents.wait()
     
     destination = os.path.join("..", target_path.replace(".cql", "") + "_fusion.cql")

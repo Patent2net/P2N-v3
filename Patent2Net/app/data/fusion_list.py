@@ -3,6 +3,7 @@ from Patent2Net.app.events.dex_change_event import DexChangeEvent
 from Patent2Net.app.event import send_new_event
 
 class FusionList:
+    """represents the merged state of the data"""
     
     KEY = "fusion_list"
 

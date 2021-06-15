@@ -1,3 +1,10 @@
+"""
+Created on May 2020
+
+@author Romaric Gauzi
+
+Allows you to run a separate request list in a sub-folder of RequestsAuto
+"""
 import os
 import json
 import zipfile

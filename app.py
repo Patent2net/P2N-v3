@@ -4,6 +4,7 @@ Created on Mon Jun 15 13:58:37 2020
 
 @author: Admin
 """
+from Patent2Net.app.fusion import listFusions
 import os
 #import glob
 from flask import Flask, render_template, request, send_file, Response, send_from_directory, jsonify, redirect, url_for
@@ -269,6 +270,19 @@ def get_requests():
         }
     )
 
+@app.route('/api/v1/fusions', methods=['GET'])
+def get_fusions():
+    fusions = listFusions()
+    print(fusions)
+    
+    return get_success_response(
+        "",
+        {
+            "fusions": fusions
+        }
+    )
+
+
 @app.route('/api/v1/requests', methods=['POST'])
 def post_request():
     form_result = request.form
@@ -346,14 +360,14 @@ def process_single(p2n_dir, config):
     print("PROGRESS SINGLE: " + p2n_dir)
 
     set_in_progress(p2n_dir)
-    set_state(p2n_dir, "P2N_RUN")
+    set_state(p2n_dir, "SINGLE_REQ_WITHOUT_SPLIT")
     p = Popen(['p2n', 'run', config])
     
 def process_multi(p2n_dir, target_path):
     print("PROGRESS MULTI: " + p2n_dir)
 
     set_in_progress(p2n_dir)
-    set_state(p2n_dir, "SPLITER_RUN")
+    set_state(p2n_dir, "SINGLE_REQ_WITH_SPLIT")
     delete_data_to_be_found(p2n_dir)
     p = Popen(['python', 'Patent2Net/scripts/update_to_be_found.py', target_path])
 
@@ -454,7 +468,6 @@ def events():
     """
     data = request.json
     name = data["name"]
-    print(data)
 
     if name == ToBeFoundChange.NAME:
         event = ToBeFoundChange.deserialize(data)
@@ -466,6 +479,7 @@ def events():
     eventListener.push_event(data)
 
     return get_success_response("ok", {})
+
 
 @app.route('/api/v1/listen', methods=['GET'])
 def listen_hook():
@@ -491,6 +505,8 @@ def get_success_response(message, data):
     return Response(response=json.dumps(response), status=200, mimetype="application/json")
 
 
+# Old announcement system, not to be used for future features ! 
+# Use event system at app/event.py
 @app.route('/announce')
 def annonce():
     # expects a requests.get('http://localhost:5000/annonce?appli=0&ValActu='+str(random.randint(0,101))+'&valMax=30') 

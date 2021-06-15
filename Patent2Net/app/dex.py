@@ -21,7 +21,7 @@ The dex.json file records the local state of the application, including the stat
 - requests: Status of requests done or in progress
 
 Each status of a request is composed of:
-- a state that is defined when the query is created (P2N_RUN or SPLITER_RUN)
+- a state that is defined when the query is created (SINGLE_REQ_WITHOUT_SPLIT or SINGLE_REQ_WITH_SPLIT)
 - data that is an object or any type of data can be recorded in relation to the current query
 
 """
@@ -103,7 +103,7 @@ def set_state(directory, state):
     :type directory: str
     :param state: The new state for this request
     :type state: str
-        (P2N_RUN | SPLITER_RUN)
+        (SINGLE_REQ_WITHOUT_SPLIT | SINGLE_REQ_WITH_SPLIT)
     """
 
     print("STATE HAS CHANGE: " + directory + " - " + state)
@@ -300,6 +300,8 @@ def set_data_progress(directory, key, value, max_value):
     set_directory_request_data(directory, "progress", progress_directory)
     update_global_progress(directory)
 
+    if (value and max_value):
+        dex_log(directory, key,  str(value) + " / " + str(max_value))
     send_new_event( ProgressValueChange(directory, key, value, max_value) )
 
 
@@ -366,5 +368,18 @@ def set_spliter_result_end(directory):
 def delete_data_spliter(directory):
     delete_directory_request_data(directory, "spliter_result")
         
-
+print("before")
 read_dex()
+print("after")
+
+
+"""
+New entry point for logs, replaces the old system (AnnonceLog).
+Before, it allowed the web page to receive the logs. 
+This functionality has been removed because it was no longer used thanks to the event system and 
+synchronization with the global state.
+
+AnnonceLog() should now be replaced by dex_log()
+"""
+def dex_log(directory, app, message):
+    print("[" + directory + "] " + app + " >> " + message)
