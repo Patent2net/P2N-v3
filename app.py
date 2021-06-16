@@ -4,7 +4,9 @@ Created on Mon Jun 15 13:58:37 2020
 
 @author: Admin
 """
-from Patent2Net.app.fusion import listFusions
+from pickle import TRUE
+from Patent2Net.app.request import create_patent_request_file, create_request_file, new_single_req_with_split, new_single_req_without_date_split, run_request
+from Patent2Net.app.fusion import createFusion, listFusions
 import os
 #import glob
 from flask import Flask, render_template, request, send_file, Response, send_from_directory, jsonify, redirect, url_for
@@ -214,7 +216,7 @@ def confirmation_post():
     #subprocess.call('python ./Patent2Net/OPSGatherPatentsv2.py --config="./RequestsSets/%s.cql"')
 #    progress(command, form_result)
     #
-    
+
     print ('starting')
     
     #form_result['p2n_filtering'] = True #
@@ -288,13 +290,16 @@ def post_request():
     form_result = request.form
     if 'p2n_dir' not in form_result:
         return get_error_response("p2n_dir is required")
-    if 'p2n_req' not in form_result:
-        return get_error_response("p2n_req is required")
     if 'p2n_options' not in form_result:
         return get_error_response("p2n_options is required")
+    if 'p2n_entrytype' not in form_result:
+        return get_error_response("p2n_entrytype is required")
+    if 'p2n_entry' not in form_result:
+        return get_error_response("p2n_entry is required")
 
     p2n_dir = form_result['p2n_dir']
-    p2n_req = form_result['p2n_req']
+    p2n_entry = form_result['p2n_entry']
+    p2n_entrytype = form_result['p2n_entrytype']
     p2n_options = form_result['p2n_options'].split(',')
     p2n_auto = 'p2n_auto' in form_result and form_result['p2n_auto'] == "true"
 
@@ -303,73 +308,49 @@ def post_request():
     if p2n_dir in dex['in_progress'] or p2n_dir in dex['done']:
         return get_error_response(p2n_dir + " is already use")
 
-    #Pleaceholder file who give the model of the file
-    f_in = open("placeholder.cql", "rt")
-    
-    # #create an output file with the name requested in the form by the user
-    target_path = "./RequestsSets/%s.cql" %form_result['p2n_dir']
-    f_out = open(target_path ,"wt")
+    if p2n_entrytype == "REQUEST":
+        create_request_file(p2n_dir, p2n_entry, p2n_options, labels)
+        run_request(p2n_dir, p2n_auto)
 
-    def get_option_value(name):
-        return 'True' if name in p2n_options else 'False'
+        return get_success_response("Request start", { "p2n_dir": p2n_dir })
 
-    #for each line in the input file    
-    #read the values given in the form and replace the corresponding string in the output
-    for name in f_in:
-    	f_out.write(name.replace('RequestName', p2n_req ) \
-                .replace('RequestDirectory', p2n_dir) \
-                .replace('RequestFamily', get_option_value('p2n_family')) \
-                .replace('RequestImage', get_option_value('p2n_image')) \
-                .replace('RequestNetwork', get_option_value('p2n_network')) \
-                .replace('RequestFreeplane', get_option_value('p2n_freeplane')) \
-                .replace('RequestBibfile', get_option_value('p2n_bibfile')) \
-                .replace('RequestMap', get_option_value('p2n_map')) \
-                .replace('RequestTable', get_option_value('p2n_tables')) \
-                .replace('RequestCarrot', get_option_value('p2n_carrot')) \
-                .replace('RequestIramuteq', get_option_value('p2n_iramuteq'))\
-                .replace('RequestCluster', get_option_value('p2n_cluster'))\
-                )
-    
-    #Return values of the form for testing the acquisition (Verification of working script)
-    with open ('result.txt', 'w') as fp:
-        for p in form_result.items():
-            fp.write("%s:%s\n" % p)
+    elif p2n_entrytype == "REQUESTS":
+        count = 1
+        folders = []
+        
+        fusion_request = p2n_entry.split(',')[0]
+        for req in p2n_entry.split(','):
+            fusion_request = fusion_request + " UNION " + req
+            s_dir = p2n_dir + str(count)
+            create_patent_request_file(s_dir, req)
+            run_request(s_dir, p2n_auto)
 
-    #close input and output files
-    f_in.close()
-    f_out.close()
+            folders.append(s_dir)
 
-    config = "--config=../RequestsSets/%s.cql"%(form_result['p2n_dir'])
-    
-    labels_keys = labels.keys()
-    active_labels_keys = [label_key for label_key in labels_keys if label_key not in ['p2n_dir', 'p2n_filtering', 'p2n_indexer'] and label_key in p2n_options]
+            count += 1
 
-    for label_key in active_labels_keys:
-        set_data_progress(p2n_dir, label_key, None, None)
+        create_request_file(p2n_dir, fusion_request, p2n_options, labels, no_patent=True)
+        createFusion(p2n_dir, folders, ['none_in_progress'])
 
+        return get_success_response("Multi-request start", { "p2n_dir": p2n_dir })
 
-    if (p2n_auto == True):
-        process_multi(p2n_dir, target_path)
-        return get_success_response("Spliter start", { "p2n_dir": p2n_dir })
     else:
-        process_single(p2n_dir, config)
-        return get_success_response("Request send", { "p2n_dir": p2n_dir })
-
+        return get_error_response("not supported")
    
-def process_single(p2n_dir, config):
-    print("PROGRESS SINGLE: " + p2n_dir)
+# def process_single(p2n_dir, config):
+#     print("PROGRESS SINGLE: " + p2n_dir)
 
-    set_in_progress(p2n_dir)
-    set_state(p2n_dir, "SINGLE_REQ_WITHOUT_SPLIT")
-    p = Popen(['p2n', 'run', config])
+#     set_in_progress(p2n_dir)
+#     set_state(p2n_dir, "SINGLE_REQ_WITHOUT_SPLIT")
+#     p = Popen(['p2n', 'run', config])
     
-def process_multi(p2n_dir, target_path):
-    print("PROGRESS MULTI: " + p2n_dir)
+# def process_multi(p2n_dir, target_path):
+#     print("PROGRESS MULTI: " + p2n_dir)
 
-    set_in_progress(p2n_dir)
-    set_state(p2n_dir, "SINGLE_REQ_WITH_SPLIT")
-    delete_data_to_be_found(p2n_dir)
-    p = Popen(['python', 'Patent2Net/scripts/update_to_be_found.py', target_path])
+#     set_in_progress(p2n_dir)
+#     set_state(p2n_dir, "SINGLE_REQ_WITH_SPLIT")
+#     delete_data_to_be_found(p2n_dir)
+#     p = Popen(['python', 'Patent2Net/scripts/update_to_be_found.py', target_path])
 
 
 

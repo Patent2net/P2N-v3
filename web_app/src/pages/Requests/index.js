@@ -66,7 +66,10 @@ const entryTypes = {
 function Requests() {
 
   const [ entryType, setEntryType ] = React.useState(entryTypes.REQUEST);
-  const [ entry, setEntry ] = React.useState("");
+
+  const [ requestEntry, setRequestEntry ] = React.useState("");
+  const [ requestsEntry, setRequestsEntry ] = React.useState([""]);
+
   const [ directory, setDirectory ] = React.useState("");
   const [ options, setOptions ] = React.useState([
     "p2n_content",
@@ -104,12 +107,20 @@ function Requests() {
     setOptions((options) => !options.includes(key) ? [...options, key] : [...options.filter((value) => value !== key)] )
   }, [setOptions])
 
+  
+  const getCurrentEnry = React.useCallback(() => {
+      if (entryType === entryTypes.REQUEST) return requestEntry
+      if (entryType === entryTypes.REQUESTS) return requestsEntry.filter((r) => r).join(',')
+      return null
+    }, [entryType, requestEntry, requestsEntry]
+  )
   const onSubmit = React.useCallback((event) => {
     event.preventDefault()
 
     const data = new FormData();
-    data.append("p2n_req", entry);// en corus de changement pour entry
-    data.append("p2n_entry", entry)
+    //data.append("p2n_req", entry);// en cours de changement pour entry
+    data.append("p2n_entrytype", entryType)
+    data.append("p2n_entry", getCurrentEnry())
     data.append("p2n_dir", directory);
     data.append("p2n_options", options.join(','));
     data.append("p2n_auto", p2nAuto ? "true" : "false")
@@ -125,11 +136,10 @@ function Requests() {
     })
     .then(function(json) {
       console.log(json)
-      history.push("/app/requests/" + json.data.p2n_dir );
+      if (entryType === entryTypes.REQUEST) history.push("/app/requests/" + json.data.p2n_dir );
     });
-    
+  }, [directory, options, history, p2nAuto, entryType, getCurrentEnry])
 
-  }, [entry, directory, options, history, p2nAuto])
 
   return (
     <div className="container mx-auto grid grid-cols-4 gap-4 items-start">
@@ -207,9 +217,13 @@ function Requests() {
           <form onSubmit={onSubmit}>
 
             <Entries 
-              entry={entry}
               entryType={entryType}
-              setEntry={setEntry}
+              entries={{
+                requestEntry,
+                requestsEntry,
+                setRequestEntry,
+                setRequestsEntry
+              }}
             ></Entries>
 
             <div class="mt-4">

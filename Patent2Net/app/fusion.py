@@ -1,4 +1,5 @@
 
+from subprocess import Popen
 from Patent2Net.app.dex import get_current_dex
 import os
 import json
@@ -23,18 +24,24 @@ def createFusion(main, folders, rules):
 
 
 def checkFusions():
-
-
     for f in listdir(fusion_folder):
-        try:      
-            with open(fusion_folder + f) as f:
-                fusion = json.load(f) 
-                f.close()
+        dex = get_current_dex()
+        fusion = getFusion(f, dex["in_progress"], dex["done"])
 
-                print(fusion)
- 
-        except IOError:
-            print("Error for reading fusion file " + f)
+        if not fusion["done"]:
+
+            if "none_in_progress" in fusion["content"]["folders"]:
+                is_in_progress = False
+                
+                for folder in fusion["content"]["folders"]:
+                    if folder in dex["in_progress"] and not is_in_progress:
+                        is_in_progress = True
+    
+                if (not is_in_progress):
+
+                    os.chdir("/home/p2n/P2N-V3/")
+                    Popen(['python', 'Patent2Net/scripts/start_fusion.py', f])
+
 
 
 def listFusions():
