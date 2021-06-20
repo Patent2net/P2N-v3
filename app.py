@@ -669,6 +669,8 @@ def request_app(path):
     return send_file("web_app/build/index.html")
 
 
+print(__name__)
+
 #Authorize the app to be accessed in a different environment (localhost in our case)
 if __name__ == "__main__":
     # execute only if run as a script

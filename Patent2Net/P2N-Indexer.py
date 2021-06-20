@@ -19,7 +19,7 @@ requete = configFile.requete
 ndf = configFile.ndf
 Rep = configFile.ResultContentsPath
 Bib = configFile.ResultBiblioPath
-es = Elasticsearch(hosts=[{'host': "elasticp2n", 'port': 9200}])
+es = Elasticsearch(hosts=[{'host': "elasticsearch", 'port': 9200}])
 
 if 'Description'+ndf in os.listdir(Bib): # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
     DataBrevet = LoadBiblioFile(Bib, ndf)
