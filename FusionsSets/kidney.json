@@ -1,0 +1,8 @@
+{
+    "main": "kidney",
+    "folders": [
+        "kidney1",
+        "kidney2"
+    ],
+    "rules": ["none_in_progress"]
+}
