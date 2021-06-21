@@ -26,7 +26,7 @@ def new_single_req_without_date_split(directory):
     set_state(directory, "SINGLE_REQ_WITHOUT_SPLIT")
 
     os.chdir("/home/p2n/P2N-V3/")
-    Popen(['p2n', 'run', "-config=" + get_p2n_config(directory)])
+    Popen(['p2n', 'run', get_p2n_config(directory)])
 
 
 
@@ -86,7 +86,7 @@ def create_request_file(p2n_dir, p2n_req, p2n_options, labels, no_patent = False
 
 
     labels_keys = labels.keys()
-    active_labels_keys = [label_key for label_key in labels_keys if label_key not in ['p2n_dir', 'p2n_filtering', 'p2n_indexer'] and label_key in p2n_options]
+    active_labels_keys = ['p2n_req'] + [label_key for label_key in labels_keys if label_key not in ['p2n_dir', 'p2n_filtering', 'p2n_indexer'] and label_key in p2n_options]
 
     for label_key in active_labels_keys:
         set_data_progress(p2n_dir, label_key, None, None)

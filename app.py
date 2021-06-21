@@ -329,8 +329,7 @@ def post_request():
 
             count += 1
 
-        create_request_file(p2n_dir, fusion_request, p2n_options, labels, no_patent=True)
-        createFusion(p2n_dir, folders, ['none_in_progress'])
+        createFusion(p2n_dir, folders, ['none_in_progress'], fusion_request, p2n_options, labels)
 
         return get_success_response("Multi-request start", { "p2n_dir": p2n_dir })
 
@@ -668,9 +667,6 @@ def request_app_static(filename):
 def request_app(path):
     return send_file("web_app/build/index.html")
 
-
-print(__name__)
-
 #Authorize the app to be accessed in a different environment (localhost in our case)
 if __name__ == "__main__":
     # execute only if run as a script
@@ -678,8 +674,7 @@ if __name__ == "__main__":
     # handler.setLevel(logging.INFO)
     # app.logger.addHandler(handler)
 
-    app.run(debug=False, host='0.0.0.0', port=5000) 
-
+    app.run(debug=False, host='0.0.0.0', port=5000)
 
 
 def popen_and_call(on_exit, popen_args):

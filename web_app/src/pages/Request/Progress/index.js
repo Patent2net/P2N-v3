@@ -1,5 +1,18 @@
 import ProgressBar from "../../../components/ProgressBar";
 
+const progress_lang = {
+    "p2n_req": "Gathering patent list",
+    "p2n_family": "Gathering patent family",
+    "p2n_gather_biblio": "Gathering patent metadata",
+    "p2n_content": "Gathering patent content",
+    "p2n_image": "Gathering patent content",
+    "p2n_network": "Patent network",
+    "p2n_tables": "Patent tables",
+    "p2n_carrot": "Patent carrot",
+    "p2n_iramuteq": "Patent iramuteq",
+    "p2n_cluster": "Patent cluster",
+}
+
 const Progress = ({ data }) => (
     <div className="mt-4 p-4 border border-gray-200 rounded">
         <div className="flex flex-row justify-between items-center">
@@ -52,7 +65,7 @@ const Progress = ({ data }) => (
                         {Object.keys(data.progress).map((key, index) => (
                             <ProgressBar
                                 key={key}
-                                name={key}
+                                name={progress_lang[key] || key}
                                 value={data.progress[key]["value"]}
                                 max_value={data.progress[key]["max_value"]}
                         />

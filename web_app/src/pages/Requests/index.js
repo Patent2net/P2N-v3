@@ -137,6 +137,8 @@ function Requests() {
     .then(function(json) {
       console.log(json)
       if (entryType === entryTypes.REQUEST) history.push("/app/requests/" + json.data.p2n_dir );
+
+      window.location.reload(false);
     });
   }, [directory, options, history, p2nAuto, entryType, getCurrentEnry])
 

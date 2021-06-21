@@ -167,10 +167,12 @@ def delete_request(directory):
 
     if directory in in_progress:
         in_progress.remove(directory)
-    if directory in in_progress:
+    if directory in done:
         done.remove(directory)
     if directory in requests:
         del requests[directory]
+
+    
 
     write_dex()
 

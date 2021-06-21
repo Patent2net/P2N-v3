@@ -42,65 +42,66 @@ class P2NConfig:
         # opening request file, reading parameters
         content = self.readInputFile()
 
-        for line in content:
-            # General config loading
-            if line.count('request:') > 0:
-                self.requete = self.getStr(line)
-            elif line.count('DataDirectory:') > 0:
-                self.ndf = self.getStr(line)#.title()
-            elif line.count('OPSGatherContentsv2-Iramuteq') > 0:
-                self.GatherIramuteq = self.getBoolean(line)
-            elif line.count('GatherContent') > 0:
-                self.GatherContent = self.getBoolean(line)
-            elif line.count('GatherBiblio') > 0:
-                self.GatherBiblio = self.getBoolean(line)
-            elif line.count('GatherPatent') > 0:
-                self.GatherPatent = self.getBoolean(line)
-            elif line.count('GatherFamilly') > 0:
-                self.GatherFamilly = self.getBoolean(line)
-            elif line.count('GatherImages') > 0:
-                self.GatherImages = self.getBoolean(line)
+        if content:
+            for line in content:
+                # General config loading
+                if line.count('request:') > 0:
+                    self.requete = self.getStr(line)
+                elif line.count('DataDirectory:') > 0:
+                    self.ndf = self.getStr(line)#.title()
+                elif line.count('OPSGatherContentsv2-Iramuteq') > 0:
+                    self.GatherIramuteq = self.getBoolean(line)
+                elif line.count('GatherContent') > 0:
+                    self.GatherContent = self.getBoolean(line)
+                elif line.count('GatherBiblio') > 0:
+                    self.GatherBiblio = self.getBoolean(line)
+                elif line.count('GatherPatent') > 0:
+                    self.GatherPatent = self.getBoolean(line)
+                elif line.count('GatherFamilly') > 0:
+                    self.GatherFamilly = self.getBoolean(line)
+                elif line.count('GatherImages') > 0:
+                    self.GatherImages = self.getBoolean(line)
 
-            # Networks config loading
-            elif line.count('InventorNetwork') > 0:
-                self.InventorNetwork = self.getBoolean(line)
-            elif line.count('ApplicantNetwork') > 0:
-                self.ApplicantNetwork = self.getBoolean(line)
-            elif line.count('ApplicantInventorNetwork') > 0:
-                self.ApplicantInventorNetwork = self.getBoolean(line)
-            elif line.count('InventorCrossTechNetwork') > 0:
-                self.InventorCrossTechNetwork = self.getBoolean(line)
-            elif line.count('ApplicantCrossTechNetwork') > 0:
-                self.ApplicantCrossTechNetwork = self.getBoolean(line)
-            elif line.count('CountryCrossTechNetwork') > 0:
-                self.CountryCrossTechNetwork = self.getBoolean(line)
-            elif line.count('CrossTechNetwork') > 0:
-                self.CrossTechNetwork = self.getBoolean(line)
-            elif line.count('CompleteNetwork') > 0:
-                self.CompleteNetwork = self.getBoolean(line)
-            elif line.count('References') > 0:
-                self.References = self.getBoolean(line)
-            elif line.count('Citations') > 0:
-                self.Citations = self.getBoolean(line)
-            elif line.count('Equivalents') > 0:
-                self.Equivalents = self.getBoolean(line)
-            elif line.count('FormateExportCountryCartography') > 0:
-                self.FormateExportCountryCartography = self.getBoolean(line)
-            elif line.count('FormateExportPivotTable') > 0:
-                self.FormateExportPivotTable = self.getBoolean(line)
-            elif line.count('FormateExportBiblio') > 0:
-                self.FormateExportBiblio = self.getBoolean(line)
-            elif line.count('FormateExportDataTable') > 0:
-                self.FormateExportDataTable = self.getBoolean(line)
-            elif line.count('P2N-FreePlane') > 0:
-                self.FreePlane = self.getBoolean(line)
-            elif line.count('FusionCarrot2') > 0:
-                self.FusionCarrot2 = self.getBoolean(line)
-            elif line.count('FusionIramuteq2') > 0:
-                self.FusionIramuteq2 = self.getBoolean(line)    
-            elif line.count('P2N-Cluster') > 0:
-                self.Cluster = self.getBoolean(line)
-        self.generatePaths()
+                # Networks config loading
+                elif line.count('InventorNetwork') > 0:
+                    self.InventorNetwork = self.getBoolean(line)
+                elif line.count('ApplicantNetwork') > 0:
+                    self.ApplicantNetwork = self.getBoolean(line)
+                elif line.count('ApplicantInventorNetwork') > 0:
+                    self.ApplicantInventorNetwork = self.getBoolean(line)
+                elif line.count('InventorCrossTechNetwork') > 0:
+                    self.InventorCrossTechNetwork = self.getBoolean(line)
+                elif line.count('ApplicantCrossTechNetwork') > 0:
+                    self.ApplicantCrossTechNetwork = self.getBoolean(line)
+                elif line.count('CountryCrossTechNetwork') > 0:
+                    self.CountryCrossTechNetwork = self.getBoolean(line)
+                elif line.count('CrossTechNetwork') > 0:
+                    self.CrossTechNetwork = self.getBoolean(line)
+                elif line.count('CompleteNetwork') > 0:
+                    self.CompleteNetwork = self.getBoolean(line)
+                elif line.count('References') > 0:
+                    self.References = self.getBoolean(line)
+                elif line.count('Citations') > 0:
+                    self.Citations = self.getBoolean(line)
+                elif line.count('Equivalents') > 0:
+                    self.Equivalents = self.getBoolean(line)
+                elif line.count('FormateExportCountryCartography') > 0:
+                    self.FormateExportCountryCartography = self.getBoolean(line)
+                elif line.count('FormateExportPivotTable') > 0:
+                    self.FormateExportPivotTable = self.getBoolean(line)
+                elif line.count('FormateExportBiblio') > 0:
+                    self.FormateExportBiblio = self.getBoolean(line)
+                elif line.count('FormateExportDataTable') > 0:
+                    self.FormateExportDataTable = self.getBoolean(line)
+                elif line.count('P2N-FreePlane') > 0:
+                    self.FreePlane = self.getBoolean(line)
+                elif line.count('FusionCarrot2') > 0:
+                    self.FusionCarrot2 = self.getBoolean(line)
+                elif line.count('FusionIramuteq2') > 0:
+                    self.FusionIramuteq2 = self.getBoolean(line)    
+                elif line.count('P2N-Cluster') > 0:
+                    self.Cluster = self.getBoolean(line)
+            self.generatePaths()
 
     def readInputFile(self):
         if len(sys.argv) > 1:
