@@ -125,6 +125,7 @@ def run():
                 path = path_img_base.format(i)
 
         # Render gallery
+        AnnonceProgres(Appli='p2n_image', valMax=100, valActu=100)
         RenderTemplate(
             'ModeleImages.html',
             output_path + '/index' + prefix + '.html',
