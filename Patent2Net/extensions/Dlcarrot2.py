@@ -16,7 +16,7 @@ if len(sys.argv)>1:
     dir = sys.argv[1]
 else:
     dir = ''
-url = 'https://github.com/carrot2/carrot2/releases/download/release%2F4.0.4/carrot2-4.0.4.zip'
+url = 'https://github.com/carrot2/carrot2/releases/download/release%2F4.2.1/carrot2-4.2.1.zip'
 with requests.get(url, stream = True) as req:
 
     fichier ='carrot2.zip'

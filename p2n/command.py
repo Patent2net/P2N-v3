@@ -279,25 +279,25 @@ def classic_interface(options):
     if options['networks'] or options['run']:
         run_script('P2N-Nets-new.py', configfile)
 #             run_script('P2N-NetworksBis.py {network}'.format(network=network), configfile)
-#         networks = [
-#             "CountryCrossTech",
-#             "CrossTech",
-#             "InventorsCrossTech",
-#             "Applicants_CrossTech",
-#             "Inventors",
-#             "ApplicantInventor",
-#             "Applicants",
-#             "References",
-#             "Citations",
-#             "Equivalents",
-#         ]
-#         compt = 0
-#         for network in networks:
-#             compt += 1
-# #             run_script('P2N-PreNetworks.py {network}'.format(network=network), configfile)
-#             run_script('P2N-NetworksBis.py {network}'.format(network=network), configfile)
-#            AnnonceProgres (Appli = 'p2n_network', valMax = len(networks), valActu = compt*100/len(networks)) # valMax is unused in front end
-#            run_script('P2N-NetworksJS.py {network}'.format(network=network), configfile)
+        networks = [
+            "CountryCrossTech",
+            "CrossTech",
+            "InventorsCrossTech",
+            "Applicants_CrossTech",
+            "Inventors",
+            "ApplicantInventor",
+            "Applicants",
+            "References",
+            "Citations",
+            "Equivalents",
+        ]
+        compt = 0
+        for network in networks:
+            compt += 1
+#             run_script('P2N-PreNetworks.py {network}'.format(network=network), configfile)
+            run_script('P2N-NetworksBis.py {network}'.format(network=network), configfile)
+            AnnonceProgres (Appli = 'p2n_network', valMax = len(networks), valActu = compt*100/len(networks)) # valMax is unused in front end
+            run_script('P2N-NetworksJS.py {network}'.format(network=network), configfile)
     #adding the complete net a buggy very very slow process
     
         # run_script('P2N-NetworksFull.py', configfile)
