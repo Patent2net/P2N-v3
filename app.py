@@ -453,8 +453,9 @@ def events():
         event = ToBeFoundChange.deserialize(data)
 
         if event.need_spliter == False:
-            config = "--config=../RequestsSets/%s.cql"%(event.directory)
-            process_single(event.directory, config)
+            # config = "--config=../RequestsSets/%s.cql"%(event.directory)
+            new_single_req_without_date_split(event.directory)
+
 
     eventListener.push_event(data)
 

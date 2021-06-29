@@ -13,7 +13,7 @@ from Patent2Net.P2N_Config import LoadConfig
 from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct
 # import bs4
 from Patent2Net.P2N_Lib import LoadBiblioFile
-import pandas as pd
+from Patent2Net.app import csv
 import sys, os
 import pickle
 
@@ -34,20 +34,14 @@ ResultPathContent = configFile.ResultPath
 ResultListPath = configFile.ResultListPath
 ResultBiblioPath = configFile.ResultBiblioPath
 
-if len(sys.argv)>1:
-    fic = sys.argv[1]
+key = "Inventors"
 
-else:
-    fic = "Brevets Lattes.csv"
+df = csv.read_from_request_field(requete)
     
-with open(fic, 'r'):
-    df = pd.read_csv(fic, sep ='\t')
-    
-print("loading csv file. Using 'Registro EspaceNet column'")
-lstNum = list(set(df ['Registro EspaceNet'].tolist()))
+print("loading csv file. Using '" + key + " column'")
+lstNum = list(set(df [key].tolist()))
 nbTrouves = len(lstNum)
-print ('Found: ', len(df ['Registro EspaceNet'].tolist()), "  patents.")
-
+print ('Found: ', len(df [key].tolist()), "  patents.")
 
 print ("Finally, unique patents :", nbTrouves)
 print ('saving')
@@ -58,6 +52,7 @@ if ndf not in os.listdir('../Data/'):
     os.makedir(ResultBiblioPath)   
 lstBrevets = []
 for pat in lstNum:
+    print(pat)
     brevet = dict()
     brevet['document-id'] =  dict()
     brevet['document-id']['country'] =  dict()
@@ -81,6 +76,9 @@ with open(ResultListPath + '//' + ndf, 'wb') as ficRes1:
     DataBrevets['brevets'] = lstBrevets
     DataBrevets['number'] = nbTrouves
     DataBrevets['requete'] = requete
+
+    print(DataBrevets)
+
     pickle.dump(DataBrevets, ficRes1)
 
 print("Done. Please use p2n with same request.cql file to gather patents.")

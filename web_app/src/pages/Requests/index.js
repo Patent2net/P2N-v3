@@ -92,14 +92,11 @@ function Requests() {
 
   React.useEffect(() => {
       fetch("http://localhost:5000/api/v1/requests")
-      .then(function(response) {
-          return response.json();
-      })
+      .then((response) => response.json())
       .then(function(json) {
         if (json.data) {
           setRequests(json.data)
         }
-        console.log(json.data)
       });
   }, []);
 
