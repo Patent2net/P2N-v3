@@ -48,7 +48,7 @@ const Icon = ({ name }) => {
             )
         case "split":
             return (
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 64 64"> <path d="M12 24l-9 8 9 8m40-16l9 8-9 8m-16-8h25M3 32h25" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke="#202020" fill="none" data-name="layer2" stroke-linejoin="round"></path> <path d="M36 10v44m-8-44v44" stroke-width="3" stroke-miterlimit="10" stroke-linecap="round" stroke="#202020" fill="none" data-name="layer1" stroke-linejoin="round"></path> </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 64 64"> <path d="M12 24l-9 8 9 8m40-16l9 8-9 8m-16-8h25M3 32h25" strokeWidth="3" strokeLinecap="10" strokeLinecap="round" stroke="#202020" fill="none" data-name="layer2" strokeLinejoin="round"></path> <path d="M36 10v44m-8-44v44" strokeWidth="3" strokeLinecap="10" strokeLinecap="round" stroke="#202020" fill="none" data-name="layer1" strokeLinejoin="round"></path> </svg>
             )
         default:
             return null

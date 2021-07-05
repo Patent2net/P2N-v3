@@ -1,4 +1,5 @@
 import React from "react";
+import CSVUpload from '../CSVUpload'
 
 const entryTypes = {
   REQUEST: 'REQUEST',
@@ -38,13 +39,14 @@ function Entries({ entryType, entries }) {
     })
   }, [setRequestsEntry])
 
+
   return (
     <div className="container mx-auto">
 
 
       { entryType === entryTypes.REQUEST && (
         <>
-          <div class="mt-4">
+          <div className="mt-4">
             <label className="text-lg mb-2 font-bold">Request in CQL format</label>
             <p className="pt-2 pb-2 text-sm italic text-gray-800">Enter in the textbox a valid espacenet smart search query for your patent research.</p>
           </div>
@@ -65,7 +67,7 @@ function Entries({ entryType, entries }) {
 
       { entryType === entryTypes.REQUESTS && (
         <>
-          <div class="mt-4">
+          <div className="mt-4">
             <label className="text-lg mb-2 font-bold">Requests in CQL format</label>
             <p className="pt-2 pb-2 text-sm italic text-gray-800">
               Enter a list of valid espacenet search queries for your patent search in the text box.<br/>
@@ -92,6 +94,9 @@ function Entries({ entryType, entries }) {
         </>
       )}
 
+      { entryType === entryTypes.CSV && (
+        <CSVUpload />
+      )}
     </div>
   );
 }

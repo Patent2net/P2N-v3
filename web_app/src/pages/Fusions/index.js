@@ -40,15 +40,15 @@ function Fusions() {
           ) }
         </div>
         
-        <hr class="mb-3"/>
+        <hr className="mb-3"/>
 
-        <div class="mb-6 flex flex-col">
+        <div className="mb-6 flex flex-col">
           <h3 className="text-lg mb-2 font-bold">Fusions en cours</h3>
           <div className="">
             <div className="relative pt-1">
               { data.fusions && data.fusions.filter(fusion => fusion.in_progress).map((fusion) => (
                 <Link to={"/app/requests/" + fusion.content.main} key={fusion.content.main}>
-                  <p class="mb-1">{ fusion.content.main }</p>
+                  <p className="mb-1">{ fusion.content.main }</p>
 
                 </Link>
               ))}
@@ -64,7 +64,7 @@ function Fusions() {
           </div>
         </div>
 
-        <hr class="mb-3"/>
+        <hr className="mb-3"/>
 
 
         <div className="mb-6 flex flex-col">

@@ -1,3 +1,4 @@
+import os
 import re
 import pandas as pd
 
@@ -21,3 +22,16 @@ def get_csv_file_name_from_request_field(requet_field):
         return csv_search.group(1)
     else:
         return None
+
+def get_csv_directory():
+    return csv_directory
+
+
+def get_headers(csv_file_name):
+    os.chdir("/home/p2n/P2N-V3/Patent2Net")
+    fic = '../' + csv_directory + '/' + csv_file_name
+
+    with open(fic, 'r'):
+        df = pd.read_csv(fic, sep =csv_separator, index_col=0, nrows=0)
+
+        return df.columns.tolist()

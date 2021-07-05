@@ -5,11 +5,12 @@ Created on Mon Jun 15 13:58:37 2020
 @author: Admin
 """
 from pickle import TRUE
-from Patent2Net.app.request import create_patent_request_file, create_request_file, new_single_req_with_split, new_single_req_without_date_split, run_request
-from Patent2Net.app.fusion import createFusion, listFusions
+from werkzeug.utils import secure_filename
 import os
+
 #import glob
-from flask import Flask, render_template, request, send_file, Response, send_from_directory, jsonify, redirect, url_for
+from flask import Flask, flash, render_template, request, send_file, Response, send_from_directory, jsonify, redirect, url_for
+from Patent2Net.app import csv
 from flask_cors import CORS
 
 #import time
@@ -23,6 +24,8 @@ import requests
 import asyncio
 import epo_ops
 
+from Patent2Net.app.request import create_patent_request_file, create_request_file, new_single_req_with_split, new_single_req_without_date_split, run_request
+from Patent2Net.app.fusion import createFusion, listFusions
 from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_done, set_data_progress, get_data_progress, get_global_progress, set_state, get_state, get_directory_request_data_all, delete_data_to_be_found, get_data_to_be_found, set_data_spliter_start_date, delete_data_spliter, delete_request
 from Patent2Net.app.events.progress_value_change import ProgressValueChange
 from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
@@ -35,6 +38,8 @@ from p2n.config import OPSCredentials
 import threading
 import subprocess
 from subprocess import Popen
+
+from Patent2Net.app.csv import get_csv_directory
 
 from p2n.util import run_script
 
@@ -476,6 +481,49 @@ def listen_hook():
     res = Response(stream(), mimetype='text/event-stream')
 
     return res
+
+
+app.config['UPLOAD_FOLDER'] = './' + get_csv_directory()
+
+ALLOWED_EXTENSIONS = {'csv'}
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/api/v1/csv/upload', methods=['POST'])
+def upload_csv():
+    print(request.files)
+    if 'file' not in request.files:
+        return get_error_response('No file part')
+    file = request.files['file']
+    # If the user does not select a file, the browser submits an
+    # empty file without a filename.
+    if file.filename == '':
+        return get_error_response('No selected file')
+
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        os.chdir("/home/p2n/P2N-V3")
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        #  "previews": csv.get_fields_analy_preview(file.filename)
+        return get_success_response("ok", {
+            "name": file.filename,
+            "headers": csv.get_headers(file.filename)
+        })
+
+
+
+@app.route('/api/v1/csv/list', methods=['GET'])
+def list_csv():
+
+    os.chdir("/home/p2n/P2N-V3/")
+
+    return get_success_response("ok", {
+        "files": os.listdir(app.config['UPLOAD_FOLDER'])
+    })
+
 
 
 def get_error_response(message, code = 400):

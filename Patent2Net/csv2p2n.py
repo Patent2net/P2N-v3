@@ -16,6 +16,7 @@ from Patent2Net.P2N_Lib import LoadBiblioFile
 from Patent2Net.app import csv
 import sys, os
 import pickle
+import codecs
 
 configFile = LoadConfig()
 requete = configFile.requete
@@ -34,7 +35,7 @@ ResultPathContent = configFile.ResultPath
 ResultListPath = configFile.ResultListPath
 ResultBiblioPath = configFile.ResultBiblioPath
 
-key = "Inventors"
+key = "Publication number"
 
 df = csv.read_from_request_field(requete)
     
@@ -82,3 +83,7 @@ with open(ResultListPath + '//' + ndf, 'wb') as ficRes1:
     pickle.dump(DataBrevets, ficRes1)
 
 print("Done. Please use p2n with same request.cql file to gather patents.")
+
+with codecs.open('..//DATA//lentille//PatentLists//lentille', 'rb') as fic2:
+    lentille = pickle.load(fic2)
+    print(lentille)

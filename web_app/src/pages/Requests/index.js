@@ -160,15 +160,15 @@ function Requests() {
           ) }
         </div>
         
-        <hr class="mb-3"/>
+        <hr className="mb-3"/>
 
-        <div class="mb-6 flex flex-col">
+        <div className="mb-6 flex flex-col">
           <h3 className="text-lg mb-2 font-bold">Requêtes en cours</h3>
           <div className="">
             <div className="relative pt-1">
               { requests.in_progress && requests.in_progress.map((name) => (
                 <Link to={"/app/requests/" + name} key={name}>
-                  <p class="mb-1">{ name }</p>
+                  <p className="mb-1">{ name }</p>
                   {
                     requests.global_progress && requests.global_progress[name] && (
                       <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-orange-200">
@@ -225,7 +225,7 @@ function Requests() {
               }}
             ></Entries>
 
-            <div class="mt-4">
+            <div className="mt-4">
               <label className="text-lg mb-2 font-bold">Request Location</label>
               <p className="pb-2 text-sm italic text-gray-800">Enter in the textbox where your patent research will be stocked.</p>
             </div>
@@ -251,7 +251,7 @@ function Requests() {
                   let option = all_options[key]
                   return (
                     <div 
-                      class={
+                      className={
                         options.includes(key) ? 
                           "cursor-pointer box-border flex flex-col justify-center items-center rounded p-3 text-center border-2 border-indigo-600 text-indigo-600" :
                           "cursor-pointer box-border flex flex-col justify-center items-center border rounded p-3 text-center opacity-30"
@@ -261,8 +261,8 @@ function Requests() {
                       <div className="icon text-black">
                         <Icon name={option.icon} />
                       </div>
-                      <p class="text-sm font-semibold pt-2">{option["name"]}</p>
-                      <p class="text-xs pt-1">{option["description"]}</p>
+                      <p className="text-sm font-semibold pt-2">{option["name"]}</p>
+                      <p className="text-xs pt-1">{option["description"]}</p>
                     </div>
                   )
                 })}
@@ -270,9 +270,9 @@ function Requests() {
             </div>
             <div className="mt-4">
               <label className="text-lg mb-2 font-bold">Request splitter</label>
-              <div class="w-1/2 pt-2">
+              <div className="w-1/2 pt-2">
                 <div 
-                  class={
+                  className={
                     p2nAuto ? 
                       "cursor-pointer box-border flex flex-col justify-center items-center rounded p-3 text-center border-2 border-indigo-600 text-indigo-600" :
                       "cursor-pointer box-border flex flex-col justify-center items-center border rounded p-3 text-center opacity-30"
@@ -282,8 +282,8 @@ function Requests() {
                   <div className="icon text-black">
                     <Icon name="split" />
                   </div>
-                  <p class="text-sm font-semibold pt-2">Use auto request spliter</p>
-                  <p class="text-xs pt-1">
+                  <p className="text-sm font-semibold pt-2">Use auto request spliter</p>
+                  <p className="text-xs pt-1">
                     It allows to exceed the limit of 2000 patents per request by splitting it into several sub-request
                   </p>
                 </div>
