@@ -297,14 +297,14 @@ def post_request():
         return get_error_response("p2n_dir is required")
     if 'p2n_options' not in form_result:
         return get_error_response("p2n_options is required")
-    if 'p2n_entrytype' not in form_result:
-        return get_error_response("p2n_entrytype is required")
-    if 'p2n_entry' not in form_result:
-        return get_error_response("p2n_entry is required")
+    if 'p2n_type' not in form_result:
+        return get_error_response("p2n_type is required")
+    if 'p2n_entries' not in form_result:
+        return get_error_response("p2n_entries is required")
 
     p2n_dir = form_result['p2n_dir']
-    p2n_entry = form_result['p2n_entry']
-    p2n_entrytype = form_result['p2n_entrytype']
+    p2n_entries = form_result['p2n_entries']
+    p2n_type = form_result['p2n_type']
     p2n_options = form_result['p2n_options'].split(',')
     p2n_auto = 'p2n_auto' in form_result and form_result['p2n_auto'] == "true"
 
@@ -313,32 +313,35 @@ def post_request():
     if p2n_dir in dex['in_progress'] or p2n_dir in dex['done']:
         return get_error_response(p2n_dir + " is already use")
 
-    if p2n_entrytype == "REQUEST":
-        create_request_file(p2n_dir, p2n_entry, p2n_options, labels)
-        run_request(p2n_dir, p2n_auto)
+    if p2n_type == "request":
+        entries_list = p2n_entries.split(',')
 
-        return get_success_response("Request start", { "p2n_dir": p2n_dir })
+        if len(entries_list) == 1:
+            create_request_file(p2n_dir, entries_list[0], p2n_options, labels)
+            run_request(p2n_dir, p2n_auto)
 
-    elif p2n_entrytype == "REQUESTS":
-        count = 1
-        folders = []
-        
-        fusion_request = p2n_entry.split(',')[0]
-        for req in p2n_entry.split(','):
-            fusion_request = fusion_request + " UNION " + req
-            s_dir = p2n_dir + str(count)
-            create_patent_request_file(s_dir, req)
-            run_request(s_dir, p2n_auto)
+            return get_success_response("Request start", { "p2n_dir": p2n_dir })
+        else:
+            count = 1
+            folders = []
 
-            folders.append(s_dir)
+            fusion_request = entries_list[0]
 
-            count += 1
+            for req in entries_list:
+                fusion_request = fusion_request + " UNION " + req
+                s_dir = p2n_dir + str(count)
+                create_patent_request_file(s_dir, req)
+                run_request(s_dir, p2n_auto)
 
-        createFusion(p2n_dir, folders, ['none_in_progress'], fusion_request, p2n_options, labels)
+                folders.append(s_dir)
 
-        return get_success_response("Multi-request start", { "p2n_dir": p2n_dir })
+                count += 1
 
-    else:
+            createFusion(p2n_dir, folders, ['none_in_progress'], fusion_request, p2n_options, labels)
+
+            return get_success_response("Multi-request start", { "p2n_dir": p2n_dir })
+
+    elif p2n_type == 'csv':
         return get_error_response("not supported")
    
 # def process_single(p2n_dir, config):
@@ -381,6 +384,15 @@ def get_one_request(p2n_dir):
             }
         }
     })
+
+@app.route('/api/v1/directory/<p2n_dir>', methods=['GET'])
+def get_one_directory(p2n_dir):
+    
+    os.chdir("/home/p2n/P2N-V3/DATA")
+    return get_success_response("", {
+        "exist": os.path.isdir('./' + p2n_dir)
+    })
+
 
 @app.route('/api/v1/requests/<p2n_dir>/split', methods=['POST'])
 def split_request(p2n_dir):

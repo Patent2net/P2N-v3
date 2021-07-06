@@ -4,6 +4,8 @@ import './index.css';
 const Upload = ({ selectFile, selectedFile, csvUploadInfo, setSelectedHeader, selectedHeader }) => {
   
     const articleRef = useRef(null)
+    const inputRef = useRef(null)
+
     const [counter, setCounter] = React.useState(0)
     const [draggedover, setDraggedover] = React.useState(false)
     const [selectHeaderOpen, setSelectHeaderOpen] = React.useState(false)
@@ -58,6 +60,13 @@ const Upload = ({ selectFile, selectedFile, csvUploadInfo, setSelectedHeader, se
         }
     }, [])
 
+    const deleteSelectedFile = React.useCallback((e) => {
+        let input = inputRef.current
+        input.type = "text";
+        input.type = "file";
+        selectFile(undefined)
+    }, [selectFile])
+
     React.useEffect(() => {
         let article = articleRef.current
         article.addEventListener('dragenter', dragEnterHandler)
@@ -66,23 +75,24 @@ const Upload = ({ selectFile, selectedFile, csvUploadInfo, setSelectedHeader, se
         article.addEventListener('drop', dropHandler)
     }, [articleRef, dragEnterHandler, dragLeaveHandler, dragOverHandler, dropHandler])
 
+
     return (
         <article ref={articleRef} ariaLabel="File Upload Modal" className="relative h-full flex flex-col bg-white" >
             <div id="overlay" className={
                 ((draggedover) ? "draggedover " : "") + "w-full h-full absolute top-0 left-0 pointer-events-none z-50 flex flex-col items-center justify-center rounded-md"
             }>
-            <i>
-                <svg className="fill-current w-12 h-12 mb-3 text-blue-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path d="M19.479 10.092c-.212-3.951-3.473-7.092-7.479-7.092-4.005 0-7.267 3.141-7.479 7.092-2.57.463-4.521 2.706-4.521 5.408 0 3.037 2.463 5.5 5.5 5.5h13c3.037 0 5.5-2.463 5.5-5.5 0-2.702-1.951-4.945-4.521-5.408zm-7.479-1.092l4 4h-3v4h-2v-4h-3l4-4z" />
-                </svg>
-            </i>
-            <p className="text-lg text-blue-700">Drop file to upload</p>
+                <i>
+                    <svg className="fill-current w-12 h-12 mb-3 text-blue-700" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path d="M19.479 10.092c-.212-3.951-3.473-7.092-7.479-7.092-4.005 0-7.267 3.141-7.479 7.092-2.57.463-4.521 2.706-4.521 5.408 0 3.037 2.463 5.5 5.5 5.5h13c3.037 0 5.5-2.463 5.5-5.5 0-2.702-1.951-4.945-4.521-5.408zm-7.479-1.092l4 4h-3v4h-2v-4h-3l4-4z" />
+                    </svg>
+                </i>
+                <p className="text-lg text-blue-700">Drop file to upload</p>
             </div>
 
             
 
             <section className="h-full w-full h-full flex flex-col">
-                <input id="hidden-input" type="file" className={"hidden"} onChange={onHiddenInputChange}/>
+                <input ref={inputRef} id="hidden-input" type="file" className={"hidden"} onChange={onHiddenInputChange}/>
                 { !selectedFile ? (
                     <header className="border-dashed border-2 border-gray-400 py-6 flex flex-col justify-center items-center">
                         <div className="w-full text-center flex flex-col items-center justify-center items-center">
@@ -121,7 +131,7 @@ const Upload = ({ selectFile, selectedFile, csvUploadInfo, setSelectedHeader, se
                                     </p>
                                 </div>
                             </div>
-                            <div class="ml-auto">
+                            <div class="ml-auto w-64 mr-2">
                                 { csvUploadInfo && csvUploadInfo.status === 'valide' && csvUploadInfo.data.headers && (
                                     <div className="relative text-black w-36">
                                         <button type="button" className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 font-semibold" aria-haspopup="listbox" aria-expanded="true" aria-labelledby="listbox-label" onClick={() => setSelectHeaderOpen(!selectHeaderOpen)}>
@@ -154,7 +164,7 @@ const Upload = ({ selectFile, selectedFile, csvUploadInfo, setSelectedHeader, se
                                     </div>
                                 )} 
                             </div>
-                            <button class="delete focus:outline-none hover:bg-gray-300 p-3 rounded-md text-gray-800" data-target="blob:https://tailwindcomponents.com/479642a1-81dd-47f1-8300-a8d5983a5c5d" onClick={() => selectFile(undefined)}>
+                            <button class="delete focus:outline-none hover:bg-gray-300 p-3 rounded-md text-gray-800" data-target="blob:https://tailwindcomponents.com/479642a1-81dd-47f1-8300-a8d5983a5c5d" onClick={deleteSelectedFile}>
                                 <svg class="pointer-events-none fill-current w-4 h-4 ml-auto" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                 <path class="pointer-events-none" d="M3 6l3 18h12l3-18h-18zm19-4v2h-20v-2h5.711c.9 0 1.631-1.099 1.631-2h5.316c0 .901.73 2 1.631 2h5.711z"></path>
                                 </svg>
