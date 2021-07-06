@@ -562,9 +562,12 @@ for ndf in [projectName,  "Families"+ projectName]:
         TailleFamiile += sum( [appl in truc for truc in df_Fam ['applicant']]) # nombre d'apparition dans les familles
         NbBrevets += sum( [appl in truc for truc in df ['applicant']]) # nombre de brevets
         nbCitations +=  sum ( [bre.Citations for bre in  df.itertuples() if appl in bre.applicant])
-        IPC11 +=dicoAttrsAppli [appl]['IPC11-range']
-        IPC7 += dicoAttrsAppli [appl]['IPC7-range']
-        IPC4 +=dicoAttrsAppli [appl]['IPC4-range']
+        if len(appl)>0:
+            IPC11 +=dicoAttrsAppli [appl]['IPC11-range']
+        if len(appl)>0:
+            IPC7 += dicoAttrsAppli [appl]['IPC7-range']
+        if len(appl)>0:
+            IPC4 +=dicoAttrsAppli [appl]['IPC4-range']
         IPCForce += Techno [appl]
     
     IPCDiversity = len(set(IPCForce))
