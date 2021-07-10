@@ -274,23 +274,42 @@ for bre in LstBrevet:
             contenu = fichier.read()
         if len(contenu) > 0:
             phrase = contenu.split('.')[0]
+
             if len(phrase) > 0 and len(phrase.split()) > 5:  # more than 5 words
                 try:
-                    lang = detectlanguage.simple_detect(phrase)
+                    if detectlanguage.user_status()['requests'] < detectlanguage.user_status() ['daily_requests_limit'] -1:
+                        lang = detectlanguage.simple_detect(phrase)
+                    else:
+                        time.sleep(86400) # wait ONE day!
+                        lang = detectlanguage.simple_detect(phrase)
                 except:
                     time.sleep(2)
                     try:
-                        lang = detectlanguage.simple_detect(phrase)
+                        if detectlanguage.user_status()['requests'] < detectlanguage.user_status()[
+                            'daily_requests_limit'] - 1:
+                            lang = detectlanguage.simple_detect(phrase)
+                        else:
+                            time.sleep(86400)  # wait ONE day!
+                            lang = detectlanguage.simple_detect(phrase)
                     except:
                         lang = ''
             else:
                 phrase = contenu.split('.')[1]
                 try:
-                    lang = detectlanguage.simple_detect(phrase)
+                    if detectlanguage.user_status()['requests'] < detectlanguage.user_status()[
+                        'daily_requests_limit'] - 1:
+                        lang = detectlanguage.simple_detect(phrase)
+                    else:
+                        time.sleep(86400)  # wait ONE day!
+                        lang = detectlanguage.simple_detect(phrase)
                 except:
                     time.sleep(2)
                     try:
-                        lang = detectlanguage.simple_detect(phrase)
+                        if detectlanguage.user_status()['requests'] < detectlanguage.user_status()['daily_requests_limit'] - 1:
+                            lang = detectlanguage.simple_detect(phrase)
+                        else:
+                            time.sleep(86400)  # wait ONE day!
+                            lang = detectlanguage.simple_detect(phrase)
                     except:
                         lang = ''
         if len(lang) > 0:
