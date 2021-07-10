@@ -37,12 +37,14 @@ SchemeVersion = '20140101'
 #    N – Non-patent literature documents
 #    X ]
 
-import re
-import datetime
 import codecs
+import datetime
 import os
-from jinja2 import Environment, FileSystemLoader
+import re
+
 import requests
+from jinja2 import Environment, FileSystemLoader
+
 
 def AnnonceProgres(Appli, valActu, valMax):
     if valActu and valMax:
@@ -2031,7 +2033,7 @@ def UniClean(ch):
 
 
 def quote(string):
-    import urllib.request, urllib.parse, urllib.error
+    import urllib.parse, urllib.error
 
     string = UniClean(string)
     return urllib.parse.quote(string, safe='/\\())')

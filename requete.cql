@@ -2,12 +2,12 @@
 ##############################
 # request
 # insert below your request in cql format as done in the example
-request: "csv import"
+request: ta all "sift" AND cl all "G06T"
 
 ##############################
 # Directory to use
 # insert a compliant name (no space or special characters) for the "Patent Universe" (PU)
-DataDirectory: cancer
+DataDirectory: SIFT
 
 ###############################
 #Patent2Net options : Set to *True* or False

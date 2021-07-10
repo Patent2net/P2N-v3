@@ -1,6 +1,8 @@
 from Patent2Net.app.dex import set_directory_request_data, get_directory_request_data, delete_directory_request_data
-from Patent2Net.app.events.dex_change_event import DexChangeEvent
 from Patent2Net.app.event import send_new_event
+from Patent2Net.app.events.dex_change_event import DexChangeEvent
+
+
 class ProcessList:
     """represents the data recovery status for a list of queries created after a split"""
 

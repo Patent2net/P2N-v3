@@ -1,6 +1,6 @@
 import React from "react";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
+import {useHistory} from "react-router";
+import {Link} from "react-router-dom";
 import Icon from "./icon";
 
 const all_options = {

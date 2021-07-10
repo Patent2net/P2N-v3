@@ -1,9 +1,10 @@
-import sys
 import os
+import sys
 from subprocess import Popen
+
+from Patent2Net.P2N_Config import LoadConfig
 from Patent2Net.app.data.fusion_list import FusionList
 from Patent2Net.app.data.process_list import ProcessList
-from Patent2Net.P2N_Config import LoadConfig
 
 
 # 

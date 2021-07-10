@@ -9,8 +9,8 @@ this script is aimed to download carrot2 zip binary file.
 @author: david
 """
 
-import requests, sys
-from bs4 import BeautifulSoup
+import requests
+import sys
 
 if len(sys.argv)>1:
     dir = sys.argv[1]

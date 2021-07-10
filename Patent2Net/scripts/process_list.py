@@ -1,15 +1,7 @@
 import os
-import json
-import zipfile
-import io
-import pathlib
-import queue
-import requests
 
-from Patent2Net.app.message_announcer import AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
 from Patent2Net.app.data.process_list import ProcessList
-from subprocess import Popen
 
 if __name__ == "__main__":
     configFile = LoadConfig()

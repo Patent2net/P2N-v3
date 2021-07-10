@@ -1,23 +1,24 @@
 # -*- coding: utf-8 -*-
 # (c) 2017-2018 The Patent2Net Developers
-import os
-import sys
-import time
-import types
-import where
-import logging
-import operator
 import functools
 import itertools
-import traceback
+import logging
+import operator
+import os
 import subprocess
-from six import StringIO, BytesIO
-from json.encoder import JSONEncoder
+import sys
+import time
+import traceback
+import types
 from collections import OrderedDict
+from json.encoder import JSONEncoder
 
 #########
 # this is added because I don't know haow to import function from Patent2NNet Librairies (patent2Net\P2N_lib)
 import requests
+import where
+from six import StringIO, BytesIO
+
 
 def AnnonceProgres(Appli, valActu, valMax):
     valActu = "%.2f" % valActu 

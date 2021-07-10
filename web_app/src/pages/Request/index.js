@@ -1,6 +1,5 @@
 import React from "react";
-import { useHistory, useParams } from "react-router";
-import { Link } from "react-router-dom";
+import {useHistory, useParams} from "react-router";
 import FusionList from "./FusionList";
 import RequestHeader from "./Header";
 import PatentCount from "./PatentCount";

@@ -9,13 +9,14 @@ csv to patent list uin P2N format.
 """
 
 
-from Patent2Net.P2N_Config import LoadConfig
-from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct
-# import bs4
-from Patent2Net.P2N_Lib import LoadBiblioFile
-import pandas as pd
-import sys, os
+import os
 import pickle
+import sys
+
+# import bs4
+import pandas as pd
+
+from Patent2Net.P2N_Config import LoadConfig
 
 configFile = LoadConfig()
 requete = configFile.requete

@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # (c) 2017 The Patent2Net Developers
-import types
 import logging
 import operator
+import types
+
 import pkg_resources
+
 from p2n.util import memoize
 
 logger = logging.getLogger(__name__)

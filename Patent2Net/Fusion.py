@@ -5,10 +5,12 @@ Created on Sat Jan 10 07:50:48 2015
 @author: dreymond
 """
 
-import sys, os
-import pickle as pickle
-from collections import OrderedDict as dict
 import collections
+import os
+import pickle as pickle
+import sys
+from collections import OrderedDict as dict
+
 ndf1 = sys.argv[1]
 ndf2 = sys.argv[2]
 res = sys.argv[3]

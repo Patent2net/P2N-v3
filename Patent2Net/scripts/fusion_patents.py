@@ -5,13 +5,15 @@ Created on Sat Jan 10 07:50:48 2015
 @author: dreymond
 """
 
-import sys, os
+import os
 import pickle
-import shutil
+import sys
 from collections import OrderedDict as dict
+
+import epo_ops
+
 from Patent2Net.P2N_Config import LoadConfig
 from Patent2Net.app.data.fusion_list import FusionList
-import epo_ops
 
 os.environ['REQUESTS_CA_BUNDLE'] = 'cacert.pem'
 global key

@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # (c) 2017 The Patent2Net Developers
 import logging
-import p2n.ops.client
+
 import p2n.formatter.maps
 import p2n.formatter.tables
+import p2n.ops.client
 from p2n.model import Patent2NetBrevet
 from p2n.ops.client import OPSClient
 from p2n.ops.model import OPSBiblioSearchResponse, OPSFamilyResponse, OPSRegisterResponse

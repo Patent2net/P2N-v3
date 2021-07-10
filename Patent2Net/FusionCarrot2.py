@@ -4,13 +4,15 @@ Created on Fri Dec 19 07:53:30 2014
 
 @author: dreymond
 """
-import os
 import codecs
-import bs4
-from xml.sax.saxutils import escape
 import json
-from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
+import os
+from xml.sax.saxutils import escape
+
+import bs4
+
 from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
 
 configFile = LoadConfig()
 requete = configFile.requete

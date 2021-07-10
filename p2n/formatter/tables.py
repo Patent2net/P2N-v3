@@ -2,6 +2,7 @@
 # (c) 2017 The Patent2Net Developers
 import logging
 import operator
+
 from p2n.util import filterdict, dictproduct, unique, object_to_dictionary
 
 logger = logging.getLogger(__name__)

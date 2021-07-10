@@ -4,36 +4,28 @@ Created on Mon Jun 15 13:58:37 2020
 
 @author: Admin
 """
-import os
-#import glob
-from flask import Flask, render_template, request, send_file, Response, send_from_directory, jsonify, redirect, url_for
-from flask_cors import CORS
-
-#import time
-import json
-import zipfile
 import io
+# import time
+import json
+import os
 import pathlib
-import queue
-#from urllib import parse
-import requests
-import asyncio
-import epo_ops
-
-from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_done, set_data_progress, get_data_progress, get_global_progress, set_state, get_state, get_directory_request_data_all, delete_data_to_be_found, get_data_to_be_found, set_data_spliter_start_date, delete_data_spliter, delete_request
-from Patent2Net.app.events.progress_value_change import ProgressValueChange
-from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
-from Patent2Net.app.events.split_end import SplitEnd
-from Patent2Net.app.event import EventListener
-from Patent2Net.P2N_Config import LoadConfig
-from Patent2Net.AutomRequestSpliterTime import autom_request_spliter_time
-from Patent2Net.P2N_Lib import PatentSearch
-from p2n.config import OPSCredentials
-import threading
 import subprocess
+import threading
+import zipfile
 from subprocess import Popen
 
-from p2n.util import run_script
+# import glob
+from flask import Flask, render_template, request, send_file, Response, send_from_directory, redirect
+from flask_cors import CORS
+
+from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_data_progress, get_data_progress, \
+    get_global_progress, set_state, get_state, get_directory_request_data_all, delete_data_to_be_found, \
+    get_data_to_be_found, set_data_spliter_start_date, delete_request
+from Patent2Net.app.event import EventListener
+from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
+
+# from urllib import parse
 
 # static_folder call the emplacement of all the content who will work with the HTML. template_folder the emplacement of the HTML. \
 #    In theory they don't have to be at Root.
@@ -55,8 +47,6 @@ class Config:
 # Instantiate app_config
 app_cfg = Config
 
-import logging
-from logging.handlers import RotatingFileHandler
 from Patent2Net.app.message_announcer import MessageAnnouncer
 
 announcer = MessageAnnouncer()

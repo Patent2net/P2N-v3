@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 # (c) 2017 The Patent2Net Developers
-import os
-import sys
 import json
-import docopt
 import logging
 import operator
+import os
+import sys
+
+import docopt
+
 from p2n import __version__
 from p2n.api import Patent2Net
 from p2n.config import OPSCredentials

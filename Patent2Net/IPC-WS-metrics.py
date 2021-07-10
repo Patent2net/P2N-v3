@@ -9,10 +9,14 @@ in the patent metadata
 @author: dreymond
 """
 
+import os
+import sys
+
 from lxml import etree
-from Patent2Net.P2N_Lib import LoadBiblioFile, symbole, AnnonceProgres
+
 from Patent2Net.P2N_Config import LoadConfig
-import sys, os
+from Patent2Net.P2N_Lib import LoadBiblioFile, symbole, AnnonceProgres
+
 configFile = LoadConfig()
 requete = configFile.requete
 ndf = configFile.ndf

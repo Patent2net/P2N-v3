@@ -1,6 +1,8 @@
-import requests
-import queue
 import json
+import queue
+
+import requests
+
 
 class EventListener:
 

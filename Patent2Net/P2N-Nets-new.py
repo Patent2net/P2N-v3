@@ -5,32 +5,22 @@ Created on Fri Jan 22 06:55:02 2021
 @author: david
 """
 
-
-
-import codecs
 import os
-import sys
-import shutil
 import pickle
+import sys
+
 import matplotlib.cm
-#from pymed import PubMed
-
-from Patent2Net.P2N_Lib import LoadBiblioFile,  UrlPatent,UrlApplicantBuild,UrlInventorBuild,UrlIPCRBuild, cmap_discretize, RenderTemplate
-from Patent2Net.P2N_Config import LoadConfig
-#from Patent2Net.P2N_Lib_Acad import IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
-from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct, CheckListInclu, CheckListMix, CheckListExclu, UnCheck, Check
-from fuzzywuzzy import fuzz
-
-
 import networkx as nx
-import matplotlib.pyplot as plt
-from networkx.readwrite import json_graph
 import pandas as pd
-import string
-import re
-import unidecode
-import pandas as pd
-import itertools
+
+from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import LoadBiblioFile, UrlPatent, UrlApplicantBuild, UrlInventorBuild, UrlIPCRBuild, \
+    cmap_discretize, RenderTemplate
+# from Patent2Net.P2N_Lib_Acad import IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
+from Patent2Net.P2N_Lib_Acad import NoPunct
+
+
+# from pymed import PubMed
 
 
 def swap(x,y):

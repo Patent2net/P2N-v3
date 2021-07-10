@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # (c) 2017-2018 The Patent2Net Developers
-import os
 import json
 import logging
+import os
 
-from Patent2Net.P2N_Lib import LoadBiblioFile, RenderTemplate, AnnonceProgres
 from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import LoadBiblioFile, RenderTemplate, AnnonceProgres
 from p2n.config import label_from_prefix
 from p2n.util import boot_logging, to_png
 

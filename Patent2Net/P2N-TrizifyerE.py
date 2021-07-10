@@ -6,50 +6,23 @@ Created on Fri Aug  9 14:01:22 2019
 @author: cherrabi
 """
 
-
-
-from P2N_Lib import GenereListeFichiers # import 
-from P2N_Config import LoadConfig #
-import os # importation de la bibliothèque os qui sert à 
-from textblob import TextBlob # importation de textblob outil liguistique 
-from nltk.corpus import stopwords
 import nltk
 from sematch.semantic.similarity import WordNetSimilarity
-from nltk.corpus import wordnet as wn
-import pandas as pd
-import re
-import shutil  
 import sys
-from nltk.corpus import stopwords
-import numpy as np
 import pandas as pd
 #import re 
 #import umap
-import matplotlib.pyplot as plt
 #import seaborn as sns
 #from nltk.corpus import stopwords
 #from sklearn.feature_extraction.text import TfidfVectorizer
-from nltk.tokenize import word_tokenize 
-from nltk.stem.wordnet import WordNetLemmatizer
-import string
-import gensim
-from gensim import corpora
-from gensim.corpora import Dictionary
-from sklearn.decomposition import TruncatedSVD
 import os
 import re
-import codecs 
-import logging
-import time
-from operator import add
-from textblob import TextBlob # importation de textblob outil liguistique 
 from nltk.corpus import stopwords
 from P2N_Lib import LoadBiblioFile
 from P2N_Lib import GenereListeFichiers
 from P2N_Config import LoadConfig
 from nltk.corpus import wordnet 
 import spacy
-import en_core_web_sm
 from itertools import product
 
 ListeBrevet = [] # The patent List

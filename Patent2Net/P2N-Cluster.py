@@ -8,31 +8,28 @@ Created on Sat Jul 08 16:24:35 2017
 
 
 
+import collections
 import os
 import sys
-import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.manifold import MDS
-from sklearn.cluster import KMeans
-from sklearn.metrics.pairwise import cosine_similarity
-from nltk.corpus import stopwords as nltkSW
-from Patent2Net.TAL_P2N_Lib import tokenize_only, tokenize_and_stem
-from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
-from Patent2Net.P2N_Config import LoadConfig
 
-import collections
+import joblib
 import matplotlib
 import matplotlib.pyplot as plt
-
 import mpld3
-from mpld3.utils import get_id
 import numpy as np
-import logging
-import joblib
-from optparse import OptionParser
+import pandas as pd
+from mpld3.utils import get_id
+from nltk.corpus import stopwords as nltkSW
+from sklearn.cluster import KMeans
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.manifold import MDS
+from sklearn.metrics.pairwise import cosine_similarity
 
+from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import LoadBiblioFile, AnnonceProgres
+from Patent2Net.TAL_P2N_Lib import tokenize_only
 
-num_clusters = 9 
+num_clusters = 9
 a = np.linspace(0, 1, num_clusters)
 def get_colors(inp, colormap, vmin=None, vmax=None):
     norm = plt.Normalize(vmin, vmax)

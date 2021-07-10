@@ -15,11 +15,13 @@ to gatter patent lists.
 gather the missing data (biblio, contents and famillies) and used with runP2Nsingle.bat
 @author: dreymond
 """
-from p2n.config import OPSCredentials
-from Patent2Net.P2N_Lib import PatentSearch
-import os
-import epo_ops
 import datetime
+import os
+
+import epo_ops
+
+from Patent2Net.P2N_Lib import PatentSearch
+from p2n.config import OPSCredentials
 
 today = datetime.datetime.today()
 

@@ -1,11 +1,11 @@
-from p2n.config import OPSCredentials
-from Patent2Net.P2N_Lib import PatentSearch
-from Patent2Net.P2N_Config import LoadConfig
-from Patent2Net.app.dex import set_data_to_be_found
 import os
+
 import epo_ops
-import datetime
-import sys
+
+from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import PatentSearch
+from Patent2Net.app.dex import set_data_to_be_found
+from p2n.config import OPSCredentials
 
 Months= {'jan':31, 'fev':29, 'mar':31, 'apr':30, 'may':31, 'jun':30, 'jui':31, 
         'aug':31, 'sep':30, 'octo':31, 'nov': 30, 'dec': 31}

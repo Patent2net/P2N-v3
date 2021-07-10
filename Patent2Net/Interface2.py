@@ -5,13 +5,13 @@ Created on Sun Feb 15 09:12:25 2015
 @author: dreymond
 """
 
-from Patent2Net.P2N_Lib import LoadBiblioFile, RenderTemplate
-from Patent2Net.P2N_Config import LoadConfig
-from Patent2Net.app.dex import set_done
-import codecs
-import os
-import pickle
 import datetime
+import os
+
+from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import LoadBiblioFile, RenderTemplate
+from Patent2Net.app.dex import set_done
+
 nbFam = 0
 
 configFile = LoadConfig()

@@ -5,31 +5,18 @@ Created on Sat Jun 29 07:41:54 2019
 @author: (c) 2020 The Patent2Net Developers
 """
 
-
-import codecs
 import os
-import sys
-import shutil
 import pickle
-
-from pymed import PubMed
-
-from Patent2Net.P2N_Lib import LoadBiblioFile
-from Patent2Net.P2N_Config import LoadConfig
-#from Patent2Net.P2N_Lib_Acad import IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
-from Patent2Net.P2N_Lib_Acad import  Nettoie, NoPunct, CheckListInclu, CheckListMix, CheckListExclu, UnCheck, Check
-from fuzzywuzzy import fuzz
-
+import shutil
+import sys
 
 import networkx as nx
-import matplotlib.pyplot as plt
-from networkx.readwrite import json_graph
-import pandas as pd
-import string
-import re
-import unidecode
 import pandas as pd
 
+from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.P2N_Lib import LoadBiblioFile
+# from Patent2Net.P2N_Lib_Acad import IPCCategorizer, IPCExtractPredictionBrevet,PubMedCheckNameAndGetAffiliation, OPSChercheAbstractBrevet
+from Patent2Net.P2N_Lib_Acad import NoPunct, Check
 
 # df = pd.read_csv('../Patent2Net/Resources/STANNorm.csv', dtype=str, sep=';', encoding='utf-8')
        

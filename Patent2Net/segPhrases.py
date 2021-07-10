@@ -1,15 +1,11 @@
-from gensim.models import Word2Vec
-from sklearn.decomposition import PCA
-from matplotlib import pyplot
 import os
-import re
-import logging
-import time
-from operator import add
-from textblob import TextBlob # importation de textblob outil liguistique 
-from nltk.corpus import stopwords
-from P2N_Lib import LoadBiblioFile, GenereListeFichiers
+
+from gensim.models import Word2Vec
+from textblob import TextBlob  # importation de textblob outil liguistique
+
 from P2N_Config import LoadConfig
+from P2N_Lib import LoadBiblioFile, GenereListeFichiers
+
 configFile = LoadConfig()
 import codecs
 requete = configFile.requete

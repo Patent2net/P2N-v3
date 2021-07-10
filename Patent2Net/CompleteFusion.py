@@ -7,11 +7,12 @@ This script pushes up to the patent bibliographic data and the contents
 @author: dreymond
 """
 
-import sys, os
+import os
 import pickle
+import sys
 from collections import OrderedDict as dict
-import epo_ops
 
+import epo_ops
 
 os.environ['REQUESTS_CA_BUNDLE'] = 'cacert.pem'
 global key

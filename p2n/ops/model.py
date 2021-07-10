@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 # (c) 2017 The Patent2Net Developers
-import attr
 import json
 import logging
 from collections import OrderedDict
+
+import attr
 from jsonpointer import JsonPointer, JsonPointerException
+
 from p2n.ops.decoder import OPSExchangeDocumentDecoder, OPSRegisterDocumentDecoder
 from p2n.util import to_list, exception_traceback
 

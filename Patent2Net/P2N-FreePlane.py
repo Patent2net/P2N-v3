@@ -8,10 +8,12 @@
 
 import os
 import shutil
-from Patent2Net.P2N_Lib import LoadBiblioFile
-from Patent2Net.P2N_FreePlaneLib import LoadDescs, nodecolor, Ipc1Text, CalcSizeIpc1
-from Patent2Net.P2N_FreePlaneLib import Ipc3Text, CalcSizeIpc3, Ipc4Text, CalcSizeIpc4, Ipc7Text, CalcSizeIpc7, CalcSizeIpc11, Ipc11Text
+
 from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.P2N_FreePlaneLib import Ipc3Text, CalcSizeIpc3, Ipc4Text, CalcSizeIpc4, Ipc7Text, CalcSizeIpc7, \
+    CalcSizeIpc11, Ipc11Text
+from Patent2Net.P2N_FreePlaneLib import LoadDescs, nodecolor, Ipc1Text, CalcSizeIpc1
+from Patent2Net.P2N_Lib import LoadBiblioFile
 
 DataBrevets1 = []
 

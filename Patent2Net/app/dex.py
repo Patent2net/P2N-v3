@@ -1,12 +1,13 @@
 import json
-import sys, os
-from Patent2Net.app.event import send_new_event 
-from Patent2Net.app.events.dex_change_event import DexChangeEvent
+import os
+
+from Patent2Net.app.event import send_new_event
 from Patent2Net.app.events.progress_value_change import ProgressValueChange
-from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
+from Patent2Net.app.events.split_end import SplitEnd
 from Patent2Net.app.events.split_result_added import SplitResultAdded
 from Patent2Net.app.events.split_start import SplitStart
-from Patent2Net.app.events.split_end import SplitEnd
+from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
+
 # ---------------------------- #
 # NEW DEX SYSTEME - 23/04/2021 #
 # ---------------------------- #

@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 # (c) 2017 The Patent2Net Developers
-import re
 import logging
 import operator
-from copy import deepcopy
+import re
 from collections import OrderedDict
+from copy import deepcopy
+
 from jsonpointer import JsonPointer, JsonPointerException
+
 from p2n.util import to_list
 
 logger = logging.getLogger(__name__)

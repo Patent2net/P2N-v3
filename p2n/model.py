@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # (c) 2017 The Patent2Net Developers
-import attr
 from collections import OrderedDict
+
+import attr
+
 from Patent2Net.P2N_Lib import NiceName
 from p2n.util import unique
 

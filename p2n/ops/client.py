@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 # (c) 2017 The Patent2Net Developers
 import logging
-import requests
+
 import epo_ops
+import requests
 from epo_ops.models import Epodoc
+
 from p2n.ops.model import OPSBiblioSearchResponse
 
 logger = logging.getLogger(__name__)

@@ -5,8 +5,8 @@ Created on Mon Nov 30 07:45:45 2015
 @author: dreymond
 """
 
-from multiprocessing import Process, Pool, Queue, Lock, JoinableQueue, freeze_support
 import os
+from multiprocessing import Pool, Lock, freeze_support
 
 RequeteFolder = "..\\REQUESTS"
 TempoFolderReq = "TEMPOREQ"
