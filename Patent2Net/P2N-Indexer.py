@@ -30,6 +30,8 @@ try:
     if os.getenv('DEBUG'):
         es = Elasticsearch(hosts=[{'host': "127.0.0.1", 'port': 9200}]) # this works only in debug mode
         # elastic is reach by docker inter dns name in the image as below
+    else:
+        es = Elasticsearch(hosts=[{'host': "elasticsearch", 'port': 9200}])
 except:
     es = Elasticsearch(hosts=[{'host': "elasticsearch", 'port': 9200}])
 
