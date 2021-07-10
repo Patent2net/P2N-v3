@@ -4,28 +4,36 @@ Created on Mon Jun 15 13:58:37 2020
 
 @author: Admin
 """
-import io
-# import time
-import json
 import os
-import pathlib
-import subprocess
-import threading
-import zipfile
-from subprocess import Popen
-
-# import glob
-from flask import Flask, render_template, request, send_file, Response, send_from_directory, redirect
+#import glob
+from flask import Flask, render_template, request, send_file, Response, send_from_directory, jsonify, redirect, url_for
 from flask_cors import CORS
 
-from Patent2Net.P2N_Config import LoadConfig
-from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_data_progress, get_data_progress, \
-    get_global_progress, set_state, get_state, get_directory_request_data_all, delete_data_to_be_found, \
-    get_data_to_be_found, set_data_spliter_start_date, delete_request
-from Patent2Net.app.event import EventListener
-from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
+#import time
+import json
+import zipfile
+import io
+import pathlib
+import queue
+#from urllib import parse
+import requests
+import asyncio
+import epo_ops
 
-# from urllib import parse
+from Patent2Net.app.dex import get_current_dex, read_dex, set_in_progress, set_done, set_data_progress, get_data_progress, get_global_progress, set_state, get_state, get_directory_request_data_all, delete_data_to_be_found, get_data_to_be_found, set_data_spliter_start_date, delete_data_spliter, delete_request
+from Patent2Net.app.events.progress_value_change import ProgressValueChange
+from Patent2Net.app.events.to_be_found_change import ToBeFoundChange
+from Patent2Net.app.events.split_end import SplitEnd
+from Patent2Net.app.event import EventListener
+from Patent2Net.P2N_Config import LoadConfig
+from Patent2Net.AutomRequestSpliterTime import autom_request_spliter_time
+from Patent2Net.P2N_Lib import PatentSearch
+from p2n.config import OPSCredentials
+import threading
+import subprocess
+from subprocess import Popen
+
+from p2n.util import run_script
 
 # static_folder call the emplacement of all the content who will work with the HTML. template_folder the emplacement of the HTML. \
 #    In theory they don't have to be at Root.
@@ -47,46 +55,16 @@ class Config:
 # Instantiate app_config
 app_cfg = Config
 
+import logging
+from logging.handlers import RotatingFileHandler
 from Patent2Net.app.message_announcer import MessageAnnouncer
 
 announcer = MessageAnnouncer()
 eventListener = EventListener()
 
-def format_sse(data: str, event=None) -> str:
-    """Formats a string and an event name in order to follow the event stream convention.
-
-    >>> format_sse(data=json.dumps({'abc': 123}), event='Jackson 5')
-    'event: Jackson 5\\ndata: {"abc": 123}\\n\\n'
-
-    """
-    msg = f'data: {data}\n\n'
-    if event is not None:
-        msg = f'event: {event}\n{msg}'
-    return msg
-
-
-# @app.route('/announcer')
-# def ping():
-#     Appli = request.args.get("appli")
-#     ValActu = request.args.get("ValActu")
-#     valMax = request.args.get("valMax")
-    
-#    #msg = format_sse(data=json.dumps({"0":ValActu, "1":valMax}), event =Appli )
-#     dico = dict()
-#     dico[Appli] = ValActu
-#     msg="data:" + json.dumps(dico) + "\n\n"
-#     announcer.announce(msg=msg)
-#     return {}, 200
-
-
-
-
-
-#messages = sseclient.SSEClient('http://localhost:30000/listen')
-
 """ P2N Docker App Version: """
 
-version = "0.5"
+version = "0.6"
 #list of application controled actually (approximativelly)
 
 lstAppl = ['cql-files', 'p2n_req','p2n_gather_biblio', "p2n_filtering", 'p2n_family','p2n_content',
@@ -120,13 +98,6 @@ labels = { 'p2n_req' : "Gathering patent list",
 #---------------------------------------
 # App Routes
 #---------------------------------------
-# @app.route('/home' , methods=['GET','POST'])
-# @app.route('/' , methods=['GET','POST'])
-# def home():
-#     return render_template("P2N.html" , num_bars = 1)
-
-
-
 
 @app.route('/progress' , methods=['GET','POST'])
 def progress():
@@ -137,12 +108,8 @@ def progress():
         app_cfg.num_bars = len(AppLab)
         return render_template('progress2.html', num_bars = app_cfg.num_bars, label = AppLab)
 
-#    return render_template("Patent2Net/templates/Request_Form/Progress.html" , num_bars = 1)
-
 
 #Single Request form
-
-# GET request : Affiche le formulaire de requete
 
 @app.route('/single_request' , methods=['GET','POST']) # ancienne url
 @app.route('/form' , methods=['GET','POST']) # ancienne url
@@ -213,23 +180,6 @@ def confirmation_post():
    
     return render_template('Request.html', num_bars = app_cfg.num_bars, label = AppLab)
 
-
-# @app.route('/requests', methods=['POST'])    
-# def post_request_test():
-#     form_result = request.form
-#     p2n_dir = form_result['p2n_dir']
-
-#     # NEW PROGRESS SYSTEME - 23/04/2021
-    
-#     labels_keys = labels.keys()
-#     active_labels_keys = [label_key for label_key in labels_keys if label_key not in ['p2n_dir', 'p2n_filtering', 'p2n_indexer'] and label_key in form_result and form_result [label_key]]
-
-#     start_progress(p2n_dir)
-
-#     for label_key in active_labels_keys:
-#         set_progress_key(p2n_dir, label_key, None, None)
-
-#     return redirect('requests/' + p2n_dir)
 
 #Single Request form confirmation route
 @app.route('/confirmation', methods=['GET'])
