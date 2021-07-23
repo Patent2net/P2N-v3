@@ -628,9 +628,9 @@ for prefix in prefixes:
             os.remove(ResultGephiPath+'/' +outputFileJS)
         if outputFile in os.listdir(ResultGephiPath+'/'):
             os.remove(ResultGephiPath+'/' +outputFile)
-        os.rename(ResultGephiPath+'/HackTestJS.gexf', ResultGephiPath+'/'+outputFileJS)
+       # os.rename(ResultGephiPath+'/HackTestJS.gexf', ResultGephiPath+'/'+outputFileJS)
         print("Network file writen in ",  ResultGephiPath+' directory.\n See file: '+outputFileJS)
-        os.rename(ResultGephiPath+'/HackTest.gexf', ResultGephiPath+'/'+outputFile)
+        #os.rename(ResultGephiPath+'/HackTest.gexf', ResultGephiPath+'/'+outputFile)
         print("Network file writen in ",  ResultGephiPath+' directory.\n See file: '+outputFile)
-        os.remove( ResultGephiPath+'/temp.gexf')
-        os.remove( ResultGephiPath+'/temp2.gexf')
+        #os.remove( ResultGephiPath+'/temp.gexf')
+        #os.remove( ResultGephiPath+'/temp2.gexf')
