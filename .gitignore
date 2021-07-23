@@ -125,3 +125,4 @@ venv.bak/
 
 *.ps1
 DetectLanguageAPI.txt
+*.py~
