@@ -20,9 +20,6 @@ from Patent2Net.P2N_Lib import LoadBiblioFile, UrlPatent, UrlApplicantBuild, Url
 from Patent2Net.P2N_Lib_Acad import NoPunct
 
 
-# from pymed import PubMed
-
-
 def swap(x,y):
   return y,x 
 
@@ -44,33 +41,12 @@ def cycle (liste):
 Exclus = ['', ' ', 'empty', None, "none"]
 #####
 
-# CHARGEMENT DU DICO ENTITES PUBLIQUES
-##############
-
-
-# xlsx = pd.ExcelFile('./Resources/EntitésPubliquesNORM4.xlsx')
-# Public = []
-# TypeAppl = dict()
-# df = pd.read_csv('../Patent2Net/Resources/STANNorm.csv', dtype=str, sep=';', encoding='utf-8')
-
-
-# for sheet in xlsx.sheet_names:
-#    dicotemp = xlsx.parse(sheet).to_dict(orient='list')
-   
-#    for cle, val in dicotemp.items():
-#         tempoRes = []
-#         for appli in val:
-#             sav = appli
-#             tempoRes.append(appli)
-#         TypeAppl [cle] = tempoRes
-#         Public.extend(tempoRes)
 
 # =============================================================================
 # 
 # # CHARGEMENT des données brevet
 # 
-# 
-# =============================================================================
+# # =============================================================================
 
 configFile = LoadConfig()
 # Les champs nécessaires par brevet.
