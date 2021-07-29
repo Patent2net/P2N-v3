@@ -19,7 +19,7 @@ from networkx.readwrite import json_graph
 from operator import itemgetter
 import json 
 import sys
-import community   # get this lib from http://perso.crans.org/aynaud/communities/
+# import community   # get this lib from http://perso.crans.org/aynaud/communities/
 # import matplotlib.pyplot as plt  -- only needed for a single graph below in draw_partition
 
 
