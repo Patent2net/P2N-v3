@@ -624,10 +624,10 @@ for prefix in prefixes:
                 ResultGephiPath + '/'+outputFile.replace('.gexf','') +'Conf.js',
                 FicRezo=outputFile,
             )
-        if outputFileJS in os.listdir(ResultGephiPath+'/'):
-            os.remove(ResultGephiPath+'/' +outputFileJS)
-        if outputFile in os.listdir(ResultGephiPath+'/'):
-            os.remove(ResultGephiPath+'/' +outputFile)
+        # if outputFileJS in os.listdir(ResultGephiPath+'/'):
+        #     os.remove(ResultGephiPath+'/' +outputFileJS)
+        # if outputFile in os.listdir(ResultGephiPath+'/'):
+        #     os.remove(ResultGephiPath+'/' +outputFile)
        # os.rename(ResultGephiPath+'/HackTestJS.gexf', ResultGephiPath+'/'+outputFileJS)
         print("Network file writen in ",  ResultGephiPath+' directory.\n See file: '+outputFileJS)
         #os.rename(ResultGephiPath+'/HackTest.gexf', ResultGephiPath+'/'+outputFile)
