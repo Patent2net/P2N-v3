@@ -57,7 +57,7 @@ def main():
     dateDeb = get_data_spliter_start_date(directory)
 
     if dateDeb == None:
-        dateDeb=1800 #print("Vous devez préciser la date de début pour découper la requete")
+        dateDeb=1900 #print("Vous devez préciser la date de début pour découper la requete")
         # return None
 
     targetDirectory = REQUEST_AUTO_FOLDER + directory

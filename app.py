@@ -287,7 +287,7 @@ def process_single(p2n_dir, config):
 
     set_in_progress(p2n_dir)
     set_state(p2n_dir, "P2N_RUN")
-    p = Popen(['p2n', 'run', config])
+    p = Popen(['p2n', 'run', config], close_fds = False)
     
 def process_multi(p2n_dir, target_path):
     print("PROGRESS MULTI: " + p2n_dir)
@@ -295,7 +295,7 @@ def process_multi(p2n_dir, target_path):
     set_in_progress(p2n_dir)
     set_state(p2n_dir, "SPLITER_RUN")
     delete_data_to_be_found(p2n_dir)
-    p = Popen(['python', 'Patent2Net/scripts/update_to_be_found.py', target_path])
+    p = Popen(['python', 'Patent2Net/scripts/update_to_be_found.py', target_path], close_fds = False)
 
 
 
@@ -342,7 +342,7 @@ def split_request(p2n_dir):
     if to_be_found["need_spliter"]:
         set_data_spliter_start_date(p2n_dir, int(date))
 
-        Popen(['python', 'Patent2Net/scripts/start_auto.py', target_path])
+        Popen(['python', 'Patent2Net/scripts/start_auto.py', target_path], close_fds = False)
 
         return get_success_response("Spliter running", {})
 
