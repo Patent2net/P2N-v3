@@ -44,21 +44,21 @@ def main():
     to_be_found = get_data_to_be_found(directory)
 
     if to_be_found == None:
-        print("Vous devez d'abord verifier si la requete doit être découpé")
+        print("Vous devez d'abord verifier si la requete doit être découpée")
         return None
 
     need_spliter = to_be_found["need_spliter"]
     lstFicOk = to_be_found["lstFicOk"]
 
     if need_spliter != True:
-        print("Cette requete n'a pas besoin d'etre découpé")
+        print("Cette requete n'a pas besoin d'être découpée")
         return None
     
     dateDeb = get_data_spliter_start_date(directory)
 
     if dateDeb == None:
-        print("Vous devez préciser la date de début pour découper la requete")
-        return None
+        dateDeb=1800 #print("Vous devez préciser la date de début pour découper la requete")
+        # return None
 
     targetDirectory = REQUEST_AUTO_FOLDER + directory
     if not os.path.exists(targetDirectory):
