@@ -95,6 +95,11 @@ try:
 except:
     lstDesc, lstDesc2 = [], []
 cpt = 0
+def iramCleaner (texte):
+    if '****' in texte:
+        texte = texte.split("\n")
+        texte ="\n".join(texte[1:])
+    return texte
 for bre in LstBrevet:  # get patent list from request file
     cpt += 1
     if bre['label'] in lstAbs or bre[
@@ -121,6 +126,7 @@ for bre in LstBrevet:  # get patent list from request file
             abstract = ''
     else:
         abstract = ''
+
     if bre['label'] in lstClaims or bre['label'] in lstClaims2:  # if Claims file exists
         # fic = [truc for truc in  os.listdir(Rep+'//Claims') if truc.split('-')[1].replace('.txt', '') == bre ['label']]
         fic = []
@@ -172,7 +178,16 @@ for bre in LstBrevet:  # get patent list from request file
             Description = ''
     else:
         Description = ''
-
+        # cleaning IramuTeq stuff
+    if '****' in abstract:
+        abstract = abstract.split("\n")
+        abstract ="\n".join(abstract[1:])
+    if '****' in Description:
+        Description = Description.split("\n")
+        Description ="\n".join(Description[1:])
+    if '****' in Claims:
+        Claims = Claims.split("\n")
+        Claims ="\n".join(Claims[1:])
     doc = {  # indexing a doc field:content
         # hacks should provide other views: citation equivalents or CIB counts... ?
         # I don't know how to do such for the moment
@@ -343,7 +358,10 @@ for bre in LstBrevet:
         cpt[indexLang.split('-')[0]] += 1
     else:
         cpt[indexLang.split('-')[0]] = 1
-
+    
+    for cle in doc.keys():
+        if "****" in doc [cle]:
+            doc [cle] = iramCleaner(doc [cle])
     res = es.index(index=indexLang.lower(), id=cpt[indexLang.split('-')[0]], body=doc)
 
 for lang in cpt.keys():
