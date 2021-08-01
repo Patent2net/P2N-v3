@@ -1,12 +1,14 @@
 import ProgressBar from "../../../components/ProgressBar";
 
+
+
 const Progress = ({ data }) => (
     <div className="mt-4 p-4 border border-gray-200 rounded">
         <div className="flex flex-row justify-between items-center">
             <p className="font-semibold mr-3">
-                { (!data.progress && !data.done) && "La requete va bientôt se lancer" }
-                { (data.progress && !data.done) && "La requete est en cours" }
-                { (data.done) && "La requete est terminé" }
+                { (!data.progress && !data.done) && "Request is starting" }
+                { (data.progress && !data.done) && "Request is running" }
+                { (data.done) && "Request done" }
             </p>
             { !data.done && (
                 <svg className="animate-spin -ml-1 h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

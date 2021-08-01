@@ -16,7 +16,7 @@ const all_options = {
   },
   "p2n_network": {
     name: "p2n networks",
-    description: "Build various artefacts for data exploration based on network graphs",
+    description: "Build graphs",
     icon: "network"
   },
   "p2n_freeplane": {
@@ -36,22 +36,22 @@ const all_options = {
   },
   "p2n_tables": {
     name: "p2n tables",
-    description: "Export various artefacts for tabular data exploration",
+    description: "Export data for DataTable exploration",
     icon: "table"
   },
   "p2n_carrot": {
     name: "p2n carrot",
-    description: "Export data to XML suitable for using in Carro",
+    description: "Export data to XML suitable for using in Carrot2. Tip use localhost:8080 instead.",
     icon: "carrot"
   },
   "p2n_iramuteq": {
     name: "p2n iramuteq",
-    description: "Fetch more data and export it to suitable format for using in Iramuteq",
+    description: "Fetch content data and export to Iramuteq format",
     icon: "chart-pie"
   },
   "p2n_cluster": {
     name: "p2n cluster",
-    description: "Double clustering system based on non so trivial words",
+    description: "Double clustering system based on non so trivial words (beta)",
     icon: "cluster"
   },
 }
@@ -127,7 +127,7 @@ function App() {
       <div className="col-start-1 bg-white p-8 rounded shadow">
         
         <div className="mb-6 flex flex-col">
-          <h3 className="text-lg mb-2 font-bold">Requêtes précédentes</h3>
+          <h3 className="text-lg mb-2 font-bold">Request processed</h3>
 
           { requests.done && requests.done.map((name) => (
             <Link to={"/app/requests/" + name } key={name}>{name}</Link>
@@ -145,7 +145,7 @@ function App() {
         <hr class="mb-3"/>
 
         <div class="mb-6 flex flex-col">
-          <h3 className="text-lg mb-2 font-bold">Requêtes en cours</h3>
+          <h3 className="text-lg mb-2 font-bold">Requests running</h3>
           <div className="">
             <div className="relative pt-1">
               { requests.in_progress && requests.in_progress.map((name) => (
@@ -188,7 +188,7 @@ function App() {
           <form onSubmit={onSubmit}>
             <div>
               <label className="font-semibold">Request in CQL format * :</label>
-              <p className="pt-2 pb-2 text-sm italic text-gray-800">Enter in the textbox a valid espacenet smart search query for your patent research.</p>
+              <p className="pt-2 pb-2 text-sm italic text-gray-800">Enter in the textbox a valid espacenet cql search query for your patent research.</p>
             </div>
             <div className="mb-2">
               <input

@@ -3,9 +3,9 @@ const ProcessList = ({ process_list, hide_result }) => (
     <div className="mt-4 p-4 border border-gray-200 rounded">
         <div className="flex flex-row justify-between items-center">
             <p className="font-semibold mr-3">
-                { (!process_list.start && !process_list.end) && "La récuperation des données va commencer" }
-                { (process_list.start && !process_list.end) && "Les données sont en cours de récupération" }
-                { (process_list.end) && "La récupération des données est terminé" }
+                { (!process_list.start && !process_list.end) && "Gathering will start soon" }
+                { (process_list.start && !process_list.end) && "Gatherers are running" }
+                { (process_list.end) && "Process is finished" }
             </p>
             { !process_list.end && (
                 <svg className="animate-spin -ml-1 h-5 w-5 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
