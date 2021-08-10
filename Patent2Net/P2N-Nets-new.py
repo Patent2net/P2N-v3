@@ -38,7 +38,7 @@ def cycle (liste):
         return tempo
 
 # les trucs à virer des différents champs
-Exclus = ['', ' ', 'empty', None, "none"]
+Exclus = ['', ' ', 'empty', None, "none", "EMPTY"]
 #####
 
 
@@ -202,7 +202,7 @@ for ndf in [projectName,  "Families"+ projectName]:
             df.at [bre.Index, 'applicant' ] = tempoappl
         
         for appl in bre.applicant:
-            if appl not in bre.inventor:
+            if appl not in bre.inventor and appl not in Exclus:
                 Applicants. add(appl.upper())
         
         # special clean qu'on sait pas d'où çà sort        
@@ -397,30 +397,29 @@ for ndf in [projectName,  "Families"+ projectName]:
 
                 
         for truc in bre.applicant:
-            Applicants. add(truc)
-            if len(bre .IPCR11 )>0:
-                Techno[truc] =  [cib for cib in bre .IPCR11] 
-            elif len(bre .IPCR7 )>0:
-                Techno[truc] =  [cib for cib in bre .IPCR7]
-            elif len(bre .IPCR4 )>0:
-                Techno[truc] =  [cib for cib in bre .IPCR4]
-            elif len(bre .IPCR1 )>0:
-                Techno[truc] =  [cib for cib in bre .IPCR1]
-            else:
-                Techno[truc] = []
+                Applicants. add(truc)
+                if len(bre .IPCR11 )>0:
+                    Techno[truc] =  [cib for cib in bre .IPCR11]
+                elif len(bre .IPCR7 )>0:
+                    Techno[truc] =  [cib for cib in bre .IPCR7]
+                elif len(bre .IPCR4 )>0:
+                    Techno[truc] =  [cib for cib in bre .IPCR4]
+                elif len(bre .IPCR1 )>0:
+                    Techno[truc] =  [cib for cib in bre .IPCR1]
+                else:
+                    Techno[truc] = []
         for truc in bre .inventor:
-            
-            Inventeurs.add(truc)
-            if len(bre .IPCR11 )>0:
-                Techno[truc] =  [cib for cib in bre .IPCR11] 
-            elif len(bre .IPCR7 )>0:
-                Techno[truc] =  [cib for cib in bre .IPCR7]
-            elif len(bre .IPCR4 )>0:
-                Techno[truc] =  [cib for cib in bre .IPCR4]
-            elif len(bre .IPCR1 )>0:
-                Techno[truc] =  [cib for cib in bre .IPCR1]
-            else:
-                Techno[truc] = []
+                Inventeurs.add(truc)
+                if len(bre .IPCR11 )>0:
+                    Techno[truc] =  [cib for cib in bre .IPCR11]
+                elif len(bre .IPCR7 )>0:
+                    Techno[truc] =  [cib for cib in bre .IPCR7]
+                elif len(bre .IPCR4 )>0:
+                    Techno[truc] =  [cib for cib in bre .IPCR4]
+                elif len(bre .IPCR1 )>0:
+                    Techno[truc] =  [cib for cib in bre .IPCR1]
+                else:
+                    Techno[truc] = []
                 
                 
         dicoAttrs [bre.label] = {'Famille': sum( [bre.label in truc for truc in df_Fam ['equivalents']]),
