@@ -120,7 +120,7 @@ if ndf in os.listdir(ResultListPath):
         if GatherPatent:  # Patent List to build from request. 
             if DataBrevets['requete'] != requete:
                 AnnonceLog(Appli = 'p2n_req', texte=  'Gather patent' +" Datadirectory exists. Deleting it.")
-
+                AnnonceProgres(Appli='p2n_req', valMax=100, valActu=0)
                 print("care of using on file for one request, deleting this one.")
                 input('sure? Unlee use ^C ( CTRL+C)')
             lstBrevets2, nbTrouves = PatentSearch(ops_client, requete)
@@ -149,7 +149,7 @@ if ndf in os.listdir(ResultListPath):
                 ficOk = False
                 print(nbTrouves, " patents corresponding to the request.")
                 AnnonceLog(Appli = 'p2n_req', texte=  str(nbTrouves) + "  patents corresponding to the request.  Retreiving associated bibliographic data")
-                AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu = 100)
+                AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu = 0)
                 print(len(lstBrevets), ' in file corresponding to the request. Retreiving associated bibliographic data')
         else:
             AnnonceProgres (Appli = 'p2n_req', valMax = 100, valActu =100)
