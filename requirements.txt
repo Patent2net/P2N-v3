@@ -28,11 +28,14 @@ mpld3
 python-epo-ops-client
 sklearn
 where
-fuzzywuzzy
 Flask
 flask_cors
 Sphinx
 sphinx_rtd_theme
 elasticsearch
 hotreload
+pygraphviz
+python-Levenshtein
+fuzzywuzzy
+detectlanguage
 
