@@ -19,6 +19,7 @@ requires = [ #I had to comment here to use conda installation instead of pip
 #    'python-louvain',
 #    'jinja2',
 #    'lxml',
+    'sphinx-jsonschema'
     'docopt',
     'jsonpointer',
     'attrs',
