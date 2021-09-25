@@ -348,6 +348,19 @@ def split_request(p2n_dir):
 
     return get_error_response("Spliter not needed for this directory")
 
+@app.route('/api/v1/requests/<p2n_dir>/update', methods=['POST'])
+def update_request(p2n_dir):
+    print(p2n_dir)
+    os.chdir("/home/p2n/P2N-V3/")
+
+
+    command="p2n run --config=../RequestsSets/%s"%(p2n_dir) + ".cql"
+    os.system(command)
+
+    return get_success_response("OK", {
+        "directory": p2n_dir
+    })
+
 @app.route('/api/v1/requests/<p2n_dir>/interface', methods=['POST'])
 def update_one_request_interface(p2n_dir):
     print(p2n_dir)
