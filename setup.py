@@ -20,7 +20,7 @@ requires = [ #I had to comment here to use conda installation instead of pip
 #    'jinja2',
 #    'lxml',
     'sphinx-jsonschema',
-    'sphinxcontrib-httpdomain'
+    'sphinxcontrib-httpdomain',
     'docopt',
     'jsonpointer',
     'attrs',
