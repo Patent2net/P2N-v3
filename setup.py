@@ -21,6 +21,7 @@ requires = [ #I had to comment here to use conda installation instead of pip
 #    'lxml',
     'sphinx-jsonschema',
     'sphinxcontrib-httpdomain',
+    'sphinxcontrib.httpexample',
     'docopt',
     'jsonpointer',
     'attrs',
