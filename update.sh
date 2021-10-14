@@ -10,4 +10,6 @@ chmod +x update.sh
 chmod +x run-all.sh
 cp -f dex.sav dex.js
 rm dex.sav
+cp Patent2Net/Carrot2/main.4974e0c5.chunk.js /home/p2n/carrot2/carrot2-4.2.1/dcs/web/frontend/static/js
+
 

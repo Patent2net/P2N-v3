@@ -41,7 +41,8 @@ if 'Description' + ndf in os.listdir(
     DataBrevet = LoadBiblioFile(Bib, ndf)
     LstBrevet = DataBrevet['brevets']
 elif 'Description' + ndf.title() in os.listdir(
-        Bib):  # NEW 12/12/15 new gatherer append data to pickle file in order to consume less memory
+        Bib):  # NEW 12/12/15 new gatherer append da
+    # ta to pickle file in order to consume less memory
     DataBrevet = LoadBiblioFile(Bib, ndf.title())
     LstBrevet = DataBrevet['brevets']
 else:  # Retrocompatibility
