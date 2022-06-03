@@ -257,7 +257,7 @@ for ndf in [projectName,  "Families"+ projectName]:
             for inv in bre.IPCR7:
                 if ''.join(inv).strip().lower() != 'empty':
                     if inv.strip() not in Exclus:
-                        tempoinv.append(inv.upper())
+                        tempoinv.append(inv.upper().strip())
             df.at [bre.Index, 'IPCR7' ] = tempoinv
         
         if not isinstance(bre.IPCR4, list):
@@ -367,7 +367,7 @@ for ndf in [projectName,  "Families"+ projectName]:
                 df.at [bre.Index, 'IPCR7'] = list(set(tempoIpc7 + bre.IPCR7))
                 df.at [bre.Index, 'IPCR4'] = list(set(tempoIpc4 + bre.IPCR4))
                 df.at [bre.Index, 'IPCR3'] = list(set(tempoIpc3 + bre.IPCR3))
-                df.at [bre.Index, 'IPCR1'] = list(set(tempoIpc7 + bre.IPCR1))
+                df.at [bre.Index, 'IPCR1'] = list(set(tempoIpc1 + bre.IPCR1))
         elif len(bre.IPCR7)>0:
             for ipc in bre.IPCR7:
                 tempoIpc3 .append(ipc[0:3])
@@ -375,20 +375,20 @@ for ndf in [projectName,  "Families"+ projectName]:
                 tempoIpc1 .append(ipc[0:1])
                 df.at [bre.Index, 'IPCR3'] = list(set(tempoIpc3 + bre.IPCR3))                
                 df.at [bre.Index, 'IPCR4'] = list(set(tempoIpc4 + bre.IPCR4))
-                df.at [bre.Index, 'IPCR1'] = list(set(tempoIpc7 + bre.IPCR1))
+                df.at [bre.Index, 'IPCR1'] = list(set(tempoIpc1 + bre.IPCR1))
         elif len(bre.IPCR4)>0:
             for ipc in bre.IPCR4:
                 tempoIpc3 .append(ipc[0:3])
                 tempoIpc1 .append(ipc[0:1])
 
                 df.at [bre.Index, 'IPCR3'] = list(set(tempoIpc3 + bre.IPCR3))
-                df.at [bre.Index, 'IPCR1'] = list(set(tempoIpc7 + bre.IPCR1))
+                df.at [bre.Index, 'IPCR1'] = list(set(tempoIpc1 + bre.IPCR1))
         elif  len(bre.IPCR3)>0:
             for ipc in bre.IPCR3:
 
                 tempoIpc1 .append(ipc[0:1])
 
-                df.at [bre.Index, 'IPCR1'] = list(set(tempoIpc7 + bre.IPCR1))
+                df.at [bre.Index, 'IPCR1'] = list(set(tempoIpc1 + bre.IPCR1))
         else:
             pass
             # can't do better
@@ -615,7 +615,7 @@ for ndf in [projectName,  "Families"+ projectName]:
     Networks = dict()
     #next lines are here to avoid the changing scheme lecture of requete.cql
     
-    Networks["_CountryCrossTech"] =  [configFile.CountryCrossTechNetwork, [ 'IPCR7', "country"]] # not finished yet
+    Networks["_CountryCrossTech"] =  [configFile.CountryCrossTechNetwork, ['IPCR7', "country"]] # not finished yet
     Networks["_CrossTech"] =  [configFile.CrossTechNetwork, ['label','IPCR7','IPCR1', 'IPCR4', 'IPCR11']] # GraphTechnos
     Networks["_Inventors_CrossTech"] =  [configFile.InventorCrossTechNetwork, ['IPCR11','IPCR7','IPCR4','IPCR1',"Inventor"]]#, 'AutFr', 'AutEtr', 'PasSurPubMed']] # GraphTechnosAuthor
     Networks["_Applicants_CrossTech"] =  [configFile.ApplicantCrossTechNetwork, ['IPCR11','IPCR7','IPCR4','IPCR1', "Applicant"]] #, "Public", "Private"]] # GraphTechnosAppli
@@ -637,17 +637,29 @@ for ndf in [projectName,  "Families"+ projectName]:
     GraphTechnos = nx.DiGraph() # IPC graphs
     GraphTechnosAppli = nx.DiGraph() # IPC graphs
     GraphTechnosAuthor = nx.DiGraph() # IPC graphs
-    
+    GraphTechnosCountry = nx.DiGraph()  # IPC graphs
     # TypeBre = dict()
-    
+    dicoAttrsTechnoCountry = dict()
+
     for bre in df.itertuples():
-    
-    
+        if not isinstance(bre.country, list):
+            bre.country = [bre.country]
+
+        for country in bre.country:
+            if len(country) > 0 and bool(country.strip()):
+                if country in dicoAttrsTechnoCountry.keys():
+                    dicoAttrsTechnoCountry [country]['size'] +=1
+                else:
+                    dicoAttrsTechnoCountry[country] =dict()
+                    dicoAttrsTechnoCountry[country]['size']= 1
+                    dicoAttrsTechnoCountry[country]['category'] = 'country'
+                GraphTechnosCountry.add_node(country)
         GraphBrevets.add_node(bre .label)
         # followind are added if citation or ref or equivalents exists for curent node
         # GraphBrevetsReferences.add_node(bre .label)
         # GraphBrevetsEquivalents.add_node(bre .label)
         GraphTechnos .add_node(bre .label)
+
         count =0
         for lab in bre.CitedBy:
             
@@ -698,13 +710,19 @@ for ndf in [projectName,  "Families"+ projectName]:
 
         for ipc in joliTecno:
             if bool(ipc.strip()):
-                GraphTechnos .add_edge(bre .label,ipc) 
+                GraphTechnos .add_edge(bre .label,ipc)
+                compteur=0
                 for ipcUp in bre.IPCR7:
                     
                     if ipc.startswith (ipcUp) and  bool(ipcUp.strip()):
                         GraphTechnos .add_edge(ipcUp, ipc)
                         GraphTechnosAppli .add_edge(ipcUp, ipc)
-                        GraphTechnosAuthor .add_edge(ipcUp, ipc)        
+                        GraphTechnosAuthor .add_edge(ipcUp, ipc)
+                        for country in bre.country:
+                            if len(country) >0 and bool(country.strip()):
+                                GraphTechnosCountry.add_edge(country, ipcUp)
+
+
         #for ipc in bre.IPCR7:
              #   if bool(ipc.strip()):
                     for ipcUpUp in bre.IPCR4:
@@ -724,7 +742,10 @@ for ndf in [projectName,  "Families"+ projectName]:
                                         
         if len(joliTecno) ==0  or sum([bool(ipc.strip()) for ipc in joliTecno])==0:
             for ipcUp in bre.IPCR7:
-                    GraphTechnos .add_edge(bre .label,ipcUp)  
+                    GraphTechnos .add_edge(bre .label,ipcUp)
+                    for country in bre.country:
+                        if len(country) > 0 and bool(country.strip()):
+                            GraphTechnosCountry.add_edge(country, ipcUp)
                     # if bool(ipcUp.strip()):
                     #     GraphTechnos .add_edge(ipcUp, ipc)
                     #     GraphTechnosAppli .add_edge(ipcUp, ipc)
@@ -752,6 +773,9 @@ for ndf in [projectName,  "Families"+ projectName]:
                                         GraphTechnos .add_edge(ipcUpUpUp, ipcUpUp)
                                         GraphTechnosAppli .add_edge(ipcUpUpUp, ipcUpUp)
                                         GraphTechnosAuthor .add_edge(ipcUpUpUp, ipcUpUp)
+                                        for country in bre.country:
+                                            if len(country) > 0 and bool(country.strip()):
+                                                GraphTechnosCountry.add_edge(country, ipcUpUp)
 
         if len(joliTecno) ==0 and len(bre.IPCR7) == 0 and len(bre.IPCR4) == 0 or sum([bool(ipc.strip()) for ipc in bre.IPCR4] )==0:
             for ipcUpUp in bre.IPCR3:
@@ -761,7 +785,9 @@ for ndf in [projectName,  "Families"+ projectName]:
                                         GraphTechnos .add_edge(ipcUpUpUp, ipcUpUp)
                                         GraphTechnosAppli .add_edge(ipcUpUpUp, ipcUpUp)
                                         GraphTechnosAuthor .add_edge(ipcUpUpUp, ipcUpUp)
-
+                                        for country in bre.country:
+                                            if len(country) > 0 and bool(country.strip()):
+                                                GraphTechnosCountry.add_edge(country, ipcUpUp)
 
         # for ipc in bre.IPCR1 + bre.IPCR4 + bre.IPCR7 + joliTecno:
         #     if bool(ipc.strip()):
@@ -976,6 +1002,8 @@ for ndf in [projectName,  "Families"+ projectName]:
     nx.set_node_attributes(GraphTechnos, dicoAttrsTechno) # IPC graphs
     nx.set_node_attributes(GraphTechnosAppli, dicoAttrsTechno)
     nx.set_node_attributes(GraphTechnosAppli, dicoAttrsAppli)
+    nx.set_node_attributes(GraphTechnosCountry, dicoAttrsTechno)
+    nx.set_node_attributes(GraphTechnosCountry, dicoAttrsTechnoCountry)
     nx.set_node_attributes( GraphTechnosAuthor, dicoAttrsTechno)
     nx.set_node_attributes( GraphTechnosAuthor, dicoAttrsAut)
     nx.set_node_attributes(GraphBrevets,dicoAttrs)
@@ -1025,6 +1053,8 @@ for ndf in [projectName,  "Families"+ projectName]:
               (GraphTechnos,  "_CrossTech"),
               (GraphTechnosAppli, "_Applicants_CrossTech"),
               (GraphTechnosAuthor, "_Inventors_CrossTech"),
+              (GraphTechnosCountry, "_CountryCrossTech")
+
            #   (GraphFull, "_Full")  
               ]:
         if len(G) == 0:
@@ -1121,7 +1151,13 @@ for ndf in [projectName,  "Families"+ projectName]:
                 Visu['color']['b']= int(127)
                 Visu['shape'] ="square"
                 G.nodes[k]['url'] =UrlPatent(k)[0]
-    
+            elif G.nodes[k]['category'] == 'country':
+                Visu['color']['a'] = 1
+                Visu['color']['r']= int(0)
+                Visu['color']['g']= int(63)
+                Visu['color']['b']= int(63)
+                Visu['shape'] ="square"
+                G.nodes[k]['url'] =UrlPatent(k)[0]
             elif G.nodes[k]['category'] == "equivalents":
                 Visu['color']['a'] = 1
                 Visu['color']['r']= int(127)
@@ -1208,7 +1244,10 @@ for ndf in [projectName,  "Families"+ projectName]:
             #     count = mixNet.index(categ)
             # else:
             #     count = mixNet.index(G.node[k]['category'])
-            count = Networks [network][1].index(G.nodes[k]['category'])
+            if G.nodes[k]['category'] in Networks [network][1]:
+                count = Networks [network][1].index(G.nodes[k]['category'])
+            else:
+                count = 0
             Visu['position']= {'x':(int(pos[k][0]*factx)+posx), 'y':(int(pos[k][1]*facty)+posy), 'z':0.0}
             # Visu['size'] = np.log(int(G.node[k]["weight"])+1)+4#
             Visu['color']['a']= count

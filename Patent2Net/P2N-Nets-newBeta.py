@@ -163,12 +163,14 @@ for ndf in PU:
            dataf.at [bre.Index, 'label' ] = bre.label [0]
 
         else:
-           pass
+            # ? dataf.at[bre.Index, 'label'] = [bre.label]
+            pass
         if not isinstance(bre.Citations, str) and not isinstance(bre.Citations, int):
            dataf.at [bre.Index, 'Citations' ] = bre.Citations [0]
 
         else:
-           pass   
+            # ? dataf.at[bre.Index, 'Citations'] = [bre.Citations]
+            pass
         if not isinstance(bre.applicant, list):
             if len(bre .applicant.strip())>0 :
                 dataf.at [bre.Index, 'applicant' ] = [bre .applicant]
@@ -182,6 +184,10 @@ for ndf in PU:
            dataf.at [bre.Index, 'inventor' ] = [bre.inventor]
         else:
            dataf.at [bre.Index, 'inventor' ] = list(set([inf for inf in bre.inventor if inf.lower() not in ['empty', '', 'none', ' ']]))
+        if not isinstance(bre.country, list):
+           dataf.at [bre.Index, 'country' ] = [bre.country]
+        else:
+           dataf.at [bre.Index, 'country' ] = list(set([inf for inf in bre.country if inf.lower() not in ['empty', '', 'none', ' ']]))
         if not isinstance(bre.IPCR1, list):
             if bre.IPCR1 not in ['empty', '', 'none', ' ']:
                 dataf.at [bre.Index, 'IPCR1' ] = [bre.IPCR1]
@@ -310,6 +316,15 @@ for ndf in PU:
                                     "category" : 'label'
                                     #'NbBrevets' : 1
                                     }
+        for country in bre.country:
+            if len(country) > 0 and country not in dicoAttrsTechno.keys():
+                dicoAttrsTechno[country] = { "category": 'country',
+                                              'size' : 1
+                                    }
+            elif len(country) > 0 and country in dicoAttrsTechno.keys():
+                dicoAttrsTechno[country] ['size'] += 1
+            else:
+                print ("shouldn't be there", country)
         for lab in bre.CitP:
             dicoAttrsCitP [lab] = {"category" : 'CitP'
                 }
@@ -375,12 +390,10 @@ for ndf in PU:
     GraphTechnos = nx.DiGraph() # IPC graphs
     GraphTechnosAppli = nx.DiGraph() # IPC graphs
     GraphTechnosAuthor = nx.DiGraph() # IPC graphs
-    
+    GraphTechnosCountry = nx.DiGraph()  # IPC graphs
     # TypeBre = dict()
-
+    #CountryCount = []
     for bre in dataf.itertuples():
-
-
         GraphBrevets.add_node(bre .label)
         GraphBrevetsCitations.add_node(bre .label)
         GraphBrevetsReferences.add_node(bre .label)
@@ -390,11 +403,12 @@ for ndf in PU:
             if len(lab)>0 and bool(lab.strip()):
                 GraphBrevetsCitations.add_node(lab)
                 GraphBrevetsCitations.add_edge(lab, bre.label)
-        
-                
+        for country in bre.country:
+            if len(country) >0:
+                GraphTechnosCountry .add_node(country)
+            #CountryCount .append(country)
         for lab in bre.CitP:
             if len(lab)>0 and bool(lab.strip()):
-            
                 GraphBrevetsReferences.add_node(lab)
                 GraphBrevetsReferences.add_edge(bre.label, lab)
         for lab in bre.CitO:
@@ -418,15 +432,20 @@ for ndf in PU:
                 GraphTechnos .add_node(ipc)
                 GraphTechnosAppli.add_node(ipc)
                 GraphTechnosAuthor.add_node(ipc)
+
+
         for ipc in joliTecno:
             if bool(ipc.strip()):
                 for ipcUp in bre.IPCR7:
                     
                     if ipc.startswith (ipcUp) and  bool(ipcUp.strip()):
                         GraphTechnos .add_edge(ipcUp, ipc)
-            
+
         for ipc in bre.IPCR7:
             if bool(ipc.strip()):
+                for country in bre.country:
+                    if len(country) >0:
+                        GraphTechnosCountry.add_edge(country, ipc)
                 for ipcUp in bre.IPCR4:
                     if ipc.startswith (ipcUp) and  bool(ipcUp.strip()):
                         GraphTechnos .add_edge(ipcUp, ipc)
@@ -447,6 +466,7 @@ for ndf in PU:
             for ipc in bre.IPCR7:
                 if bool(ipc.strip()):
                     GraphTechnos .add_edge(bre .label,ipc)
+
         elif len(bre.IPCR4) >0:
             for ipc in bre.IPCR4:
                 if bool(ipc.strip()):
@@ -608,7 +628,7 @@ for ndf in PU:
 
     Applicantnode_sizes = { appl: sum([1 for truc in EdgesApplicant if \
                                        truc [0] == appl or truc [1] == appl]) for appl in dicoAttrsAppli.keys()}
-        
+    #CountrySize = {countr : CountryCount.count(countr) for countr in set (CountryCount)}
     ApplicantInvnode_sizes = { machin: sum([1 for truc in EdgeApplicantInv if truc [0] == machin or truc [1] == machin]) for machin in list(dicoAttrsAppli.keys())+list(dicoAttrsAut.keys())}
     nx.set_node_attributes(GraphApplicant,Applicantnode_sizes, 'size')
     nx.set_node_attributes(GraphAuteurs,Autnode_sizes, 'size')
@@ -622,6 +642,9 @@ for ndf in PU:
     nx.set_node_attributes( GraphBrevetsEquivalents, dicoAttrs)
     nx.set_node_attributes(GraphTechnos, dicoAttrs) # IPC graphs
     nx.set_node_attributes(GraphTechnos, dicoAttrsTechno) # IPC graphs
+    #nx.set_node_attributes(GraphTechnosCountry, dicoAttrs) # IPC graphs
+    nx.set_node_attributes(GraphTechnosCountry, dicoAttrsTechno) # IPC graphs
+    #nx.set_node_attributes(GraphTechnosCountry, CountrySize,  'size')
     nx.set_node_attributes(GraphTechnosAppli, dicoAttrsTechno)
     nx.set_node_attributes(GraphTechnosAppli, dicoAttrsAppli)
     nx.set_node_attributes( GraphTechnosAuthor, dicoAttrsTechno)
@@ -646,7 +669,7 @@ for ndf in PU:
     nx.write_gexf (GraphTechnos, ResultGephiPath+"/"+ndf+"_CrossTech.gexf")
     nx.write_gexf (GraphTechnosAppli, ResultGephiPath+"/"+ndf+"_Applicants_CrossTech.gexf") 
     nx.write_gexf (GraphTechnosAuthor, ResultGephiPath+"/"+ndf+"_Inventors_CrossTech.gexf")
-    
+    nx.write_gexf(GraphTechnosCountry, ResultGephiPath + "/" + ndf + "_Country_CrossTech.gexf")
     visu = 'neato'
     for G, network in [(GraphAuteurs, "_Inventors"),
               (GraphApplicant, "_Applicants"),
@@ -656,6 +679,7 @@ for ndf in PU:
               (GraphBrevetsReferences, "_References"),
               (GraphBrevetsCitations, "_Citations"),
               (GraphTechnos,  "_CrossTech"),
+              (GraphTechnosCountry, "_CountryCrossTech"),
               (GraphTechnosAppli, "_Applicants_CrossTech"),
               (GraphTechnosAuthor, "_Inventors_CrossTech")  ]:
         if len(G) == 0:
@@ -798,6 +822,7 @@ for ndf in PU:
             # else:
             #     count = mixNet.index(G.node[k]['category'])
             count = Networks [network][1].index(G.nodes[k]['category'])
+
             Visu['position']= {'x':(int(pos[k][0]*factx)+posx), 'y':(int(pos[k][1]*facty)+posy), 'z':0.0}
             # Visu['size'] = np.log(int(G.node[k]["weight"])+1)+4#
             Visu['color']['a']= count
