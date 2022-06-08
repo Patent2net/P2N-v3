@@ -47,7 +47,7 @@ if GatherFamilly:  # pdate needed for families
         nbFam = len(data2['brevets'])
     else:  # Retrocompatibility
         print("No Families. please use gather them")
-    # if 'Fusion' in data.keys()with open( ResultBiblioPath+'//Families'+ndf, 'r') as ficBib:
+    # if 'Fusion' in data.keys()with open( ResultBiblioPath+'/Families'+ndf, 'r') as ficBib:
  #        data2 = cPickle.load(ficBib)
 
 else:
@@ -95,8 +95,10 @@ if Gather:
     for content in ['FamiliesAbstract', 'FamiliesClaims', 'FamiliesDescription']:
         totalsPerFamilyType.append(generateTotal(content))
 
-outfile = GlobalPath + '//' + ndf + '.html'
+outfile = GlobalPath + '/' + ndf + '.html'
 print('Writing "{outfile}"'.format(outfile=outfile))
+
+print(dir(configFile.show()))
 
 RenderTemplate(
     "ModeleContenuIndex2.html",
@@ -136,7 +138,7 @@ RenderTemplate(
 )
 
 
-outfile = GlobalPath + '//' + ndf+'//'+ndf+'Carrot.html'
+outfile = GlobalPath + '/' + ndf+'/'+ndf+'Carrot.html'
 ModeleCarrot = "carrot2.html"
 RenderTemplate(
     "carrot2.html",

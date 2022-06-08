@@ -6,7 +6,7 @@ class P2NConfig:
     def __init__(self, file):
 
         # Global path for results
-        self.GlobalPath = '..//DATA'
+        self.GlobalPath = '../DATA'
         self.file = file
 
         # Initiate all empty attributes
@@ -105,26 +105,28 @@ class P2NConfig:
     def readInputFile(self):
         if len(sys.argv) > 1:
             for arg in sys.argv:
+                self.file = arg
                 if ".cql" in arg.lower():
                     return open(arg, "r").readlines()
+
         if self.file != None:
             if ".cql" in self.file.lower():
-                file_path = os.path.dirname(os.path.realpath(__file__)) + '/../RequestsSets/' + self.file
+                file_path = '../RequestsSets/' + self.file
                 return open(file_path, "r").readlines()
 
-        return open("..//requete.cql", "r").readlines()
+        return open("../requete.cql", "r").readlines()
 
     def generatePaths(self):
         self.ResultPath = os.path.normpath(os.path.join(self.GlobalPath, self.ndf)).replace('\\','/')
-        self.ResultListPath = os.path.normpath(self.ResultPath + '//PatentLists').replace('\\','/')
-        self.ResultBiblioPath = os.path.normpath(self.ResultPath + '//PatentBiblios').replace('\\','/')
-        self.ResultContentsPath = os.path.normpath(self.ResultPath + '//PatentContents').replace('\\','/')
-        self.temporPath = os.path.normpath(self.ResultPath + '//tempo').replace('\\','/')
-        self.ResultAbstractPath = os.path.normpath(self.ResultContentsPath + '//Abstract').replace('\\','/')
-        self.ResultFamiliesAbstractPath = os.path.normpath(self.ResultContentsPath + '//FamiliesAbstract').replace('\\','/')
-        self.ResultGephiPath = os.path.normpath(self.ResultPath + '//GephiFiles').replace('\\','/')
-        self.ResultPathImages = os.path.normpath(self.ResultPath + '//PatentImages').replace('\\','/')
-        self.ResultClusterPath =  os.path.normpath(self.ResultContentsPath+'//Metrics').replace('\\','/')
+        self.ResultListPath = os.path.normpath(self.ResultPath + '/PatentLists').replace('\\','/')
+        self.ResultBiblioPath = os.path.normpath(self.ResultPath + '/PatentBiblios').replace('\\','/')
+        self.ResultContentsPath = os.path.normpath(self.ResultPath + '/PatentContents').replace('\\','/')
+        self.temporPath = os.path.normpath(self.ResultPath + '/tempo').replace('\\','/')
+        self.ResultAbstractPath = os.path.normpath(self.ResultContentsPath + '/Abstract').replace('\\','/')
+        self.ResultFamiliesAbstractPath = os.path.normpath(self.ResultContentsPath + '/FamiliesAbstract').replace('\\','/')
+        self.ResultGephiPath = os.path.normpath(self.ResultPath + '/GephiFiles').replace('\\','/')
+        self.ResultPathImages = os.path.normpath(self.ResultPath + '/PatentImages').replace('\\','/')
+        self.ResultClusterPath =  os.path.normpath(self.ResultContentsPath+'/Metrics').replace('\\','/')
         for path in [
             self.ResultListPath,
             self.ResultBiblioPath,
@@ -150,6 +152,9 @@ class P2NConfig:
         else:
             return False
 
+    def show(self):
+        for cle in self.__dict__.keys():
+            print (cle, " -->" , self .__dict__[cle])
 
 def LoadConfig(file = None):
     return P2NConfig(file)
