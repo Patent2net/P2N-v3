@@ -31,9 +31,10 @@ dex = {
     "in_progress": [],
     "done": []
 }
-dex_location = '../dex.json' # os.path.dirname(os.path.realpath(__file__)) +
+#dex_location = '../dex.json' # os.path.dirname(os.path.realpath(__file__)) +
+dex_location = os.path.dirname(os.path.realpath(__file__)) + '/../../dex.json'
 print(dex_location)
-#print ('youp ', os.path.dirname(os.path.realpath(__file__)))
+print ('youp ', os.path.dirname(os.path.realpath(__file__)))
 
 
 global_progress = {}
@@ -53,7 +54,7 @@ def read_dex():
                 update_global_progress(in_progress_elmt)
 
     except IOError:
-        print("¨pb dex.jdon file")
+        print("¨pb dex.json file")
         write_dex()
 
 def write_dex():
