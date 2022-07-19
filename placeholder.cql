@@ -41,7 +41,7 @@ ApplicantNetwork: RequestNetwork
 CrossTechNetwork: RequestNetwork
 
 # Applicants and Inventors network
-ApplicantInventorNetwork: RequestNetwork
+ApplicantInventorsNetwork: RequestNetwork
 
 # Applicants and IPCs' network
 ApplicantCrossTechNetwork: RequestNetwork

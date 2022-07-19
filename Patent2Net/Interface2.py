@@ -98,7 +98,7 @@ if Gather:
 outfile = GlobalPath + '/' + ndf + '.html'
 print('Writing "{outfile}"'.format(outfile=outfile))
 
-print(dir(configFile.show()))
+print(configFile.show())
 
 RenderTemplate(
     "ModeleContenuIndex2.html",
@@ -133,8 +133,7 @@ RenderTemplate(
     FreePlane=configFile.FreePlane,
     FusionCarrot2=configFile.FusionCarrot2,
     Images=configFile.GatherImages,
-	Cluster = configFile.Cluster,
-	
+	Cluster = configFile.Cluster
 )
 
 

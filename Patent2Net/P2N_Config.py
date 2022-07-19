@@ -64,10 +64,10 @@ class P2NConfig:
             # Networks config loading
             elif line.count('InventorNetwork') > 0:
                 self.InventorNetwork = self.getBoolean(line)
+            elif "ApplicantInventorsNetwork" in line or line.count('ApplicantInventorsNetwork') > 0:
+                self.ApplicantInventorNetwork = self.getBoolean(line)
             elif line.count('ApplicantNetwork') > 0:
                 self.ApplicantNetwork = self.getBoolean(line)
-            elif line.count('ApplicantInventorNetwork') > 0:
-                self.ApplicantInventorNetwork = self.getBoolean(line)
             elif line.count('InventorCrossTechNetwork') > 0:
                 self.InventorCrossTechNetwork = self.getBoolean(line)
             elif line.count('ApplicantCrossTechNetwork') > 0:
