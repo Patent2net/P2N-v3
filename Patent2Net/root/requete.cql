@@ -41,7 +41,7 @@ ApplicantNetwork: True
 CrossTechNetwork: True
 
 # Applicants and Inventors network
-ApplicantInventorNetwork: True
+ApplicantInventorsNetwork: True
 
 # Applicants and IPCs' network
 ApplicantCrossTechNetwork: True
