@@ -210,8 +210,11 @@ for bre in LstBrevet:  # get patent list from request file
         for cont in bre[cle]:
             if len(cont) > 0:
                 doc[cle + str(counter + 1)] = cont
-
-    res = es.index(index=ndf.lower(), id=cpt, body=doc)
+    if doc ['date'] != '1-1-1':
+        res = es.index(index=ndf.lower(), id=cpt, body=doc)
+    else:
+        doc['date'] = '1000'
+        res = es.index(index=ndf.lower(), id=cpt, body=doc)
     print(res['result'])
 
 lstFr, lstEn, lstUnk = GenereListeFichiers(Rep)
