@@ -108,7 +108,7 @@ def run():
             patent_label = get_patent_label(patent)
             i = 1
             logger.info('Processing patent {}'.format(patent_label))
-            path_img_base = '{}//{}-{}.tiff'.format(output_path, patent_label, '{}')
+            path_img_base = '{}/{}-{}.tiff'.format(output_path, patent_label, '{}')
             path = path_img_base.format(i)
             while os.path.exists(path):
                 thumb, orig, tiff = generate_thumbnails(path)
