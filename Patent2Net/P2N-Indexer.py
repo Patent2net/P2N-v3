@@ -210,13 +210,13 @@ for bre in LstBrevet:  # get patent list from request file
         for cont in bre[cle]:
             if len(cont) > 0:
                 doc[cle + str(counter + 1)] = cont
-    try:
-        res = es.index(index=ndf.lower(), id=cpt, body=doc)
-    except:
-        print (type(bre["date"]), " : ", bre["date"])
-        doc['date'] = '1000'
-        res = es.index(index=ndf.lower(), id=cpt, body=doc)
-        print(res['result'])
+    # try:
+    #     res = es.index(index=ndf.lower(), id=cpt, body=doc)
+    # except:
+    #     print (type(bre["date"]), " : ", bre["date"])
+    #     doc['date'] = '1000'
+    #     res = es.index(index=ndf.lower(), id=cpt, body=doc)
+    #     print(res['result'])
 
 lstFr, lstEn, lstUnk = GenereListeFichiers(Rep)
 print()
@@ -367,7 +367,12 @@ for bre in LstBrevet:
     for cle in doc.keys():
         if "****" in doc [cle]:
             doc [cle] = iramCleaner(doc [cle])
-    res = es.index(index=indexLang.lower(), id=cpt[indexLang.split('-')[0]], body=doc)
+    try:
+        res = es.index(index=indexLang.lower(), id=cpt[indexLang.split('-')[0]], body=doc)
+    except:
+        print(type(bre["date"]), " : ", bre["date"])
+        doc['date'] = '1000'
+        res = es.index(index=indexLang.lower(), id=cpt[indexLang.split('-')[0]], body=doc)
 
 for lang in cpt.keys():
     print(lang.lower() + "-" + ndf.lower() + ' ' + res['result'] + ' ' + str(cpt[lang]) + ' documents indexed')
