@@ -643,7 +643,7 @@ for ndf in [projectName,  "Families"+ projectName]:
 
     for bre in df.itertuples():
         if not isinstance(bre.country, list):
-            dt.loc[bre.Index, 'country'] = [bre.country]
+            df.loc[bre.Index, 'country'] = [bre.country]
 
         for country in bre.country:
             if len(country) > 0 and bool(country.strip()):
