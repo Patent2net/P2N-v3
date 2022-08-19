@@ -643,7 +643,7 @@ for ndf in [projectName,  "Families"+ projectName]:
 
     for bre in df.itertuples():
         if not isinstance(bre.country, list):
-            bre.country = [bre.country]
+            dt.loc[bre.Index, 'country'] = [bre.country]
 
         for country in bre.country:
             if len(country) > 0 and bool(country.strip()):
@@ -1323,7 +1323,7 @@ RenderTemplate(
     anglOpt = "{{loadingMessage=='' ? 'LOAD GRAPH' : loadingMessage}}"
 )
 
-# Graph recupes v2
+# Graph recipes v2
 RenderTemplate(
     "graph-recipes.html",
     configFile.ResultPath+"/graph-recipes-" + projectName + ".html",
