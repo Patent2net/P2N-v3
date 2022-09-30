@@ -2769,10 +2769,35 @@ def GetFamilly(client, brev, rep):
             cpt = 1
         except:
             # IF WE ARE HERE? i SUPPOSE THAT EQUIVALENTS PATENTS SHOULD BE CHECKED
-            
-            print("nothing found for ", brev)
-            print("ignoring")
-            return None
+            # found error on ops client... try to bypass by direct access
+            import requests
+            from requests.structures import CaseInsensitiveDict
+            url = "http://ops.epo.org/3.2/rest-services/family/publication/docdb/" + label
+            headers = CaseInsensitiveDict()
+            # headers["Accept"] = "application/json"
+            headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:104.0) Gecko/20100101 Firefox/104.0"
+            if not client.access_token.is_expired:
+                headers["Authorization"] = "Bearer " + client.access_token.token  #
+            else:
+                client = epo_ops.Client(key, secret)
+                client.accept_type = 'application/json'
+                headers["Authorization"] = "Bearer " + client.access_token.token
+            headers['Content-Type'] = 'text/plain;charset=utf-8'
+            try:
+                data = requests.get(url, headers=headers)
+            except:
+                url = "http://ops.epo.org/3.2/rest-services/family/publication/epodoc/" + label
+                try:
+                    data = requests.get(url, headers=headers)
+                except:
+                    print("Not Found ", label)
+                    dico = None
+            try:
+                data = data.json()
+            except:
+                data = xmltodict.parse(data.text)
+            dico = data['ops:world-patent-data']['ops:patent-family']['ops:family-member']
+
 
     if dico is not None:
 
