@@ -1,4 +1,4 @@
-find /chemin/du/dossier -type d -name __pycache__ -exec rm -rf {} \;
+find . -type d -name __pycache__ -exec rm -rf {} \;
 pip install -r requirements.txt
 pip install -r requirements-release.txt
 cp dex.js dex.sav
