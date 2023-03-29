@@ -113,7 +113,7 @@ class P2NConfig:
             if ".cql" in self.file.lower():
                 file_path = '../RequestsSets/' + self.file
                 return open(file_path, "r").readlines()
-
+        print(os.pardir)
         return open("../requete.cql", "r").readlines()
 
     def generatePaths(self):
