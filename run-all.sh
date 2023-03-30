@@ -1,1 +1,1 @@
-for f in ./REQUESTS/*.cql ; do p2n run --config=$f; done
+for f in ./RequestsSets/*.cql ; do p2n run --config=.$f; done
