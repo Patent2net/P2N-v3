@@ -334,12 +334,12 @@ for bre in LstBrevet:
                             lang = detectlanguage.simple_detect(phrase)
                     except:
                         lang = ''
-        if len(lang) > 0:
-            indexLang = lang.upper() + '-' + ndf.lower()
-            doc['lang'] = lang.upper()
-        else:
-            indexLang = "UNK-" + ndf.lower()
-            doc['lang'] = "UNKNOWN"
+            if len(lang) > 0:
+                indexLang = lang.upper() + '-' + ndf.lower()
+                doc['lang'] = lang.upper()
+            else:
+                indexLang = "UNK-" + ndf.lower()
+                doc['lang'] = "UNKNOWN"
         Files = [truc for truc in lstUnk if bre['label'] == truc.split('-')[1].replace('.txt', "")]
         for fil in Files:
             champ = ""
@@ -358,7 +358,9 @@ for bre in LstBrevet:
                         doc[champ] = donnes
             else:
                 print("file ignored ", fil, champ)
-
+    else:
+        indexLang = "UNK-" + ndf.lower()
+        doc['lang'] = "UNKNOWN"
     if indexLang.split('-')[0] in cpt.keys():
         cpt[indexLang.split('-')[0]] += 1
     else:
