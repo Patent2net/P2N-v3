@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/Patent2Net" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/p2n" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/DATA" />
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
+      <excludePattern pattern="*.txt" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.9 (Patent2Net)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="PyDocumentationSettings">
+    <option name="format" value="PLAIN" />
+    <option name="myDocStringFormat" value="Plain" />
+    <option name="renderExternalDocumentation" value="true" />
+  </component>
+  <component name="PyNamespacePackagesService">
+    <option name="namespacePackageFolders">
+      <list>
+        <option value="$MODULE_DIR$/Patent2Net" />
+      </list>
+    </option>
+  </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_FOLDERS">
+      <list>
+        <option value="$MODULE_DIR$/Patent2Net/templates" />
+        <option value="$MODULE_DIR$/Patent2Net/templates_flask" />
+      </list>
+    </option>
+  </component>
+</module>

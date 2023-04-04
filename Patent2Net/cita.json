@@ -1,0 +1,90 @@
+{"citation": {"@cited-phase": "national-search-report", "@cited-by": "examiner", "@sequence": "1", "patcit": {"@dnum-type": "publication number", "@num": "1", "document-id": [{"@document-id-type": "epodoc", "doc-number": {"$": "US4914214"}, "name": {"$": "VINCENT MICHEL [FR], et al"}, "date": {"$": "19900403"}}, {"@document-id-type": "docdb", "country": {"$": "US"}, "doc-number": {"$": "4914214"}, "kind": {"$": "A"}, "name": {"$": "VINCENT MICHEL [FR], et al"}, "date": {"$": "19900403"}}]}}}
+
+
+[{"@cited-phase": "international-search-report", "@cited-by": "examiner", "@sequence": "1", "@office": "EP",
+  "patcit": {"@dnum-type": "publication number", "@num": "1",
+    "document-id": [{"@document-id-type": "epodoc", "doc-number": {"$": "WO0164634"}, "name": {"$": "AVENTIS PHARMA SA [FR]"}, "date": {"$": "20010907"}}, {"@document-id-type": "docdb", "country": {"$": "WO"},
+      "doc-number": {"$": "0164634"}, "kind": {"$": "A1"}, "name": {"$": "AVENTIS PHARMA SA [FR]"}, "date": {"$": "20010907"}}]}, "category": [{"$": "X"}, {"$": "D"}, {"$": "A"}], "rel-claims": [{"$": "17"}, {"$": "17"}, {"$": "1-16"}],
+  "rel-passage": {"passage": [{"$": "* example 13 *"}, {"$": "* page  13 *"}]}},
+  {"@cited-phase": "international-search-report", "@cited-by": "examiner", "@sequence": "2", "@office": "EP", "patcit": {"@dnum-type": "publication number", "@num": "2",
+  "document-id": [{"@document-id-type": "epodoc", "doc-number": {"$": "WO0228346"}, "name": {"$": "AVENTIS PHARMA SA [FR], et al"}, "date": {"$": "20020411"}}, {"@document-id-type": "docdb", "country": {"$": "WO"},
+    "doc-number": {"$": "0228346"}, "kind": {"$": "A2"}, "name": {"$": "AVENTIS PHARMA SA [FR], et al"}, "date": {"$": "20020411"}}]}, "category": {"$": "X"}, "rel-claims": {"$": "17"}, "rel-passage": {"passage": {"$": "* page  56, line  18  - line  19 *"}}},
+  {"@cited-phase": "international-search-report", "@cited-by": "examiner", "@sequence": "3",
+  "nplcit": {"@num": "1", "text": {"$": "- ZUBOVICS, ZOLTAN ET AL, "Synthesis and antiarrhythmic activity of N-arylalkylenediamines", EUROPEAN JOURNAL OF MEDICINAL CHEMISTRY , 21(5), 370-8 CODEN: EJMCA5; ISSN: 0223-5234, (1986), XP002332900"}},
+    "category": {"$": "A"}, "rel-claims": {"$": "1-16"}, "rel-passage": {"passage": {"$": "* page  377, column  L, line  4  - line  20 *"}}},
+  {"@cited-phase": "international-search-report", "@cited-by": "examiner", "@sequence": "4",
+  "nplcit": {"@num": "2", "text": {"$": "- GAKHAR, H. K. ET AL, "A new method of preparation of 1,3-dioxolo[4,5-h][1,4]benzodiazepin- 9-ones", INDIAN JOURNAL OF CHEMISTRY, SECTION B: ORGANIC CHEMISTRY INCLUDING MEDICINAL CHEMISTRY , 34B(1), 48-50 CODEN: IJSBDB; ISSN: 0376-4699, (1995), XP008048918"}},
+  "category": {"$": "A"}, "rel-claims": {"$": "1-16"}, "rel-passage": {"passage": {"$": "* composé 6 -> composé 7 *"}}}]
+[(["WO0164634", "0164634"], []), (["WO0228346", "0228346"], []), ([], 2), ([], 2)]
+ [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}},
+   {'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA S.A'}}}]},
+{'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}},
+{'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA S.A.'}}}]},
+{'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}},
+{'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'Aventis Pharma S.A'}}}]},
+{'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}},
+{'@sequence': '2', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'BOFFELLI PHILIPPE\u2002[FR]'}}},
+{'@sequence': '3', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'DELTHIL MICHEL\u2002[FR]'}}},
+{'@sequence': '4', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'GRONDARD LUC\u2002[FR]'}}},
+{'@sequence': '5', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'LAMPILAS MAXIME\u2002[FR]'}}},
+{'@sequence': '6', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'MALPART JOEL\u2002[FR]'}}},
+{'@sequence': '7', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'MUTTI STEPHANE\u2002[FR]'}}},
+{'@sequence': '8', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'NAIT BOUDA LAHLOU\u2002[FR]'}}},
+{'@sequence': '9', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'RIEKE-ZAPP JOERG\u2002[DE]'}}},
+{'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA S.A,'}}},
+{'@sequence': '2', '@data-format': 'original', 'applicant-name': {'name': {'$': 'BOFFELLI, PHILIPPE,'}}},
+{'@sequence': '3', '@data-format': 'original', 'applicant-name': {'name': {'$': 'DELTHIL, MICHEL,'}}},
+{'@sequence': '4', '@data-format': 'original', 'applicant-name': {'name': {'$': 'GRONDARD, LUC,'}}},
+{'@sequence': '5', '@data-format': 'original', 'applicant-name': {'name': {'$': 'LAMPILAS, MAXIME,'}}},
+{'@sequence': '6', '@data-format': 'original', 'applicant-name': {'name': {'$': 'MALPART, JOEL,'}}},
+{'@sequence': '7', '@data-format': 'original', 'applicant-name': {'name': {'$': 'MUTTI, STEPHANE,'}}},
+{'@sequence': '8', '@data-format': 'original', 'applicant-name': {'name': {'$': 'NAIT BOUDA, LAHLOU,'}}},
+{'@sequence': '9', '@data-format': 'original', 'applicant-name': {'name': {'$': 'RIEKE-ZAPP, JOERG'}}}]},
+{'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}},
+{'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA SOCIETE ANONYME'}}}]},
+{'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}},
+{'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA'}}}]},
+{'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA'}}},
+{'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA S.A'}}}]},
+{'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}},
+{'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA S.A'}}}]},
+{'applicant': {'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'АВЕНТИС ФАРМА С.А.'}}}},
+{'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}},
+{'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA'}}}]},
+{'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}},
+{'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA S.A'}}}]},
+{'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}},
+{'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA S.A'}}}]},
+{'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}}, {'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA S.A'}}}]}, {'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}}, {'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA S.A'}}}]}]
+
+{'applicant': [{'@sequence': '1', '@data-format': 'epodoc', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA SA\u2002[FR]'}}},
+{'@sequence': '1', '@data-format': 'original', 'applicant-name': {'name': {'$': 'AVENTIS PHARMA S.A'}}}]}
+AR079265A1;
+AU2010329762A1;AU2010329762B2;
+BR112012013666A2;
+CA2782469A1;CA2782469C;
+CL2012001479A1;
+CN102652127A;
+CO6541535A2;
+CR20120286A;
+CU20120091A7;
+EA201200849A1;
+ECSP12011950A;
+EP2509947A1;
+FR2953521A1;FR2953521B1;
+GEP20156227B;
+IN4966DEN2012A;
+JP2013513589A;
+KR20120102763A;
+MA33882B1;
+MX2012006578A;
+NI201200099A;
+PE20121475A1;
+SG181082A1;
+TN2012000267A1;
+TW201200499A;
+UA102950C2;
+US2012283245A1;
+UY33072A;
+WO2011070253A1;WO2011070253A8;
+ZA201203943B
