@@ -1,11 +1,11 @@
 source /vpy3/bin/activate
 find . -type d -name __pycache__ -exec rm -rf {} \;
-pip install -r requirements.txt
-pip install -r requirements-release.txt
 cp dex.js dex.sav
 cp dex.json dex.sav2
 git stash
 git pull $@
+pip install -r requirements.txt
+pip install -r requirements-release.txt
 cd doc
 sphinx-build -M html . _build
 cd ..
