@@ -61,9 +61,12 @@ def run_script(script, configfile, directory='Patent2Net'):
     # Compute command
     command = 'python {script} {configfile}'.format(script=script, configfile=configfile)
     logger.info('Running command "{}"'.format(command))
-
+    env = os.environ.copy()
+    env["FLASK_APP"] = "app.py"
+    env["FLASK_ENV"] = "production"
+    env["PATH"] = "/vpy3/bin/:" + env["PATH"]
     # Run process
-    process = subprocess.Popen(command, shell=True, bufsize=1, cwd=directory)
+    process = subprocess.Popen(command, shell=True, bufsize=1, cwd=directory, env=env)
 
     # Poll process for new output until finished
     while True:
