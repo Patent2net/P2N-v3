@@ -593,7 +593,7 @@ def cqlList():
 
 @app.route('/DATA/<path:filename>')
 def data_static(filename):
-    return send_from_directory("DATA", filename)
+    return send_from_directory("/home/p2n/P2N-V3/DATA", filename)
 
 @app.route('/Patent2Net/media/<path:filename>')
 def media_static(filename):
