@@ -155,7 +155,7 @@ def confirmation_post():
     #     form_result['p2n_gather_biblio'] = True  
     #     form_result['p2n_content'] = False
     #Return values of the form for testing the acquisition (Verification of working script)
-    with open ('result.txt', 'w') as fp:
+    with open (form_result['p2n_dir'] + 'result.txt', 'w') as fp:
         for p in form_result.items():
             fp.write("%s:%s\n" % p)
 

@@ -33,8 +33,8 @@ dex = {
 }
 #dex_location = '../dex.json' # os.path.dirname(os.path.realpath(__file__)) +
 dex_location = os.path.dirname(os.path.realpath(__file__)) + '/../../dex.json'
-print(dex_location)
-print ('youp ', os.path.dirname(os.path.realpath(__file__)))
+#print(dex_location)
+#print ('youp ', os.path.dirname(os.path.realpath(__file__)))
 
 
 global_progress = {}
