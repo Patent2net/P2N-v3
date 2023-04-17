@@ -38,7 +38,7 @@ from p2n.util import run_script
 # static_folder call the emplacement of all the content who will work with the HTML. template_folder the emplacement of the HTML. \
 #    In theory they don't have to be at Root.
 
-app = Flask(__name__, static_url_path='', static_folder='./Patent2Net/static/', template_folder='./Patent2Net/templates_flask') 
+app = Flask(__name__, static_url_path='', static_folder='./Patent2Net/media/', template_folder='./Patent2Net/templates_flask')
 
 CORS(app)
 
