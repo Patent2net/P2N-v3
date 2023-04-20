@@ -31,8 +31,8 @@ dex = {
     "in_progress": [],
     "done": []
 }
-#dex_location = '../dex.json' # os.path.dirname(os.path.realpath(__file__)) +
-dex_location = os.path.dirname(os.path.realpath(__file__)) + '/../../dex.json'
+dex_location = '/home/p2n/P2N-V3/dex.json' # os.path.dirname(os.path.realpath(__file__)) +
+#dex_location = os.path.dirname(os.path.realpath(__file__)) + '/../../dex.json'
 #print(dex_location)
 #print ('youp ', os.path.dirname(os.path.realpath(__file__)))
 
