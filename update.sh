@@ -1,4 +1,5 @@
 #!/bin/bash
+source /vpy3/bin/activate
 find . -type d -name __pycache__ -exec rm -rf {} \;
 cp dex.js dex.sav
 cp dex.json dex.sav2
