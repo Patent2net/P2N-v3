@@ -541,7 +541,7 @@ def requestData_zip():
         data,
         mimetype='application/zip',
         as_attachment=True,
-        attachment_filename='DATA.zip'
+        download_name='DATA.zip'
     )
 
 @app.route('/downloadReq', methods=['GET','POST'])
@@ -556,7 +556,7 @@ def requestReqSet_zip():
         data,
         mimetype='application/zip',
         as_attachment=True,
-        attachment_filename='RequestsSets.zip'
+        download_name='RequestsSets.zip'
     )
 
 @app.route('/updateP2N', methods=['GET','POST'])
