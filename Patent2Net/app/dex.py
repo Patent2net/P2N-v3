@@ -228,7 +228,9 @@ def get_directory_request_data_all(directory):
     :rtype: dict
     """
     request_directory = normalize_request_directory(directory)
-    return jsonify(request_directory["data"])
+    # correction alaric
+    return request_directory["data"]
+    # return jsonify(request_directory["data"])
 
 def delete_directory_request_data(directory, key):
     """Delete the data 
