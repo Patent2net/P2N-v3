@@ -103,21 +103,19 @@ class P2NConfig:
         self.generatePaths()
 
     def readInputFile(self):
-        # corrections alaric
-        # if len(sys.argv) > 1:
-        #    for arg in sys.argv:
-        #        self.file = arg
-        #        if ".cql" in arg.lower():
-        #            return open(arg, "r").readlines()
+        corrections alaric
+        if len(sys.argv) > 1:
+           for arg in sys.argv:
+               self.file = arg
+               if ".cql" in arg.lower():
+                   return open(arg, "r").readlines()
 
         if self.file != None:
             if ".cql" in self.file.lower():
-                file_path = 'RequestsSets/' + self.file
-                # file_path = '../RequestsSets/' + self.file
+                file_path = '../RequestsSets/' + self.file
                 return open(file_path, "r").readlines()
             else:
-                file_path = 'RequestsSets/' + self.file + ".cql"
-                # file_path = '../RequestsSets/' + self.file + ".cql"
+                file_path = '../RequestsSets/' + self.file + ".cql"
                 return open(file_path, "r").readlines()
         print(os.pardir)
         return open("../requete.cql", "r").readlines()
