@@ -463,7 +463,7 @@ for ndf in [projectName,  "Families"+ projectName]:
     
     
     #• Generating nodes attributes
-    for aut in Applicants:
+    for aut in set(Applicants):
         # node attributes for an applicant
         
         if len(aut) >0:
@@ -500,9 +500,10 @@ for ndf in [projectName,  "Families"+ projectName]:
     IPC4 = 0
     IPCForce = []
     for appl in set(Applicants):
-        Techno [appl] = list(filter(lambda x: x !='', Techno [appl]))
-        if len(appl) >0:
-            dicoAttrsAppli [appl] = {"category" : 'Applicant',
+        if appl in Techno .keys(): #useless but seems that a process in familly gathering makes bad data
+            Techno [appl] = list(filter(lambda x: x !='', Techno [appl]))
+            if len(appl) >0:
+                dicoAttrsAppli [appl] = {"category" : 'Applicant',
                             'Famille': dicoAttrsAppli [appl]['Famille'],
                             'IPC11-range': dicoAttrsAppli [appl]['IPC11-range'],
                             'IPC7-range': dicoAttrsAppli [appl]['IPC7-range'],
@@ -524,16 +525,16 @@ for ndf in [projectName,  "Families"+ projectName]:
                                          
                             }
     
-        TailleFamiile += sum( [appl in truc for truc in df_Fam ['applicant']]) # nombre d'apparition dans les familles
-        NbBrevets += sum( [appl in truc for truc in df ['applicant']]) # nombre de brevets
-        nbCitations +=  sum ( [bre.Citations for bre in  df.itertuples() if appl in bre.applicant])
-        if len(appl)>0:
-            IPC11 +=dicoAttrsAppli [appl]['IPC11-range']
-        if len(appl)>0:
-            IPC7 += dicoAttrsAppli [appl]['IPC7-range']
-        if len(appl)>0:
-            IPC4 +=dicoAttrsAppli [appl]['IPC4-range']
-        IPCForce += Techno [appl]
+            TailleFamiile += sum( [appl in truc for truc in df_Fam ['applicant']]) # nombre d'apparition dans les familles
+            NbBrevets += sum( [appl in truc for truc in df ['applicant']]) # nombre de brevets
+            nbCitations +=  sum ( [bre.Citations for bre in  df.itertuples() if appl in bre.applicant])
+            if len(appl)>0:
+                IPC11 +=dicoAttrsAppli [appl]['IPC11-range']
+            if len(appl)>0:
+                IPC7 += dicoAttrsAppli [appl]['IPC7-range']
+            if len(appl)>0:
+                IPC4 +=dicoAttrsAppli [appl]['IPC4-range']
+            IPCForce += Techno [appl]
     
     IPCDiversity = len(set(IPCForce))
     IPCForce = len(IPCForce)
